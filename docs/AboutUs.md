@@ -9,6 +9,15 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project team
 
+### Ku Brian
+
+<img src="images/kubrian.png" width="200px">
+
+[[github](https://github.com/johndoe)]
+
+* Role: Developer
+* Responsibilities: Deliverables and deadlines
+
 ### Ernest Ng Zi Xuan
 <img src="images/ernestnzx.png" width="200px">
 
