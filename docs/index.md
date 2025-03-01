@@ -6,7 +6,7 @@
 # AddressBook Level-3
 
 [![Java CI](https://github.com/AY2425S2-CS2103-F08-4/tp/actions/workflows/gradle.yml/badge.svg)](https://github.com/AY2425S2-CS2103-F08-4/tp/actions/workflows/gradle.yml)
-[![codecov](https://codecov.io/gh/se-edu/addressbook-level3/branch/master/graph/badge.svg)](https://codecov.io/gh/se-edu/addressbook-level3)
+[![codecov](https://codecov.io/gh/AY2425S2-CS2103-F08-4/tp/graph/badge.svg?token=2KZ8B3FL4R)](https://codecov.io/gh/AY2425S2-CS2103-F08-4/tp)
 
 ![Ui](images/Ui.png)
 
