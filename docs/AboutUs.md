@@ -19,9 +19,19 @@ We are a team based in the [School of Computing, National University of Singapor
 * Responsibilities: Deliverables and deadlines
 
 ### Ernest Ng Zi Xuan
+
 <img src="images/ernestnzx.png" width="200px">
 
 [[github](https://github.com/Ernestnzx)]
 
 * Role: Developer
 * Responsibility: Documentation 
+
+### Jun Rui
+
+<img src="images/raw-asparagus.png" width="200px">
+
+[[github](http://github.com/raw-asparagus)]
+
+* Role: DevOps
+* Responsibilities: Data
