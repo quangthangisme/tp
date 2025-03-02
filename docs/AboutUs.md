@@ -13,6 +13,8 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/nht020305.png" width="200px">
 
+[[github](https://github.com/NHT020305)]
+
 * Role: Developer
 * Responsibilities: Testing
 
@@ -31,7 +33,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 [[github](https://github.com/Ernestnzx)]
 
-
+* Role: Developer
 * Responsibility: Documentation 
 
 ### Jun Rui
