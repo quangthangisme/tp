@@ -9,6 +9,15 @@ We are a team based in the [School of Computing, National University of Singapor
 
 ## Project team
 
+### Nguyen Huy Tung
+
+<img src="images/nht020305.png" width="200px">
+
+[[github](https://github.com/NHT020305)]
+
+* Role: Developer
+* Responsibilities: Testing
+
 ### Ku Brian
 
 <img src="images/kubrian.png" width="200px">
