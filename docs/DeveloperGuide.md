@@ -274,11 +274,14 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Target user profile**:
 
-* has a need to manage a significant number of contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
+* Tutors managing student information and course-related details
+  * Needs to track student attendance and student issues
+  * Needs to manage course related tasks
+* Has a need to manage a significant number of contacts
+* Prefers desktop apps over other types
+* Can type fast
+* Prefers typing to mouse interactions
+* Is reasonably comfortable using CLI apps
 
 **Value proposition**: manage contacts faster than a typical mouse/GUI driven app
 
@@ -287,20 +290,51 @@ _{Explain here how the data archiving feature will be implemented}_
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                 | So that I can…​                                                        |
-|----------|--------------------------------------------|------------------------------|------------------------------------------------------------------------|
-| `* * *`  | new user                                   | see usage instructions       | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person             |                                                                        |
-| `* * *`  | user                                       | delete a person              | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name        | locate details of persons without having to go through the entire list |
-| `* *`    | user                                       | hide private contact details | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name         | locate a person easily                                                 |
-
-*{More to be added}*
+| Priority | As a ...                 | I want to ...                                  | so that I can ...                                   |
+|----------|--------------------------|------------------------------------------------|-----------------------------------------------------|
+| `* * *`  | first time user          | see a functional help page                     | understand the app's functionalities                |
+| `*`      | first-time user          | get a guide to creating my profile             | know what to do and not feel overwhelmed            |
+| `* * *`  | tutor                    | automatically load in data                     | easily reuse the application                        |
+| `* * *`  | tutor                    | automatically save and export data             | easily reuse the application                        |
+| `* * *`  | tutor                    | safely exit the program                        | avoid corrupting my files                           |
+| `* * *`  | tutor                    | create an event                                | represent a tutorial                                |
+| `* * *`  | tutor                    | delete an event                                | remove events I no longer need                      |
+| `*`      | impatient tutor          | create recurring events                        | save time and ensure consistency                    |
+| `*`      | impatient tutor          | mass import class timings (events)             | save time                                           |
+| `* * *`  | tutor                    | add students to an event                       | assign students to class                            |
+| `* * *`  | tutor                    | remove students from an event                  | unassign students to class                          |
+| `* * *`  | tutor                    | log a student student as having attended event | check attendance                                    |
+| `* * *`  | tutor                    | add a contact                                  | store the information of my student                 |
+| `* *`    | tutor                    | add multiple contacts with same names          | handle students with duplicate names                |
+| `* * *`  | tutor                    | delete a contact                               | remove students I no longer need to handle          |
+| `* *`    | tutor with many classes  | label a contact with a class                   | remember student is in which class                  |
+| `* *`    | tutor with many course   | label a contact with a course                  | remember student is in which course                 |
+| `*`      | impatient tutor          | mass import students data                      | save time                                           |
+| `* *`    | tutor                    | search for a specific contact by feature       | retrieve full information for a particular contact  |
+| `* *`    | tutor                    | list all contacts                              |                                                     |
+| `* *`    | tutor with many classes  | filter all students by class/course            | find students easily for various purposes           |
+| `* *`    | tutor with many classes  | sort all students by class/course              | find students easily for various purposes           |
+| `* *`    | tutor                    | label progress of students                     | identify struggling students                        |
+| `* *`    | caring tutor             | create a todo                                  | represent a task for some contact                   |
+| `* *`    | caring tutor             | add contact to todo                            | handle a situation for some contact(s)              |
+| `* *`    | caring tutor             | remove contact from todo                       |                                                     |
+| `* *`    | caring tutor             | mark todo as done                              | remember that I have handled the situation          |
+| `* *`    | caring tutor             | mark todo as not done                          |                                                     |
+| `*`      | head tutor               | distinguish students and tutors                | add tutors as contacts                              |
+| `*`      | head tutor               | know when my tutors are unavailable            | schedule make-up classes and track tutor attendance |
+| `*`      | head tutor               | apply labels to tutors                         | track tutor performance                             |
+| `*`      | morally upright tutor    | tag students suspected of plagiarism           | later report them for further investigation         |
+| `*`      | tutor                    | send messages to individuals or groups         | remind them of tasks                                |
+| `*`      | tutor teaching many sems | archive old classes                            | retain useful data while focusing on improvements   |
+| `*`      | tutor teaching many sems | archive or purge old contacts                  | avoid confusion between current and former students |
+| `*`      | experienced user         | create custom commands/macros                  | optimize workflow                                   |
+| `*`      | forgetful tutor          | view upcoming tasks in some priority           | prioritize on tasks with nearer deadlines           |
+| `*`      | impatient tutor          | synchronize contact labels with events         | avoid manually tagging students                     |
+| `*`      | careless tutor           | undo (multiple times)                          | revert to previous state in case of wrong command   |
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TutorConnect` and the **Actor** is the `user`, unless specified otherwise)
 
 **Use case: Delete a person**
 
