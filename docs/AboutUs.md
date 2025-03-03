@@ -31,7 +31,7 @@ We are a team based in the [School of Computing, National University of Singapor
 
 <img src="images/kubrian.png" width="200px">
 
-[[github](https://github.com/johndoe)]
+[[github](https://github.com/kubrian)]
 
 * Role: Developer
 * Responsibilities: Deliverables and deadlines
