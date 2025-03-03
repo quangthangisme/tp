@@ -376,7 +376,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**List All Contacts**
+**List all contacts**
 
 **MSS**
 1. User enters the `list` command.
@@ -409,7 +409,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Exit the Program**
+**Exit the program**
 
 **MSS**
 1. User enters the `exit` command.
