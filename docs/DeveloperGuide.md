@@ -336,28 +336,73 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `TutorConnect` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Create an event**
 
 **MSS**
+1. User enters a valid `event --create  <event_name>` command with a non-empty String for event name.
+2. `TutorConnect` adds the event to the list.
+3. `TutorConnect` displays the message `"successfully created event  <event name>"`.
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
-
-    Use case ends.
+   Use case ends.
 
 **Extensions**
+* 1a. User enters a `event --create  <event_name>` command with an empty name.
+    * 1a1. `TutorConnect` displays the error message: `"event name cannot be empty !!!"`
 
-* 2a. The list is empty.
+      Use case resumes at step 1.
 
-  Use case ends.
+**Delete an event**
 
-* 3a. The given index is invalid.
+**MSS**
+1. User enters a valid `event --delete  <event_name>` command with a non-empty String for event name.
+2. `TutorConnect` finds the event in the list based on the given name.
+3. `TutorConnect` removes the event from the list.
+4. `TutorConnect` displays the message `"successfully removed event  <event name>"`.
 
-    * 3a1. AddressBook shows an error message.
+   Use case ends.
 
-      Use case resumes at step 2.
+**Extensions**
+* 1a. User enters a `event --delete  <event_name>` command with an empty name.
+    * 1a1. `TutorConnect` displays the error message: `"event name cannot be empty !!!"`
+
+      Use case resumes at step 1.
+
+* 1b. User enters a `event --delete  <event_name>` command with a non-existent event name.
+    * 1b1. `TutorConnect` displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`
+
+      Use case resumes at step 1.
+
+**Log contact as having attended an event**
+
+**MSS**
+1. User enters a valid `event --add <event_name> --id <id_1> <id_2> …` a non-empty String for event name and non-empty Strings for student id
+2. `TutorConnect` finds the event in the event list based on the given name.
+3. `TutorConnect` finds the student ids in the contact list.
+4. `TutorConnect` marked students with those ids as attending the found event.
+5. `TutorConnect` displays the message `“successfully marked <id_1>, <id_2>,... as having attended event <event name>”`.
+
+   Use case ends.
+
+**Extensions**
+* 1a. User enters a `event --add <event_name> --id <id_1> <id_2> …` command with an empty name.
+    * 1a1. `TutorConnect` displays the error message: `"event name cannot be empty !!!"`
+
+      Use case resumes at step 1.
+
+* 1b. User enters a `event --add <event_name> --id <id_1> <id_2> …` command with a non-existent event name.
+    * 1b1. `TutorConnect` displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`
+
+      Use case resumes at step 1.
+
+* 1c. User enters a `event --add <event_name> --id <id_1> <id_2> …` command with all ids are empty.
+    * 1a1. `TutorConnect` displays the error message: `“There must be at least 1 contact !!!”`
+
+      Use case resumes at step 1.
+
+* 1d. User enters a `event --add <event_name> --id <id_1> <id_2> …` command with a non-existent student id.
+    * 1b1. `TutorConnect` displays the error message: `“Sorry, we could not find <id> in the contact list”`
+
+      Use case resumes at step 1.
 
 *{More to be added}*
 
