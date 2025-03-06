@@ -338,6 +338,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Use case 1: Create a New Todo**
 
+**MSS**
+
 1. User provides input to create a new todo task.
 2. TC validates the input.
 3. TC creates the task and confirms the creation.
@@ -575,7 +577,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1b. User enters `help <invalid feature>`
     * 1b1. TC displays the error message: `"Feature <invalid feature> not recognized."`
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
 **Use case 11: Exit the Program**
 
@@ -591,103 +593,103 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
   
-**List all events**
+**Use case 12: List all events**
   
 **MSS**
 1. User requests to see all events in the list
-2. `TutorConnect` displays the message `“Here are the events in the event list: 
+2. TC displays the message `“Here are the events in the event list: 
                                            <Event 1>
                                            <Event 2>
                                            …… “`.
   Use case ends.
 
-**Retrieve full information of an event**
+**Use case 13: Retrieve full information of an event**
 
 **MSS**
-1. User requests to see full information of an event using a valid name
-2. `TutorConnect` displays full information of the event
+1. User requests to see full information of an event using a valid name.
+2. TC displays full information of the event.
    
   Use case ends.
 
 **Extensions**
 * 1a. User inputs an empty event name.
-    * 1a1. `TutorConnect` displays the error message: `"event name cannot be empty !!!"`
+    * 1a1. TC displays the error message: `"event name cannot be empty !!!"`.
 
       Use case resumes at step 1.
 
 * 1b. User inputs a non-existent event name.
-    * 1b1. `TutorConnect` displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`
+    * 1b1. TC displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`.
 
       Use case resumes at step 1.
 
-**Create an event**
+**Use case 14: Create an event**
 
 **MSS**
-1. User requests to create a new event using a valid name
-2. `TutorConnect` adds the event to the list.
-3. `TutorConnect` displays the message `"successfully created event  <event name>"`.
+1. User requests to create a new event using a valid name.
+2. TC adds the event to the list.
+3. TC displays the message `"successfully created event  <event name>"`.
 
   Use case ends.
 
 **Extensions**
 * 1a. User inputs an empty event name.
-    * 1a1. `TutorConnect` displays the error message: `"event name cannot be empty !!!"`
+    * 1a1. TC displays the error message: `"event name cannot be empty !!!"`.
 
       Use case resumes at step 1.
 
-**Delete an event**
+**Use case 15: Delete an event**
 
 **MSS**
-1. User retrieves full information of an event
-2. User requests to remove the event from the list using a valid name
-3. `TutorConnect` finds the event in the list based on the given name.
-4. `TutorConnect` removes the event from the list.
-5. `TutorConnect` displays the message `"successfully removed event  <event name>"`.
+1. User retrieves full information of an event.
+2. User requests to remove the event from the list using a valid name.
+3. TC finds the event in the list based on the given name.
+4. TC removes the event from the list.
+5. TC displays the message `"successfully removed event  <event name>"`.
 
   Use case ends.
 
 **Extensions**
 * 1a. User inputs an empty event name.
-    * 1a1. `TutorConnect` displays the error message: `"event name cannot be empty !!!"`
+    * 1a1. TC displays the error message: `"event name cannot be empty !!!"`.
 
       Use case resumes at step 1.
 
 * 1b. User inputs a non-existent event name.
-    * 1b1. `TutorConnect` displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`
+    * 1b1. TC displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`.
 
       Use case resumes at step 1.
 
-**Log contact as having attended an event**
+**Use case 16: Log contact as having attended an event**
 
 **MSS**
-1. User retrieves full information of an event
+1. User retrieves full information of an event.
 2. User searches for contacts' ids.
-3. User requests to mark those contacts as having attended the event
-4. `TutorConnect` finds the event in the event list based on the given name.
-5. `TutorConnect` finds the student ids in the contact list.
-6. `TutorConnect` marked students with those ids as attending the found event.
-7. `TutorConnect` displays the message `“successfully marked <id_1>, <id_2>,... as having attended event <event name>”`.
+3. User requests to mark those contacts as having attended the event.
+4. TC finds the event in the event list based on the given name.
+5. TC finds the student ids in the contact list.
+6. TC marked students with those ids as attending the found event.
+7. TC displays the message `“successfully marked <id_1>, <id_2>,... as having attended event <event name>”`.
 
    Use case ends.
 
 **Extensions**
 * 1a. User inputs an empty event name.
-    * 1a1. `TutorConnect` displays the error message: `"event name cannot be empty !!!"`
+    * 1a1. TC displays the error message: `"event name cannot be empty !!!"`.
 
       Use case resumes at step 1.
 
 * 1b. User inputs a non-existent event name.
-    * 1b1. `TutorConnect` displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`
+    * 1b1. TC displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`.
 
       Use case resumes at step 1.
 
 * 1c. User inputs all empty student ids.
-    * 1c1. `TutorConnect` displays the error message: `“There must be at least 1 contact !!!”`
+    * 1c1. TC displays the error message: `“There must be at least 1 contact !!!”`.
 
       Use case resumes at step 1.
 
 * 1d. User enters a non-existent student id.
-    * 1d1. `TutorConnect` displays the error message: `“Sorry, we could not find <id> in the contact list”`
+    * 1d1. TC displays the error message: `“Sorry, we could not find <id> in the contact list”`.
       
       Use case resumes at step 1.
 
