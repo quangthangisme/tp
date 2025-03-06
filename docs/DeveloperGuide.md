@@ -341,8 +341,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User provides input to create a new todo task.
-1. TC validates the input.
-1. TC creates the task and confirms the creation.
+2. TC validates the input.
+3. TC creates the task and confirms the creation.
 
     Use case ends.
 
