@@ -692,36 +692,41 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User enters add database command with file path.
-2. TC validates the database file path format.
-3. TC checks if database path already exists in configuration.
-4. TC adds database location to configuration.
+2. TC adds database location to configuration.
+3. TC displays success message: "Database location added successfully!"
 
    Use case ends.
 
 **Extensions**
-* 2a. File path is empty.
-    * 2a1. TC displays an error message: "Database path cannot be empty."
+* 1a. File path is empty.
+    * 1a1. TC displays an error message: "Database path cannot be empty."
+    * 1a2. TC prompts user to enter a new database path.
+    * 1a3. User enters new path.
+
+      Use case resumes at step 2.
+
+* 1b. File path contains invalid characters.
+    * 1b1. TC displays an error message: "Invalid pathname! Database path contains invalid characters."
+    * 1b2. TC prompts user to enter a new database path.
+    * 1b3. User enters new path.
+
+      Use case resumes at step 2.
+
+* 1c. File path does not end with .json extension.
+    * 1c1. TC displays an error message: "Invalid file format. Database path must end with .json"
+    * 1c2. TC prompts user to enter a new database path.
+    * 1c3. User enters new path.
+
+      Use case resumes at step 2.
+
+* 1d. Database path already exists in configuration.
+    * 1d1. TC displays an error message: "Database location already exists in configuration."
 
       Use case ends.
 
-* 2b. File path contains invalid characters.
-    * 2b1. TC displays an error message: "Invalid pathname! Database path contains invalid characters."
-
-      Use case ends.
-
-* 2c. File path does not end with .json extension.
-    * 2c1. TC displays an error message: "Invalid file format. Database path must end with .json"
-
-      Use case ends.
-
-* 3a. Database path already exists in configuration.
-    * 3a1. TC displays an error message: "Database location already exists in configuration."
-
-      Use case ends.
-
-* 4a. Unable to update configuration.
-    * 4a1. TC displays an error message: "Failed to update configuration file."
-    * 4a2. TC reverts any changes made.
+* 2a. Unable to update configuration.
+    * 2a1. TC displays an error message: "Failed to update configuration file."
+    * 2a2. TC reverts any changes made.
 
       Use case ends.
 
@@ -730,30 +735,30 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User enters remove database command with file path.
-2. TC validates the database path exists in configuration.
-3. TC checks if database is currently in use.
-4. TC removes database location from configuration.
-5. TC displays success message: "Database location removed successfully!"
+2. TC removes database location from configuration.
+3. TC displays success message: "Database location removed successfully!"
 
    Use case ends.
 
 **Extensions**
 
-* 2a. Database path not found in configuration.
-    * 2a1. TC displays an error message: "Database location not found in configuration."
+* 1a. Database path not found in configuration.
+    * 1a1. TC displays an error message: "Database location not found in configuration."
+    * 1a2. TC prompts user to enter a new database path.
+    * 1a3. User enters new path.
 
-      Use case ends.
+      Use case resumes at step 2.
 
-* 3a. Database is currently in use.
-    * 3a1. TC displays warning message: "Database is currently in use."
-    * 3a2. TC prompts user to confirm removal.
-    * 3a3. User confirms removal.
+* 1b. Database is currently in use.
+    * 1b1. TC displays warning message: "Database is currently in use."
+    * 1b2. TC prompts user to confirm removal.
+    * 1b3. User confirms removal.
 
-      Use case resumes at step 4.
+      Use case resumes at step 3.
 
-* 4a. Unable to update configuration.
-    * 4a1. TC displays an error message: "Failed to update configuration file."
-    * 4a2. TC reverts any changes made.
+* 2a. Unable to update configuration.
+    * 2a1. TC displays an error message: "Failed to update configuration file."
+    * 2a2. TC reverts any changes made.
 
       Use case ends.
 
@@ -762,174 +767,115 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User selects a database to load.
-2. TC validates the selected database file exists.
-3. TC validates the database file format and contents.
-4. TC creates a temporary working database file by copying the selected database.
-5. TC loads and populates the data (contacts, events, and relationships) from the temporary file.
-6. TC displays the successful loading message.
+2. TC creates a temporary working database file by copying the selected database.
+3. TC loads and populates the data (contacts, events, and relationships) from the temporary file.
+4. TC displays the successful loading message.
 
    Use case ends.
 
 **Extensions**
 
-* 2a. Selected database file does not exist.
-    * 2a1. TC displays error message: "Selected database not found at location."
-    * 2a2. TC prompts to create new database or cancel.
-    * 2a3. User chooses to create new database.
-    * 2a4. TC creates new empty database file.
+* 1a. Selected database file does not exist.
+    * 1a1. TC displays error message: "Selected database not found at location."
+    * 1a2. TC prompts to create new database or cancel.
+    * 1a3. User chooses to create new database.
+    * 1a4. TC creates new empty database file.
 
       Use case resumes at step 4.
 
-    * 2a5. User chooses to cancel.
+    * 1a5. User chooses to cancel.
 
       Use case ends.
 
-* 3a. Selected database file is corrupted or in wrong format.
-    * 3a1. TC displays an error message: "Database file is corrupted. Creating backup at <backup_path>."
-    * 3a2. TC creates a backup of the corrupted file.
-    * 3a3. TC prompts to create new database or cancel.
-    * 3a4. User chooses to create new database.
-    * 3a5. TC creates new empty database file.
+* 1b. Selected database file is corrupted or in wrong format.
+    * 1b1. TC displays an error message: "Database file is corrupted. Creating backup at <backup_path>."
+    * 1b2. TC creates a backup of the corrupted file.
+    * 1b3. TC prompts to create new database or cancel.
+    * 1b4. User chooses to create new database.
+    * 1b5. TC creates new empty database file.
+      Use case resumes at step 4.
+
+    * 1b6. User chooses to cancel.
+
+      Use case ends.
+
+* 2a. Unable to create temporary database file.
+    * 2a1. TC displays an error message: "Could not create temporary working file. Please check disk permissions and space."
+
+      Use case ends.
+
+* 3a. Some data entries are invalid or corrupted.
+    * 3a1. TC skips the invalid entries and logs them in a logfile.
+    * 3a2. TC displays a warning message: "Some entries were invalid and have been skipped. Please check the log file for details."
+    * 3a3. TC continues loading valid entries.
 
       Use case resumes at step 4.
 
-    * 3a6. User chooses to cancel.
-
-      Use case ends.
-
-* 4a. Unable to create temporary database file.
-    * 4a1. TC displays an error message: "Could not create temporary working file. Please check disk permissions and space."
-
-      Use case ends.
-
-* 5a. Some data entries are invalid or corrupted.
-    * 5a1. TC skips the invalid entries.
-    * 5a2. TC displays a warning message: "Some entries were invalid and have been skipped. Please check the log file for details."
-    * 5a3. TC continues loading valid entries.
-
-      Use case resumes at step 6.
-
-* 5b. TC encounters duplicate entries.
-    * 5b1. TC keeps the existing entries and logs the duplicates.
-    * 5b2. TC displays a warning message: "Duplicate entries found. Original entries preserved."
-
-      Use case resumes at step 6.
-
-**Use case: Save Data to Temporary Database**
-
-**MSS**
-
-1. TC detects data modification.
-2. TC validates the data to be saved.
-3. TC checks temporary database file accessibility.
-4. TC saves the current state to the temporary database file.
-5. TC verifies the save operation.
-
-   Use case ends.
-
-**Extensions**
-
-* 3a. Temporary database file is not accessible.
-    * 3a1. TC attempts to recreate the temporary database file.
-    * 3a2. TC displays a warning message: "Temporary save file recreated. Previous temporary changes may be lost."
+* 3b. TC encounters duplicate entries.
+    * 3b1. TC keeps the existing entries and logs the duplicates in a logfile.
+    * 3b2. TC displays a warning message: "Duplicate entries found. Original entries preserved."
 
       Use case resumes at step 4.
-
-* 4a. Insufficient disk space for save operation.
-    * 4a1. TC displays an error message: "Insufficient disk space for save operation."
-    * 4a2. TC reverts the data modification
-
-      Use case resumes at step 5.
-
-* 4b. Write permission denied.
-    * 4b1. TC displays an error message: "Cannot save changes. Please check file permissions."
-    * 4b2. TC reverts the data modification
-
-      Use case ends.
-
-**Use case: Save Data to Permanent Database on Exit**
-
-**MSS**
-
-1. User initiates application exit.
-2. TC verifies temporary database integrity.
-3. TC deletes current main database.
-4. TC renames temporary database to replace main database file.
-5. TC confirms successful save and exits.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. Temporary database verification fails.
-    * 2a1. TC displays an error message: "Save verification failed. Retaining previous database version."
-    * 2a2. TC creates an emergency backup of both temporary and main database files.
-    * 2a3. TC keeps the main database file unchanged.
-
-      Use case ends.
-
-* 4a. Unable to rename temporary database to main database.
-    * 4a1. TC displays an error message: "Could not update main database. Your changes are preserved in <temp_file_path>"
-    * 4a2. TC keeps both temporary and main database files.
-
-      Use case ends.
 
 **Use case: Export Database to Directory**
 
 **MSS**
 
 1. User enters export command with directory path.
-2. TC validates the directory path format.
-3. TC checks directory permissions and accessibility.
-4. TC creates a timestamped directory within the specified path.
-5. TC copies current database into timestamped directory.
-6. TC displays success message: "Exported to <pathname> successfully!"
+2. TC creates a timestamped directory within the specified path.
+3. TC copies current database into timestamped directory.
+4. TC displays success message: "Exported to <pathname> successfully!"
 
    Use case ends.
 
 **Extensions**
 
-* 2a. Directory path is empty.
-    * 2a1. TC displays an error message: "Directory path cannot be empty."
+* 1a. Directory path is empty.
+    * 1a1. TC displays an error message: "Directory path cannot be empty."
+    * 1a2. TC prompts user to enter a new directory path.
+    * 1a3. User enters new path.
 
-      Use case ends.
+      Use case resumes at step 2.
 
-* 2b. Directory path contains invalid characters.
-    * 2b1. TC displays an error message: "Invalid pathname! Directory path contains invalid characters."
+* 1b. Directory path contains invalid characters.
+    * 1b1. TC displays an error message: "Invalid pathname! Directory path contains invalid characters."
+    * 1b2. TC prompts user to enter a new directory path.
+    * 1b3. User enters new path.
 
-      Use case ends.
+      Use case resumes at step 2.
 
-* 3a. Directory does not exist.
-    * 3a1. TC attempts to create the directory.
-    * 3a2. If creation fails:
+* 1c. Directory does not exist.
+    * 1c1. TC attempts to create the directory.
+    * 1c2. If creation fails:
         * TC displays an error message: "Cannot create directory at specified path."
+        * TC prompts user to enter a new directory path.
+        * User enters new path.
 
-      Use case ends.
-    * 3a3. If creation succeeds:
+          Use case resumes at step 2.
 
-      Use case resumes at step 4.
+* 2a. User lacks write permissions.
+    * 2a1. TC displays an error message: "No write access to specified directory. Please check permissions."
+    * 2a2. TC prompts user to enter a new directory path.
+    * 2a3. User enters new path.
 
-* 3b. User lacks write permissions.
-    * 3b1. TC displays an error message: "No write access to specified directory. Please check permissions."
+      Use case resumes at step 3.
 
-      Use case ends.
-
-* 3c. Insufficient disk space.
-    * 3c1. TC displays an error message: "Insufficient disk space at specified location."
-
-      Use case ends.
-
-* 4a. Cannot create timestamped directory.
-    * 4a1. TC attempts to use alternative naming.
-    * 4a2. If alternative naming fails:
+* 2b. Cannot create timestamped directory.
+    * 2b1. TC attempts to use alternative naming.
+    * 2b2. If alternative naming fails:
         * TC displays an error message: "Cannot create export directory. Please try a different location."
 
       Use case ends.
 
-* 5a. Error during data export.
-    * 5a1. TC displays an error message: "Error occurred while exporting data."
-    * 5a2. TC removes partially exported files.
-    * 5a3. TC logs the export error details.
+* 3a. Insufficient disk space.
+    * 3a1. TC displays an error message: "Insufficient disk space at specified location."
+
+      Use case ends.
+
+* 3b. Error during data export.
+    * 3b1. TC displays an error message: "Error occurred while exporting data."
+    * 3b2. TC removes partially exported files.
+    * 3b3. TC logs the export error details.
 
       Use case ends.
 
