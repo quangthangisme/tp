@@ -344,12 +344,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. TC validates the input.
 3. TC creates the task and confirms the creation.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
 
 * 2a. User provides an empty task name.
-  
+
   * 2a1. TC displays an error message: "Task name cannot be empty."
 
     Use case ends.
@@ -357,79 +357,81 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2b. A task with the same name already exists.
 
   * 2b1. TC displays an error message: "Task <name> already exists."
-  
+
     Use case ends.
 
 **Use case 2: Add Contact to Existing Task**
 
 **MSS**
 
-1. User provides input to associate a contact with a task.
-2. TC validates the input.
-3. TC associates the task with the contact and confirms the update.
+1. User searches for the contact's ID (UC:TBD)
+2. User provides input to associate a contact with a task.
+3. TC validates the input.
+4. TC associates the task with the contact and confirms the update.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
 
-* 2a. User provides an empty task name.
-  
-  * 2a1. TC displays an error message: "Task name cannot be empty."
+* 3a. User provides an empty task name.
+
+  * 3a1. TC displays an error message: "Task name cannot be empty."
 
     Use case ends.
 
-* 2b. The specified task does not exist.
+* 3b. The specified task does not exist.
 
-  * 2b1. TC displays an error message: "Task <name> not found."
-  
+  * 3b1. TC displays an error message: "Task <name> not found."
+
     Use case ends.
 
-* 2c. The specified contact does not exist.
+* 3c. The specified contact does not exist.
 
-  * 2c1. TC displays an error message: "Contact <contact_id> not found."
-  
+  * 3c1. TC displays an error message: "Contact <contact_id> not found."
+
     Use case ends.
 
-* 2d. The task is already assigned to the contact.
-  
-  * 2d1. TC displays an error message: "Task <name> already exists for <contact_id>."
-  
+* 3d. The task is already assigned to the contact.
+
+  * 3d1. TC displays an error message: "Task <name> already exists for <contact_id>."
+
     Use case ends.
 
 **Use case 3: Remove Contact from Existing Task**
 
 **MSS**
 
-1. User provides input to remove a contact from a task.
-2. TC validates the input.
-3. TC removes the association and confirms the update.
+1. User finds all contacts associated with a task (UC:TBD)
+2. User provides input to remove a contact from a task.
+3. TC validates the input.
+4. TC removes the association and confirms the update.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
 
-* 2a. User provides an empty task name.
-  
-  * 2a1. TC displays an error message: "Task name cannot be empty."
+* 3a. User provides an empty task name.
+
+  * 3a1. TC displays an error message: "Task name cannot be empty."
 
     Use case ends.
 
-* 2b. The specified task does not exist.
+* 3b. The specified task does not exist.
 
-  * 2b1. TC displays an error message: "Task <name> not found."
-  
+  * 3b1. TC displays an error message: "Task <name> not found."
+
     Use case ends.
 
-* 2c. The specified contact does not exist.
+* 3c. The specified contact does not exist.
 
-  * 2c1. TC displays an error message: "Contact <contact_id> not found."
-  
+  * 3c1. TC displays an error message: "Contact <contact_id> not found."
+
     Use case ends.
 
-* 2d. The task is not assigned to the contact.
-  
-  * 2d1. TC displays an error message: "Task <name> is not assigned to <contact_id>."
-  
+* 3d. The task is not assigned to the contact.
+
+  * 3d1. TC displays an error message: "Task <name> is not assigned to <contact_id>."
+
     Use case ends.
 
 **Use case 4: Mark a Todo as Done**
@@ -440,14 +442,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. TC validates the input.
 3. TC marks the task as done and confirms the update.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
 
 * 2a. The specified task does not exist.
 
   * 2a1. TC displays an error message: "Task <name> not found."
-  
+
     Use case ends.
 
 **Use case 5: Unmark a Todo as Done**
@@ -458,14 +460,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. TC validates the input.
 3. TC unmarks the task as done and confirms the update.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
 
 * 2a. The specified task does not exist.
 
   * 2a1. TC displays an error message: "Task <name> not found."
-  
+
     Use case ends.
 
 **Use case 6: List Full Details of a Specific Todo**
