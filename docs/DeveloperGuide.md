@@ -468,6 +468,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   
     Use case ends.
 
+**Use case 6: List Full Details of a Specific Todo**
+
+**MSS**
+
+1. User provides input to list the full details of a specific todo.
+2. TC validates the input.
+3. TC retrieves the full details of the todo and displays it to the user.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+  * 2a1. TC displays an error message: "Task <name> not found."
+
+    Use case ends.
 
 ### Non-Functional Requirements
 
