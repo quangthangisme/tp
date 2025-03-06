@@ -334,32 +334,177 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `TutorConnect` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TutorConnect (TC)` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case 1: Create a New Todo**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User provides input to create a new todo task.
+2. TC validates the input.
+3. TC creates the task and confirms the creation.
 
-    Use case ends.
+   Use case ends.
 
 **Extensions**
 
-* 2a. The list is empty.
+* 2a. User provides an empty task name.
 
-  Use case ends.
+  * 2a1. TC displays an error message: "Task name cannot be empty."
 
-* 3a. The given index is invalid.
+    Use case ends.
 
-    * 3a1. AddressBook shows an error message.
+* 2b. A task with the same name already exists.
 
-      Use case resumes at step 2.
+  * 2b1. TC displays an error message: "Task <name> already exists."
 
-*{More to be added}*
+    Use case ends.
+
+**Use case 2: Delete a Todo**
+
+**MSS**
+
+1. User provides input to delete a todo task.
+2. TC validates the input.
+3. TC deletes the task and confirms the deletion.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+  * 2a1. TC displays an error message: "Task <name> not found."
+
+    Use case ends.
+
+**Use case 3: Add Contact to Existing Task**
+
+**MSS**
+
+1. User searches for the contact's ID (UC:TBD)
+2. User provides input to associate a contact with a task.
+3. TC validates the input.
+4. TC associates the task with the contact and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. User provides an empty task name.
+
+  * 3a1. TC displays an error message: "Task name cannot be empty."
+
+    Use case ends.
+
+* 3b. The specified task does not exist.
+
+  * 3b1. TC displays an error message: "Task <name> not found."
+
+    Use case ends.
+
+* 3c. The specified contact does not exist.
+
+  * 3c1. TC displays an error message: "Contact <contact_id> not found."
+
+    Use case ends.
+
+* 3d. The task is already assigned to the contact.
+
+  * 3d1. TC displays an error message: "Task <name> already exists for <contact_id>."
+
+    Use case ends.
+
+**Use case 4: Remove Contact from Existing Task**
+
+**MSS**
+
+1. User finds all contacts associated with a task (UC:TBD)
+2. User provides input to remove a contact from a task.
+3. TC validates the input.
+4. TC removes the association and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. User provides an empty task name.
+
+  * 3a1. TC displays an error message: "Task name cannot be empty."
+
+    Use case ends.
+
+* 3b. The specified task does not exist.
+
+  * 3b1. TC displays an error message: "Task <name> not found."
+
+    Use case ends.
+
+* 3c. The specified contact does not exist.
+
+  * 3c1. TC displays an error message: "Contact <contact_id> not found."
+
+    Use case ends.
+
+* 3d. The task is not assigned to the contact.
+
+  * 3d1. TC displays an error message: "Task <name> is not assigned to <contact_id>."
+
+    Use case ends.
+
+**Use case 5: Mark a Todo as Done**
+
+**MSS**
+
+1. User provides input to mark a todo as done.
+2. TC validates the input.
+3. TC marks the task as done and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+  * 2a1. TC displays an error message: "Task <name> not found."
+
+    Use case ends.
+
+**Use case 6: Unmark a Todo as Done**
+
+**MSS**
+
+1. User provides input to unmark a todo as done.
+2. TC validates the input.
+3. TC unmarks the task as done and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+  * 2a1. TC displays an error message: "Task <name> not found."
+
+    Use case ends.
+
+**Use case 7: List Full Details of a Specific Todo**
+
+**MSS**
+
+1. User provides input to list the full details of a specific todo.
+2. TC validates the input.
+3. TC retrieves the full details of the todo and displays it to the user.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+  * 2a1. TC displays an error message: "Task <name> not found."
+
+    Use case ends.
 
 ### Non-Functional Requirements
 
