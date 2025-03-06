@@ -599,7 +599,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
                                            <Event 1>
                                            <Event 2>
                                            …… “`.
-   Use case ends.
+  Use case ends.
+
+**Retrieve full information of an event**
+
+**MSS**
+1. User requests to see full information of an event using a valid name
+2. `TutorConnect` displays full information of the event
+   
+  Use case ends.
+
+**Extensions**
+* 1a. User inputs an empty event name.
+    * 1a1. `TutorConnect` displays the error message: `"event name cannot be empty !!!"`
+
+      Use case resumes at step 1.
+
+* 1b. User inputs a non-existent event name.
+    * 1b1. `TutorConnect` displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`
+
+      Use case resumes at step 1.
 
 **Create an event**
 
@@ -608,10 +627,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. `TutorConnect` adds the event to the list.
 3. `TutorConnect` displays the message `"successfully created event  <event name>"`.
 
-   Use case ends.
+  Use case ends.
 
 **Extensions**
-* 1a. User enters a `event --create  <event_name>` command with an empty event name.
+* 1a. User inputs an empty event name.
     * 1a1. `TutorConnect` displays the error message: `"event name cannot be empty !!!"`
 
       Use case resumes at step 1.
@@ -628,12 +647,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 
 **Extensions**
-* 1a. User enters a `event --delete  <event_name>` command with an empty event name.
+* 1a. User inputs an empty event name.
     * 1a1. `TutorConnect` displays the error message: `"event name cannot be empty !!!"`
 
       Use case resumes at step 1.
 
-* 1b. User enters a `event --delete  <event_name>` command with a non-existent event name.
+* 1b. User inputs a non-existent event name.
     * 1b1. `TutorConnect` displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`
 
       Use case resumes at step 1.
@@ -652,22 +671,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 1a. User enters a `event --add <event_name> --id <id_1> <id_2> …` command with an empty event name.
+* 1a. User inputs an empty event name.
     * 1a1. `TutorConnect` displays the error message: `"event name cannot be empty !!!"`
 
       Use case resumes at step 1.
 
-* 1b. User enters a `event --add <event_name> --id <id_1> <id_2> …` command with a non-existent event name.
+* 1b. User inputs a non-existent event name.
     * 1b1. `TutorConnect` displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`
 
       Use case resumes at step 1.
 
-* 1c. User enters a `event --add <event_name> --id <id_1> <id_2> …` command with all ids are empty.
+* 1c. User inputs all empty student ids.
     * 1c1. `TutorConnect` displays the error message: `“There must be at least 1 contact !!!”`
 
       Use case resumes at step 1.
 
-* 1d. User enters a `event --add <event_name> --id <id_1> <id_2> …` command with a non-existent student id.
+* 1d. User enters a non-existent student id.
     * 1d1. `TutorConnect` displays the error message: `“Sorry, we could not find <id> in the contact list”`
       
       Use case resumes at step 1.
