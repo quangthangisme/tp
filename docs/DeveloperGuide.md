@@ -358,7 +358,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     * 2b1. TC displays an error message: "Task <name> already exists."
 
-      
+      Use case ends.
 
 **Use case 2: Delete a Todo**
 
@@ -596,7 +596,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 12: List all events**
   
 **MSS**
-1. User requests to see all events in the list
+1. User requests to see all events in the list.
 2. TC displays the message `“Here are the events in the event list: 
                                            <Event 1>
                                            <Event 2>
@@ -626,8 +626,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 1. User requests to create a new event using a valid name.
-2. TC adds the event to the list.
-3. TC displays the message `"successfully created event  <event name>"`.
+2. TC adds the event to the list and displays the message `"successfully created event  <event name>"`.
 
   Use case ends.
 
@@ -640,11 +639,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 15: Delete an event**
 
 **MSS**
-1. User retrieves full information of an event.
+1. User retrieves full information of an event (UC13).
 2. User requests to remove the event from the list using a valid name.
-3. TC finds the event in the list based on the given name.
-4. TC removes the event from the list.
-5. TC displays the message `"successfully removed event  <event name>"`.
+3. TC removes the event from the list and displays the message `"successfully removed event  <event name>"`.
 
   Use case ends.
 
@@ -662,13 +659,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 16: Log contact as having attended an event**
 
 **MSS**
-1. User retrieves full information of an event.
-2. User searches for contacts' ids.
+1. User retrieves full information of an event (UC13).
+2. User searches for contacts' ids (UC:TBD).
 3. User requests to mark those contacts as having attended the event.
-4. TC finds the event in the event list based on the given name.
-5. TC finds the student ids in the contact list.
-6. TC marked students with those ids as attending the found event.
-7. TC displays the message `“successfully marked <id_1>, <id_2>,... as having attended event <event name>”`.
+4. TC marked contacts with as attending the found event and displays the message `“successfully marked <id_1>, <id_2>,... as having attended event <event name>”`.
 
    Use case ends.
 
@@ -683,12 +677,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-* 1c. User inputs all empty student ids.
+* 1c. User inputs all empty contact ids.
     * 1c1. TC displays the error message: `“There must be at least 1 contact !!!”`.
 
       Use case resumes at step 1.
 
-* 1d. User enters a non-existent student id.
+* 1d. User enters a non-existent contact id.
     * 1d1. TC displays the error message: `“Sorry, we could not find <id> in the contact list”`.
       
       Use case resumes at step 1.
