@@ -334,92 +334,93 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is `TutorConnect` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is `TutorConnect (TC)` and the **Actor** is the `user`, 
+unless specified otherwise)
 
-**Search for contacts by some identifiable feature**
+**Use case 1: Search for Contacts by Some Identifiable Feature**
 
 **MSS**
 1. User enters a valid `filter` command with at least one column and value.
-2. `TutorConnect` filters contacts based on the specified criteria.
-3. `TutorConnect` displays the matching results along with the message: `"n results found."`
+2. TC filters contacts based on the specified criteria.
+3. TC displays the matching results along with the message: `"n results found."`
 
    Use case ends.
 
 **Extensions**
 * 1a. User enters a `filter` command with a duplicate column.
-    * 1a1. `TutorConnect` displays the error message: `"Duplicate column: <col>."`
+    * 1a1. TC displays the error message: `"Duplicate column: <col>."`
 
       Use case resumes at step 1.
 
 * 1b. User enters a `filter` command with an unrecognized column.
-    * 1b1. `TutorConnect` displays the error message: `"Unrecognized column: '<unknown>'."`
+    * 1b1. TC displays the error message: `"Unrecognized column: '<unknown>'."`
 
       Use case resumes at step 1.
 
 * 1c. User enters a `filter` command with an invalid operator.
-    * 1c1. `TutorConnect` displays the error message: `"Unrecognized operator: '<unknown>'."`
+    * 1c1. TC displays the error message: `"Unrecognized operator: '<unknown>'."`
 
       Use case resumes at step 1.
 
 * 1d. User enters a `filter` command where a column has no values specified.
-    * 1d1. `TutorConnect` displays the error message: `"No values specified for column '<col>'."`
+    * 1d1. TC displays the error message: `"No values specified for column '<col>'."`
 
       Use case resumes at step 1.
 
 * 1e. User enters a `filter` command without specifying any column.
-    * 1e1. `TutorConnect` displays the error message: `"Specify at least one column and value."`
+    * 1e1. TC displays the error message: `"Specify at least one column and value."`
 
       Use case resumes at step 1.
 
 * 1f. User enters a `filter` command with multiple operators in the same column.
-    * 1f1. `TutorConnect` applies only the first operator and treats the next ones as values.
+    * 1f1. TC applies only the first operator and treats the next ones as values.
 
       Use case resumes at step 2.
 
-**List all contacts**
+**Use case 2: List all Contacts**
 
 **MSS**
 1. User enters the `list` command.
-2. `TutorConnect` displays a list of all contacts.
+2. TC displays a list of all contacts.
 
    Use case ends.
 
 **Extensions**
 * 2a. No contacts exist in the system.
-    * 2a1. `TutorConnect` displays: `"No contacts found. Add a contact to get started."`
+    * 2a1. TC displays: `"No contacts found. Add a contact to get started."`
 
       Use case ends.
 
-**Help**
+**Use case 3: Help**
 
 **MSS**
 1. User enters the `help` command.
-2. `TutorConnect` displays a general help page listing all features.
+2. TC displays a general help page listing all features.
 
    Use case ends.
 
 **Extensions**
 * 1a. User enters `help <feature>` (e.g., `help todo`)
-    * 1a1. `TutorConnect` displays detailed information about the requested feature.
+    * 1a1. TC displays detailed information about the requested feature.
 
       Use case ends.
 
 * 1b. User enters `help <invalid feature>`
-    * 1b1. `TutorConnect` displays the error message: `"Feature 'unknown' not recognized."`
+    * 1b1. TC displays the error message: `"Feature 'unknown' not recognized."`
 
       Use case resumes at step 2.
 
-**Exit the program**
+**Use case 4: Exit the Program**
 
 **MSS**
 1. User enters the `exit` command.
-2. `TutorConnect` terminates.
+2. TC terminates.
 
    Use case ends.
 
 **Extensions**
 * 1a. User enters an alias for `exit` (e.g., `bye`, `quit`, `kill`).
-    * 1a1. `TutorConnect` recognizes the alias and terminates.
+    * 1a1. TC recognizes the alias and terminates.
 
       Use case ends.
 
