@@ -341,8 +341,48 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User provides input to create a new todo task.
-2. TC validates the input.
-3. TC creates the task and confirms the creation.
+2. TC creates the task and confirms the creation.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. User provides an empty task name.
+
+    * 1a1. TC displays an error message: `"Task name cannot be empty."`
+
+      Use case resumes from step 1.
+
+* 1b. A task with the same name already exists.
+
+    * 1b1. TC displays an error message: `"Task <name> already exists."`
+
+      Use case resumes from step 1.
+
+**Use case 2: Delete a Todo**
+
+**MSS**
+
+1. User provides input to delete a todo task.
+2. TC deletes the task and confirms the deletion.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The specified task does not exist.
+
+    * 1a1. TC displays an error message: `"Task <name> not found."`
+
+      Use case resumes from step 1.
+
+**Use case 3: Add Contact to Existing Task**
+
+**MSS**
+
+1. User <u>searches for the contact's ID (UC:TBD)</u>.
+2. User provides input to associate a contact with a task.
+3. TC associates the task with the contact and confirms the update.
 
    Use case ends.
 
@@ -350,198 +390,150 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. User provides an empty task name.
 
-    * 2a1. TC displays an error message: "Task name cannot be empty."
+    * 2a1. TC displays an error message: `"Task name cannot be empty."`
 
-      Use case ends.
+      Use case resumes from step 2.
 
-* 2b. A task with the same name already exists.
+* 2b. The specified task does not exist.
 
-    * 2b1. TC displays an error message: "Task <name> already exists."
+    * 2b1. TC displays an error message: `"Task <name> not found."`
 
-      Use case ends.
+      Use case resumes from step 2.
 
-**Use case 2: Delete a Todo**
+* 2c. The specified contact does not exist.
 
-**MSS**
+    * 2c1. TC displays an error message: `"Contact <contact_id> not found."`
 
-1. User provides input to delete a todo task.
-2. TC validates the input.
-3. TC deletes the task and confirms the deletion.
+      Use case resumes from step 2.
 
-   Use case ends.
+* 2d. The task is already assigned to the contact.
 
-**Extensions**
+    * 2d1. TC displays an error message: `"Task <name> already exists for <contact_id>."`
 
-* 2a. The specified task does not exist.
-
-    * 2a1. TC displays an error message: "Task <name> not found."
-
-      Use case ends.
-
-**Use case 3: Add Contact to Existing Task**
-
-**MSS**
-
-1. User searches for the contact's ID (UC:TBD)
-2. User provides input to associate a contact with a task.
-3. TC validates the input.
-4. TC associates the task with the contact and confirms the update.
-
-   Use case ends.
-
-**Extensions**
-
-* 3a. User provides an empty task name.
-
-    * 3a1. TC displays an error message: "Task name cannot be empty."
-
-      Use case ends.
-
-* 3b. The specified task does not exist.
-
-    * 3b1. TC displays an error message: "Task <name> not found."
-
-      Use case ends.
-
-* 3c. The specified contact does not exist.
-
-    * 3c1. TC displays an error message: "Contact <contact_id> not found."
-
-      Use case ends.
-
-* 3d. The task is already assigned to the contact.
-
-    * 3d1. TC displays an error message: "Task <name> already exists for <contact_id>."
-
-      Use case ends.
+      Use case resumes from step 2.
 
 **Use case 4: Remove Contact from Existing Task**
 
 **MSS**
 
-1. User finds all contacts associated with a task (UC:TBD)
+1. User <u>finds all contacts associated with a task (UC:TBD)</u>.
 2. User provides input to remove a contact from a task.
-3. TC validates the input.
-4. TC removes the association and confirms the update.
+3. TC removes the association and confirms the update.
 
    Use case ends.
 
 **Extensions**
 
-* 3a. User provides an empty task name.
+* 2a. User provides an empty task name.
 
-    * 3a1. TC displays an error message: "Task name cannot be empty."
+    * 2a1. TC displays an error message: `"Task name cannot be empty."`
 
-      Use case ends.
+      Use case resumes from step 2.
 
-* 3b. The specified task does not exist.
+* 2b. The specified task does not exist.
 
-    * 3b1. TC displays an error message: "Task <name> not found."
+    * 2b1. TC displays an error message: `"Task <name> not found."`
 
-      Use case ends.
+      Use case resumes from step 2.
 
-* 3c. The specified contact does not exist.
+* 2c. The specified contact does not exist.
 
-    * 3c1. TC displays an error message: "Contact <contact_id> not found."
+    * 2c1. TC displays an error message: `"Contact <contact_id> not found."`
 
-      Use case ends.
+      Use case resumes from step 2.
 
-* 3d. The task is not assigned to the contact.
+* 2d. The task is not assigned to the contact.
 
-    * 3d1. TC displays an error message: "Task <name> is not assigned to <contact_id>."
+    * 2d1. TC displays an error message: `"Task <name> is not assigned to <contact_id>."`
 
-      Use case ends.
+      Use case resumes from step 2.
 
 **Use case 5: Mark a Todo as Done**
 
 **MSS**
 
 1. User provides input to mark a todo as done.
-2. TC validates the input.
-3. TC marks the task as done and confirms the update.
+2. TC marks the task as done and confirms the update.
 
    Use case ends.
 
 **Extensions**
 
-* 2a. The specified task does not exist.
+* 1a. The specified task does not exist.
 
-    * 2a1. TC displays an error message: "Task <name> not found."
+    * 1a1. TC displays an error message: `"Task <name> not found."`
 
-      Use case ends.
+      Use case resumes from step 1.
 
 **Use case 6: Unmark a Todo as Done**
 
 **MSS**
 
 1. User provides input to unmark a todo as done.
-2. TC validates the input.
-3. TC unmarks the task as done and confirms the update.
+2. TC unmarks the task as done and confirms the update.
 
    Use case ends.
 
 **Extensions**
 
-* 2a. The specified task does not exist.
+* 1a. The specified task does not exist.
 
-    * 2a1. TC displays an error message: "Task <name> not found."
+    * 1a1. TC displays an error message: `"Task <name> not found."`
 
-      Use case ends.
+      Use case resumes from step 1.
 
 **Use case 7: List Full Details of a Specific Todo**
 
 **MSS**
 
 1. User provides input to list the full details of a specific todo.
-2. TC validates the input.
-3. TC retrieves the full details of the todo and displays it to the user.
+2. TC retrieves the full details of the todo and displays it to the user.
 
    Use case ends.
 
 **Extensions**
 
-* 2a. The specified task does not exist.
+* 1a. The specified task does not exist.
 
-    * 2a1. TC displays an error message: "Task <name> not found."
+    * 1a1. TC displays an error message: `"Task <name> not found."`
 
-      Use case ends.
+      Use case resumes from step 1.
 
 **Use case 8: Search for Contacts by Some Identifiable Feature**
 
 **MSS**
-1. User enters a valid `filter` command with at least one column and value.
-2. TC filters contacts based on the specified criteria.
-3. TC displays the matching results along with the message: `"n results found."`
+1. User searches for contacts based on specific criteria.
+2. TC displays the matching results along with the message: `"n results found."`
 
    Use case ends.
 
 **Extensions**
-* 1a. User enters a `filter` command with a duplicate column.
+* 1a. The criteria include multiple filters on the same column.
     * 1a1. TC displays the error message: `"Duplicate column: <col>."`
 
       Use case resumes at step 1.
 
-* 1b. User enters a `filter` command with an unrecognized column.
+* 1b. The criteria include a filter on an unrecognized column.
     * 1b1. TC displays the error message: `"Unrecognized column: <unknown>."`
 
       Use case resumes at step 1.
 
-* 1c. User enters a `filter` command with an invalid operator.
+* 1c. The criteria include a filter with an unrecognized logical operator.
     * 1c1. TC displays the error message: `"Unrecognized operator: <unknown>."`
 
       Use case resumes at step 1.
 
-* 1d. User enters a `filter` command where a column has no values specified.
+* 1d. The criteria include a filter without specified values.
     * 1d1. TC displays the error message: `"No values specified for column <col>."`
 
       Use case resumes at step 1.
 
-* 1e. User enters a `filter` command without specifying any column.
+* 1e. The criteria contain no filters.
     * 1e1. TC displays the error message: `"Specify at least one column and value."`
 
       Use case resumes at step 1.
 
-* 1f. User enters a `filter` command with multiple operators in the same column.
+* 1f. The criteria include a filter with multiple logical operators.
     * 1f1. TC applies only the first operator and treats the next ones as values.
 
       Use case resumes at step 2.
@@ -549,7 +541,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 9: List all Contacts**
 
 **MSS**
-1. User enters the `list` command.
+1. User requests to view all contacts.
 2. TC displays a list of all contacts.
 
    Use case ends.
@@ -563,19 +555,19 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 10: Help**
 
 **MSS**
-1. User enters the `help` command.
-2. TC displays a general help page listing all features.
+1. User requests a general help message.
+2. TC displays a general help message listing all features.
 
    Use case ends.
 
 **Extensions**
-* 1a. User enters `help <feature>` (e.g., `help todo`)
+* 1a. User requests help on a specific feature.
     * 1a1. TC displays detailed information about the requested feature.
 
       Use case ends.
 
-* 1b. User enters `help <invalid feature>`
-    * 1b1. TC displays the error message: `"Feature <invalid feature> not recognized."`
+* 1b. User requests help on an unrecognized feature.
+    * 1b1. TC displays the error message: `"Feature <unknown> not recognized."`
 
       Use case resumes at step 2.
 
