@@ -584,6 +584,100 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a1. TC recognizes the alias and terminates.
 
       Use case ends.
+  
+**Use case 12: List all events**
+  
+**MSS**
+1. User requests to see all events in the list.
+2. TC displays the message `“Here are the events in the event list: 
+                                           <Event 1>
+                                           <Event 2>
+                                           …… “`.
+  Use case ends.
+
+**Use case 13: Retrieve full information of an event**
+
+**MSS**
+1. User requests to see full information of an event using a valid name.
+2. TC displays full information of the event.
+   
+  Use case ends.
+
+**Extensions**
+* 1a. User inputs an empty event name.
+    * 1a1. TC displays the error message: `"event name cannot be empty !!!"`.
+
+      Use case resumes at step 1.
+
+* 1b. User inputs a non-existent event name.
+    * 1b1. TC displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`.
+
+      Use case resumes at step 1.
+
+**Use case 14: Create an event**
+
+**MSS**
+1. User requests to create a new event using a valid name.
+2. TC adds the event to the list and displays the message `"successfully created event  <event name>"`.
+
+  Use case ends.
+
+**Extensions**
+* 1a. User inputs an empty event name.
+    * 1a1. TC displays the error message: `"event name cannot be empty !!!"`.
+
+      Use case resumes at step 1.
+
+**Use case 15: Delete an event**
+
+**MSS**
+1. User retrieves full information of an event (UC13).
+2. User requests to remove the event from the list using a valid name.
+3. TC removes the event from the list and displays the message `"successfully removed event  <event name>"`.
+
+  Use case ends.
+
+**Extensions**
+* 2a. User inputs an empty event name.
+    * 2a1. TC displays the error message: `"event name cannot be empty !!!"`.
+
+      Use case resumes at step 2.
+
+* 2b. User inputs a non-existent event name.
+    * 2b1. TC displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`.
+
+      Use case resumes at step 2.
+
+**Use case 16: Log contact as having attended an event**
+
+**MSS**
+1. User retrieves full information of an event (UC13).
+2. User searches for contacts' ids (UC:TBD).
+3. User requests to mark those contacts as having attended the event.
+4. TC marked contacts with as attending the found event and displays the message `“successfully marked <id_1>, <id_2>,... as having attended event <event name>”`.
+
+   Use case ends.
+
+**Extensions**
+* 3a. User inputs an empty event name.
+    * 3a1. TC displays the error message: `"event name cannot be empty !!!"`.
+
+      Use case resumes at step 3.
+
+* 3b. User inputs a non-existent event name.
+    * 3b1. TC displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`.
+
+      Use case resumes at step 3.
+
+* 3c. User inputs all empty contact ids.
+    * 3c1. TC displays the error message: `“There must be at least 1 contact !!!”`.
+
+      Use case resumes at step 3.
+
+* 3d. User enters a non-existent contact id.
+    * 3d1. TC displays the error message: `“Sorry, we could not find <id> in the contact list”`.
+      
+      Use case resumes at step 3.
 
 ### Non-Functional Requirements
 
