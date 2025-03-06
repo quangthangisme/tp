@@ -646,15 +646,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
   Use case ends.
 
 **Extensions**
-* 1a. User inputs an empty event name.
-    * 1a1. TC displays the error message: `"event name cannot be empty !!!"`.
+* 2a. User inputs an empty event name.
+    * 2a1. TC displays the error message: `"event name cannot be empty !!!"`.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
-* 1b. User inputs a non-existent event name.
-    * 1b1. TC displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`.
+* 2b. User inputs a non-existent event name.
+    * 2b1. TC displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
 **Use case 16: Log contact as having attended an event**
 
@@ -677,15 +677,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-* 1c. User inputs all empty contact ids.
-    * 1c1. TC displays the error message: `“There must be at least 1 contact !!!”`.
+* 2a. User inputs all empty contact ids.
+    * 2a1. TC displays the error message: `“There must be at least 1 contact !!!”`.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
-* 1d. User enters a non-existent contact id.
-    * 1d1. TC displays the error message: `“Sorry, we could not find <id> in the contact list”`.
+* 2b. User enters a non-existent contact id.
+    * 2b1. TC displays the error message: `“Sorry, we could not find <id> in the contact list”`.
       
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
 ### Non-Functional Requirements
 
