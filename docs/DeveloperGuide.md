@@ -601,7 +601,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
                                            <Event 1>
                                            <Event 2>
                                            …… “`.
-  Use case ends.
+   Use case ends.
 
 **Use case 13: Retrieve full information of an event**
 
@@ -609,7 +609,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to see full information of an event using a valid name.
 2. TC displays full information of the event.
    
-  Use case ends.
+   Use case ends.
 
 **Extensions**
 * 1a. User inputs an empty event name.
@@ -628,7 +628,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User requests to create a new event using a valid name.
 2. TC adds the event to the list and displays the message `"successfully created event  <event name>"`.
 
-  Use case ends.
+   Use case ends.
 
 **Extensions**
 * 1a. User inputs an empty event name.
@@ -643,7 +643,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. User requests to remove the event from the list using a valid name.
 3. TC removes the event from the list and displays the message `"successfully removed event  <event name>"`.
 
-  Use case ends.
+   Use case ends.
 
 **Extensions**
 * 2a. User inputs an empty event name.
@@ -686,6 +686,88 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3d1. TC displays the error message: `“Sorry, we could not find <id> in the contact list”`.
       
       Use case resumes at step 3.
+
+**Use case 17: Add a contact (Supports duplicate names)**
+
+**MSS**
+1. Add a student/teacher's contact with a given ID, name and number.
+2. TC validates the given unique ID and name.
+3. TC adds student/teacher's contact together the unique ID.
+4. TC displays the message `"Successfully added <name> with contact (<number>) (ID:<ID>)"`.
+
+   Use case ends.
+
+**Extensions**
+* 2a. User inputs a duplicate ID.
+    * 2a1. TC displays the error message: `"Sorry, The ID provided already exists, assign a new ID"`.
+
+      Use case ends.
+
+* 2b. User inputs an empty contact ID:
+    * 2b1. TC displays the error message: `"Sorry, The contact ID cannot be empty"`.
+
+      Use case ends.
+
+* 2c. User inputs an empty contact name.
+    * 2c1. TC displays the error message: `"Sorry, The contact name cannot be empty"`.
+    
+      Use case ends.
+
+* 2d. User inputs an empty contact number.
+    * 2d1. TC displays the error message: `"Sorry, The contact number cannot be empty"`.
+    
+      Use case ends.
+
+* 2e. User inputs a contact name that contains number:
+    * 2e1. TC displays the error message: `"Sorry, The contact name contains numbers, it should only contain alphabet characters"`.
+  
+      Use case ends.
+
+**Use case 18: Remove students/tutors from contacts**
+
+**MSS**
+1. Finds the student/teacher's contact with the given ID.
+2. TC removes the contact from the list of contacts.
+3. TC displays the message `"Successfully removed the contact of <name> (<contact>)(ID:<ID>)"`.
+
+   Use case ends.
+
+**Extensions**
+* 1a. User enters a ID that is not present in the contact list.
+    * 1a1. TC displays the error message: `"The given ID (<ID>) cannot be found"`.
+
+      Use case ends.
+
+**Use case 19: Tag each student by which class/course they are enrolled in**
+
+**MSS**
+1. User inputs an ID and a class and course for it to be tagged.
+2. TC finds the contact from the list.
+3. TC updates the contact with the given ID with the provided class and course.
+4. TC dsplays the message `"Sucessfully tagged <name>(<ID>) under <course>/<class>"`.
+    
+   Use case ends.
+
+**Extensions**
+* 2a. User inputs an ID that is not found in the contact list
+    * 2a1. TC displays the error message: `"The given ID(<ID>) cannot be found"`.
+
+      Use case ends.
+
+* 2b. User inputs an empty contact ID:
+    * 2b1. TC displays the error message: `"Sorry, The contact ID cannot be empty"`.
+
+      Use case ends.
+
+* 2c. User inputs an empty class tag.
+    * 2c1. TC displays the error message: `"Sorry, The class tag cannot be empty"`.
+    
+      Use case ends.
+
+* 2d. User inputs an empty course tag.
+    * 2d1. TC displays the error message: `"Sorry, The course tag cannot be empty"`.
+    
+      Use case ends.
 
 ### Non-Functional Requirements
 
