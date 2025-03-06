@@ -334,10 +334,265 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `TutorConnect` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TutorConnect (TC)` and the **Actor** is the `user`, unless specified otherwise)
 
+**Use case 1: Create a New Todo**
+
+1. User provides input to create a new todo task.
+2. TC validates the input.
+3. TC creates the task and confirms the creation.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. User provides an empty task name.
+
+    * 2a1. TC displays an error message: "Task name cannot be empty."
+
+      Use case ends.
+
+* 2b. A task with the same name already exists.
+
+    * 2b1. TC displays an error message: "Task <name> already exists."
+
+      
+
+**Use case 2: Delete a Todo**
+
+**MSS**
+
+1. User provides input to delete a todo task.
+2. TC validates the input.
+3. TC deletes the task and confirms the deletion.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+    * 2a1. TC displays an error message: "Task <name> not found."
+
+      Use case ends.
+
+**Use case 3: Add Contact to Existing Task**
+
+**MSS**
+
+1. User searches for the contact's ID (UC:TBD)
+2. User provides input to associate a contact with a task.
+3. TC validates the input.
+4. TC associates the task with the contact and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. User provides an empty task name.
+
+    * 3a1. TC displays an error message: "Task name cannot be empty."
+
+      Use case ends.
+
+* 3b. The specified task does not exist.
+
+    * 3b1. TC displays an error message: "Task <name> not found."
+
+      Use case ends.
+
+* 3c. The specified contact does not exist.
+
+    * 3c1. TC displays an error message: "Contact <contact_id> not found."
+
+      Use case ends.
+
+* 3d. The task is already assigned to the contact.
+
+    * 3d1. TC displays an error message: "Task <name> already exists for <contact_id>."
+
+      Use case ends.
+
+**Use case 4: Remove Contact from Existing Task**
+
+**MSS**
+
+1. User finds all contacts associated with a task (UC:TBD)
+2. User provides input to remove a contact from a task.
+3. TC validates the input.
+4. TC removes the association and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. User provides an empty task name.
+
+    * 3a1. TC displays an error message: "Task name cannot be empty."
+
+      Use case ends.
+
+* 3b. The specified task does not exist.
+
+    * 3b1. TC displays an error message: "Task <name> not found."
+
+      Use case ends.
+
+* 3c. The specified contact does not exist.
+
+    * 3c1. TC displays an error message: "Contact <contact_id> not found."
+
+      Use case ends.
+
+* 3d. The task is not assigned to the contact.
+
+    * 3d1. TC displays an error message: "Task <name> is not assigned to <contact_id>."
+
+      Use case ends.
+
+**Use case 5: Mark a Todo as Done**
+
+**MSS**
+
+1. User provides input to mark a todo as done.
+2. TC validates the input.
+3. TC marks the task as done and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+    * 2a1. TC displays an error message: "Task <name> not found."
+
+      Use case ends.
+
+**Use case 6: Unmark a Todo as Done**
+
+**MSS**
+
+1. User provides input to unmark a todo as done.
+2. TC validates the input.
+3. TC unmarks the task as done and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+    * 2a1. TC displays an error message: "Task <name> not found."
+
+      Use case ends.
+
+**Use case 7: List Full Details of a Specific Todo**
+
+**MSS**
+
+1. User provides input to list the full details of a specific todo.
+2. TC validates the input.
+3. TC retrieves the full details of the todo and displays it to the user.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+    * 2a1. TC displays an error message: "Task <name> not found."
+
+      Use case ends.
+
+**Use case 8: Search for Contacts by Some Identifiable Feature**
+
+**MSS**
+1. User enters a valid `filter` command with at least one column and value.
+2. TC filters contacts based on the specified criteria.
+3. TC displays the matching results along with the message: `"n results found."`
+
+   Use case ends.
+
+**Extensions**
+* 1a. User enters a `filter` command with a duplicate column.
+    * 1a1. TC displays the error message: `"Duplicate column: <col>."`
+
+      Use case resumes at step 1.
+
+* 1b. User enters a `filter` command with an unrecognized column.
+    * 1b1. TC displays the error message: `"Unrecognized column: <unknown>."`
+
+      Use case resumes at step 1.
+
+* 1c. User enters a `filter` command with an invalid operator.
+    * 1c1. TC displays the error message: `"Unrecognized operator: <unknown>."`
+
+      Use case resumes at step 1.
+
+* 1d. User enters a `filter` command where a column has no values specified.
+    * 1d1. TC displays the error message: `"No values specified for column <col>."`
+
+      Use case resumes at step 1.
+
+* 1e. User enters a `filter` command without specifying any column.
+    * 1e1. TC displays the error message: `"Specify at least one column and value."`
+
+      Use case resumes at step 1.
+
+* 1f. User enters a `filter` command with multiple operators in the same column.
+    * 1f1. TC applies only the first operator and treats the next ones as values.
+
+      Use case resumes at step 2.
+
+**Use case 9: List all Contacts**
+
+**MSS**
+1. User enters the `list` command.
+2. TC displays a list of all contacts.
+
+   Use case ends.
+
+**Extensions**
+* 2a. No contacts exist in the system.
+    * 2a1. TC displays: `"No contacts found. Add a contact to get started."`
+
+      Use case ends.
+
+**Use case 10: Help**
+
+**MSS**
+1. User enters the `help` command.
+2. TC displays a general help page listing all features.
+
+   Use case ends.
+
+**Extensions**
+* 1a. User enters `help <feature>` (e.g., `help todo`)
+    * 1a1. TC displays detailed information about the requested feature.
+
+      Use case ends.
+
+* 1b. User enters `help <invalid feature>`
+    * 1b1. TC displays the error message: `"Feature <invalid feature> not recognized."`
+
+      Use case resumes at step 1.
+
+**Use case 11: Exit the Program**
+
+**MSS**
+1. User enters the `exit` command.
+2. TC terminates.
+
+   Use case ends.
+
+**Extensions**
+* 1a. User enters an alias for `exit` (e.g., `bye`, `quit`, `kill`).
+    * 1a1. TC recognizes the alias and terminates.
+
+      Use case ends.
+  
 **List all events**
-
+  
 **MSS**
 1. User requests to see all events in the list
 2. `TutorConnect` displays the message `“Here are the events in the event list: 
@@ -345,8 +600,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
                                            <Event 2>
                                            …… “`.
    Use case ends.
-
-**Extensions**
 
 **Create an event**
 
@@ -372,7 +625,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 4. `TutorConnect` removes the event from the list.
 5. `TutorConnect` displays the message `"successfully removed event  <event name>"`.
 
-   Use case ends.
+  Use case ends.
 
 **Extensions**
 * 1a. User enters a `event --delete  <event_name>` command with an empty event name.
@@ -410,24 +663,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 1.
 
 * 1c. User enters a `event --add <event_name> --id <id_1> <id_2> …` command with all ids are empty.
-    * 1a1. `TutorConnect` displays the error message: `“There must be at least 1 contact !!!”`
+    * 1c1. `TutorConnect` displays the error message: `“There must be at least 1 contact !!!”`
 
       Use case resumes at step 1.
 
 * 1d. User enters a `event --add <event_name> --id <id_1> <id_2> …` command with a non-existent student id.
-    * 1b1. `TutorConnect` displays the error message: `“Sorry, we could not find <id> in the contact list”`
-
+    * 1d1. `TutorConnect` displays the error message: `“Sorry, we could not find <id> in the contact list”`
+      
       Use case resumes at step 1.
-
-*{More to be added}*
 
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+4.  Data should not be fully lost in the event of a crash or unexpected shutdown.
+5.  Should be easily testable to ensure that new updates or features do not negatively impact existing functionality.
+6.  Should function without requiring an installer.
+7.  Should only use third-party libraries or services that are free, open-source, have permissive license terms, and do not require installation by the user.
+8.  Should display optimally on screen resolutions 1920x1080 and higher with screen scales 100% and 125%, and remain functional on 1280x720 and higher with up to 150% screen scaling.
+9.  The main application (JAR/ZIP file) should not exceed 100MB.
 
 ### Glossary
 
