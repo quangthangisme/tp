@@ -506,7 +506,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case 1: Search for Contacts by Some Identifiable Feature**
+**Use case 8: Search for Contacts by Some Identifiable Feature**
 
 **MSS**
 1. User enters a valid `filter` command with at least one column and value.
@@ -546,7 +546,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case 2: List all Contacts**
+**Use case 9: List all Contacts**
 
 **MSS**
 1. User enters the `list` command.
@@ -560,7 +560,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case 3: Help**
+**Use case 10: Help**
 
 **MSS**
 1. User enters the `help` command.
@@ -579,7 +579,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case 4: Exit the Program**
+**Use case 11: Exit the Program**
 
 **MSS**
 1. User enters the `exit` command.
