@@ -360,7 +360,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case 2: Add Contact to Existing Task**
+**Use case 2: Delete a Todo**
+
+**MSS**
+
+1. User provides input to delete a todo task.
+2. TC validates the input.
+3. TC deletes the task and confirms the deletion.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+  * 2a1. TC displays an error message: "Task <name> not found."
+
+    Use case ends.
+
+**Use case 3: Add Contact to Existing Task**
 
 **MSS**
 
@@ -397,7 +415,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case 3: Remove Contact from Existing Task**
+**Use case 4: Remove Contact from Existing Task**
 
 **MSS**
 
@@ -434,7 +452,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case 4: Mark a Todo as Done**
+**Use case 5: Mark a Todo as Done**
 
 **MSS**
 
@@ -452,7 +470,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case 5: Unmark a Todo as Done**
+**Use case 6: Unmark a Todo as Done**
 
 **MSS**
 
@@ -470,7 +488,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
     Use case ends.
 
-**Use case 6: List Full Details of a Specific Todo**
+**Use case 7: List Full Details of a Specific Todo**
 
 **MSS**
 
