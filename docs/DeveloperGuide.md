@@ -699,8 +699,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
+* **Contact**: A stored record of a student or tutor, containing relevant details such as name, 
+  id, and class.
+* **Class**: A group of students assigned to a particular tutor.
+* **Course**: A subject or academic module that multiple classes and students may belong to.
+* **Event**: A scheduled session such as tutorial class, remedial, or consultation that tutors can 
+  create, modify, and assign students to.
+* **To-do**: A task or action item that can be associated with a student or another tutor, such as 
+  grading assignments, scheduling follow-ups, or preparing lesson materials.
+* **Head Tutor**: A tutor responsible for overseeing other tutors.
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 
 --------------------------------------------------------------------------------------------------------------------
 
