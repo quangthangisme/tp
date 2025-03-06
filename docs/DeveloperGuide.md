@@ -334,8 +334,177 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is `TutorConnect (TC)` and the **Actor** is the `user`, 
-unless specified otherwise)
+(For all use cases below, the **System** is the `TutorConnect (TC)` and the **Actor** is the `user`, unless specified otherwise)
+
+**Use case 1: Create a New Todo**
+
+**MSS**
+
+1. User provides input to create a new todo task.
+2. TC validates the input.
+3. TC creates the task and confirms the creation.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. User provides an empty task name.
+
+    * 2a1. TC displays an error message: "Task name cannot be empty."
+
+      Use case ends.
+
+* 2b. A task with the same name already exists.
+
+    * 2b1. TC displays an error message: "Task <name> already exists."
+
+      Use case ends.
+
+**Use case 2: Delete a Todo**
+
+**MSS**
+
+1. User provides input to delete a todo task.
+2. TC validates the input.
+3. TC deletes the task and confirms the deletion.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+    * 2a1. TC displays an error message: "Task <name> not found."
+
+      Use case ends.
+
+**Use case 3: Add Contact to Existing Task**
+
+**MSS**
+
+1. User searches for the contact's ID (UC:TBD)
+2. User provides input to associate a contact with a task.
+3. TC validates the input.
+4. TC associates the task with the contact and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. User provides an empty task name.
+
+    * 3a1. TC displays an error message: "Task name cannot be empty."
+
+      Use case ends.
+
+* 3b. The specified task does not exist.
+
+    * 3b1. TC displays an error message: "Task <name> not found."
+
+      Use case ends.
+
+* 3c. The specified contact does not exist.
+
+    * 3c1. TC displays an error message: "Contact <contact_id> not found."
+
+      Use case ends.
+
+* 3d. The task is already assigned to the contact.
+
+    * 3d1. TC displays an error message: "Task <name> already exists for <contact_id>."
+
+      Use case ends.
+
+**Use case 4: Remove Contact from Existing Task**
+
+**MSS**
+
+1. User finds all contacts associated with a task (UC:TBD)
+2. User provides input to remove a contact from a task.
+3. TC validates the input.
+4. TC removes the association and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 3a. User provides an empty task name.
+
+    * 3a1. TC displays an error message: "Task name cannot be empty."
+
+      Use case ends.
+
+* 3b. The specified task does not exist.
+
+    * 3b1. TC displays an error message: "Task <name> not found."
+
+      Use case ends.
+
+* 3c. The specified contact does not exist.
+
+    * 3c1. TC displays an error message: "Contact <contact_id> not found."
+
+      Use case ends.
+
+* 3d. The task is not assigned to the contact.
+
+    * 3d1. TC displays an error message: "Task <name> is not assigned to <contact_id>."
+
+      Use case ends.
+
+**Use case 5: Mark a Todo as Done**
+
+**MSS**
+
+1. User provides input to mark a todo as done.
+2. TC validates the input.
+3. TC marks the task as done and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+    * 2a1. TC displays an error message: "Task <name> not found."
+
+      Use case ends.
+
+**Use case 6: Unmark a Todo as Done**
+
+**MSS**
+
+1. User provides input to unmark a todo as done.
+2. TC validates the input.
+3. TC unmarks the task as done and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+    * 2a1. TC displays an error message: "Task <name> not found."
+
+      Use case ends.
+
+**Use case 7: List Full Details of a Specific Todo**
+
+**MSS**
+
+1. User provides input to list the full details of a specific todo.
+2. TC validates the input.
+3. TC retrieves the full details of the todo and displays it to the user.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified task does not exist.
+
+    * 2a1. TC displays an error message: "Task <name> not found."
+
+      Use case ends.
 
 **Use case 1: Search for Contacts by Some Identifiable Feature**
 
@@ -424,15 +593,17 @@ unless specified otherwise)
 
       Use case ends.
 
-*{More to be added}*
-
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-
-*{More to be added}*
+4.  Data should not be fully lost in the event of a crash or unexpected shutdown.
+5.  Should be easily testable to ensure that new updates or features do not negatively impact existing functionality.
+6.  Should function without requiring an installer.
+7.  Should only use third-party libraries or services that are free, open-source, have permissive license terms, and do not require installation by the user.
+8.  Should display optimally on screen resolutions 1920x1080 and higher with screen scales 100% and 125%, and remain functional on 1280x720 and higher with up to 150% screen scaling.
+9.  The main application (JAR/ZIP file) should not exceed 100MB.
 
 ### Glossary
 
