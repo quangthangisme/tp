@@ -353,17 +353,17 @@ unless specified otherwise)
       Use case resumes at step 1.
 
 * 1b. User enters a `filter` command with an unrecognized column.
-    * 1b1. TC displays the error message: `"Unrecognized column: '<unknown>'."`
+    * 1b1. TC displays the error message: `"Unrecognized column: <unknown>."`
 
       Use case resumes at step 1.
 
 * 1c. User enters a `filter` command with an invalid operator.
-    * 1c1. TC displays the error message: `"Unrecognized operator: '<unknown>'."`
+    * 1c1. TC displays the error message: `"Unrecognized operator: <unknown>."`
 
       Use case resumes at step 1.
 
 * 1d. User enters a `filter` command where a column has no values specified.
-    * 1d1. TC displays the error message: `"No values specified for column '<col>'."`
+    * 1d1. TC displays the error message: `"No values specified for column <col>."`
 
       Use case resumes at step 1.
 
@@ -406,7 +406,7 @@ unless specified otherwise)
       Use case ends.
 
 * 1b. User enters `help <invalid feature>`
-    * 1b1. TC displays the error message: `"Feature 'unknown' not recognized."`
+    * 1b1. TC displays the error message: `"Feature <invalid feature> not recognized."`
 
       Use case resumes at step 2.
 
