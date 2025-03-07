@@ -687,7 +687,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       
       Use case resumes at step 3.
 
-**Use case 21: Import Data from file path**
+**Use case 21: Import Data from a file path**
 
 **MSS**
 
@@ -701,27 +701,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. Selected database file does not exist.
     * 1a1. TC displays error message.
-    * 1a2. TC prompts to create new database or cancel.
-    * 1a3. User chooses to create new database.
-    * 1a4. TC creates new empty database file.
 
-      Use case resumes at step 4.
-
-    * 1a5. User chooses to cancel.
-
-      Use case ends.
+      Use case resumes at step 1.
 
 * 1b. Selected database file is corrupted or in wrong format.
     * 1b1. TC displays an error message.
-    * 1b2. TC creates a backup of the corrupted file.
-    * 1b3. TC prompts to create new database or cancel.
-    * 1b4. User chooses to create new database.
-    * 1b5. TC creates new empty database file.
-      Use case resumes at step 4.
 
-    * 1b6. User chooses to cancel.
-
-      Use case ends.
+      Use case resumes at step 1.
 
 * 2a. Some data entries are invalid or corrupted.
     * 2a1. TC skips the invalid entries and logs them in a logfile.
@@ -751,33 +737,23 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. Directory path is empty.
     * 1a1. TC displays an error message.
-    * 1a2. TC prompts user to enter a new directory path.
-    * 1a3. User enters new path.
 
-      Use case resumes at step 2.
+      Use case resumes at step 1.
 
 * 1b. Directory path contains invalid characters.
     * 1b1. TC displays an error message.
-    * 1b2. TC prompts user to enter a new directory path.
-    * 1b3. User enters new path.
 
-      Use case resumes at step 2.
+      Use case resumes at step 1.
 
-* 1c. Directory does not exist.
-    * 1c1. TC attempts to create the directory.
-    * 1c2. If creation fails:
-        * TC displays an error message.
-        * TC prompts user to enter a new directory path.
-        * User enters new path.
+* 1c. Directory specified is an invalid pth.
+    * 1c1. TC displays an error message.
 
-          Use case resumes at step 2.
+      Use case resumes at step 1.
 
 * 2a. User lacks write permissions.
     * 2a1. TC displays an error message.
-    * 2a2. TC prompts user to enter a new directory path.
-    * 2a3. User enters new path.
 
-      Use case resumes at step 3.
+   Use case ends.
 
 * 2b. Cannot create timestamped directory.
     * 2b1. TC attempts to use alternative naming.
