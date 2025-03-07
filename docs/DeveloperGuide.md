@@ -876,119 +876,110 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes from step 2.
 
-
-**Use case 19: Import Data from a File Path**
+**Use case 24: List help message of a command**
 
 **MSS**
-
-1. User requests to load database from a file path.
-2. TC loads and populates the data (contacts, events, etc.).
-3. TC displays the successful loading message.
+1. User requests to list help message of a command.
+2. TC displays the help message of the command.
 
    Use case ends.
 
 **Extensions**
-
-* 1a. Selected database file does not exist.
-    * 1a1. TC displays error message.
-
-      Use case resumes at step 1.
-
-* 1b. Selected database file is corrupted or in wrong format.
-    * 1b1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 2a. Some data entries are invalid or corrupted.
-    * 2a1. TC skips the invalid entries and logs them in a logfile.
-    * 2a2. TC displays a warning message.
-    * 2a3. TC continues loading valid entries.
-
-      Use case resumes at step 3.
-
-* 2b. TC encounters duplicate entries.
-    * 2b1. TC keeps the existing entries and logs the duplicates in a logfile.
-    * 2b2. TC displays a warning message.
-
-      Use case resumes at step 3.
-
-**Use case 20: Export Database to Directory**
-
-**MSS**
-
-1. User requests to export data as a `.json` file to a file path.
-2. TC creates a timestamped directory within the specified path.
-3. TC copies current database into timestamped directory.
-4. TC displays success message.
-
-   Use case ends.
-
-**Extensions**
-
-* 1a. Directory path is empty.
+* 1a. The given command is invalid.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
 
+**Use case 25: List help message of all commands**
+
+**MSS**
+1. User requests to list help message of all commands.
+2. TC displays the help message.
+
+   Use case ends.
+
+**Use case 26: Exit the Program**
+
+**MSS**
+1. User requests to exit the program.
+2. TC <u>exports the database to the default directory (UC:28)</u>.
+3. TC exits the program.
+
+   Use case ends.
+
+**Use case 27: Import Database from a directory**
+
+**MSS**
+1. User requests to load database from a directory.
+2. TC loads the data of an entry and populates the database.
+   
+   Step 2 is repeated until all entries are loaded.
+3. TC displays the populated data.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The given database file does not exist.
+    * 1a1. TC displays error message.
+
+      Use case resumes at step 1.
+* 1b. The given database file is corrupted or in wrong format.
+    * 1b1. TC displays an error message.
+
+      Use case ends.
+* 2a. TC encounters an invalid data entry.
+    * 2a1. TC skips loading the invalid entry and logs this in a logfile.
+    * 2a2. TC displays a warning message.
+
+      Use case resumes at step 2. 
+* 2b. TC encounters duplicate entries.
+    * 2b1. TC keeps the existing entries and logs the duplicates in a logfile.
+    * 2b2. TC displays a warning message.
+
+      Use case resumes at step 2.
+
+**Use case 28: Export Database to a directory**
+
+**MSS**
+1. User requests to export data to a directory.
+2. TC creates a timestamped directory within the specified path.
+3. TC copies current database into timestamped directory as a `.json` file.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 1a. Directory path is empty.
+    * 1a1. TC displays an error message.
+
+      Use case resumes at step 1.
 * 1b. Directory path contains invalid characters.
     * 1b1. TC displays an error message.
 
       Use case resumes at step 1.
-
-* 1c. Directory specified is an invalid pth.
+* 1c. Directory specified is an invalid path.
     * 1c1. TC displays an error message.
 
       Use case resumes at step 1.
-
 * 2a. User lacks write permissions.
     * 2a1. TC displays an error message.
 
       Use case ends.
-
 * 2b. Cannot create timestamped directory.
     * 2b1. TC attempts to use alternative naming.
     * 2b2. If alternative naming fails, TC displays an error message.
 
       Use case ends.
-
 * 3a. Insufficient disk space.
     * 3a1. TC displays an error message.
 
       Use case ends.
-
 * 3b. Error during data export.
     * 3b1. TC displays an error message.
     * 3b2. TC removes partially exported files.
     * 3b3. TC logs the export error details.
 
       Use case ends.
-
-**Use case 21: Help**
-
-**MSS**
-1. User requests a general help message.
-2. TC displays a general help message listing all features.
-
-   Use case ends.
-
-**Extensions**
-* 1a. User requests help on a specific feature.
-    * 1a1. TC displays detailed information about the requested feature.
-
-      Use case ends.
-
-* 1b. User requests help on an unrecognized feature.
-    * 1b1. TC displays an error message.
-
-      Use case resumes at step 2.
-
-**Use case 22: Exit the Program**
-
-**MSS**
-1. User requests to exit the program.
-2. TC terminates.
-
-   Use case ends.
 
 ### Non-Functional Requirements
 
