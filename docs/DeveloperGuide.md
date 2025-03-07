@@ -336,7 +336,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `TutorConnect (TC)` and the **Actor** is the `User`, unless specified otherwise)
 
-**Use case 1: Create a Contact**
+**Use case 1: Create a contact**
 
 **MSS**
 1. User requests to create a new contact and provides contact details.
@@ -367,7 +367,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-**Use case 2: List full information of a Contact**
+**Use case 2: List full information of a contact**
 
 **MSS**
 1. User <u>searches for the contact's information (UC:4)</u>.
@@ -386,7 +386,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case 3: List all Contacts**
+**Use case 3: List all contacts**
 
 **MSS**
 1. User requests to view all contacts.
@@ -400,7 +400,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case 4: Filter all Contacts using some identifiable feature**
+**Use case 4: Filter all contacts using some identifiable feature**
 
 **MSS**
 1. User requests to filter all contacts using some specific criteria.
@@ -438,12 +438,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case 5: Add a Tag to a Contact**
+**Use case 5: Add a tag to a contact**
 
 **MSS**
 1. User <u>searches for the contact's information (UC:4)</u>.
 2. User requests to add a tag to the contact by ID.
-3. TC updates the Contact with the provided tag.
+3. TC updates the contact with the provided tag.
 4. TC displays a confirmation message.
 
    Use case ends.
@@ -466,12 +466,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case 6: Remove a Tag from a Contact**
+**Use case 6: Remove a tag from a contact**
 
 **MSS**
 1. User <u>searches for the contact's information (UC:4)</u>.
 2. User requests to remove a tag from the contact by ID.
-3. TC updates the Contact by removing the provided tag.
+3. TC updates the contact by removing the provided tag.
 4. TC displays a confirmation message.
 
    Use case ends.
@@ -494,7 +494,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case 7: Remove a Contact**
+**Use case 7: Remove a contact**
 
 **MSS**
 1. User <u>searches for the contact's information (UC:4)</u>.
@@ -514,11 +514,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case 8: Create a Todo**
+**Use case 8: Create a todo**
 
 **MSS**
 1. User requests to create a todo and provides a name.
-2. TC creates the Todo.
+2. TC creates the todo.
 3. TC displays a confirmation message.
 
    Use case ends.
@@ -528,12 +528,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a1. TC displays an error message.
 
       Use case resumes from step 1.
-* 1b. A Todo with the same name already exists.
+* 1b. A todo with the same name already exists.
     * 1b1. TC displays an error message.
 
       Use case resumes from step 1.
 
-**Use case 9: List full information of a Todo**
+**Use case 9: List full information of a todo**
 
 **MSS**
 1. User requests to see full information of a todo.
@@ -551,33 +551,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case 10: List all Todos**
+**Use case 10: List all todos**
 
 **MSS**
-1. User requests to view all Todos.
+1. User requests to view all todos.
 2. TC displays all Todos.
 
    Use case ends.
 
 **Extensions**
-* 2a. The Todo list is empty.
+* 2a. The todo list is empty.
     * 2a1. TC displays an error message.
 
       Use case ends.
 
-**Use case 11: Add a Contact to a Todo**
+**Use case 11: Add a contact to a todo**
 
 **MSS**
 1. User <u>searches for the contact's information (UC:4)</u>.
-2. User requests to add the contact to a Todo by ID.
-3. TC associates the Contact with the Todo.
+2. User requests to add the contact to a todo by ID.
+3. TC associates the contact with the todo.
 4. TC displays a confirmation message.
 
 **Extensions**
 * 2a. The given name is invalid.
     * 2a1. TC displays an error message.
 
-        Use case resumes at step 2.
+      Use case resumes at step 2.
 * 2b. The given name is empty.
     * 2b1. TC displays an error message.
 
@@ -590,16 +590,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2d1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2e. The Contact is already assigned to the Todo.
+* 2e. The contact is already assigned to the todo.
     * 2e1. TC displays an error message.
 
       Use case resumes from step 2.
 
-**Use case 12: Remove a Contact from a Todo**
+**Use case 12: Remove a contact from a todo**
 
 **MSS**
-1. User <u>finds all Contacts associated with a Todo (UC:9)</u>.
-2. User requests to remove a contact from a Todo by ID.
+1. User <u>finds all contacts associated with a todo (UC:9)</u>.
+2. User requests to remove a contact from a todo by ID.
 3. TC removes the association.
 4. TC displays a confirmation message.
 
@@ -622,17 +622,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2d1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2e. The Contact is not assigned to the Todo.
+* 2e. The contact is not assigned to the todo.
     * 2e1. TC displays an error message.
 
       Use case resumes from step 2.
 
-**Use case 13: Mark a Todo as completed**
+**Use case 13: Mark a todo as completed**
 
 **MSS**
-1. User <u>finds all Todos (UC:10)</u>.
-2. User requests to mark a Todo as completed.
-3. TC marks the Todo as completed.
+1. User <u>finds all todos (UC:10)</u>.
+2. User requests to mark a todo as completed.
+3. TC marks the todo as completed.
 4. TC displays a confirmation message.
 
 **Extensions**
@@ -649,12 +649,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case 14: Mark a Todo as not completed**
+**Use case 14: Mark a todo as not completed**
 
 **MSS**
-1. User <u>finds all Todos (UC:10)</u>.
-2. User requests to mark a Todo as not completed.
-3. TC marks the Todo as not completed.
+1. User <u>finds all todos (UC:10)</u>.
+2. User requests to mark a todo as not completed.
+3. TC marks the todo as not completed.
 4. TC displays a confirmation message.
 
 **Extensions**
@@ -669,13 +669,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2c. The Todo is not completed.
     * 2c1. TC displays an error message.
 
-        Use case ends.
+      Use case ends.
 
 **Use case 15: Delete a Todo**
 
 **MSS**
-1. User <u>finds all Todos (UC:10)</u>.
-2. User requests to delete a Todo.
+1. User <u>finds all todos (UC:10)</u>.
+2. User requests to delete a todo.
 3. TC deletes the task.
 4. TC displays a confirmation message.
 
@@ -691,7 +691,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes from step 2.
 
-**Use case 16: Create an Event**
+**Use case 16: Create an event**
 
 **MSS**
 1. User requests to create a new event.
@@ -705,7 +705,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a1. TC displays an error message.
 
       Use case resumes from step 1.
-* 1b. An Event with the same name already exists.
+* 1b. An event with the same name already exists.
     * 1b1. TC displays an error message.
 
       Use case resumes from step 1.
@@ -718,7 +718,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes from step 1.
 
-**Use case 17: List full information of an Event**
+**Use case 17: List full information of an event**
 
 **MSS**
 1. User requests to see full information of an event.
@@ -736,26 +736,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case 18: List all Events**
+**Use case 18: List all events**
 
 **MSS**
-1. User requests to view all Events.
-2. TC displays all Events.
+1. User requests to view all events.
+2. TC displays all events.
 
    Use case ends.
 
 **Extensions**
-* 2a. The Event list is empty.
+* 2a. The event list is empty.
     * 2a1. TC displays an error message.
 
       Use case ends.
 
-**Use case 19: Add a Contact to an Event**
+**Use case 19: Add a contact to an event**
 
 **MSS**
 1. User <u>searches for the contact's information (UC:4)</u>.
-2. User requests to add the contact to an Event by ID.
-3. TC associates the Contact with the Event.
+2. User requests to add the contact to an event by ID.
+3. TC associates the contact with the event.
 4. TC displays a confirmation message.
 
 **Extensions**
@@ -775,16 +775,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2d1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2e. The Contact is already assigned to the Event.
+* 2e. The contact is already assigned to the event.
     * 2e1. TC displays an error message.
 
       Use case resumes from step 2.
 
-**Use case 20: Remove a Contact from an Event**
+**Use case 20: Remove a contact from an event**
 
 **MSS**
-1. User <u>finds all Contacts associated with an Event (UC:17)</u>.
-2. User requests to remove a contact from an Event by ID.
+1. User <u>finds all contacts associated with an event (UC:17)</u>.
+2. User requests to remove a contact from an event by ID.
 3. TC removes the association.
 4. TC displays a confirmation message.
 
@@ -807,17 +807,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2d1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2e. The Contact is not assigned to the Event.
+* 2e. The contact is not assigned to the event.
     * 2e1. TC displays an error message.
 
       Use case resumes from step 2.
 
-**Use case 21: Log a Contact as attended an Event**
+**Use case 21: Log a contact as having attended an event**
 
 **MSS**
-1. User <u>finds all Events (UC:18)</u>.
-2. User requests to log a Contact as attended for an Event.
-3. TC marks the Contact as attended.
+1. User <u>finds all events (UC:18)</u>.
+2. User requests to log a contact as having attended for an event.
+3. TC marks the contact as attended.
 4. TC displays a confirmation message.
 
 **Extensions**
@@ -829,17 +829,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b1. TC displays an error message.
 
       Use case resumes from step 2.
-* 2c. The given Contact has already attended the Event.
+* 2c. The given contact has already attended the event.
     * 2c1. TC displays an error message.
 
       Use case ends.
 
-**Use case 22: Log a Contact as not attended an Event**
+**Use case 22: Log a contact as not having attended an event**
 
 **MSS**
-1. User <u>finds all Events (UC:18)</u>.
-2. User requests to log a Contact as not attended for an Event.
-3. TC marks the Contact as not attended.
+1. User <u>finds all events (UC:18)</u>.
+2. User requests to log a contact as not having attended for an event.
+3. TC marks the contact as not attended.
 4. TC displays a confirmation message.
 
 **Extensions**
@@ -851,16 +851,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b1. TC displays an error message.
 
       Use case resumes from step 2.
-* 2c. The given Contact has not attended the Event.
+* 2c. The given contact is already marked as not having attended the event.
     * 2c1. TC displays an error message.
 
       Use case ends.
 
-**Use case 23: Delete an Event**
+**Use case 23: Delete an event**
 
 **MSS**
-1. User <u>finds all Events (UC:18)</u>.
-2. User requests to delete an Event.
+1. User <u>finds all events (UC:18)</u>.
+2. User requests to delete an event.
 3. TC deletes the task.
 4. TC displays a confirmation message.
 
@@ -898,7 +898,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case 26: Exit the Program**
+**Use case 26: Exit the program**
 
 **MSS**
 1. User requests to exit the program.
@@ -907,7 +907,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case 27: Import Database from a directory**
+**Use case 27: Import database from a directory**
 
 **MSS**
 1. User requests to load database from a directory.
@@ -938,7 +938,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case 28: Export Database to a directory**
+**Use case 28: Export database to a directory**
 
 **MSS**
 1. User requests to export data to a directory.
@@ -995,16 +995,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Contact**: A stored record of a student or tutor, containing relevant details such as name, 
-  id, and class.
+* **Contact**: A stored record of a student or tutor, containing relevant details such as name, ID, and class.
 * **Class**: A group of students assigned to a particular tutor.
 * **Course**: A subject or academic module that multiple classes and students may belong to.
-* **Event**: A scheduled session such as tutorial class, remedial, or consultation that tutors can 
-  create, modify, and assign students to.
+* **Event**: A scheduled session such as tutorial class, remedial, or consultation that tutors can create, modify, and assign students to.
 * **Todo**: A task or action item that can be associated with a student or another tutor, such as grading assignments, scheduling follow-ups, or preparing lesson materials.
-* **Tag**: A specific keyword which can be associated with an arbitrary value, for a specific Contact. 
+* **Tag**: A specific keyword which can be associated with an arbitrary value, for a specific contact. 
 * **Head Tutor**: A tutor responsible for overseeing other tutors.
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
+* **Mainstream OS**: Windows, Linux, Unix, MacOS.
 
 --------------------------------------------------------------------------------------------------------------------
 
