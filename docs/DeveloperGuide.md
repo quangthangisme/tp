@@ -336,170 +336,108 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `TutorConnect (TC)` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case 1: Create a New Todo**
+
+**Use case 1: Add a Contact (Supports Duplicate Names)**
 
 **MSS**
-
-1. User provides input to create a new todo task.
-2. TC creates the task and confirms the creation.
+1. User provides contact details.
+2. TC adds the contact to the contact list.
+3. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-
-* 1a. User provides an empty task name.
-
+* 1a. User inputs a duplicate ID.
     * 1a1. TC displays an error message.
 
-      Use case resumes from step 1.
+      Use case resumes at step 1.
 
-* 1b. A task with the same name already exists.
-
+* 1b. User inputs an empty contact ID.
     * 1b1. TC displays an error message.
 
-      Use case resumes from step 1.
+      Use case resumes at step 1.
 
-**Use case 2: Delete a Todo**
+* 1c. User inputs an empty contact name.
+    * 1c1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 1d. User inputs an empty contact number.
+    * 1d1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 1e. User inputs a contact name with a non-alphabetic character.
+    * 1e1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+**Use case 2: Remove a Contact**
 
 **MSS**
-
-1. User provides input to delete a todo task.
-2. TC deletes the task and confirms the deletion.
+1. User provides an ID.
+2. TC removes the contact from the contact list.
+3. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-
-* 1a. The specified task does not exist.
-
+* 1a. User enters a non-existent ID.
     * 1a1. TC displays an error message.
 
-      Use case resumes from step 1.
+      Use case resumes at step 1.
 
-**Use case 3: Add Contact to Existing Task**
+**Use case 3: Tag a Student for Grouping**
 
 **MSS**
-
-1. User <u>searches for the contact's ID (UC:TBD)</u>.
-2. User provides input to associate a contact with a task.
-3. TC associates the task with the contact and confirms the update.
+1. User provides an ID and tags.
+2. TC updates the contact ID with the provided tags.
+3. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-
-* 2a. User provides an empty task name.
-
-    * 2a1. TC displays an error message.
-
-      Use case resumes from step 2.
-
-* 2b. The specified task does not exist.
-
-    * 2b1. TC displays an error message.
-
-      Use case resumes from step 2.
-
-* 2c. The specified contact does not exist.
-
-    * 2c1. TC displays an error message.
-
-      Use case resumes from step 2.
-
-* 2d. The task is already assigned to the contact.
-
-    * 2d1. TC displays an error message.
-
-      Use case resumes from step 2.
-
-**Use case 4: Remove Contact from Existing Task**
-
-**MSS**
-
-1. User <u>finds all contacts associated with a task (UC:TBD)</u>.
-2. User provides input to remove a contact from a task.
-3. TC removes the association and confirms the update.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. User provides an empty task name.
-
-    * 2a1. TC displays an error message.
-
-      Use case resumes from step 2.
-
-* 2b. The specified task does not exist.
-
-    * 2b1. TC displays an error message.
-
-      Use case resumes from step 2.
-
-* 2c. The specified contact does not exist.
-
-    * 2c1. TC displays an error message.
-
-      Use case resumes from step 2.
-
-* 2d. The task is not assigned to the contact.
-
-    * 2d1. TC displays an error message.
-
-      Use case resumes from step 2.
-
-**Use case 5: Mark a Todo as Done**
-
-**MSS**
-
-1. User provides input to mark a todo as done.
-2. TC marks the task as done and confirms the update.
-
-   Use case ends.
-
-**Extensions**
-
-* 1a. The specified task does not exist.
-
+* 1a. User inputs a non-existent ID.
     * 1a1. TC displays an error message.
 
-      Use case resumes from step 1.
+      Use case resumes at step 1.
 
-**Use case 6: Unmark a Todo as Done**
+* 1b. User inputs an empty contact ID.
+    * 1b1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 1c. User does not enter any tags.
+    * 1c1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+**Use case 4: Remove Tags from a Specific Contact**
 
 **MSS**
-
-1. User provides input to unmark a todo as done.
-2. TC unmarks the task as done and confirms the update.
+1. User inputs an ID and at least one tag to remove.
+2. TC removes the given tags from the given contact ID.
+3. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-
-* 1a. The specified task does not exist.
-
+* 1a. User inputs a non-existent ID.
     * 1a1. TC displays an error message.
 
-      Use case resumes from step 1.
+      Use case resumes at step 1.
 
-**Use case 7: List Full Details of a Specific Todo**
+* 1b. User inputs a tag that is not associated with the contact.
+    * 1b1. TC displays an error message.
 
-**MSS**
+      Use case resumes at step 1.
 
-1. User provides input to list the full details of a specific todo.
-2. TC retrieves the full details of the todo and displays it to the user.
+* 1c. User does not enter any tags.
+    * 1c1. TC displays an error message.
 
-   Use case ends.
+      Use case resumes at step 1.
 
-**Extensions**
-
-* 1a. The specified task does not exist.
-
-    * 1a1. TC displays an error message.
-
-      Use case resumes from step 1.
-
-**Use case 8: Search for Contacts by Some Identifiable Feature**
+**Use case 5: Search for Contacts by Some Identifiable Feature**
 
 **MSS**
 1. User searches for contacts based on specific criteria.
@@ -537,7 +475,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case 9: List all Contacts**
+**Use case 6: List all Contacts**
 
 **MSS**
 1. User requests to view all contacts.
@@ -551,34 +489,170 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case 10: Help**
+**Use case 7: Create a New Todo**
 
 **MSS**
-1. User requests a general help message.
-2. TC displays a general help message listing all features.
+
+1. User provides input to create a new todo task.
+2. TC creates the task and confirms the creation.
 
    Use case ends.
 
 **Extensions**
-* 1a. User requests help on a specific feature.
-    * 1a1. TC displays detailed information about the requested feature.
 
-      Use case ends.
+* 1a. User provides an empty task name.
 
-* 1b. User requests help on an unrecognized feature.
+    * 1a1. TC displays an error message.
+
+      Use case resumes from step 1.
+
+* 1b. A task with the same name already exists.
+
     * 1b1. TC displays an error message.
 
-      Use case resumes at step 2.
+      Use case resumes from step 1.
 
-**Use case 11: Exit the Program**
+**Use case 8: Delete a Todo**
 
 **MSS**
-1. User requests to exit the program.
-2. TC terminates.
+
+1. User provides input to delete a todo task.
+2. TC deletes the task and confirms the deletion.
 
    Use case ends.
 
-**Use case 12: Create an Event**
+**Extensions**
+
+* 1a. The specified task does not exist.
+
+    * 1a1. TC displays an error message.
+
+      Use case resumes from step 1.
+
+**Use case 9: Add Contact to Existing Task**
+
+**MSS**
+
+1. User <u>searches for the contact's ID (UC:TBD)</u>.
+2. User provides input to associate a contact with a task.
+3. TC associates the task with the contact and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. User provides an empty task name.
+
+    * 2a1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+* 2b. The specified task does not exist.
+
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+* 2c. The specified contact does not exist.
+
+    * 2c1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+* 2d. The task is already assigned to the contact.
+
+    * 2d1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+**Use case 10: Remove Contact from Existing Task**
+
+**MSS**
+
+1. User <u>finds all contacts associated with a task (UC:TBD)</u>.
+2. User provides input to remove a contact from a task.
+3. TC removes the association and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. User provides an empty task name.
+
+    * 2a1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+* 2b. The specified task does not exist.
+
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+* 2c. The specified contact does not exist.
+
+    * 2c1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+* 2d. The task is not assigned to the contact.
+
+    * 2d1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+**Use case 11: Mark a Todo as Done**
+
+**MSS**
+
+1. User provides input to mark a todo as done.
+2. TC marks the task as done and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The specified task does not exist.
+
+    * 1a1. TC displays an error message.
+
+      Use case resumes from step 1.
+
+**Use case 12: Unmark a Todo as Done**
+
+**MSS**
+
+1. User provides input to unmark a todo as done.
+2. TC unmarks the task as done and confirms the update.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The specified task does not exist.
+
+    * 1a1. TC displays an error message.
+
+      Use case resumes from step 1.
+
+**Use case 13: List Full Details of a Specific Todo**
+
+**MSS**
+
+1. User provides input to list the full details of a specific todo.
+2. TC retrieves the full details of the todo and displays it to the user.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. The specified task does not exist.
+
+    * 1a1. TC displays an error message.
+
+      Use case resumes from step 1.
+
+**Use case 14: Create an Event**
 
 **MSS**
 1. User requests to create a new event using a valid name.
@@ -592,7 +666,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
-**Use case 13: Delete an Event**
+**Use case 15: Delete an Event**
 
 **MSS**
 1. User <u>retrieves full information of an event (UC:15)</u>.
@@ -613,7 +687,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 2.
 
 
-**Use case 14: List all Events**
+**Use case 16: List all Events**
 
 **MSS**
 1. User requests to see all events.
@@ -627,7 +701,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case 15: Retrieve Full Information of an Event**
+**Use case 17: Retrieve Full Information of an Event**
 
 **MSS**
 1. User requests to see full information of an event using a valid name.
@@ -647,7 +721,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case resumes at step 1.
 
 
-**Use case 16: Log Contact as Having Attended an Event**
+**Use case 18: Log Contact as Having Attended an Event**
 
 **MSS**
 1. User <u>retrieves full information of an event (UC:15)</u>.
@@ -677,105 +751,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 3.
 
-**Use case 17: Add a Contact (Supports Duplicate Names)**
+**Use case 19: Help**
 
 **MSS**
-1. User provides contact details.
-2. TC adds the contact to the contact list.
-3. TC displays a confirmation message.
+1. User requests a general help message.
+2. TC displays a general help message listing all features.
 
    Use case ends.
 
 **Extensions**
-* 1a. User inputs a duplicate ID.
-    * 1a1. TC displays an error message.
+* 1a. User requests help on a specific feature.
+    * 1a1. TC displays detailed information about the requested feature.
 
-      Use case resumes at step 1.
+      Use case ends.
 
-* 1b. User inputs an empty contact ID.
+* 1b. User requests help on an unrecognized feature.
     * 1b1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
-* 1c. User inputs an empty contact name.
-    * 1c1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 1d. User inputs an empty contact number.
-    * 1d1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 1e. User inputs a contact name with a non-alphabetic character.
-    * 1e1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-**Use case 18: Remove a Contact**
+**Use case 20: Exit the Program**
 
 **MSS**
-1. User provides an ID.
-2. TC removes the contact from the contact list.
-3. TC displays a confirmation message.
+1. User requests to exit the program.
+2. TC terminates.
 
    Use case ends.
-
-**Extensions**
-* 1a. User enters a non-existent ID.
-    * 1a1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-**Use case 19: Tag a Student for Grouping**
-
-**MSS**
-1. User provides an ID and tags.
-2. TC updates the contact ID with the provided tags.
-3. TC displays a confirmation message.
-
-   Use case ends.
-
-**Extensions**
-* 1a. User inputs a non-existent ID.
-    * 1a1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 1b. User inputs an empty contact ID.
-    * 1b1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 1c. User does not enter any tags.
-    * 1c1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-**Use case 20: Remove Tags from a Specific Contact**
-
-**MSS**
-1. User inputs an ID and at least one tag to remove.
-2. TC removes the given tags from the given contact ID.
-3. TC displays a confirmation message.
-
-   Use case ends.
-
-**Extensions**
-* 1a. User inputs a non-existent ID.
-    * 1a1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 1b. User inputs a tag that is not associated with the contact.
-    * 1b1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 1c. User does not enter any tags.
-    * 1c1. TC displays an error message.
-
-      Use case resumes at step 1.
 
 ### Non-Functional Requirements
 
