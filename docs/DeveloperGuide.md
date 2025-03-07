@@ -691,8 +691,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User enters load database command with file path.
-2. TC loads and populates the data (contacts, events, and relationships).
+1. User requests to load database from a file path.
+2. TC loads and populates the data (contacts, events, etc.).
 3. TC displays the successful loading message.
 
    Use case ends.
@@ -726,7 +726,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User enters export command with directory path.
+1. User requests to export data as a .json file to a file path.
 2. TC creates a timestamped directory within the specified path.
 3. TC copies current database into timestamped directory.
 4. TC displays success message.
