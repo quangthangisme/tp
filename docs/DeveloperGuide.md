@@ -1001,8 +1001,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * **Course**: A subject or academic module that multiple classes and students may belong to.
 * **Event**: A scheduled session such as tutorial class, remedial, or consultation that tutors can 
   create, modify, and assign students to.
-* **To-do**: A task or action item that can be associated with a student or another tutor, such as 
-  grading assignments, scheduling follow-ups, or preparing lesson materials.
+* **Todo**: A task or action item that can be associated with a student or another tutor, such as grading assignments, scheduling follow-ups, or preparing lesson materials.
+* **Tag**: A specific keyword which can be associated with an arbitrary value, for a specific Contact. 
 * **Head Tutor**: A tutor responsible for overseeing other tutors.
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 
