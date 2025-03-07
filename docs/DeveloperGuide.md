@@ -687,21 +687,20 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       
       Use case resumes at step 3.
 
-**Use case: Import Data from file path**
+**Use case 21: Import Data from file path**
 
 **MSS**
 
 1. User enters load database command with file path.
-2. TC creates a temporary working database file by copying the selected database.
-3. TC loads and populates the data (contacts, events, and relationships) from the temporary file.
-4. TC displays the successful loading message.
+2. TC loads and populates the data (contacts, events, and relationships).
+3. TC displays the successful loading message.
 
    Use case ends.
 
 **Extensions**
 
 * 1a. Selected database file does not exist.
-    * 1a1. TC displays error message: `"Selected database not found at location."`
+    * 1a1. TC displays error message.
     * 1a2. TC prompts to create new database or cancel.
     * 1a3. User chooses to create new database.
     * 1a4. TC creates new empty database file.
@@ -713,7 +712,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 * 1b. Selected database file is corrupted or in wrong format.
-    * 1b1. TC displays an error message: `"Database file is corrupted. Creating backup at <backup_path>."`
+    * 1b1. TC displays an error message.
     * 1b2. TC creates a backup of the corrupted file.
     * 1b3. TC prompts to create new database or cancel.
     * 1b4. User chooses to create new database.
@@ -724,46 +723,41 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-* 2a. Unable to create temporary database file.
-    * 2a1. TC displays an error message: `"Could not create temporary working file. Please check disk permissions and space."`
+* 2a. Some data entries are invalid or corrupted.
+    * 2a1. TC skips the invalid entries and logs them in a logfile.
+    * 2a2. TC displays a warning message.
+    * 2a3. TC continues loading valid entries.
 
-      Use case ends.
+      Use case resumes at step 3.
 
-* 3a. Some data entries are invalid or corrupted.
-    * 3a1. TC skips the invalid entries and logs them in a logfile.
-    * 3a2. TC displays a warning message: `"Some entries were invalid and have been skipped. Please check the log file for details."`
-    * 3a3. TC continues loading valid entries.
+* 2b. TC encounters duplicate entries.
+    * 2b1. TC keeps the existing entries and logs the duplicates in a logfile.
+    * 2b2. TC displays a warning message.
 
-      Use case resumes at step 4.
+      Use case resumes at step 3.
 
-* 3b. TC encounters duplicate entries.
-    * 3b1. TC keeps the existing entries and logs the duplicates in a logfile.
-    * 3b2. TC displays a warning message: `"Duplicate entries found. Original entries preserved."`
-
-      Use case resumes at step 4.
-
-**Use case: Export Database to Directory**
+**Use case 22: Export Database to Directory**
 
 **MSS**
 
 1. User enters export command with directory path.
 2. TC creates a timestamped directory within the specified path.
 3. TC copies current database into timestamped directory.
-4. TC displays success message: `"Exported to <pathname> successfully!"`
+4. TC displays success message.
 
    Use case ends.
 
 **Extensions**
 
 * 1a. Directory path is empty.
-    * 1a1. TC displays an error message: `"Directory path cannot be empty."`
+    * 1a1. TC displays an error message.
     * 1a2. TC prompts user to enter a new directory path.
     * 1a3. User enters new path.
 
       Use case resumes at step 2.
 
 * 1b. Directory path contains invalid characters.
-    * 1b1. TC displays an error message: `"Invalid pathname! Directory path contains invalid characters."`
+    * 1b1. TC displays an error message.
     * 1b2. TC prompts user to enter a new directory path.
     * 1b3. User enters new path.
 
@@ -772,14 +766,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 1c. Directory does not exist.
     * 1c1. TC attempts to create the directory.
     * 1c2. If creation fails:
-        * TC displays an error message: `"Cannot create directory at specified path."`
+        * TC displays an error message.
         * TC prompts user to enter a new directory path.
         * User enters new path.
 
           Use case resumes at step 2.
 
 * 2a. User lacks write permissions.
-    * 2a1. TC displays an error message: `"No write access to specified directory. Please check permissions."`
+    * 2a1. TC displays an error message.
     * 2a2. TC prompts user to enter a new directory path.
     * 2a3. User enters new path.
 
@@ -788,17 +782,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2b. Cannot create timestamped directory.
     * 2b1. TC attempts to use alternative naming.
     * 2b2. If alternative naming fails:
-        * TC displays an error message: `"Cannot create export directory. Please try a different location."`
+        * TC displays an error message.
 
       Use case ends.
 
 * 3a. Insufficient disk space.
-    * 3a1. TC displays an error message: `"Insufficient disk space at specified location."`
+    * 3a1. TC displays an error message.
 
       Use case ends.
 
 * 3b. Error during data export.
-    * 3b1. TC displays an error message: `"Error occurred while exporting data."`
+    * 3b1. TC displays an error message.
     * 3b2. TC removes partially exported files.
     * 3b3. TC logs the export error details.
 
