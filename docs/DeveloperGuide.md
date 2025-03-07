@@ -349,13 +349,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. User provides an empty task name.
 
-    * 1a1. TC displays an error message: `"Task name cannot be empty."`
+    * 1a1. TC displays an error message.
 
       Use case resumes from step 1.
 
 * 1b. A task with the same name already exists.
 
-    * 1b1. TC displays an error message: `"Task <name> already exists."`
+    * 1b1. TC displays an error message.
 
       Use case resumes from step 1.
 
@@ -372,7 +372,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The specified task does not exist.
 
-    * 1a1. TC displays an error message: `"Task <name> not found."`
+    * 1a1. TC displays an error message.
 
       Use case resumes from step 1.
 
@@ -390,25 +390,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. User provides an empty task name.
 
-    * 2a1. TC displays an error message: `"Task name cannot be empty."`
+    * 2a1. TC displays an error message.
 
       Use case resumes from step 2.
 
 * 2b. The specified task does not exist.
 
-    * 2b1. TC displays an error message: `"Task <name> not found."`
+    * 2b1. TC displays an error message.
 
       Use case resumes from step 2.
 
 * 2c. The specified contact does not exist.
 
-    * 2c1. TC displays an error message: `"Contact <contact_id> not found."`
+    * 2c1. TC displays an error message.
 
       Use case resumes from step 2.
 
 * 2d. The task is already assigned to the contact.
 
-    * 2d1. TC displays an error message: `"Task <name> already exists for <contact_id>."`
+    * 2d1. TC displays an error message.
 
       Use case resumes from step 2.
 
@@ -426,25 +426,25 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 2a. User provides an empty task name.
 
-    * 2a1. TC displays an error message: `"Task name cannot be empty."`
+    * 2a1. TC displays an error message.
 
       Use case resumes from step 2.
 
 * 2b. The specified task does not exist.
 
-    * 2b1. TC displays an error message: `"Task <name> not found."`
+    * 2b1. TC displays an error message.
 
       Use case resumes from step 2.
 
 * 2c. The specified contact does not exist.
 
-    * 2c1. TC displays an error message: `"Contact <contact_id> not found."`
+    * 2c1. TC displays an error message.
 
       Use case resumes from step 2.
 
 * 2d. The task is not assigned to the contact.
 
-    * 2d1. TC displays an error message: `"Task <name> is not assigned to <contact_id>."`
+    * 2d1. TC displays an error message.
 
       Use case resumes from step 2.
 
@@ -461,7 +461,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The specified task does not exist.
 
-    * 1a1. TC displays an error message: `"Task <name> not found."`
+    * 1a1. TC displays an error message.
 
       Use case resumes from step 1.
 
@@ -478,7 +478,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The specified task does not exist.
 
-    * 1a1. TC displays an error message: `"Task <name> not found."`
+    * 1a1. TC displays an error message.
 
       Use case resumes from step 1.
 
@@ -495,7 +495,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 1a. The specified task does not exist.
 
-    * 1a1. TC displays an error message: `"Task <name> not found."`
+    * 1a1. TC displays an error message.
 
       Use case resumes from step 1.
 
@@ -503,33 +503,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 1. User searches for contacts based on specific criteria.
-2. TC displays the matching results along with the message: `"n results found."`
+2. TC displays the matching results along with the number of results.
 
    Use case ends.
 
 **Extensions**
 * 1a. The criteria include multiple filters on the same column.
-    * 1a1. TC displays the error message: `"Duplicate column: <col>."`
+    * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
 
 * 1b. The criteria include a filter on an unrecognized column.
-    * 1b1. TC displays the error message: `"Unrecognized column: <unknown>."`
-
+    * 1b1. TC displays an error message.
       Use case resumes at step 1.
 
 * 1c. The criteria include a filter with an unrecognized logical operator.
-    * 1c1. TC displays the error message: `"Unrecognized operator: <unknown>."`
+    * 1c1. TC displays an error message.
 
       Use case resumes at step 1.
 
 * 1d. The criteria include a filter without specified values.
-    * 1d1. TC displays the error message: `"No values specified for column <col>."`
+    * 1d1. TC displays an error message.
 
       Use case resumes at step 1.
 
 * 1e. The criteria contain no filters.
-    * 1e1. TC displays the error message: `"Specify at least one column and value."`
+    * 1e1. TC displays an error message.
 
       Use case resumes at step 1.
 
@@ -548,7 +547,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 * 2a. No contacts exist in the system.
-    * 2a1. TC displays: `"No contacts found. Add a contact to get started."`
+    * 2a1. TC displays an error message.
 
       Use case ends.
 
@@ -567,35 +566,29 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       Use case ends.
 
 * 1b. User requests help on an unrecognized feature.
-    * 1b1. TC displays the error message: `"Feature <unknown> not recognized."`
+    * 1b1. TC displays an error message.
 
       Use case resumes at step 2.
 
 **Use case 11: Exit the Program**
 
 **MSS**
-1. User enters the `exit` command.
+1. User requests to exit the program.
 2. TC terminates.
 
    Use case ends.
-
-**Extensions**
-* 1a. User enters an alias for `exit` (e.g., `bye`, `quit`, `kill`).
-    * 1a1. TC recognizes the alias and terminates.
-
-      Use case ends.
 
 **Use case 12: Create an Event**
 
 **MSS**
 1. User requests to create a new event using a valid name.
-2. TC adds the event to the list and displays the message `"Successfully created event <event_name>."`
+2. TC adds the event to the list and displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
 * 1a. User inputs an empty event name.
-    * 1a1. TC displays the error message: `"Event name cannot be empty!!!"`.
+    * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
 
@@ -604,18 +597,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 1. User <u>retrieves full information of an event (UC:15)</u>.
 2. User requests to remove the event from the list.
-3. TC removes the event from the list and displays the message `"Successfully removed event <event_name>."`
+3. TC removes the event from the list and displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
 * 2a. User inputs an empty event name.
-    * 2a1. TC displays the error message: `"Event name cannot be empty!!!"`
+    * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
 
 * 2b. User inputs a non-existent event name.
-    * 2b1. TC displays the error message: `"Sorry!!! We could not find <event_name> in the event list."`
+    * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
 
@@ -630,7 +623,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 * 2a. No events exist in the system.
-    * 2a1. TC displays: `"No events found."`
+    * 2a1. TC displays a message notifying the user.
 
       Use case ends.
 
@@ -644,12 +637,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 * 1a. User inputs an empty event name.
-    * 1a1. TC displays the error message: `"Event name cannot be empty!!!"`
+    * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
 
 * 1b. User inputs a non-existent event name.
-    * 1b1. TC displays the error message: `"Sorry!!! We could not find <event_name> in the event list."`
+    * 1b1. TC displays an error message.
 
       Use case resumes at step 1.
 
@@ -660,28 +653,27 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1. User <u>retrieves full information of an event (UC:15)</u>.
 2. User <u>searches for contacts' IDs (UC:TBD)</u>.
 3. User requests to mark those contacts as having attended the event.
-4. TC marks contacts as attending the event and displays the message `"Successfully marked <id_1>, <id_2>,... as having attended event <event name>."`
-
+4. TC marks contacts as attending the event and displays a confirmation message.
    Use case ends.
 
 **Extensions**
 * 3a. User inputs an empty event name.
-    * 3a1. TC displays the error message: `"Event name cannot be empty!!!"`
+    * 3a1. TC displays an error message.
 
       Use case resumes at step 3.
 
 * 3b. User inputs a non-existent event name.
-    * 3b1. TC displays the error message: `"Sorry!!! we could not find <event_name> in the event list."`
+    * 3b1. TC displays an error message.
 
       Use case resumes at step 3.
 
-* 3c. User inputs all empty contact ids.
-    * 3c1. TC displays the error message: `"There must be at least 1 contact!!!".`
+* 3c. User inputs all empty contact IDs.
+    * 3c1. TC displays an error message.
 
       Use case resumes at step 3.
 
-* 3d. User enters a non-existent contact id.
-    * 3d1. TC displays the error message: `"Sorry, we could not find <id> in the contact list."`
+* 3d. User enters a non-existent contact ID.
+    * 3d1. TC displays an error message.
       
       Use case resumes at step 3.
 
