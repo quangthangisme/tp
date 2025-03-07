@@ -780,7 +780,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case 21: Import Data from a file path**
+**Use case 21: Import Data from a File Path**
 
 **MSS**
 
@@ -819,7 +819,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User requests to export data as a .json file to a file path.
+1. User requests to export data as a `.json` file to a file path.
 2. TC creates a timestamped directory within the specified path.
 3. TC copies current database into timestamped directory.
 4. TC displays success message.
@@ -846,12 +846,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. User lacks write permissions.
     * 2a1. TC displays an error message.
 
-  Use case ends.
+      Use case ends.
 
 * 2b. Cannot create timestamped directory.
     * 2b1. TC attempts to use alternative naming.
-    * 2b2. If alternative naming fails:
-        * TC displays an error message.
+    * 2b2. If alternative naming fails, TC displays an error message.
 
       Use case ends.
 
