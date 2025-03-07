@@ -514,166 +514,182 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
-**Use case 7: Create a New Todo**
+**Use case 8: Create a Todo**
 
 **MSS**
-
-1. User provides input to create a new todo task.
-2. TC creates the task and confirms the creation.
+1. User requests to create a todo and provides a name.
+2. TC creates the Todo.
+3. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-
-* 1a. User provides an empty task name.
-
+* 1a. The given name is empty.
     * 1a1. TC displays an error message.
 
       Use case resumes from step 1.
-
-* 1b. A task with the same name already exists.
-
+* 1b. A Todo with the same name already exists.
     * 1b1. TC displays an error message.
 
       Use case resumes from step 1.
 
-**Use case 8: Delete a Todo**
+**Use case 9: List full information of a Todo**
 
 **MSS**
-
-1. User provides input to delete a todo task.
-2. TC deletes the task and confirms the deletion.
+1. User requests to see full information of a todo.
+2. TC displays full information of the todo.
 
    Use case ends.
 
 **Extensions**
-
-* 1a. The specified task does not exist.
-
-    * 1a1. TC displays an error message.
-
-      Use case resumes from step 1.
-
-**Use case 9: Add Contact to Existing Task**
-
-**MSS**
-
-1. User <u>searches for the contact's ID (UC:5)</u>.
-2. User provides input to associate a contact with a task.
-3. TC associates the task with the contact and confirms the update.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. User provides an empty task name.
-
+* 2a. The given name is invalid.
     * 2a1. TC displays an error message.
 
-      Use case resumes from step 2.
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
 
-* 2b. The specified task does not exist.
+      Use case resumes at step 2.
 
+**Use case 10: List all Todos**
+
+**MSS**
+1. User requests to view all Todos.
+2. TC displays all Todos.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The Todo list is empty.
+    * 2a1. TC displays an error message.
+
+      Use case ends.
+
+**Use case 11: Add a Contact to a Todo**
+
+**MSS**
+1. User <u>searches for the contact's information (UC:4)</u>.
+2. User requests to add the contact to a Todo by ID.
+3. TC associates the Contact with the Todo.
+4. TC displays a confirmation message.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+        Use case resumes at step 2.
+* 2b. The given name is empty.
     * 2b1. TC displays an error message.
 
       Use case resumes from step 2.
-
-* 2c. The specified contact does not exist.
-
+* 2c. The given ID is invalid.
     * 2c1. TC displays an error message.
 
-      Use case resumes from step 2.
-
-* 2d. The task is already assigned to the contact.
-
+      Use case resumes at step 2.
+* 2d. The given ID is empty.
     * 2d1. TC displays an error message.
 
+      Use case resumes at step 2.
+* 2e. The Contact is already assigned to the Todo.
+    * 2e1. TC displays an error message.
+
       Use case resumes from step 2.
 
-**Use case 10: Remove Contact from Existing Task**
+**Use case 12: Remove a Contact from a Todo**
 
 **MSS**
-
-1. User <u>finds all contacts associated with a task (UC:13)</u>.
-2. User provides input to remove a contact from a task.
-3. TC removes the association and confirms the update.
+1. User <u>finds all Contacts associated with a Todo (UC:9)</u>.
+2. User requests to remove a contact from a Todo by ID.
+3. TC removes the association.
+4. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-
-* 2a. User provides an empty task name.
-
+* 2a. The given name is invalid.
     * 2a1. TC displays an error message.
 
-      Use case resumes from step 2.
-
-* 2b. The specified task does not exist.
-
+      Use case resumes at step 2.
+* 2b. The given name is empty.
     * 2b1. TC displays an error message.
 
       Use case resumes from step 2.
-
-* 2c. The specified contact does not exist.
-
+* 2c. The given ID is invalid.
     * 2c1. TC displays an error message.
 
-      Use case resumes from step 2.
-
-* 2d. The task is not assigned to the contact.
-
+      Use case resumes at step 2.
+* 2d. The given ID is empty.
     * 2d1. TC displays an error message.
 
+      Use case resumes at step 2.
+* 2e. The Contact is not assigned to the Todo.
+    * 2e1. TC displays an error message.
+
       Use case resumes from step 2.
 
-**Use case 11: Mark a Todo as Done**
+**Use case 13: Mark a Todo as completed**
 
 **MSS**
+1. User <u>finds all Todos (UC:10)</u>.
+2. User requests to mark a Todo as completed.
+3. TC marks the Todo as completed.
+4. TC displays a confirmation message.
 
-1. User provides input to mark a todo as done.
-2. TC marks the task as done and confirms the update.
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The Todo is already completed.
+    * 2c1. TC displays an error message.
+
+      Use case ends.
+
+**Use case 14: Mark a Todo as not completed**
+
+**MSS**
+1. User <u>finds all Todos (UC:10)</u>.
+2. User requests to mark a Todo as not completed.
+3. TC marks the Todo as not completed.
+4. TC displays a confirmation message.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The Todo is not completed.
+    * 2c1. TC displays an error message.
+
+        Use case ends.
+
+**Use case 15: Delete a Todo**
+
+**MSS**
+1. User <u>finds all Todos (UC:10)</u>.
+2. User requests to delete a Todo.
+3. TC deletes the task.
+4. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
 
-* 1a. The specified task does not exist.
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
 
-    * 1a1. TC displays an error message.
-
-      Use case resumes from step 1.
-
-**Use case 12: Unmark a Todo as Done**
-
-**MSS**
-
-1. User provides input to unmark a todo as done.
-2. TC unmarks the task as done and confirms the update.
-
-   Use case ends.
-
-**Extensions**
-
-* 1a. The specified task does not exist.
-
-    * 1a1. TC displays an error message.
-
-      Use case resumes from step 1.
-
-**Use case 13: List Full Details of a Specific Todo**
-
-**MSS**
-
-1. User provides input to list the full details of a specific todo.
-2. TC retrieves the full details of the todo and displays it to the user.
-
-   Use case ends.
-
-**Extensions**
-
-* 1a. The specified task does not exist.
-
-    * 1a1. TC displays an error message.
+      Use case resumes from step 2.
 
       Use case resumes from step 1.
 
