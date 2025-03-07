@@ -687,86 +687,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       
       Use case resumes at step 3.
 
-**Use case: Add Database Location**
+**Use case: Import Data from file path**
 
 **MSS**
 
-1. User enters add database command with file path.
-2. TC adds database location to configuration.
-3. TC displays success message: `"Database location added successfully!"`
-
-   Use case ends.
-
-**Extensions**
-* 1a. File path is empty.
-    * 1a1. TC displays an error message: `"Database path cannot be empty."`
-    * 1a2. TC prompts user to enter a new database path.
-    * 1a3. User enters new path.
-
-      Use case resumes at step 2.
-
-* 1b. File path contains invalid characters.
-    * 1b1. TC displays an error message: `"Invalid pathname! Database path contains invalid characters."`
-    * 1b2. TC prompts user to enter a new database path.
-    * 1b3. User enters new path.
-
-      Use case resumes at step 2.
-
-* 1c. File path does not end with .json extension.
-    * 1c1. TC displays an error message: `"Invalid file format. Database path must end with .json"`
-    * 1c2. TC prompts user to enter a new database path.
-    * 1c3. User enters new path.
-
-      Use case resumes at step 2.
-
-* 1d. Database path already exists in configuration.
-    * 1d1. TC displays an error message: `"Database location already exists in configuration."`
-
-      Use case ends.
-
-* 2a. Unable to update configuration.
-    * 2a1. TC displays an error message: `"Failed to update configuration file."`
-    * 2a2. TC reverts any changes made.
-
-      Use case ends.
-
-**Use case: Remove Database Location**
-
-**MSS**
-
-1. User enters remove database command with file path.
-2. TC removes database location from configuration.
-3. TC displays success message: `"Database location removed successfully!"`
-
-   Use case ends.
-
-**Extensions**
-
-* 1a. Database path not found in configuration.
-    * 1a1. TC displays an error message: `"Database location not found in configuration."`
-    * 1a2. TC prompts user to enter a new database path.
-    * 1a3. User enters new path.
-
-      Use case resumes at step 2.
-
-* 1b. Database is currently in use.
-    * 1b1. TC displays warning message: `"Database is currently in use."`
-    * 1b2. TC prompts user to confirm removal.
-    * 1b3. User confirms removal.
-
-      Use case resumes at step 3.
-
-* 2a. Unable to update configuration.
-    * 2a1. TC displays an error message: `"Failed to update configuration file."`
-    * 2a2. TC reverts any changes made.
-
-      Use case ends.
-
-**Use case: Load Data from Database**
-
-**MSS**
-
-1. User selects a database to load.
+1. User enters load database command with file path.
 2. TC creates a temporary working database file by copying the selected database.
 3. TC loads and populates the data (contacts, events, and relationships) from the temporary file.
 4. TC displays the successful loading message.
