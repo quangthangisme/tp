@@ -334,150 +334,59 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `TutorConnect (TC)` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TutorConnect (TC)` and the **Actor** is the `User`, unless specified otherwise)
 
-**Use case 1: Add a Contact (Supports Duplicate Names)**
+**Use case 1: Create a Contact**
 
 **MSS**
-1. User provides contact details.
-2. TC adds the contact to the contact list.
+1. User requests to create a new contact and provides contact details.
+2. TC creates a new contact and adds it to the contact list.
 3. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 1a. User inputs a duplicate ID.
+* 1a. The given contact ID is a duplicate.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
-
-* 1b. User inputs an empty contact ID.
+* 1b. The given contact ID is empty.
     * 1b1. TC displays an error message.
 
       Use case resumes at step 1.
-
-* 1c. User inputs an empty contact name.
+* 1c. The given contact name is empty.
     * 1c1. TC displays an error message.
 
       Use case resumes at step 1.
-
-* 1d. User inputs an empty contact number.
+* 1d. The given contact number is empty.
     * 1d1. TC displays an error message.
 
       Use case resumes at step 1.
-
-* 1e. User inputs a contact name with a non-alphabetic character.
+* 1e. The given contact name contains a non-alphabetic character.
     * 1e1. TC displays an error message.
 
       Use case resumes at step 1.
 
-**Use case 2: Remove a Contact**
+**Use case 2: List full information of a Contact**
 
 **MSS**
-1. User <u>searches for the contact's ID (UC:5)</u>.
-2. User requests to remove a contact using the ID.
-3. TC removes the contact from the contact list.
-4. TC displays a confirmation message.
+1. User <u>searches for the contact's information (UC:4)</u>.
+2. User requests to retrieve full information of a contact by ID.
+3. TC displays full information of the contact.
 
    Use case ends.
 
 **Extensions**
-* 2a. User enters a non-existent ID.
+* 2a. The given contact ID does not exist.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-
-**Use case 3: Tag a Contact for Grouping**
-
-**MSS**
-1. User <u>searches for the contact's information (UC:5)</u>.
-2. User requests to add a tag to the contact using the contact's ID.
-3. TC updates the contact ID with the provided tags.
-4. TC displays a confirmation message.
-
-   Use case ends.
-
-**Extensions**
-* 2a. User inputs a non-existent ID.
-    * 2a1. TC displays an error message.
-
-      Use case resumes at step 2.
-
-* 2b. User inputs an empty contact ID.
+* 2b. The given contact ID is empty.
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
 
-* 2c. User does not enter any tags.
-    * 2c1. TC displays an error message.
-
-      Use case resumes at step 2.
-
-**Use case 4: Remove Tags from a Contact**
-
-**MSS**
-1. User <u>searches for the contact's information (UC:5)</u>.
-2. User requests to remove a tag from the contact using the contact's ID.
-3. TC removes the specified tags from the contact.
-4. TC displays a confirmation message.
-
-   Use case ends.
-
-**Extensions**
-* 2a. User inputs a non-existent ID.
-    * 2a1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 2b. User inputs a tag that is not associated with the contact.
-    * b1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 2c. User does not enter any tags.
-    * 2c1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-**Use case 5: Search for Contacts by Some Identifiable Feature**
-
-**MSS**
-1. User searches for contacts based on specific criteria.
-2. TC displays the matching results along with the number of results.
-
-   Use case ends.
-
-**Extensions**
-* 1a. The criteria include multiple filters on the same column.
-    * 1a1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 1b. The criteria include a filter on an unrecognized column.
-    * 1b1. TC displays an error message.
-      Use case resumes at step 1.
-
-* 1c. The criteria include a filter with an unrecognized logical operator.
-    * 1c1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 1d. The criteria include a filter without specified values.
-    * 1d1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 1e. The criteria contain no filters.
-    * 1e1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 1f. The criteria include a filter with multiple logical operators.
-    * 1f1. TC applies only the first operator and treats the next ones as values.
-
-      Use case resumes at step 2.
-
-**Use case 6: List all Contacts**
+**Use case 3: List all Contacts**
 
 **MSS**
 1. User requests to view all contacts.
@@ -486,10 +395,124 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 2a. No contacts exist in the system.
+* 2a. The contact list is empty.
     * 2a1. TC displays an error message.
 
       Use case ends.
+
+**Use case 4: Filter all Contacts using some identifiable feature**
+
+**MSS**
+1. User requests to filter all contacts using some specific criteria.
+2. TC displays the matching contacts along with the number of results.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The criteria include multiple filters on the same column.
+    * 1a1. TC displays an error message.
+
+      Use case resumes at step 1.
+* 1b. The criteria include a filter on an unrecognized column.
+    * 1b1. TC displays an error message.
+
+      Use case resumes at step 1.
+* 1c. The criteria include a filter with an unrecognized logical operator.
+    * 1c1. TC displays an error message.
+
+      Use case resumes at step 1.
+* 1d. The criteria include a filter without specified values.
+    * 1d1. TC displays an error message.
+
+      Use case resumes at step 1.
+* 1e. The criteria contain no filters.
+    * 1e1. TC displays an error message.
+
+      Use case resumes at step 1.
+* 1f. The criteria include a filter with multiple logical operators.
+    * 1f1. TC applies only the first operator and treats the next ones as values.
+
+      Use case resumes at step 2.
+* 2a. No contacts match the criteria.
+    * 2a1. TC displays an error message.
+
+      Use case ends.
+
+**Use case 5: Add a Tag to a Contact**
+
+**MSS**
+1. User <u>searches for the contact's information (UC:4)</u>.
+2. User requests to add a tag to the contact by ID.
+3. TC updates the Contact with the provided tag.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given contact ID does not exist.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given contact ID is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2c. The given tag is empty.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2d. The given tag is unsupported.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 6: Remove a Tag from a Contact**
+
+**MSS**
+1. User <u>searches for the contact's information (UC:4)</u>.
+2. User requests to remove a tag from the contact by ID.
+3. TC updates the Contact by removing the provided tag.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given ID is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given ID is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2c. The given tags are empty.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2d. The given tag is unsupported.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 7: Remove a Contact**
+
+**MSS**
+1. User <u>searches for the contact's information (UC:4)</u>.
+2. User requests to remove the contact by ID.
+3. TC removes the contact from the system.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given ID is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given ID is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
 
 **Use case 7: Create a New Todo**
 
