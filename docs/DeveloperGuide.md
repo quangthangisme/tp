@@ -690,104 +690,102 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 17: Add a contact (Supports duplicate names)**
 
 **MSS**
-1. Add a contact with a given ID, name and number.
-2. TC validates the given unique ID and name.
-3. TC adds student/teacher's contact together the unique ID.
-4. TC displays the message `"Successfully added <name> with contact (<number>) (ID:<ID>)"`.
+1. User provides contact details.
+2. TC adds the contact to the contact list.
+3. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
 * 2a. User inputs a duplicate ID.
-    * 2a1. TC displays the error message: `"Sorry, The ID provided already exists, assign a new ID"`.
+    * 2a1. TC displays an error message.
 
-      Use case ends.
+      Use case resumes at step 1.
 
 * 2b. User inputs an empty contact ID:
-    * 2b1. TC displays the error message: `"Sorry, The contact ID cannot be empty"`.
+    * 2b1. TC displays an error message.
 
-      Use case ends.
+      Use case resumes at step 1.
 
 * 2c. User inputs an empty contact name.
-    * 2c1. TC displays the error message: `"Sorry, The contact name cannot be empty"`.
+    * 2c1. TC displays an error message.
     
-      Use case ends.
+      Use case resumes at step 1.
 
 * 2d. User inputs an empty contact number.
-    * 2d1. TC displays the error message: `"Sorry, The contact number cannot be empty"`.
+    * 2d1. TC displays an error message.
     
-      Use case ends.
+      Use case resumes at step 1.
 
 * 2e. User inputs a contact name that does not contain alphabets:
-    * 2e1. TC displays the error message: `"Sorry, The contact name does not contain alphabets."`.
+    * 2e1. TC displays an error message.
   
-      Use case ends.
+      Use case resumes at step 1.
 
 **Use case 18: Remove students/tutors from contacts**
 
 **MSS**
-1. Finds the contact with the given ID.
-2. TC removes the contact from the list of contacts.
-3. TC displays the message `"Successfully removed the contact of <name> (<contact>)(ID:<ID>)"`.
+1. User provides an ID.
+2. TC removes the contact from the contact list.
+3. TC displays a message for succesful operation.
 
    Use case ends.
 
 **Extensions**
 * 1a. User enters a ID that is not present in the contact list.
-    * 1a1. TC displays the error message: `"The given ID (<ID>) cannot be found"`.
+    * 1a1. TC displays an error message.
 
-      Use case ends.
+      Use case resumes at step 1.
 
 **Use case 19: Tagging each student for grouping**
 
 **MSS**
-1. User inputs an ID and a class and course for it to be tagged.
-2. TC finds the contact from the list.
-3. TC updates the contact with the given ID with the provided class and course.
-4. TC displays the message `"Sucessfully tagged <name>(<ID>) with the following tags: <tag_1>, ..., <tag_k>"`.
+1. User provides an ID and tags.
+2. TC updates the contact ID with the provided tags.
+3. TC displays a message for successful operation.
     
    Use case ends.
 
 **Extensions**
 * 2a. User inputs an ID that is not found in the contact list.
-    * 2a1. TC displays the error message: `"The given ID(<ID>) cannot be found"`.
+    * 2a1. TC displays an error message.
 
-      Use case ends.
+      Use case resumes at step 1.
 
 * 2b. User inputs an empty contact ID.
-    * 2b1. TC displays the error message: `"Sorry, the contact ID cannot be empty"`.
+    * 2b1. TC displays an error message.
 
-      Use case ends.
+      Use case resumes at step 1.
 
 * 2c. User inputs an empty tag.
-    * 2c1. TC displays the error message: `"Sorry, tags for a contact cannot be empty"`.
+    * 2c1. TC displays an error message.
     
-      Use case ends.
+      Use case resumes at step 1.
 
 **Use case 20: Removing tags for a specific contact**
 
 **MSS**
 1. User inputs an ID and at least one tags to remove.
 2. TC removes the given tags on the given contact ID.
-3. TC displays the message `"Successfully remove the following tags from <name>(<ID>): <tag_1>, ..., <tag_k>"`
+3. TC displays a message upon a successful operation.
 
    Use case ends.
   
 **Extensions**
 * 2a. User inputs an ID that is not found in the contact list.
-    * 2a1. TC displays the error message: `"The given ID(<ID>) cannot be found"`.
+    * 2a1. TC displays an error message.
 
-      Use case ends.
+      Use case resumes at step 1.
 
 * 2b. User inputs a tag that does not exist for the contact.
-    * 2b1. TC displays the error message: `"The following tags are unable to "`.
+    * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
 
 * 2c. User inputs a empty tag:
-    * 2c1. TC displays the error message: `"Sorry, tags for a contact cannot be empty"`.
+    * 2c1. TC displays an error message.
 
-      Use case ends.
+      Use case resumes at step 1.
 
 ### Non-Functional Requirements
 
