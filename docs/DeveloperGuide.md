@@ -687,6 +687,106 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
       
       Use case resumes at step 3.
 
+**Use case 17: Add a contact (Supports duplicate names)**
+
+**MSS**
+1. User provides contact details.
+2. TC adds the contact to the contact list.
+3. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. User inputs a duplicate ID.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 2b. User inputs an empty contact ID:
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 2c. User inputs an empty contact name.
+    * 2c1. TC displays an error message.
+    
+      Use case resumes at step 1.
+
+* 2d. User inputs an empty contact number.
+    * 2d1. TC displays an error message.
+    
+      Use case resumes at step 1.
+
+* 2e. User inputs a contact name that does not contain alphabets:
+    * 2e1. TC displays an error message.
+  
+      Use case resumes at step 1.
+
+**Use case 18: Remove students/tutors from contacts**
+
+**MSS**
+1. User provides an ID.
+2. TC removes the contact from the contact list.
+3. TC displays a message for succesful operation.
+
+   Use case ends.
+
+**Extensions**
+* 1a. User enters a ID that is not present in the contact list.
+    * 1a1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+**Use case 19: Tagging each student for grouping**
+
+**MSS**
+1. User provides an ID and tags.
+2. TC updates the contact ID with the provided tags.
+3. TC displays a message for successful operation.
+    
+   Use case ends.
+
+**Extensions**
+* 2a. User inputs an ID that is not found in the contact list.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 2b. User inputs an empty contact ID.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 2c. User inputs an empty tag.
+    * 2c1. TC displays an error message.
+    
+      Use case resumes at step 1.
+
+**Use case 20: Removing tags for a specific contact**
+
+**MSS**
+1. User inputs an ID and at least one tags to remove.
+2. TC removes the given tags on the given contact ID.
+3. TC displays a message upon a successful operation.
+
+   Use case ends.
+  
+**Extensions**
+* 2a. User inputs an ID that is not found in the contact list.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 2b. User inputs a tag that does not exist for the contact.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+* 2c. User inputs a empty tag:
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 1.
+
 **Use case 21: Import Data from a file path**
 
 **MSS**
