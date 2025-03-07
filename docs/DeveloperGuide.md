@@ -555,7 +555,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 1. User requests to view all todos.
-2. TC displays all Todos.
+2. TC displays all todos.
 
    Use case ends.
 
@@ -644,7 +644,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b1. TC displays an error message.
 
       Use case resumes from step 2.
-* 2c. The Todo is already completed.
+* 2c. The todo is already completed.
     * 2c1. TC displays an error message.
 
       Use case ends.
@@ -666,12 +666,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b1. TC displays an error message.
 
       Use case resumes from step 2.
-* 2c. The Todo is not completed.
+* 2c. The todo is not completed.
     * 2c1. TC displays an error message.
 
       Use case ends.
 
-**Use case 15: Delete a Todo**
+**Use case 15: Delete a todo**
 
 **MSS**
 1. User <u>finds all todos (UC:10)</u>.
