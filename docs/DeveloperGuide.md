@@ -375,65 +375,68 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 2: Remove a Contact**
 
 **MSS**
-1. User provides an ID.
-2. TC removes the contact from the contact list.
-3. TC displays a confirmation message.
+1. User <u>searches for the contact's ID (UC:TBD)</u>.
+2. User requests to remove a contact using the ID.
+3. TC removes the contact from the contact list.
+4. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 1a. User enters a non-existent ID.
-    * 1a1. TC displays an error message.
+* 2a. User enters a non-existent ID.
+    * 2a1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
-**Use case 3: Tag a Student for Grouping**
+**Use case 3: Tag a Contact for Grouping**
 
 **MSS**
-1. User provides an ID and tags.
-2. TC updates the contact ID with the provided tags.
-3. TC displays a confirmation message.
+1. User <u>searches for the contact's information (UC:TBD)</u>.
+2. User requests to add a tag to the contact using the contact's ID.
+3. TC updates the contact ID with the provided tags.
+4. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 1a. User inputs a non-existent ID.
-    * 1a1. TC displays an error message.
+* 2a. User inputs a non-existent ID.
+    * 2a1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
-* 1b. User inputs an empty contact ID.
-    * 1b1. TC displays an error message.
+* 2b. User inputs an empty contact ID.
+    * 2b1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
-* 1c. User does not enter any tags.
-    * 1c1. TC displays an error message.
+* 2c. User does not enter any tags.
+    * 2c1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
-**Use case 4: Remove Tags from a Specific Contact**
+**Use case 4: Remove Tags from a Contact**
 
 **MSS**
-1. User inputs an ID and at least one tag to remove.
-2. TC removes the given tags from the given contact ID.
-3. TC displays a confirmation message.
+1. User <u>searches for the contact's information (UC:TBD)</u>.
+2. User requests to remove a tag from the contact using the contact's ID.
+3. TC removes the specified tags from the contact.
+4. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 1a. User inputs a non-existent ID.
-    * 1a1. TC displays an error message.
+* 2a. User inputs a non-existent ID.
+    * 2a1. TC displays an error message.
 
       Use case resumes at step 1.
 
-* 1b. User inputs a tag that is not associated with the contact.
-    * 1b1. TC displays an error message.
+* 2b. User inputs a tag that is not associated with the contact.
+    * b1. TC displays an error message.
 
       Use case resumes at step 1.
 
-* 1c. User does not enter any tags.
-    * 1c1. TC displays an error message.
+* 2c. User does not enter any tags.
+    * 2c1. TC displays an error message.
 
       Use case resumes at step 1.
 
