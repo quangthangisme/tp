@@ -690,7 +690,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 17: Add a contact (Supports duplicate names)**
 
 **MSS**
-1. Add a student/teacher's contact with a given ID, name and number.
+1. Add a contact with a given ID, name and number.
 2. TC validates the given unique ID and name.
 3. TC adds student/teacher's contact together the unique ID.
 4. TC displays the message `"Successfully added <name> with contact (<number>) (ID:<ID>)"`.
@@ -718,15 +718,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     
       Use case ends.
 
-* 2e. User inputs a contact name that contains number:
-    * 2e1. TC displays the error message: `"Sorry, The contact name contains numbers, it should only contain alphabet characters"`.
+* 2e. User inputs a contact name that does not contain alphabets:
+    * 2e1. TC displays the error message: `"Sorry, The contact name does not contain alphabets."`.
   
       Use case ends.
 
 **Use case 18: Remove students/tutors from contacts**
 
 **MSS**
-1. Finds the student/teacher's contact with the given ID.
+1. Finds the contact with the given ID.
 2. TC removes the contact from the list of contacts.
 3. TC displays the message `"Successfully removed the contact of <name> (<contact>)(ID:<ID>)"`.
 
@@ -738,35 +738,55 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-**Use case 19: Tag each student by which class/course they are enrolled in**
+**Use case 19: Tagging each student for grouping**
 
 **MSS**
 1. User inputs an ID and a class and course for it to be tagged.
 2. TC finds the contact from the list.
 3. TC updates the contact with the given ID with the provided class and course.
-4. TC dsplays the message `"Sucessfully tagged <name>(<ID>) under <course>/<class>"`.
+4. TC displays the message `"Sucessfully tagged <name>(<ID>) with the following tags: <tag_1>, ..., <tag_k>"`.
     
    Use case ends.
 
 **Extensions**
-* 2a. User inputs an ID that is not found in the contact list
+* 2a. User inputs an ID that is not found in the contact list.
     * 2a1. TC displays the error message: `"The given ID(<ID>) cannot be found"`.
 
       Use case ends.
 
-* 2b. User inputs an empty contact ID:
-    * 2b1. TC displays the error message: `"Sorry, The contact ID cannot be empty"`.
+* 2b. User inputs an empty contact ID.
+    * 2b1. TC displays the error message: `"Sorry, the contact ID cannot be empty"`.
 
       Use case ends.
 
-* 2c. User inputs an empty class tag.
-    * 2c1. TC displays the error message: `"Sorry, The class tag cannot be empty"`.
+* 2c. User inputs an empty tag.
+    * 2c1. TC displays the error message: `"Sorry, tags for a contact cannot be empty"`.
     
       Use case ends.
 
-* 2d. User inputs an empty course tag.
-    * 2d1. TC displays the error message: `"Sorry, The course tag cannot be empty"`.
-    
+**Use case 20: Removing tags for a specific contact**
+
+**MSS**
+1. User inputs an ID and at least one tags to remove.
+2. TC removes the given tags on the given contact ID.
+3. TC displays the message `"Successfully remove the following tags from <name>(<ID>): <tag_1>, ..., <tag_k>"`
+
+   Use case ends.
+  
+**Extensions**
+* 2a. User inputs an ID that is not found in the contact list.
+    * 2a1. TC displays the error message: `"The given ID(<ID>) cannot be found"`.
+
+      Use case ends.
+
+* 2b. User inputs a tag that does not exist for the contact.
+    * 2b1. TC displays the error message: `"The following tags are unable to "`.
+
+      Use case resumes at step 2.
+
+* 2c. User inputs a empty tag:
+    * 2c1. TC displays the error message: `"Sorry, tags for a contact cannot be empty"`.
+
       Use case ends.
 
 ### Non-Functional Requirements
