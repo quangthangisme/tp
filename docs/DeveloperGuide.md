@@ -374,7 +374,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 2: Remove a Contact**
 
 **MSS**
-1. User <u>searches for the contact's ID (UC:TBD)</u>.
+1. User <u>searches for the contact's ID (UC:5)</u>.
 2. User requests to remove a contact using the ID.
 3. TC removes the contact from the contact list.
 4. TC displays a confirmation message.
@@ -390,7 +390,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 3: Tag a Contact for Grouping**
 
 **MSS**
-1. User <u>searches for the contact's information (UC:TBD)</u>.
+1. User <u>searches for the contact's information (UC:5)</u>.
 2. User requests to add a tag to the contact using the contact's ID.
 3. TC updates the contact ID with the provided tags.
 4. TC displays a confirmation message.
@@ -416,7 +416,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 4: Remove Tags from a Contact**
 
 **MSS**
-1. User <u>searches for the contact's information (UC:TBD)</u>.
+1. User <u>searches for the contact's information (UC:5)</u>.
 2. User requests to remove a tag from the contact using the contact's ID.
 3. TC removes the specified tags from the contact.
 4. TC displays a confirmation message.
@@ -535,7 +535,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User <u>searches for the contact's ID (UC:TBD)</u>.
+1. User <u>searches for the contact's ID (UC:5)</u>.
 2. User provides input to associate a contact with a task.
 3. TC associates the task with the contact and confirms the update.
 
@@ -571,7 +571,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 
-1. User <u>finds all contacts associated with a task (UC:TBD)</u>.
+1. User <u>finds all contacts associated with a task (UC:13)</u>.
 2. User provides input to remove a contact from a task.
 3. TC removes the association and confirms the update.
 
@@ -668,6 +668,12 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 1.
 
+* 1b. An event with the same name already exists.
+
+    * 1b1. TC displays an error message.
+
+      Use case resumes from step 1.
+
 **Use case 15: Delete an Event**
 
 **MSS**
@@ -726,61 +732,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 18: Log Contact as Having Attended an Event**
 
 **MSS**
-1. User <u>retrieves full information of an event (UC:15)</u>.
-2. User <u>searches for contacts' IDs (UC:TBD)</u>.
-3. User requests to mark those contacts as having attended the event.
-4. TC marks contacts as attending the event and displays a confirmation message.
+1. User <u>retrieves full information of an event (UC:17)</u>.
+2. User requests to mark some contacts as having attended the event using their IDs.
+3. TC marks contacts as attending the event and displays a confirmation message.
    Use case ends.
 
 **Extensions**
-* 3a. User inputs an empty event name.
-    * 3a1. TC displays an error message.
-
-      Use case resumes at step 3.
-
-* 3b. User inputs a non-existent event name.
-    * 3b1. TC displays an error message.
-
-      Use case resumes at step 3.
-
-* 3c. User inputs all empty contact IDs.
-    * 3c1. TC displays an error message.
-
-      Use case resumes at step 3.
-
-* 3d. User enters a non-existent contact ID.
-    * 3d1. TC displays an error message.
-
-      Use case resumes at step 3.
-
-**Use case 19: Help**
-
-**MSS**
-1. User requests a general help message.
-2. TC displays a general help message listing all features.
-
-   Use case ends.
-
-**Extensions**
-* 1a. User requests help on a specific feature.
-    * 1a1. TC displays detailed information about the requested feature.
-
-      Use case ends.
-
-* 1b. User requests help on an unrecognized feature.
-    * 1b1. TC displays an error message.
+* 2a. User inputs an empty event name.
+    * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
 
-**Use case 20: Exit the Program**
+* 2b. User inputs a non-existent event name.
+    * 2b1. TC displays an error message.
 
-**MSS**
-1. User requests to exit the program.
-2. TC terminates.
+      Use case resumes at step 2.
 
-   Use case ends.
+* 2c. User does not provide any contact IDs.
+    * 2c1. TC displays an error message.
 
-**Use case 21: Import Data from a File Path**
+      Use case resumes at step 2.
+
+* 2d. User enters a non-existent contact ID.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 19: Import Data from a File Path**
 
 **MSS**
 
@@ -815,7 +793,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 3.
 
-**Use case 22: Export Database to Directory**
+**Use case 20: Export Database to Directory**
 
 **MSS**
 
@@ -865,6 +843,33 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3b3. TC logs the export error details.
 
       Use case ends.
+
+**Use case 21: Help**
+
+**MSS**
+1. User requests a general help message.
+2. TC displays a general help message listing all features.
+
+   Use case ends.
+
+**Extensions**
+* 1a. User requests help on a specific feature.
+    * 1a1. TC displays detailed information about the requested feature.
+
+      Use case ends.
+
+* 1b. User requests help on an unrecognized feature.
+    * 1b1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 22: Exit the Program**
+
+**MSS**
+1. User requests to exit the program.
+2. TC terminates.
+
+   Use case ends.
 
 ### Non-Functional Requirements
 
