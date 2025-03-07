@@ -691,111 +691,191 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes from step 2.
 
-      Use case resumes from step 1.
-
-**Use case 14: Create an Event**
+**Use case 16: Create an Event**
 
 **MSS**
-1. User requests to create a new event using a valid name.
-2. TC adds the event to the list and displays a confirmation message.
+1. User requests to create a new event.
+2. TC creates the event.
+3. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 1a. User inputs an empty event name.
+* 1a. The given name is empty.
     * 1a1. TC displays an error message.
 
-      Use case resumes at step 1.
-
-* 1b. An event with the same name already exists.
-
+      Use case resumes from step 1.
+* 1b. An Event with the same name already exists.
     * 1b1. TC displays an error message.
 
       Use case resumes from step 1.
+* 1c. The given start datetime is invalid.
+    * 1c1. TC displays an error message.
 
-**Use case 15: Delete an Event**
+      Use case resumes from step 1.
+* 1d. The given end datetime is invalid.
+    * 1d1. TC displays an error message.
 
-**MSS**
-1. User <u>retrieves full information of an event (UC:15)</u>.
-2. User requests to remove the event from the list.
-3. TC removes the event from the list and displays a confirmation message.
+      Use case resumes from step 1.
 
-   Use case ends.
-
-**Extensions**
-* 2a. User inputs an empty event name.
-    * 2a1. TC displays an error message.
-
-      Use case resumes at step 2.
-
-* 2b. User inputs a non-existent event name.
-    * 2b1. TC displays an error message.
-
-      Use case resumes at step 2.
-
-
-**Use case 16: List all Events**
+**Use case 17: List full information of an Event**
 
 **MSS**
-1. User requests to see all events.
-2. TC displays a list of all events.
-
-   Use case ends.
-
-**Extensions**
-* 2a. No events exist in the system.
-    * 2a1. TC displays a message notifying the user.
-
-      Use case ends.
-
-**Use case 17: Retrieve Full Information of an Event**
-
-**MSS**
-1. User requests to see full information of an event using a valid name.
+1. User requests to see full information of an event.
 2. TC displays full information of the event.
 
    Use case ends.
 
 **Extensions**
-* 1a. User inputs an empty event name.
-    * 1a1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 1b. User inputs a non-existent event name.
-    * 1b1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-
-**Use case 18: Log Contact as Having Attended an Event**
-
-**MSS**
-1. User <u>retrieves full information of an event (UC:17)</u>.
-2. User requests to mark some contacts as having attended the event using their IDs.
-3. TC marks contacts as attending the event and displays a confirmation message.
-   Use case ends.
-
-**Extensions**
-* 2a. User inputs an empty event name.
+* 2a. The given name is invalid.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-
-* 2b. User inputs a non-existent event name.
+* 2b. The given name is empty.
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
 
-* 2c. User does not provide any contact IDs.
+**Use case 18: List all Events**
+
+**MSS**
+1. User requests to view all Events.
+2. TC displays all Events.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The Event list is empty.
+    * 2a1. TC displays an error message.
+
+      Use case ends.
+
+**Use case 19: Add a Contact to an Event**
+
+**MSS**
+1. User <u>searches for the contact's information (UC:4)</u>.
+2. User requests to add the contact to an Event by ID.
+3. TC associates the Contact with the Event.
+4. TC displays a confirmation message.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The given ID is invalid.
     * 2c1. TC displays an error message.
 
       Use case resumes at step 2.
-
-* 2d. User enters a non-existent contact ID.
+* 2d. The given ID is empty.
     * 2d1. TC displays an error message.
 
       Use case resumes at step 2.
+* 2e. The Contact is already assigned to the Event.
+    * 2e1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+**Use case 20: Remove a Contact from an Event**
+
+**MSS**
+1. User <u>finds all Contacts associated with an Event (UC:17)</u>.
+2. User requests to remove a contact from an Event by ID.
+3. TC removes the association.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The given ID is invalid.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2d. The given ID is empty.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2e. The Contact is not assigned to the Event.
+    * 2e1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+**Use case 21: Log a Contact as attended an Event**
+
+**MSS**
+1. User <u>finds all Events (UC:18)</u>.
+2. User requests to log a Contact as attended for an Event.
+3. TC marks the Contact as attended.
+4. TC displays a confirmation message.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The given Contact has already attended the Event.
+    * 2c1. TC displays an error message.
+
+      Use case ends.
+
+**Use case 22: Log a Contact as not attended an Event**
+
+**MSS**
+1. User <u>finds all Events (UC:18)</u>.
+2. User requests to log a Contact as not attended for an Event.
+3. TC marks the Contact as not attended.
+4. TC displays a confirmation message.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The given Contact has not attended the Event.
+    * 2c1. TC displays an error message.
+
+      Use case ends.
+
+**Use case 23: Delete an Event**
+
+**MSS**
+1. User <u>finds all Events (UC:18)</u>.
+2. User requests to delete an Event.
+3. TC deletes the task.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+
 
 **Use case 19: Import Data from a File Path**
 
