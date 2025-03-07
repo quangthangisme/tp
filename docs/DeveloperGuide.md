@@ -336,7 +336,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 (For all use cases below, the **System** is the `TutorConnect (TC)` and the **Actor** is the `user`, unless specified otherwise)
 
-
 **Use case 1: Add a Contact (Supports Duplicate Names)**
 
 **MSS**
@@ -780,6 +779,93 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. TC terminates.
 
    Use case ends.
+
+**Use case 21: Import Data from a file path**
+
+**MSS**
+
+1. User requests to load database from a file path.
+2. TC loads and populates the data (contacts, events, etc.).
+3. TC displays the successful loading message.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. Selected database file does not exist.
+    * 1a1. TC displays error message.
+
+      Use case resumes at step 1.
+
+* 1b. Selected database file is corrupted or in wrong format.
+    * 1b1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 2a. Some data entries are invalid or corrupted.
+    * 2a1. TC skips the invalid entries and logs them in a logfile.
+    * 2a2. TC displays a warning message.
+    * 2a3. TC continues loading valid entries.
+
+      Use case resumes at step 3.
+
+* 2b. TC encounters duplicate entries.
+    * 2b1. TC keeps the existing entries and logs the duplicates in a logfile.
+    * 2b2. TC displays a warning message.
+
+      Use case resumes at step 3.
+
+**Use case 22: Export Database to Directory**
+
+**MSS**
+
+1. User requests to export data as a .json file to a file path.
+2. TC creates a timestamped directory within the specified path.
+3. TC copies current database into timestamped directory.
+4. TC displays success message.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. Directory path is empty.
+    * 1a1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 1b. Directory path contains invalid characters.
+    * 1b1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 1c. Directory specified is an invalid pth.
+    * 1c1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 2a. User lacks write permissions.
+    * 2a1. TC displays an error message.
+
+  Use case ends.
+
+* 2b. Cannot create timestamped directory.
+    * 2b1. TC attempts to use alternative naming.
+    * 2b2. If alternative naming fails:
+        * TC displays an error message.
+
+      Use case ends.
+
+* 3a. Insufficient disk space.
+    * 3a1. TC displays an error message.
+
+      Use case ends.
+
+* 3b. Error during data export.
+    * 3b1. TC displays an error message.
+    * 3b2. TC removes partially exported files.
+    * 3b3. TC logs the export error details.
+
+      Use case ends.
 
 ### Non-Functional Requirements
 
