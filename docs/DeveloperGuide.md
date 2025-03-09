@@ -334,539 +334,646 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `TutorConnect (TC)` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `TutorConnect (TC)` and the **Actor** is the `User`, unless specified otherwise)
 
-**Use case 1: Create a New Todo**
-
-**MSS**
-
-1. User provides input to create a new todo task.
-2. TC validates the input.
-3. TC creates the task and confirms the creation.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. User provides an empty task name.
-
-    * 2a1. TC displays an error message: "Task name cannot be empty."
-
-      Use case ends.
-
-* 2b. A task with the same name already exists.
-
-    * 2b1. TC displays an error message: "Task <name> already exists."
-
-      Use case ends.
-
-**Use case 2: Delete a Todo**
+**Use case 1: Create a contact**
 
 **MSS**
-
-1. User provides input to delete a todo task.
-2. TC validates the input.
-3. TC deletes the task and confirms the deletion.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The specified task does not exist.
-
-    * 2a1. TC displays an error message: "Task <name> not found."
-
-      Use case ends.
-
-**Use case 3: Add Contact to Existing Task**
-
-**MSS**
-
-1. User searches for the contact's ID (UC:TBD)
-2. User provides input to associate a contact with a task.
-3. TC validates the input.
-4. TC associates the task with the contact and confirms the update.
-
-   Use case ends.
-
-**Extensions**
-
-* 3a. User provides an empty task name.
-
-    * 3a1. TC displays an error message: "Task name cannot be empty."
-
-      Use case ends.
-
-* 3b. The specified task does not exist.
-
-    * 3b1. TC displays an error message: "Task <name> not found."
-
-      Use case ends.
-
-* 3c. The specified contact does not exist.
-
-    * 3c1. TC displays an error message: "Contact <contact_id> not found."
-
-      Use case ends.
-
-* 3d. The task is already assigned to the contact.
-
-    * 3d1. TC displays an error message: "Task <name> already exists for <contact_id>."
-
-      Use case ends.
-
-**Use case 4: Remove Contact from Existing Task**
-
-**MSS**
-
-1. User finds all contacts associated with a task (UC:TBD)
-2. User provides input to remove a contact from a task.
-3. TC validates the input.
-4. TC removes the association and confirms the update.
-
-   Use case ends.
-
-**Extensions**
-
-* 3a. User provides an empty task name.
-
-    * 3a1. TC displays an error message: "Task name cannot be empty."
-
-      Use case ends.
-
-* 3b. The specified task does not exist.
-
-    * 3b1. TC displays an error message: "Task <name> not found."
-
-      Use case ends.
-
-* 3c. The specified contact does not exist.
-
-    * 3c1. TC displays an error message: "Contact <contact_id> not found."
-
-      Use case ends.
-
-* 3d. The task is not assigned to the contact.
-
-    * 3d1. TC displays an error message: "Task <name> is not assigned to <contact_id>."
-
-      Use case ends.
-
-**Use case 5: Mark a Todo as Done**
-
-**MSS**
-
-1. User provides input to mark a todo as done.
-2. TC validates the input.
-3. TC marks the task as done and confirms the update.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The specified task does not exist.
-
-    * 2a1. TC displays an error message: "Task <name> not found."
-
-      Use case ends.
-
-**Use case 6: Unmark a Todo as Done**
-
-**MSS**
-
-1. User provides input to unmark a todo as done.
-2. TC validates the input.
-3. TC unmarks the task as done and confirms the update.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The specified task does not exist.
-
-    * 2a1. TC displays an error message: "Task <name> not found."
-
-      Use case ends.
-
-**Use case 7: List Full Details of a Specific Todo**
-
-**MSS**
-
-1. User provides input to list the full details of a specific todo.
-2. TC validates the input.
-3. TC retrieves the full details of the todo and displays it to the user.
-
-   Use case ends.
-
-**Extensions**
-
-* 2a. The specified task does not exist.
-
-    * 2a1. TC displays an error message: "Task <name> not found."
-
-      Use case ends.
-
-**Use case 8: Search for Contacts by Some Identifiable Feature**
-
-**MSS**
-1. User enters a valid `filter` command with at least one column and value.
-2. TC filters contacts based on the specified criteria.
-3. TC displays the matching results along with the message: `"n results found."`
-
-   Use case ends.
-
-**Extensions**
-* 1a. User enters a `filter` command with a duplicate column.
-    * 1a1. TC displays the error message: `"Duplicate column: <col>."`
-
-      Use case resumes at step 1.
-
-* 1b. User enters a `filter` command with an unrecognized column.
-    * 1b1. TC displays the error message: `"Unrecognized column: <unknown>."`
-
-      Use case resumes at step 1.
-
-* 1c. User enters a `filter` command with an invalid operator.
-    * 1c1. TC displays the error message: `"Unrecognized operator: <unknown>."`
-
-      Use case resumes at step 1.
-
-* 1d. User enters a `filter` command where a column has no values specified.
-    * 1d1. TC displays the error message: `"No values specified for column <col>."`
-
-      Use case resumes at step 1.
-
-* 1e. User enters a `filter` command without specifying any column.
-    * 1e1. TC displays the error message: `"Specify at least one column and value."`
-
-      Use case resumes at step 1.
-
-* 1f. User enters a `filter` command with multiple operators in the same column.
-    * 1f1. TC applies only the first operator and treats the next ones as values.
-
-      Use case resumes at step 2.
-
-**Use case 9: List all Contacts**
-
-**MSS**
-1. User enters the `list` command.
-2. TC displays a list of all contacts.
-
-   Use case ends.
-
-**Extensions**
-* 2a. No contacts exist in the system.
-    * 2a1. TC displays: `"No contacts found. Add a contact to get started."`
-
-      Use case ends.
-
-**Use case 10: Help**
-
-**MSS**
-1. User enters the `help` command.
-2. TC displays a general help page listing all features.
-
-   Use case ends.
-
-**Extensions**
-* 1a. User enters `help <feature>` (e.g., `help todo`)
-    * 1a1. TC displays detailed information about the requested feature.
-
-      Use case ends.
-
-* 1b. User enters `help <invalid feature>`
-    * 1b1. TC displays the error message: `"Feature <invalid feature> not recognized."`
-
-      Use case resumes at step 2.
-
-**Use case 11: Exit the Program**
-
-**MSS**
-1. User enters the `exit` command.
-2. TC terminates.
-
-   Use case ends.
-
-**Extensions**
-* 1a. User enters an alias for `exit` (e.g., `bye`, `quit`, `kill`).
-    * 1a1. TC recognizes the alias and terminates.
-
-      Use case ends.
-  
-**Use case 12: List all events**
-  
-**MSS**
-1. User requests to see all events in the list.
-2. TC displays the message `“Here are the events in the event list: 
-                                           <Event 1>
-                                           <Event 2>
-                                           …… “`.
-  Use case ends.
-
-**Use case 13: Retrieve full information of an event**
-
-**MSS**
-1. User requests to see full information of an event using a valid name.
-2. TC displays full information of the event.
-   
-  Use case ends.
-
-**Extensions**
-* 1a. User inputs an empty event name.
-    * 1a1. TC displays the error message: `"event name cannot be empty !!!"`.
-
-      Use case resumes at step 1.
-
-* 1b. User inputs a non-existent event name.
-    * 1b1. TC displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`.
-
-      Use case resumes at step 1.
-
-**Use case 14: Create an event**
-
-**MSS**
-1. User requests to create a new event using a valid name.
-2. TC adds the event to the list and displays the message `"successfully created event  <event name>"`.
-
-  Use case ends.
-
-**Extensions**
-* 1a. User inputs an empty event name.
-    * 1a1. TC displays the error message: `"event name cannot be empty !!!"`.
-
-      Use case resumes at step 1.
-
-**Use case 15: Delete an event**
-
-**MSS**
-1. User retrieves full information of an event (UC13).
-2. User requests to remove the event from the list using a valid name.
-3. TC removes the event from the list and displays the message `"successfully removed event  <event name>"`.
-
-  Use case ends.
-
-**Extensions**
-* 2a. User inputs an empty event name.
-    * 2a1. TC displays the error message: `"event name cannot be empty !!!"`.
-
-      Use case resumes at step 2.
-
-* 2b. User inputs a non-existent event name.
-    * 2b1. TC displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`.
-
-      Use case resumes at step 2.
-
-**Use case 16: Log contact as having attended an event**
-
-**MSS**
-1. User retrieves full information of an event (UC13).
-2. User searches for contacts' ids (UC:TBD).
-3. User requests to mark those contacts as having attended the event.
-4. TC marked contacts with as attending the found event and displays the message `“successfully marked <id_1>, <id_2>,... as having attended event <event name>”`.
-
-   Use case ends.
-
-**Extensions**
-* 3a. User inputs an empty event name.
-    * 3a1. TC displays the error message: `"event name cannot be empty !!!"`.
-
-      Use case resumes at step 3.
-
-* 3b. User inputs a non-existent event name.
-    * 3b1. TC displays the error message: `“Sorry!!! we could not find <event_name> in the event list”`.
-
-      Use case resumes at step 3.
-
-* 3c. User inputs all empty contact ids.
-    * 3c1. TC displays the error message: `“There must be at least 1 contact !!!”`.
-
-      Use case resumes at step 3.
-
-* 3d. User enters a non-existent contact id.
-    * 3d1. TC displays the error message: `“Sorry, we could not find <id> in the contact list”`.
-      
-      Use case resumes at step 3.
-
-**Use case 17: Add a contact (Supports duplicate names)**
-
-**MSS**
-1. User provides contact details.
-2. TC adds the contact to the contact list.
+1. User requests to create a new contact and provides contact details.
+2. TC creates a new contact and adds it to the contact list.
 3. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 2a. User inputs a duplicate ID.
-    * 2a1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 2b. User inputs an empty contact ID:
-    * 2b1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 2c. User inputs an empty contact name.
-    * 2c1. TC displays an error message.
-    
-      Use case resumes at step 1.
-
-* 2d. User inputs an empty contact number.
-    * 2d1. TC displays an error message.
-    
-      Use case resumes at step 1.
-
-* 2e. User inputs a contact name that does not contain alphabets:
-    * 2e1. TC displays an error message.
-  
-      Use case resumes at step 1.
-
-**Use case 18: Remove students/tutors from contacts**
-
-**MSS**
-1. User provides an ID.
-2. TC removes the contact from the contact list.
-3. TC displays a message for succesful operation.
-
-   Use case ends.
-
-**Extensions**
-* 1a. User enters a ID that is not present in the contact list.
+* 1a. The given contact ID is a duplicate.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
+* 1b. The given contact ID is empty.
+    * 1b1. TC displays an error message.
 
-**Use case 19: Tagging each student for grouping**
+      Use case resumes at step 1.
+* 1c. The given contact name is empty.
+    * 1c1. TC displays an error message.
+
+      Use case resumes at step 1.
+* 1d. The given contact number is empty.
+    * 1d1. TC displays an error message.
+
+      Use case resumes at step 1.
+* 1e. The given contact name contains a non-alphabetic character.
+    * 1e1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+**Use case 2: List full information of a contact**
 
 **MSS**
-1. User provides an ID and tags.
-2. TC updates the contact ID with the provided tags.
-3. TC displays a message for successful operation.
-    
+1. User <u>searches for the contact's information (UC:4)</u>.
+2. User requests to retrieve full information of a contact by ID.
+3. TC displays full information of the contact.
+
    Use case ends.
 
 **Extensions**
-* 2a. User inputs an ID that is not found in the contact list.
+* 2a. The given contact ID does not exist.
     * 2a1. TC displays an error message.
 
-      Use case resumes at step 1.
-
-* 2b. User inputs an empty contact ID.
-    * 2b1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 2c. User inputs an empty tag.
-    * 2c1. TC displays an error message.
-    
-      Use case resumes at step 1.
-
-**Use case 20: Removing tags for a specific contact**
-
-**MSS**
-1. User inputs an ID and at least one tags to remove.
-2. TC removes the given tags on the given contact ID.
-3. TC displays a message upon a successful operation.
-
-   Use case ends.
-  
-**Extensions**
-* 2a. User inputs an ID that is not found in the contact list.
-    * 2a1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-* 2b. User inputs a tag that does not exist for the contact.
+      Use case resumes at step 2.
+* 2b. The given contact ID is empty.
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
 
-* 2c. User inputs a empty tag:
-    * 2c1. TC displays an error message.
-
-      Use case resumes at step 1.
-
-**Use case 21: Import Data from a file path**
+**Use case 3: List all contacts**
 
 **MSS**
-
-1. User requests to load database from a file path.
-2. TC loads and populates the data (contacts, events, etc.).
-3. TC displays the successful loading message.
+1. User requests to view all contacts.
+2. TC displays a list of all contacts.
 
    Use case ends.
 
 **Extensions**
+* 2a. The contact list is empty.
+    * 2a1. TC displays a message that the list is empty.
 
-* 1a. Selected database file does not exist.
-    * 1a1. TC displays error message.
+      Use case ends.
+
+**Use case 4: Filter all contacts using some identifiable feature**
+
+**MSS**
+1. User requests to filter all contacts using some specific criteria.
+2. TC displays the matching contacts along with the number of results.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The criteria include multiple filters on the same column.
+    * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
-
-* 1b. Selected database file is corrupted or in wrong format.
+* 1b. The criteria include a filter on an unrecognized column.
     * 1b1. TC displays an error message.
 
       Use case resumes at step 1.
+* 1c. The criteria include a filter with an unrecognized logical operator.
+    * 1c1. TC displays an error message.
 
-* 2a. Some data entries are invalid or corrupted.
-    * 2a1. TC skips the invalid entries and logs them in a logfile.
-    * 2a2. TC displays a warning message.
-    * 2a3. TC continues loading valid entries.
+      Use case resumes at step 1.
+* 1d. The criteria include a filter without specified values.
+    * 1d1. TC displays an error message.
 
-      Use case resumes at step 3.
+      Use case resumes at step 1.
+* 1e. The criteria contain no filters.
+    * 1e1. TC displays an error message.
 
-* 2b. TC encounters duplicate entries.
-    * 2b1. TC keeps the existing entries and logs the duplicates in a logfile.
-    * 2b2. TC displays a warning message.
+      Use case resumes at step 1.
+* 1f. The criteria include a filter with multiple logical operators.
+    * 1f1. TC applies only the first operator and treats the next ones as values.
 
-      Use case resumes at step 3.
+      Use case resumes at step 2.
+* 2a. No contacts match the criteria.
+    * 2a1. TC displays a message that no contacts match the criteria.
 
-**Use case 22: Export Database to Directory**
+      Use case ends.
+
+**Use case 5: Add a tag to a contact**
 
 **MSS**
-
-1. User requests to export data as a .json file to a file path.
-2. TC creates a timestamped directory within the specified path.
-3. TC copies current database into timestamped directory.
-4. TC displays success message.
+1. User <u>searches for the contact's information (UC:4)</u>.
+2. User requests to add a tag to the contact by ID.
+3. TC updates the contact with the provided tag.
+4. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
+* 2a. The given contact ID does not exist.
+    * 2a1. TC displays an error message.
 
-* 1a. Directory path is empty.
+      Use case resumes at step 2.
+* 2b. The given contact ID is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2c. The given tag is empty.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2d. The given tag is unsupported.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 6: Remove a tag from a contact**
+
+**MSS**
+1. User <u>searches for the contact's information (UC:4)</u>.
+2. User requests to remove a tag from the contact by ID.
+3. TC updates the contact by removing the provided tag.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given ID is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given ID is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2c. The given tags are empty.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2d. The given tag is unsupported.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 7: Remove a contact**
+
+**MSS**
+1. User <u>searches for the contact's information (UC:4)</u>.
+2. User requests to remove the contact by ID.
+3. TC removes the contact from the system.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given ID is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given ID is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 8: Create a todo**
+
+**MSS**
+1. User requests to create a todo and provides a name.
+2. TC creates the todo.
+3. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The given name is empty.
+    * 1a1. TC displays an error message.
+
+      Use case resumes from step 1.
+* 1b. A todo with the same name already exists.
+    * 1b1. TC displays an error message.
+
+      Use case resumes from step 1.
+
+**Use case 9: List full information of a todo**
+
+**MSS**
+1. User requests to see full information of a todo.
+2. TC displays full information of the todo.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 10: List all todos**
+
+**MSS**
+1. User requests to view all todos.
+2. TC displays all todos.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The todo list is empty.
+    * 2a1. TC displays a message that the list is empty.
+
+      Use case ends.
+
+**Use case 11: Add a contact to a todo**
+
+**MSS**
+1. User <u>searches for the contact's information (UC:4)</u>.
+2. User requests to add the contact to a todo by ID.
+3. TC associates the contact with the todo.
+4. TC displays a confirmation message.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The given ID is invalid.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2d. The given ID is empty.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2e. The contact is already assigned to the todo.
+    * 2e1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+**Use case 12: Remove a contact from a todo**
+
+**MSS**
+1. User <u>finds all contacts associated with a todo (UC:9)</u>.
+2. User requests to remove a contact from a todo by ID.
+3. TC removes the association.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The given ID is invalid.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2d. The given ID is empty.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2e. The contact is not assigned to the todo.
+    * 2e1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+**Use case 13: Mark a todo as completed**
+
+**MSS**
+1. User <u>finds all todos (UC:10)</u>.
+2. User requests to mark a todo as completed.
+3. TC marks the todo as completed.
+4. TC displays a confirmation message.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The todo is already completed.
+    * 2c1. TC displays an error message.
+
+      Use case ends.
+
+**Use case 14: Mark a todo as not completed**
+
+**MSS**
+1. User <u>finds all todos (UC:10)</u>.
+2. User requests to mark a todo as not completed.
+3. TC marks the todo as not completed.
+4. TC displays a confirmation message.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The todo is not completed.
+    * 2c1. TC displays an error message.
+
+      Use case ends.
+
+**Use case 15: Delete a todo**
+
+**MSS**
+1. User <u>finds all todos (UC:10)</u>.
+2. User requests to delete a todo.
+3. TC deletes the task.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+**Use case 16: Create an event**
+
+**MSS**
+1. User requests to create a new event.
+2. TC creates the event.
+3. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The given name is empty.
+    * 1a1. TC displays an error message.
+
+      Use case resumes from step 1.
+* 1b. An event with the same name already exists.
+    * 1b1. TC displays an error message.
+
+      Use case resumes from step 1.
+* 1c. The given start datetime is invalid.
+    * 1c1. TC displays an error message.
+
+      Use case resumes from step 1.
+* 1d. The given end datetime is invalid.
+    * 1d1. TC displays an error message.
+
+      Use case resumes from step 1.
+
+**Use case 17: List full information of an event**
+
+**MSS**
+1. User requests to see full information of an event.
+2. TC displays full information of the event.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 18: List all events**
+
+**MSS**
+1. User requests to view all events.
+2. TC displays all events.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The event list is empty.
+    * 2a1. TC displays a message that the list is empty.
+
+      Use case ends.
+
+**Use case 19: Add a contact to an event**
+
+**MSS**
+1. User <u>searches for the contact's information (UC:4)</u>.
+2. User requests to add the contact to an event by ID.
+3. TC associates the contact with the event.
+4. TC displays a confirmation message.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The given ID is invalid.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2d. The given ID is empty.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2e. The contact is already assigned to the event.
+    * 2e1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+**Use case 20: Remove a contact from an event**
+
+**MSS**
+1. User <u>finds all contacts associated with an event (UC:17)</u>.
+2. User requests to remove a contact from an event by ID.
+3. TC removes the association.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The given ID is invalid.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2d. The given ID is empty.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2e. The contact is not assigned to the event.
+    * 2e1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+**Use case 21: Log a contact as having attended an event**
+
+**MSS**
+1. User <u>finds all events (UC:18)</u>.
+2. User requests to log a contact as having attended for an event.
+3. TC marks the contact as attended.
+4. TC displays a confirmation message.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The given contact has already attended the event.
+    * 2c1. TC displays an error message.
+
+      Use case ends.
+
+**Use case 22: Log a contact as not having attended an event**
+
+**MSS**
+1. User <u>finds all events (UC:18)</u>.
+2. User requests to log a contact as not having attended for an event.
+3. TC marks the contact as not attended.
+4. TC displays a confirmation message.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+* 2c. The given contact is already marked as not having attended the event.
+    * 2c1. TC displays an error message.
+
+      Use case ends.
+
+**Use case 23: Delete an event**
+
+**MSS**
+1. User <u>finds all events (UC:18)</u>.
+2. User requests to delete an event.
+3. TC deletes the task.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given name is invalid.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given name is empty.
+    * 2b1. TC displays an error message.
+
+      Use case resumes from step 2.
+
+**Use case 24: List help message of a command**
+
+**MSS**
+1. User requests to list help message of a command.
+2. TC displays the help message of the command.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The given command is invalid.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
 
+**Use case 25: List help message of all commands**
+
+**MSS**
+1. User requests to list help message of all commands.
+2. TC displays the help message.
+
+   Use case ends.
+
+**Use case 26: Exit the program**
+
+**MSS**
+1. User requests to exit the program.
+2. TC <u>exports the database to the default directory (UC:28)</u>.
+3. TC exits the program.
+
+   Use case ends.
+
+**Use case 27: Import database from a directory**
+
+**MSS**
+1. User requests to load database from a directory.
+2. TC loads the data of an entry and populates the database.
+   
+   Step 2 is repeated until all entries are loaded.
+3. TC displays the populated data.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The given database file does not exist.
+    * 1a1. TC displays error message.
+
+      Use case resumes at step 1.
+* 1b. The given database file is corrupted or in wrong format.
+    * 1b1. TC displays an error message.
+
+      Use case ends.
+* 2a. TC encounters an invalid data entry.
+    * 2a1. TC skips loading the invalid entry and logs this in a logfile.
+    * 2a2. TC displays a warning message.
+
+      Use case resumes at step 2. 
+* 2b. TC encounters duplicate entries.
+    * 2b1. TC keeps the existing entries and logs the duplicates in a logfile.
+    * 2b2. TC displays a warning message.
+
+      Use case resumes at step 2.
+
+**Use case 28: Export database to a directory**
+
+**MSS**
+1. User requests to export data to a directory.
+2. TC creates a timestamped directory within the specified path.
+3. TC copies current database into timestamped directory as a `.json` file.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 1a. Directory path is empty.
+    * 1a1. TC displays an error message.
+
+      Use case resumes at step 1.
 * 1b. Directory path contains invalid characters.
     * 1b1. TC displays an error message.
 
       Use case resumes at step 1.
-
-* 1c. Directory specified is an invalid pth.
+* 1c. Directory specified is an invalid path.
     * 1c1. TC displays an error message.
 
       Use case resumes at step 1.
-
 * 2a. User lacks write permissions.
     * 2a1. TC displays an error message.
 
-   Use case ends.
-
+      Use case ends.
 * 2b. Cannot create timestamped directory.
     * 2b1. TC attempts to use alternative naming.
-    * 2b2. If alternative naming fails:
-        * TC displays an error message.
+    * 2b2. If alternative naming fails, TC displays an error message.
 
       Use case ends.
-
 * 3a. Insufficient disk space.
     * 3a1. TC displays an error message.
 
       Use case ends.
-
 * 3b. Error during data export.
     * 3b1. TC displays an error message.
     * 3b2. TC removes partially exported files.
@@ -879,7 +986,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  Should be able to hold up to 1000 persons without a noticeable sluggishness in performance for typical usage.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4.  Data should not be fully lost in the event of a crash or unexpected shutdown.
+4.  Should not lose more than 1-minute worth of data in the event of a crash or unexpected shutdown.
 5.  Should be easily testable to ensure that new updates or features do not negatively impact existing functionality.
 6.  Should function without requiring an installer.
 7.  Should only use third-party libraries or services that are free, open-source, have permissive license terms, and do not require installation by the user.
@@ -888,8 +995,14 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Contact**: A stored record of a student or tutor, containing relevant details such as name, ID, and class.
+* **Tag**: A specific keyword which can be associated with an arbitrary value, for a specific contact.
+  * **Class**: A group of students assigned to a particular tutor.
+  * **Course**: A subject or academic module that multiple classes and students may belong to.
+* **Event**: A scheduled session such as tutorial class, remedial, or consultation that tutors can create, modify, and assign students to.
+* **Todo**: A task or action item that can be associated with a student or another tutor, such as grading assignments, scheduling follow-ups, or preparing lesson materials.
+* **Head Tutor**: A tutor responsible for overseeing other tutors.
+* **Mainstream OS**: Windows, Linux, Unix, MacOS.
 
 --------------------------------------------------------------------------------------------------------------------
 
