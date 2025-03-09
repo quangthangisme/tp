@@ -396,7 +396,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 * 2a. The contact list is empty.
-    * 2a1. TC displays an error message.
+    * 2a1. TC displays a message that the list is empty.
 
       Use case ends.
 
@@ -434,7 +434,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 * 2a. No contacts match the criteria.
-    * 2a1. TC displays an error message.
+    * 2a1. TC displays a message that no contacts match the criteria.
 
       Use case ends.
 
@@ -561,7 +561,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 * 2a. The todo list is empty.
-    * 2a1. TC displays an error message.
+    * 2a1. TC displays a message that the list is empty.
 
       Use case ends.
 
@@ -746,7 +746,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **Extensions**
 * 2a. The event list is empty.
-    * 2a1. TC displays an error message.
+    * 2a1. TC displays a message that the list is empty.
 
       Use case ends.
 
