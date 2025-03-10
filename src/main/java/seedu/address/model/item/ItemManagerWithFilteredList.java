@@ -40,7 +40,7 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
 
     public void addItem(T item) {
         itemManager.addItem(item);
-        updateFilteredItemsList(PREDICATE_SHOW_ALL);
+        showAllItems();
     }
 
     public void setItem(T target, T editedItem) {
@@ -58,6 +58,10 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
     public void updateFilteredItemsList(Predicate<T> predicate) {
         requireNonNull(predicate);
         filteredItems.setPredicate(predicate);
+    }
+
+    public void showAllItems() {
+        filteredItems.setPredicate(PREDICATE_SHOW_ALL);
     }
 
     @Override
