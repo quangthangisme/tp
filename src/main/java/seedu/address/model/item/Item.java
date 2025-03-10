@@ -1,2 +1,4 @@
-package seedu.address.model.item;public class Item {
+package seedu.address.model.item;
+
+public interface Item {
 }
