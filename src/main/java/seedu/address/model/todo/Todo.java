@@ -7,6 +7,10 @@ import java.util.Objects;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.item.Item;
 
+/**
+ * Represents a Todo.
+ * Guarantees: details are present and not null, field values are validated, immutable.
+ */
 public class Todo implements Item {
 
     // Identity fields
@@ -73,4 +77,8 @@ public class Todo implements Item {
                 .toString();
     }
 
+    @Override
+    public String getFullInformationString() {
+        return this.toString();
+    }
 }

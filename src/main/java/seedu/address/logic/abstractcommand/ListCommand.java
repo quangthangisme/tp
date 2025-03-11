@@ -35,5 +35,5 @@ public abstract class ListCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Returns a success message to be displayed when the command executes successfully.
      */
-    abstract String getSuccessMessage();
+    public abstract String getSuccessMessage();
 }
