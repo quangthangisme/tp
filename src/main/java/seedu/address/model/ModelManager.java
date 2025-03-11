@@ -11,7 +11,10 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.item.ItemManagerWithFilteredList;
 import seedu.address.model.person.Person;
+import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.TodoMangerWithFilteredList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -22,6 +25,8 @@ public class ModelManager implements Model {
     private final AddressBook addressBook;
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
+
+    private final ItemManagerWithFilteredList<Todo> todoManagerAndList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -34,6 +39,8 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
+
+        todoManagerAndList = new TodoMangerWithFilteredList();
     }
 
     public ModelManager() {
@@ -126,6 +133,11 @@ public class ModelManager implements Model {
     public void updateFilteredPersonList(Predicate<Person> predicate) {
         requireNonNull(predicate);
         filteredPersons.setPredicate(predicate);
+    }
+
+    @Override
+    public ItemManagerWithFilteredList<Todo> getTodoManagerAndList() {
+        return todoManagerAndList;
     }
 
     @Override

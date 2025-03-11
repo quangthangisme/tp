@@ -5,7 +5,9 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.item.ItemManagerWithFilteredList;
 import seedu.address.model.person.Person;
+import seedu.address.model.todo.Todo;
 
 /**
  * The API of the Model component.
@@ -84,4 +86,6 @@ public interface Model {
      * @throws NullPointerException if {@code predicate} is null.
      */
     void updateFilteredPersonList(Predicate<Person> predicate);
+
+    ItemManagerWithFilteredList<Todo> getTodoManagerAndList();
 }
