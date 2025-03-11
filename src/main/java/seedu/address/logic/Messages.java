@@ -53,8 +53,8 @@ public class Messages {
      * Formats the {@code todo} for display to the user.
      */
     public static String format(Todo todo) {
-        return todo.getName() +
-                "; Deadline: " + todo.getDeadline() +
-                "; Location: " + todo.getLocation();
+        return todo.getName()
+                + "; Deadline: " + todo.getDeadline()
+                + "; Location: " + todo.getLocation();
     }
 }
