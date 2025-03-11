@@ -12,9 +12,21 @@ import seedu.address.model.Model;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.ItemManagerWithFilteredList;
 
+/**
+ * Abstract command to delete an {@code Item} from the model based on a given index.
+ *
+ * @param <T> the type of {@code Item} being deleted, which must extend {@link Item}.
+ */
 public abstract class DeleteCommand<T extends Item> extends ItemCommand<T> {
     private final Index targetIndex;
 
+    /**
+     * Creates a {@code DeleteCommand} to delete an {@code Item} at the specified
+     * {@code targetIndex}.
+     *
+     * @throws NullPointerException if {@code targetIndex} or {@code managerAndListGetter} is
+     *                              {@code null}.
+     */
     public DeleteCommand(Index targetIndex,
                          Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
         super(managerAndListGetter);
@@ -37,7 +49,13 @@ public abstract class DeleteCommand<T extends Item> extends ItemCommand<T> {
         return new CommandResult(getSuccessMessage(itemToDelete));
     }
 
+    /**
+     * Returns the message to be displayed when the provided {@code targetIndex} is invalid.
+     */
     abstract String getInvalidIndexMessage();
 
+    /**
+     * Returns the success message to be displayed when an {@code Item} is successfully deleted.
+     */
     abstract String getSuccessMessage(T item);
 }

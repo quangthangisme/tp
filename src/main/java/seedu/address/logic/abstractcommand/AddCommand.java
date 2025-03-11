@@ -10,10 +10,18 @@ import seedu.address.model.Model;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.ItemManagerWithFilteredList;
 
+/**
+ * Abstract command to add an {@code Item} to the model.
+ *
+ * @param <T> the type of {@code Item} being added, which must extend {@link Item}.
+ */
 public abstract class AddCommand<T extends Item> extends ItemCommand<T> {
 
     private final T itemToAdd;
 
+    /**
+     * Creates an AddCommand to add the specified {@code item}
+     */
     public AddCommand(T item,
                       Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
         super(managerAndListGetter);
@@ -34,7 +42,13 @@ public abstract class AddCommand<T extends Item> extends ItemCommand<T> {
         return new CommandResult(getSuccessMessage());
     }
 
+    /**
+     * Returns the message to be displayed when the item being added is a duplicate.
+     */
     abstract String getDuplicateItemMessage();
 
+    /**
+     * Returns the message to be displayed when the item is successfully added to the model.
+     */
     abstract String getSuccessMessage();
 }

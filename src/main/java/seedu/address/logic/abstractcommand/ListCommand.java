@@ -9,7 +9,17 @@ import seedu.address.model.Model;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.ItemManagerWithFilteredList;
 
+
+/**
+ * A command to list all {@code T} items in the model.
+ *
+ * @param <T> the type of {@code Item} being listed, which must extend {@link Item}.
+ */
 public abstract class ListCommand<T extends Item> extends ItemCommand<T> {
+
+    /**
+     * Creates a {@code ListCommand}.
+     */
     public ListCommand(Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
         super(managerAndListGetter);
     }
@@ -22,5 +32,8 @@ public abstract class ListCommand<T extends Item> extends ItemCommand<T> {
         return new CommandResult(getSuccessMessage());
     }
 
+    /**
+     * Returns a success message to be displayed when the command executes successfully.
+     */
     abstract String getSuccessMessage();
 }

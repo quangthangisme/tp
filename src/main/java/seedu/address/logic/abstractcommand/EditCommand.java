@@ -14,11 +14,21 @@ import seedu.address.model.item.DuplicateChecker;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.ItemManagerWithFilteredList;
 
+/**
+ * Abstract command for editing an {@code Item} in the model at a specified index.
+ *
+ * @param <T> the type of {@code Item} being edited, which must extend {@link Item}.
+ */
 public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
     private final Index index;
-
     private final DuplicateChecker<T> duplicateChecker;
 
+    /**
+     * Creates an {@code EditCommand} to edit an item at the specified {@code index}.
+     *
+     * @throws NullPointerException if {@code index}, {@code managerAndListGetter}, or
+     *                               {@code duplicateChecker} is {@code null}.
+     */
     public EditCommand(Index index,
                        Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter,
                        DuplicateChecker<T> duplicateChecker) {
@@ -50,11 +60,23 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
         return new CommandResult(getSuccessMessage(editedItem));
     }
 
+    /**
+     * Creates an edited version of the given item to be applied to the list.
+     */
     abstract T createEditedItem(T itemToEdit);
 
+    /**
+     * Returns the message to be displayed when the provided index is invalid.
+     */
     abstract String getInvalidIndexMessage();
 
+    /**
+     * Returns the message to be displayed when the edited item is a duplicate of an existing item.
+     */
     abstract String getDuplicateMessage();
 
+    /**
+     * Returns the success message to be displayed after successfully editing the item.
+     */
     abstract String getSuccessMessage(T editedItem);
 }

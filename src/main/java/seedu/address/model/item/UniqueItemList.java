@@ -9,6 +9,12 @@ import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
+/**
+ * A list of items that enforces uniqueness between its elements and does not allow nulls.
+ * Supports a minimal set of list operations.
+ *
+ * @param <T> the type of item to be stored in the list, which extends {@link Item}.
+ */
 public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
 
     private final ObservableList<T> internalList = FXCollections.observableArrayList();
@@ -16,15 +22,27 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
             FXCollections.unmodifiableObservableList(internalList);
     private final DuplicateChecker<T> duplicateChecker;
 
+    /**
+     * Constructs a {@code UniqueItemList} with the given {@code duplicateChecker}.
+     *
+     * @param duplicateChecker the {@code DuplicateChecker} used to check for duplicates.
+     */
     public UniqueItemList(DuplicateChecker<T> duplicateChecker) {
         this.duplicateChecker = duplicateChecker;
     }
 
+    /**
+     * Returns true if the list contains an equivalent item as the given argument.
+     */
     public boolean contains(T toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(elem -> duplicateChecker.check(elem, toCheck));
     }
 
+    /**
+     * Adds an item to the list.
+     * The item must not already exist in the list.
+     */
     public void add(T toAdd) {
         requireNonNull(toAdd);
         if (contains(toAdd)) {
@@ -34,6 +52,11 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
         internalList.add(toAdd);
     }
 
+    /**
+     * Replaces the item {@code target} in the list with {@code editedItem}.
+     * {@code target} must exist in the list.
+     * {@code editedPerson} must not be the same as another existing item in the list.
+     */
     public void setItem(T target, T editedItem) {
         requireAllNonNull(target, editedItem);
 
@@ -51,6 +74,10 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
         internalList.set(index, editedItem);
     }
 
+    /**
+     * Removes the equivalent item from the list.
+     * The item must exist in the list.
+     */
     public void remove(T toRemove) {
         requireNonNull(toRemove);
         if (!internalList.remove(toRemove)) {
@@ -63,6 +90,10 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
         internalList.setAll(replacement.internalList);
     }
 
+    /**
+     * Replaces the contents of this list with {@code items}.
+     * {@code items} must not contain duplicate persons.
+     */
     public void setItems(List<T> items) {
         requireAllNonNull(items);
         if (!itemsAreUnique(items)) {
@@ -73,6 +104,9 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
         internalList.setAll(items);
     }
 
+    /**
+     * Returns the backing list as an unmodifiable {@code ObservableList}.
+     */
     public ObservableList<T> asUnmodifiableObservableList() {
         return internalUnmodifiableList;
     }
@@ -106,6 +140,9 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
         return internalList.toString();
     }
 
+    /**
+     * Returns true if {@code items} contains only unique persons.
+     */
     private boolean itemsAreUnique(List<T> items) {
         for (int i = 0; i < items.size() - 1; i++) {
             for (int j = i + 1; j < items.size(); j++) {
@@ -117,7 +154,14 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
         return true;
     }
 
+    /**
+     * Throws an exception when attempting to add a duplicate item.
+     */
     abstract void throwDuplicateException();
+
+    /**
+     * Throws an exception when attempting to modify an item that does not exist in the list.
+     */
     abstract void throwNotFoundException();
 }
 

@@ -12,11 +12,25 @@ import seedu.address.model.Model;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.ItemManagerWithFilteredList;
 
+/**
+ * Abstract command to display information about an {@code Item} from the model based on a given
+ * index.
+ *
+ * @param <T> the type of {@code Item} whose information is being displayed, which must extend
+ *            {@link Item}.
+ */
 public abstract class DisplayInformationCommand<T extends Item> extends ItemCommand<T> {
     private final Index index;
 
+    /**
+     * Creates a {@code DisplayInformationCommand} to display information of the {@code Item} at the
+     * specified {@code index}.
+     *
+     * @throws NullPointerException if {@code index} or {@code managerAndListGetter} is
+     *                              {@code null}.
+     */
     public DisplayInformationCommand(Index index, Function<Model,
-                ItemManagerWithFilteredList<T>> managerAndListGetter) {
+            ItemManagerWithFilteredList<T>> managerAndListGetter) {
         super(managerAndListGetter);
         requireNonNull(index);
         this.index = index;
@@ -36,7 +50,13 @@ public abstract class DisplayInformationCommand<T extends Item> extends ItemComm
         return new CommandResult(getInformationMessage(itemToDisplay));
     }
 
+    /**
+     * Returns the message to be displayed when the provided {@code index} is invalid.
+     */
     abstract String getInvalidIndexMessage();
 
+    /**
+     * Returns the information message to be displayed for the given {@code item}.
+     */
     abstract String getInformationMessage(T editedItem);
 }
