@@ -3,6 +3,7 @@ package seedu.address.logic.abstractcommand;
 import static java.util.Objects.requireNonNull;
 
 import java.util.List;
+import java.util.function.Function;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
@@ -14,14 +15,17 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
 public abstract class DeleteCommand<T extends Item> extends ItemCommand<T> {
     private final Index targetIndex;
 
-    public DeleteCommand(Index targetIndex) {
+    public DeleteCommand(Index targetIndex,
+                         Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
+        super(managerAndListGetter);
+        requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ItemManagerWithFilteredList<T> managerAndList = getManagerAndList(model);
+        ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
         List<T> lastShownList = managerAndList.getFilteredItemsList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {

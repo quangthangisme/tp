@@ -2,6 +2,8 @@ package seedu.address.logic.abstractcommand;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Function;
+
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -12,7 +14,9 @@ public abstract class AddCommand<T extends Item> extends ItemCommand<T> {
 
     private final T itemToAdd;
 
-    public AddCommand(T item) {
+    public AddCommand(T item,
+                      Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
+        super(managerAndListGetter);
         requireNonNull(item);
         itemToAdd = item;
     }
@@ -21,7 +25,7 @@ public abstract class AddCommand<T extends Item> extends ItemCommand<T> {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        ItemManagerWithFilteredList<T> managerAndList = getManagerAndList(model);
+        ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
         if (managerAndList.hasItem(itemToAdd)) {
             throw new CommandException(getDuplicateItemMessage());
         }
