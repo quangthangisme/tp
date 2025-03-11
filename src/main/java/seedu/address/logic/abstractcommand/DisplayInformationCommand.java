@@ -58,5 +58,5 @@ public abstract class DisplayInformationCommand<T extends Item> extends ItemComm
     /**
      * Returns the information message to be displayed for the given {@code item}.
      */
-    public abstract String getInformationMessage(T editedItem);
+    public abstract String getInformationMessage(T itemToDisplay);
 }
