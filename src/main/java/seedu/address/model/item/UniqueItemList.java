@@ -154,8 +154,14 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
         return true;
     }
 
+    /**
+     * Throws an exception when attempting to add a duplicate item.
+     */
     public abstract void throwDuplicateException();
 
+    /**
+     * Throws an exception when attempting to modify an item that does not exist in the list.
+     */
     public abstract void throwNotFoundException();
 }
 
