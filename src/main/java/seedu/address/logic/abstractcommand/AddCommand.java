@@ -39,7 +39,7 @@ public abstract class AddCommand<T extends Item> extends ItemCommand<T> {
         }
 
         managerAndList.addItem(itemToAdd);
-        return new CommandResult(getSuccessMessage());
+        return new CommandResult(getSuccessMessage(itemToAdd));
     }
 
     /**
@@ -50,5 +50,5 @@ public abstract class AddCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Returns the message to be displayed when the item is successfully added to the model.
      */
-    public abstract String getSuccessMessage();
+    public abstract String getSuccessMessage(T itemToAdd);
 }
