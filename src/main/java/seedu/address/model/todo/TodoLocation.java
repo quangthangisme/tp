@@ -1,2 +1,4 @@
-package seedu.address.model.todo;public class TodoLocation {
+package seedu.address.model.todo;
+
+public class TodoLocation {
 }
