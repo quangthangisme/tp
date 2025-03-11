@@ -52,10 +52,10 @@ public abstract class DeleteCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Returns the message to be displayed when the provided {@code targetIndex} is invalid.
      */
-    abstract String getInvalidIndexMessage();
+    public abstract String getInvalidIndexMessage();
 
     /**
      * Returns the success message to be displayed when an {@code Item} is successfully deleted.
      */
-    abstract String getSuccessMessage(T item);
+    public abstract String getSuccessMessage(T item);
 }

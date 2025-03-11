@@ -39,5 +39,5 @@ public abstract class ClearCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Returns the success message to be displayed when the item list is cleared.
      */
-    abstract String getSuccessMessage();
+    public abstract String getSuccessMessage();
 }

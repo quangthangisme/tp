@@ -53,10 +53,10 @@ public abstract class DisplayInformationCommand<T extends Item> extends ItemComm
     /**
      * Returns the message to be displayed when the provided {@code index} is invalid.
      */
-    abstract String getInvalidIndexMessage();
+    public abstract String getInvalidIndexMessage();
 
     /**
      * Returns the information message to be displayed for the given {@code item}.
      */
-    abstract String getInformationMessage(T editedItem);
+    public abstract String getInformationMessage(T editedItem);
 }

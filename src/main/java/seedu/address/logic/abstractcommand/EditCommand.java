@@ -63,20 +63,20 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Creates an edited version of the given item to be applied to the list.
      */
-    abstract T createEditedItem(T itemToEdit);
+    public abstract T createEditedItem(T itemToEdit);
 
     /**
      * Returns the message to be displayed when the provided index is invalid.
      */
-    abstract String getInvalidIndexMessage();
+    public abstract String getInvalidIndexMessage();
 
     /**
      * Returns the message to be displayed when the edited item is a duplicate of an existing item.
      */
-    abstract String getDuplicateMessage();
+    public abstract String getDuplicateMessage();
 
     /**
      * Returns the success message to be displayed after successfully editing the item.
      */
-    abstract String getSuccessMessage(T editedItem);
+    public abstract String getSuccessMessage(T editedItem);
 }

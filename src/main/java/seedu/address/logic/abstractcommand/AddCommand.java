@@ -45,10 +45,10 @@ public abstract class AddCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Returns the message to be displayed when the item being added is a duplicate.
      */
-    abstract String getDuplicateItemMessage();
+    public abstract String getDuplicateItemMessage();
 
     /**
      * Returns the message to be displayed when the item is successfully added to the model.
      */
-    abstract String getSuccessMessage();
+    public abstract String getSuccessMessage();
 }

@@ -44,5 +44,5 @@ public abstract class FindCommand<T extends Item> extends ItemCommand<T> {
      * Returns an overview message about the result of the find operation, including the
      * number of items that match the search criteria.
      */
-    abstract String getResultOverviewMessage(int numberOfResults);
+    public abstract String getResultOverviewMessage(int numberOfResults);
 }
