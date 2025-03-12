@@ -45,7 +45,8 @@ public class EditCommandParser implements Parser<EditCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, EditCommand.MESSAGE_USAGE), pe);
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ADDRESS);
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
+            PREFIX_ADDRESS, PREFIX_COURSE, PREFIX_GROUP);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -61,16 +62,13 @@ public class EditCommandParser implements Parser<EditCommand> {
         if (argMultimap.getValue(PREFIX_ADDRESS).isPresent()) {
             editPersonDescriptor.setAddress(ParserUtil.parseAddress(argMultimap.getValue(PREFIX_ADDRESS).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
-
         if (argMultimap.getValue(PREFIX_COURSE).isPresent()) {
-            editPersonDescriptor.setModule(ParserUtil.parseModule(argMultimap.getValue(
-                PREFIX_COURSE).get()));
+            editPersonDescriptor.setModule(ParserUtil.parseModule(argMultimap.getValue(PREFIX_COURSE).get()));
         }
-
         if (argMultimap.getValue(PREFIX_GROUP).isPresent()) {
             editPersonDescriptor.setGroup(ParserUtil.parseGroup(argMultimap.getValue(PREFIX_GROUP).get()));
         }
+        parseTagsForEdit(argMultimap.getAllValues(PREFIX_TAG)).ifPresent(editPersonDescriptor::setTags);
 
         if (!editPersonDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditCommand.MESSAGE_NOT_EDITED);
