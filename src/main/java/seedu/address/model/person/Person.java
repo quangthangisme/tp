@@ -8,7 +8,6 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.tag.Tag;
 
 /**
  * Represents a Person in the address book.
@@ -21,6 +20,8 @@ public class Person {
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final Course course;
+    private final Group group;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -28,12 +29,15 @@ public class Person {
     /**
      * Every field must be present and not null.
      */
-    public Person(Id id, Name name, Phone phone, Email email, Set<Tag> tags) {
+    public Person(Id id, Name name, Phone phone, Email email, Course course,
+                  Group group, Set<Tag> tags) {
         requireAllNonNull(name, phone, email, tags);
         this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
+        this.course = course;
+        this.group = group;
         this.tags.addAll(tags);
     }
 
@@ -51,6 +55,14 @@ public class Person {
 
     public Email getEmail() {
         return email;
+    }
+
+    public Course getCourse() {
+        return course;
+    }
+
+    public Group getGroup() {
+        return group;
     }
 
     /**
@@ -94,13 +106,15 @@ public class Person {
                 && name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
+                && course.equals(otherPerson.course)
+                && group.equals(otherPerson.group)
                 && tags.equals(otherPerson.tags);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(id, name, phone, email, tags);
+        return Objects.hash(id, name, phone, email, course, group, tags);
     }
 
     @Override
@@ -110,6 +124,8 @@ public class Person {
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
+                .add("course", course)
+                .add("group", group)
                 .add("tags", tags)
                 .toString();
     }
