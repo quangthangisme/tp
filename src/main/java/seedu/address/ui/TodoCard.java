@@ -6,6 +6,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.todo.Todo;
 
+/**
+ * An UI component that displays information of a {@code Todo}.
+ */
 public class TodoCard extends UiPart<Region> {
 
     private static final String FXML = "TodoListCard.fxml";

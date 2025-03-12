@@ -10,6 +10,9 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.todo.Todo;
 
+/**
+ * Panel containing the list of todos.
+ */
 public class TodoListPanel extends UiPart<Region> {
 
     private static final String FXML = "TodoListPanel.fxml";
