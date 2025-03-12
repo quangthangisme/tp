@@ -57,7 +57,7 @@ public class Person {
         return address;
     }
 
-    public Course getModule() {
+    public Course getCourse() {
         return course;
     }
 

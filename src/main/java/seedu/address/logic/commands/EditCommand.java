@@ -110,7 +110,7 @@ public class EditCommand extends Command {
         Address updatedAddress = editPersonDescriptor.getAddress()
                                                      .orElse(personToEdit.getAddress());
         Course updatedCourse = editPersonDescriptor.getModule()
-                                                   .orElse(personToEdit.getModule());
+                                                   .orElse(personToEdit.getCourse());
         Group updatedGroup = editPersonDescriptor.getGroup()
                                                  .orElse(personToEdit.getGroup());
         Set<Tag> updatedTags = editPersonDescriptor.getTags()
