@@ -11,7 +11,7 @@ import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.Address;
 import seedu.address.model.person.Email;
-import seedu.address.model.person.ID;
+import seedu.address.model.person.Id;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
@@ -37,18 +37,18 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String id} into an {@code ID}.
+     * Parses a {@code String id} into an {@code Id}.
      * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code id} is invalid.
      */
-    public static ID parseID(String id) throws ParseException {
+    public static Id parseId(String id) throws ParseException {
         requireNonNull(id);
-        String trimmedID = id.trim();
-        if (!ID.isValidID(trimmedID)) {
-            throw new ParseException(ID.MESSAGE_CONSTRAINTS);
+        String trimmedId = id.trim();
+        if (!Id.isValidId(trimmedId)) {
+            throw new ParseException(Id.MESSAGE_CONSTRAINTS);
         }
-        return new ID(trimmedID);
+        return new Id(trimmedId);
     }
 
     /**

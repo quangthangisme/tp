@@ -5,9 +5,9 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
  * Represents a Person's id in the address book.
- * Guarantees: immutable; is valid as declared in {@link #isValidID(String)}
+ * Guarantees: immutable; is valid as declared in {@link #isValidId(String)}
  */
-public class ID {
+public class Id {
 
     public static final String MESSAGE_CONSTRAINTS =
             "IDs should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -18,30 +18,30 @@ public class ID {
      */
     public static final String VALIDATION_REGEX = "[\\p{Alnum}][\\p{Alnum} ]*";
 
-    public final String fullID;
+    public final String fullId;
 
     /**
-     * Constructs a {@code ID}.
+     * Constructs a {@code Id}.
      *
      * @param id A valid id.
      */
-    public ID(String id) {
+    public Id(String id) {
         requireNonNull(id);
-        checkArgument(isValidID(id), MESSAGE_CONSTRAINTS);
-        fullID = id;
+        checkArgument(isValidId(id), MESSAGE_CONSTRAINTS);
+        fullId = id;
     }
 
     /**
      * Returns true if a given string is a valid id.
      */
-    public static boolean isValidID(String test) {
+    public static boolean isValidId(String test) {
         return test.matches(VALIDATION_REGEX);
     }
 
 
     @Override
     public String toString() {
-        return fullID;
+        return fullId;
     }
 
     @Override
@@ -51,17 +51,17 @@ public class ID {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ID)) {
+        if (!(other instanceof Id)) {
             return false;
         }
 
-        ID otherID = (ID) other;
-        return fullID.equals(otherID.fullID);
+        Id otherId = (Id) other;
+        return fullId.equals(otherId.fullId);
     }
 
     @Override
     public int hashCode() {
-        return fullID.hashCode();
+        return fullId.hashCode();
     }
 
 }
