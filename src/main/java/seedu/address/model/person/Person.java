@@ -16,6 +16,7 @@ import seedu.address.commons.util.ToStringBuilder;
 public class Person {
 
     // Identity fields
+    private final Id id;
     private final Name name;
     private final Phone phone;
     private final Email email;
@@ -23,22 +24,25 @@ public class Person {
     private final Group group;
 
     // Data fields
-    private final Address address;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
-    public Person(Name name, Phone phone, Email email, Address address, Course course,
+    public Person(Id id, Name name, Phone phone, Email email, Course course,
                   Group group, Set<Tag> tags) {
-        requireAllNonNull(name, phone, email, address, tags);
+        requireAllNonNull(name, phone, email, tags);
+        this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.course = course;
         this.group = group;
-        this.address = address;
         this.tags.addAll(tags);
+    }
+
+    public Id getId() {
+        return id;
     }
 
     public Name getName() {
@@ -51,10 +55,6 @@ public class Person {
 
     public Email getEmail() {
         return email;
-    }
-
-    public Address getAddress() {
-        return address;
     }
 
     public Course getCourse() {
@@ -83,7 +83,7 @@ public class Person {
         }
 
         return otherPerson != null
-                && otherPerson.getName().equals(getName());
+                && otherPerson.getId().equals(getId());
     }
 
     /**
@@ -102,10 +102,10 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        return name.equals(otherPerson.name)
+        return id.equals(otherPerson.id)
+                && name.equals(otherPerson.name)
                 && phone.equals(otherPerson.phone)
                 && email.equals(otherPerson.email)
-                && address.equals(otherPerson.address)
                 && course.equals(otherPerson.course)
                 && group.equals(otherPerson.group)
                 && tags.equals(otherPerson.tags);
@@ -114,16 +114,16 @@ public class Person {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, phone, email, address, course, group, tags);
+        return Objects.hash(id, name, phone, email, course, group, tags);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
+                .add("id", id)
                 .add("name", name)
                 .add("phone", phone)
                 .add("email", email)
-                .add("address", address)
                 .add("course", course)
                 .add("group", group)
                 .add("tags", tags)
