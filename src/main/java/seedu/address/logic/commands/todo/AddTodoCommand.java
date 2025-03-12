@@ -1,0 +1,50 @@
+package seedu.address.logic.commands.todo;
+
+import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME;
+
+import seedu.address.logic.Messages;
+import seedu.address.logic.abstractcommand.AddCommand;
+import seedu.address.model.Model;
+import seedu.address.model.todo.Todo;
+
+/**
+ * Adds a todo.
+ */
+public class AddTodoCommand extends AddCommand<Todo> {
+
+    public static final String COMMAND_WORD = "add";
+
+    public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
+            + ": Adds a todo to the app. "
+            + "Parameters: "
+            + PREFIX_TODO_NAME + "NAME "
+            + PREFIX_TODO_DEADLINE + "PREFIX_TODO_DEADLINE "
+            + PREFIX_TODO_LOCATION + "LOCATION\n"
+            + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " "
+            + PREFIX_TODO_NAME + "Grading students' projects"
+            + PREFIX_TODO_DEADLINE + "25-05-23 17:00 "
+            + PREFIX_TODO_LOCATION + "NUS Science ";
+
+    public static final String MESSAGE_SUCCESS = "New todo added: %1$s";
+    public static final String MESSAGE_DUPLICATE_TODO = "This todo already exists";
+
+    /**
+     * Creates an AddTodoCommand to add the specified {@code todo}.
+     */
+    public AddTodoCommand(Todo todo) {
+        super(todo, Model::getTodoManagerAndList);
+    }
+
+    @Override
+    public String getDuplicateItemMessage() {
+        return MESSAGE_DUPLICATE_TODO;
+    }
+
+    @Override
+    public String getSuccessMessage(Todo todo) {
+        return String.format(MESSAGE_SUCCESS, Messages.format(todo));
+    }
+}
