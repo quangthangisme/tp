@@ -12,6 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.logic.commands.todo.DeleteTodoCommand;
+import seedu.address.logic.commands.todo.ListTodoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -53,6 +54,9 @@ public class TodoParser {
 
         case AddTodoCommand.COMMAND_WORD:
             return new AddTodoCommandParser().parse(arguments);
+
+        case ListTodoCommand.COMMAND_WORD:
+            return new ListTodoCommand();
 
         case DeleteTodoCommand.COMMAND_WORD:
             return new DeleteTodoCommandParser().parse(arguments);
