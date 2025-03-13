@@ -8,6 +8,6 @@ import seedu.address.model.item.DuplicateChecker;
 public class EventDuplicateChecker implements DuplicateChecker<Event> {
     @Override
     public boolean check(Event first, Event second) {
-        return first == second || (first != null && first.getEventName().equals(second.getEventName()));
+        return first == second || (first != null && first.getName().equals(second.getName()));
     }
 }

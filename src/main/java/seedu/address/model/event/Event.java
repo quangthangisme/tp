@@ -29,7 +29,7 @@ public class Event implements Item {
         this.location = location;
     }
 
-    public EventName getEventName() {
+    public EventName getName() {
         return this.name;
     }
 
@@ -41,7 +41,7 @@ public class Event implements Item {
         return this.endTime;
     }
 
-    public EventLocation getEventLocation() {
+    public EventLocation getLocation() {
         return this.location;
     }
 

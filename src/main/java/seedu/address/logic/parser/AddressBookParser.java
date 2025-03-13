@@ -2,6 +2,7 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import java.util.logging.Logger;
@@ -19,6 +20,7 @@ import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.InfoCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.parser.event.EventParser;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.todo.TodoParser;
 
@@ -85,6 +87,9 @@ public class AddressBookParser {
 
         case TODO_COMMAND_WORD:
             return new TodoParser().parseCommand(arguments);
+
+        case EVENT_COMMAND_WORD:
+            return new EventParser().parseCommand(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

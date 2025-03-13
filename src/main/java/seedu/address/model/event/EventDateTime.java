@@ -31,7 +31,7 @@ public class EventDateTime {
     /**
      * Returns true if a given string is a valid {@code LocalDateTime} format.
      */
-    public boolean isValid(String dateTime) {
+    public static boolean isValid(String dateTime) {
         try {
             LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
             return true;
