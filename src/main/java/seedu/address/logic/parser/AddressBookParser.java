@@ -77,7 +77,8 @@ public class AddressBookParser {
         case InfoCommand.COMMAND_WORD:
             return new InfoCommandParser().parse(arguments);
 
-        case ExitCommand.COMMAND_WORD:
+        case ExitCommand.COMMAND_WORD_EXIT, ExitCommand.COMMAND_WORD_BYE,
+             ExitCommand.COMMAND_WORD_QUIT, ExitCommand.COMMAND_WORD_KILL:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
