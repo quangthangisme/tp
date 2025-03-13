@@ -10,8 +10,11 @@ import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.event.Event;
 
+/**
+ * Panel containing the list of events.
+ */
 public class EventListPanel extends UiPart<Region> {
-    private static String FXML = "EventListPanel.fxml";
+    private static final String FXML = "EventListPanel.fxml";
     private final Logger logger = LogsCenter.getLogger(EventListPanel.class);
 
     @FXML
