@@ -7,12 +7,21 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Represents an Event's date and time.
+ * Gurantees: immutable; is valid as declared in {@link #isValid(String)}
+ */
 public class EventDateTime {
-    public static final String MESSAGE_CONSTRAINTS = 
+    public static final String MESSAGE_CONSTRAINTS =
             "Event start/end time should be in the format YY-MM-DD HH:MM, where HH is in 24-hour format.";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm");
     public final LocalDateTime dateTime;
 
+    /**
+     * Constructs a {@code EventDateTime}
+     *
+     * @param dateTime A valid date and time in the format "YY-MM-DD HH:MM".
+     */
     public EventDateTime(String dateTime) {
         requireNonNull(dateTime);
         checkArgument(isValid(dateTime), MESSAGE_CONSTRAINTS);

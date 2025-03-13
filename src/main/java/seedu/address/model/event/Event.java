@@ -9,7 +9,7 @@ import seedu.address.model.item.Item;
 
 /**
  * Represents an Event.
- * Guarantees: details are present and not null, field values are validated, immutable. 
+ * Guarantees: details are present and not null, field values are validated, immutable.
  */
 public class Event implements Item {
     private final EventName name;
@@ -63,10 +63,10 @@ public class Event implements Item {
         if (!(other instanceof Event otherEvent)) {
             return false;
         }
-        return this.name.equals(otherEvent.name) &&
-                this.startTime.equals(otherEvent.startTime) &&
-                this.endTime.equals(otherEvent.endTime) &&
-                this.location.equals(otherEvent.location);
+        return this.name.equals(otherEvent.name)
+                && this.startTime.equals(otherEvent.startTime)
+                && this.endTime.equals(otherEvent.endTime)
+                && this.location.equals(otherEvent.location);
     }
 
     @Override

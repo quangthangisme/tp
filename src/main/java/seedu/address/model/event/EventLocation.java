@@ -3,13 +3,22 @@ package seedu.address.model.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
+/**
+ * Represents an Event's location in the address book.
+ * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
+ */
 public class EventLocation {
-    public static final String MESSAGE_CONSTRAINTS = 
+    public static final String MESSAGE_CONSTRAINTS =
             "Locations can take any values, and it should not be blank";
     // Ensures string is not empty AND does not start with whitespace
     public static final String VALIDATION_REGEX = "[^\\s].*";
     private final String value;
 
+    /**
+     * Constructs an {@code EventLocation}.
+     *
+     * @param address
+     */
     public EventLocation(String address) {
         requireNonNull(address);
         checkArgument(isValid(address), MESSAGE_CONSTRAINTS);
