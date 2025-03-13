@@ -14,4 +14,5 @@ public class CliSyntax {
     public static final Prefix PREFIX_COURSE = new Prefix("c/");
     public static final Prefix PREFIX_GROUP = new Prefix("g/");
 
+    public static final String TODO_COMMAND_WORD = "todo";
 }
