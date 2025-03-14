@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
+import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 import seedu.address.model.todo.Todo;
 
@@ -62,5 +63,14 @@ public class Messages {
         return todo.getName()
                 + "; Deadline: " + todo.getDeadline()
                 + "; Location: " + todo.getLocation();
+    }
+    /**
+     * Formats the {@code todo} for display to the user.
+     */
+    public static String format(Event event) {
+        return event.getName()
+                + "; Start Time: " + event.getStartTime()
+                + "; End Time: " + event.getEndTime()
+                + "; Location: " + event.getLocation();
     }
 }

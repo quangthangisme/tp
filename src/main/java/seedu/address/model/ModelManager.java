@@ -11,6 +11,8 @@ import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.item.ItemManagerWithFilteredList;
 import seedu.address.model.person.Person;
 import seedu.address.model.todo.Todo;
@@ -27,6 +29,7 @@ public class ModelManager implements Model {
     private final FilteredList<Person> filteredPersons;
 
     private final ItemManagerWithFilteredList<Todo> todoManagerAndList;
+    private final ItemManagerWithFilteredList<Event> eventManagerAndList;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -41,6 +44,7 @@ public class ModelManager implements Model {
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
 
         todoManagerAndList = new TodoMangerWithFilteredList();
+        eventManagerAndList = new EventManagerWithFilteredList();
     }
 
     public ModelManager() {
@@ -138,6 +142,11 @@ public class ModelManager implements Model {
     @Override
     public ItemManagerWithFilteredList<Todo> getTodoManagerAndList() {
         return todoManagerAndList;
+    }
+
+    @Override
+    public ItemManagerWithFilteredList<Event> getEventManagerAndList() {
+        return eventManagerAndList;
     }
 
     @Override

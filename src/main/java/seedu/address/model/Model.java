@@ -5,6 +5,7 @@ import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.event.Event;
 import seedu.address.model.item.ItemManagerWithFilteredList;
 import seedu.address.model.person.Person;
 import seedu.address.model.todo.Todo;
@@ -91,4 +92,9 @@ public interface Model {
      * Returns the todo manager and display list.
      */
     ItemManagerWithFilteredList<Todo> getTodoManagerAndList();
+
+    /**
+     * Returns the event manager and display list
+     */
+    ItemManagerWithFilteredList<Event> getEventManagerAndList();
 }
