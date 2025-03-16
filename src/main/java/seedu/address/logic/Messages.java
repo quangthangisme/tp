@@ -2,6 +2,7 @@ package seedu.address.logic;
 
 import java.util.Set;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
@@ -57,13 +58,35 @@ public class Messages {
     }
 
     /**
+     * Returns a simplified format of a {@code person} for display to the user.
+     */
+    public static String getSimplifiedFormat(Person person) {
+        return person.getName()
+                + "; ID: " + person.getId()
+                + "; Course: " + person.getCourse()
+                + "; Group: " + person.getGroup();
+    }
+
+    /**
      * Formats the {@code todo} for display to the user.
      */
     public static String format(Todo todo) {
+        String personsFormatted;
+
+        if (todo.getPersons().isEmpty()) {
+            personsFormatted = "None";
+        } else {
+            personsFormatted = IntStream.range(0, todo.getPersons().size())
+                    .mapToObj(i -> (i + 1) + ". " + getSimplifiedFormat(todo.getPersons().get(i)))
+                    .collect(Collectors.joining("\n"));
+        }
+
         return todo.getName()
                 + "; Deadline: " + todo.getDeadline()
-                + "; Location: " + todo.getLocation();
+                + "; Location: " + todo.getLocation()
+                + "; Persons:\n" + personsFormatted;
     }
+
     /**
      * Formats the {@code todo} for display to the user.
      */

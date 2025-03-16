@@ -2,10 +2,12 @@ package seedu.address.model.todo;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.List;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.item.Item;
+import seedu.address.model.person.Person;
 
 /**
  * Represents a Todo.
@@ -19,6 +21,18 @@ public class Todo implements Item {
     // Data fields
     private final TodoDeadline deadline;
     private final TodoLocation location;
+    private final List<Person> persons;
+
+    /**
+     * Every field must be present and not null.
+     */
+    public Todo(TodoName name, TodoDeadline deadline, TodoLocation location, List<Person> persons) {
+        requireAllNonNull(name, deadline, location);
+        this.name = name;
+        this.deadline = deadline;
+        this.location = location;
+        this.persons = persons.stream().toList();
+    }
 
     /**
      * Every field must be present and not null.
@@ -28,6 +42,7 @@ public class Todo implements Item {
         this.name = name;
         this.deadline = deadline;
         this.location = location;
+        this.persons = List.of();
     }
 
     public TodoName getName() {
@@ -40,6 +55,10 @@ public class Todo implements Item {
 
     public TodoLocation getLocation() {
         return location;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
     }
 
     /**
@@ -59,13 +78,14 @@ public class Todo implements Item {
 
         return name.equals(otherTodo.name)
                 && deadline.equals(otherTodo.deadline)
-                && location.equals(otherTodo.location);
+                && location.equals(otherTodo.location)
+                && persons.equals(otherTodo.persons);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, deadline, location);
+        return Objects.hash(name, deadline, location, persons);
     }
 
     @Override
@@ -74,6 +94,7 @@ public class Todo implements Item {
                 .add("name", name)
                 .add("deadline", deadline)
                 .add("location", location)
+                .add("persons", persons)
                 .toString();
     }
 }

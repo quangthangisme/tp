@@ -74,7 +74,7 @@ public class EditPersonCommand extends EditCommand<Person> {
      * Creates and returns a {@code Person} with the details of {@code personToEdit} edited with
      * {@code editPersonDescriptor}.
      */
-    public Person createEditedItem(Person personToEdit) {
+    public Person createEditedItem(Model model, Person personToEdit) {
         assert personToEdit != null;
 
         Id updatedId = editPersonDescriptor.getId().orElse(personToEdit.getId());
