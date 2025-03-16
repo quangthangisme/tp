@@ -16,7 +16,7 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
  * @param <T> the type of {@code Item} being searched for, which must extend {@link Item}.
  */
 public abstract class FindCommand<T extends Item> extends ItemCommand<T> {
-    private final Predicate<T> predicate;
+    protected final Predicate<T> predicate;
 
     /**
      * Creates a {@code FindCommand} to find items that match the given {@code predicate}.

@@ -10,7 +10,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.item.DuplicateChecker;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.ItemManagerWithFilteredList;
 
@@ -20,8 +19,7 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
  * @param <T> the type of {@code Item} being edited, which must extend {@link Item}.
  */
 public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
-    private final Index index;
-    private final DuplicateChecker<T> duplicateChecker;
+    protected final Index index;
 
     /**
      * Creates an {@code EditCommand} to edit an item at the specified {@code index}.
@@ -30,12 +28,10 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
      *                               {@code duplicateChecker} is {@code null}.
      */
     public EditCommand(Index index,
-                       Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter,
-                       DuplicateChecker<T> duplicateChecker) {
+                       Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
         super(managerAndListGetter);
-        requireAllNonNull(index, duplicateChecker);
+        requireAllNonNull(index);
         this.index = index;
-        this.duplicateChecker = duplicateChecker;
     }
 
     @Override
@@ -51,7 +47,8 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
         T itemToEdit = lastShownList.get(index.getZeroBased());
         T editedItem = createEditedItem(itemToEdit);
 
-        if (!duplicateChecker.check(itemToEdit, editedItem) && managerAndList.hasItem(editedItem)) {
+        if (!managerAndList.getDuplicateChecker().check(itemToEdit, editedItem)
+                && managerAndList.hasItem(editedItem)) {
             throw new CommandException(getDuplicateMessage());
         }
 

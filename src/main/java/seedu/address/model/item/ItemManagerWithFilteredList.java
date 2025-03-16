@@ -82,6 +82,13 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
         itemManager.setItem(target, editedItem);
     }
 
+    /**
+     * Returns the duplicate checker instance used in the underlying itemManager.
+     */
+    public DuplicateChecker<T> getDuplicateChecker() {
+        return itemManager.getDuplicateChecker();
+    }
+
     //=========== Filtered Item List Accessors =====================================================
 
     /**
@@ -120,5 +127,10 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
 
         return itemManager.equals(otherManagerAndList.itemManager)
                 && filteredItems.equals(otherManagerAndList.filteredItems);
+    }
+
+    @Override
+    public String toString() {
+        return this.itemManager.toString();
     }
 }

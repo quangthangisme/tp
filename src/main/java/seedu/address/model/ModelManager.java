@@ -4,17 +4,15 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.item.ItemManagerWithFilteredList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonManagerWithFilteredList;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoMangerWithFilteredList;
 
@@ -24,34 +22,39 @@ import seedu.address.model.todo.TodoMangerWithFilteredList;
 public class ModelManager implements Model {
     private static final Logger logger = LogsCenter.getLogger(ModelManager.class);
 
-    private final AddressBook addressBook;
     private final UserPrefs userPrefs;
-    private final FilteredList<Person> filteredPersons;
 
+    private final ItemManagerWithFilteredList<Person> personManagerAndList;
     private final ItemManagerWithFilteredList<Todo> todoManagerAndList;
     private final ItemManagerWithFilteredList<Event> eventManagerAndList;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given managers with lists and userPrefs.
      */
-    public ModelManager(ReadOnlyAddressBook addressBook, ReadOnlyUserPrefs userPrefs) {
-        requireAllNonNull(addressBook, userPrefs);
+    public ModelManager(ReadOnlyUserPrefs userPrefs,
+                        ItemManagerWithFilteredList<Person> personManagerAndList,
+                        ItemManagerWithFilteredList<Todo> todoManagerAndList,
+                        ItemManagerWithFilteredList<Event> eventManagerAndList) {
+        requireAllNonNull(userPrefs, personManagerAndList, todoManagerAndList, eventManagerAndList);
 
-        logger.fine("Initializing with address book: " + addressBook + " and user prefs " + userPrefs);
+        logger.fine("Initializing with person manager: " + personManagerAndList
+                + ", todo manager: " + todoManagerAndList
+                + ", event manager: " + eventManagerAndList
+                + ", and user prefs " + userPrefs);
 
-        this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
-        filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-
-        todoManagerAndList = new TodoMangerWithFilteredList();
-        eventManagerAndList = new EventManagerWithFilteredList();
+        this.personManagerAndList = personManagerAndList;
+        this.todoManagerAndList = todoManagerAndList;
+        this.eventManagerAndList = eventManagerAndList;
     }
 
+    /**
+     * Initializes a default ModelManager.
+     */
     public ModelManager() {
-        this(new AddressBook(), new UserPrefs());
+        this(new UserPrefs(), new PersonManagerWithFilteredList(),
+                new TodoMangerWithFilteredList(), new EventManagerWithFilteredList());
     }
-
-    //=========== UserPrefs ==================================================================================
 
     @Override
     public void setUserPrefs(ReadOnlyUserPrefs userPrefs) {
@@ -86,57 +89,9 @@ public class ModelManager implements Model {
         userPrefs.setAddressBookFilePath(addressBookFilePath);
     }
 
-    //=========== AddressBook ================================================================================
-
     @Override
-    public void setAddressBook(ReadOnlyAddressBook addressBook) {
-        this.addressBook.resetData(addressBook);
-    }
-
-    @Override
-    public ReadOnlyAddressBook getAddressBook() {
-        return addressBook;
-    }
-
-    @Override
-    public boolean hasPerson(Person person) {
-        requireNonNull(person);
-        return addressBook.hasPerson(person);
-    }
-
-    @Override
-    public void deletePerson(Person target) {
-        addressBook.removePerson(target);
-    }
-
-    @Override
-    public void addPerson(Person person) {
-        addressBook.addPerson(person);
-        updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-    }
-
-    @Override
-    public void setPerson(Person target, Person editedPerson) {
-        requireAllNonNull(target, editedPerson);
-
-        addressBook.setPerson(target, editedPerson);
-    }
-
-    //=========== Filtered Person List Accessors =============================================================
-
-    /**
-     * Returns an unmodifiable view of the list of {@code Person} backed by the internal list of
-     * {@code versionedAddressBook}
-     */
-    @Override
-    public ObservableList<Person> getFilteredPersonList() {
-        return filteredPersons;
-    }
-
-    @Override
-    public void updateFilteredPersonList(Predicate<Person> predicate) {
-        requireNonNull(predicate);
-        filteredPersons.setPredicate(predicate);
+    public ItemManagerWithFilteredList<Person> getPersonManagerAndList() {
+        return personManagerAndList;
     }
 
     @Override
@@ -156,14 +111,14 @@ public class ModelManager implements Model {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ModelManager)) {
+        if (!(other instanceof ModelManager otherModelManager)) {
             return false;
         }
 
-        ModelManager otherModelManager = (ModelManager) other;
-        return addressBook.equals(otherModelManager.addressBook)
-                && userPrefs.equals(otherModelManager.userPrefs)
-                && filteredPersons.equals(otherModelManager.filteredPersons);
+        return userPrefs.equals(otherModelManager.userPrefs)
+                && personManagerAndList.equals(otherModelManager.personManagerAndList)
+                && todoManagerAndList.equals(otherModelManager.todoManagerAndList)
+                && eventManagerAndList.equals(otherModelManager.eventManagerAndList);
     }
 
 }
