@@ -18,7 +18,7 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
  * @param <T> the type of {@code Item} being deleted, which must extend {@link Item}.
  */
 public abstract class DeleteCommand<T extends Item> extends ItemCommand<T> {
-    private final Index targetIndex;
+    protected final Index targetIndex;
 
     /**
      * Creates a {@code DeleteCommand} to delete an {@code Item} at the specified

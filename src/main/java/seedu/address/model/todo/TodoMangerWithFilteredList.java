@@ -1,5 +1,6 @@
 package seedu.address.model.todo;
 
+import seedu.address.model.item.ItemManager;
 import seedu.address.model.item.ItemManagerWithFilteredList;
 
 /**
@@ -7,6 +8,10 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
  * Duplicates are not allowed in the underlying list.
  */
 public class TodoMangerWithFilteredList extends ItemManagerWithFilteredList<Todo> {
+    public TodoMangerWithFilteredList(ItemManager<Todo> todoManager) {
+        super(todoManager);
+    }
+
     public TodoMangerWithFilteredList() {
         super(new TodoManager());
     }
