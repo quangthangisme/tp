@@ -13,7 +13,7 @@ import seedu.address.model.person.PersonManager;
 import seedu.address.model.person.PersonManagerWithFilteredList;
 import seedu.address.model.todo.TodoMangerWithFilteredList;
 
-public class ClearCommandTest {
+public class ClearPersonCommandTest {
 
     @Test
     public void execute_emptyAddressBook_success() {

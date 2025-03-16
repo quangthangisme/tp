@@ -27,9 +27,9 @@ import seedu.address.model.todo.TodoMangerWithFilteredList;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
- * {@code DeleteCommand}.
+ * {@code DeletePersonCommand}.
  */
-public class DeleteCommandTest {
+public class DeletePersonCommandTest {
 
     private final Model model = new ModelManager(
             new UserPrefs(),
