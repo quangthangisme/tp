@@ -1,5 +1,6 @@
 package seedu.address.model.event;
 
+import seedu.address.model.item.ItemManager;
 import seedu.address.model.item.ItemManagerWithFilteredList;
 
 /**
@@ -7,6 +8,10 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
  * Duplicates are not allowed in the underlying list.
  */
 public class EventManagerWithFilteredList extends ItemManagerWithFilteredList<Event> {
+    public EventManagerWithFilteredList(ItemManager<Event> eventManager) {
+        super(eventManager);
+    }
+
     public EventManagerWithFilteredList() {
         super(new EventManager());
     }

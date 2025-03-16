@@ -46,8 +46,8 @@ public class JsonPersonStorage implements PersonStorage {
     public Optional<ItemManager<Person>> readAddressBook(Path filePath) throws DataLoadingException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableAddressBook> jsonAddressBook = JsonUtil.readJsonFile(
-                filePath, JsonSerializableAddressBook.class);
+        Optional<JsonSerializablePersonManager> jsonAddressBook = JsonUtil.readJsonFile(
+                filePath, JsonSerializablePersonManager.class);
         if (!jsonAddressBook.isPresent()) {
             return Optional.empty();
         }
@@ -75,7 +75,7 @@ public class JsonPersonStorage implements PersonStorage {
         requireNonNull(filePath);
 
         FileUtil.createIfMissing(filePath);
-        JsonUtil.saveJsonFile(new JsonSerializableAddressBook(addressBook), filePath);
+        JsonUtil.saveJsonFile(new JsonSerializablePersonManager(addressBook), filePath);
     }
 
 }

@@ -10,8 +10,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
- * A list of items that enforces uniqueness between its elements and does not allow nulls.
- * Supports a minimal set of list operations.
+ * A list of items that enforces uniqueness between its elements and does not allow nulls. Supports
+ * a minimal set of list operations.
  *
  * @param <T> the type of item to be stored in the list, which extends {@link Item}.
  */
@@ -32,6 +32,13 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
     }
 
     /**
+     * Returns the duplicate checker instance used in the list.
+     */
+    public DuplicateChecker<T> getDuplicateChecker() {
+        return duplicateChecker;
+    }
+
+    /**
      * Returns true if the list contains an equivalent item as the given argument.
      */
     public boolean contains(T toCheck) {
@@ -40,8 +47,7 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
     }
 
     /**
-     * Adds an item to the list.
-     * The item must not already exist in the list.
+     * Adds an item to the list. The item must not already exist in the list.
      */
     public void add(T toAdd) {
         requireNonNull(toAdd);
@@ -53,9 +59,9 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
     }
 
     /**
-     * Replaces the item {@code target} in the list with {@code editedItem}.
-     * {@code target} must exist in the list.
-     * {@code editedPerson} must not be the same as another existing item in the list.
+     * Replaces the item {@code target} in the list with {@code editedItem}. {@code target} must
+     * exist in the list. {@code editedPerson} must not be the same as another existing item in the
+     * list.
      */
     public void setItem(T target, T editedItem) {
         requireAllNonNull(target, editedItem);
@@ -75,8 +81,7 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
     }
 
     /**
-     * Removes the equivalent item from the list.
-     * The item must exist in the list.
+     * Removes the equivalent item from the list. The item must exist in the list.
      */
     public void remove(T toRemove) {
         requireNonNull(toRemove);
@@ -91,8 +96,8 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
     }
 
     /**
-     * Replaces the contents of this list with {@code items}.
-     * {@code items} must not contain duplicate persons.
+     * Replaces the contents of this list with {@code items}. {@code items} must not contain
+     * duplicate persons.
      */
     public void setItems(List<T> items) {
         requireAllNonNull(items);

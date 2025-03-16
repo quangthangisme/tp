@@ -12,7 +12,7 @@ import seedu.address.model.person.PersonManager;
 /**
  * Represents a storage for {@link PersonManager}.
  */
-public interface PersonManagerStorage {
+public interface PersonStorage {
 
     /**
      * Returns the file path of the data file.

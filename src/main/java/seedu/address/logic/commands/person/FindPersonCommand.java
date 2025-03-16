@@ -1,17 +1,17 @@
-package seedu.address.logic.commands;
-
-import static java.util.Objects.requireNonNull;
+package seedu.address.logic.commands.person;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
+import seedu.address.logic.abstractcommand.FindCommand;
 import seedu.address.model.Model;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
+import seedu.address.model.person.Person;
 
 /**
  * Finds and lists all persons in address book whose name contains any of the argument keywords.
- * Keyword matching is case insensitive.
+ * Keyword matching is case-insensitive.
  */
-public class FindCommand extends Command {
+public class FindPersonCommand extends FindCommand<Person> {
 
     public static final String COMMAND_WORD = "find";
 
@@ -20,18 +20,8 @@ public class FindCommand extends Command {
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie";
 
-    private final NameContainsKeywordsPredicate predicate;
-
-    public FindCommand(NameContainsKeywordsPredicate predicate) {
-        this.predicate = predicate;
-    }
-
-    @Override
-    public CommandResult execute(Model model) {
-        requireNonNull(model);
-        model.updateFilteredPersonList(predicate);
-        return new CommandResult(
-                String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, model.getFilteredPersonList().size()));
+    public FindPersonCommand(NameContainsKeywordsPredicate predicate) {
+        super(predicate, Model::getPersonManagerAndList);
     }
 
     @Override
@@ -41,12 +31,16 @@ public class FindCommand extends Command {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof FindCommand)) {
+        if (!(other instanceof FindPersonCommand otherFindCommand)) {
             return false;
         }
 
-        FindCommand otherFindCommand = (FindCommand) other;
         return predicate.equals(otherFindCommand.predicate);
+    }
+
+    @Override
+    public String getResultOverviewMessage(int numberOfResults) {
+        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, numberOfResults);
     }
 
     @Override
