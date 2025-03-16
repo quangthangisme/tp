@@ -17,7 +17,7 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
  */
 public abstract class AddCommand<T extends Item> extends ItemCommand<T> {
 
-    private final T itemToAdd;
+    protected final T itemToAdd;
 
     /**
      * Creates an AddCommand to add the specified {@code item}

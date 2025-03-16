@@ -20,7 +20,7 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
  *            {@link Item}.
  */
 public abstract class DisplayInformationCommand<T extends Item> extends ItemCommand<T> {
-    private final Index index;
+    protected final Index index;
 
     /**
      * Creates a {@code DisplayInformationCommand} to display information of the {@code Item} at the
