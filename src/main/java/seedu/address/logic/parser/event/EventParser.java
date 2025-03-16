@@ -11,9 +11,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
+import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.DisplayEventInformationCommand;
 import seedu.address.logic.commands.event.ListEventCommand;
-import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -26,6 +26,7 @@ public class EventParser {
     private static final Pattern BASIC_COMMAND_FORMAT =
             Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Logger logger = LogsCenter.getLogger(EventParser.class);
+
     /**
      * Parses user input into command for execution.
      *

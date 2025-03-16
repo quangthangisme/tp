@@ -17,19 +17,22 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
 import seedu.address.model.person.Person;
 import seedu.address.model.todo.Todo;
 
+/**
+ * Associate a list of persons to a todo.
+ */
 public class AddPersonToTodoCommand extends EditCommand<Todo> {
 
     public static final String COMMAND_WORD = "link";
 
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
-            + ": Description\n"
+            + ": Associate a todo with some contacts.\n"
             + "Parameters: INDEX"
             + PREFIX_LINKED_PERSON_INDEX + "[PERSON_INDEX]...\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_LINKED_PERSON_INDEX + " 1 3 4";
 
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX =
-            "The person index provided is invalid";
+            "The person index provided is invalid: %1$s";
     public static final String MESSAGE_INVALID_TODO_DISPLAYED_INDEX =
             "The todo index provided is invalid";
     public static final String MESSAGE_ADD_PERSON_SUCCESS = "Added persons to todo: %1$s";
@@ -42,6 +45,10 @@ public class AddPersonToTodoCommand extends EditCommand<Todo> {
     private final Function<Model, ItemManagerWithFilteredList<Person>>
             personManagerAndListGetter = Model::getPersonManagerAndList;
 
+    /**
+     * Creates an AddPersonToTodoCommand to add the persons at the specified {@code personIndices}
+     * to the todo at the specified {@code index}.
+     */
     public AddPersonToTodoCommand(Index index, List<Index> personIndices) {
         super(index, Model::getTodoManagerAndList);
         requireNonNull(personIndices);
@@ -55,7 +62,8 @@ public class AddPersonToTodoCommand extends EditCommand<Todo> {
 
         for (Index index : personIndices) {
             if (index.getZeroBased() >= filteredPersons.size()) {
-                throw new CommandException(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+                throw new CommandException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
+                        index.getOneBased()));
             }
         }
 

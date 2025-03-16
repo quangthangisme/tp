@@ -58,16 +58,6 @@ public class Messages {
     }
 
     /**
-     * Returns a simplified format of a {@code person} for display to the user.
-     */
-    public static String getSimplifiedFormat(Person person) {
-        return person.getName()
-                + "; ID: " + person.getId()
-                + "; Course: " + person.getCourse()
-                + "; Group: " + person.getGroup();
-    }
-
-    /**
      * Formats the {@code todo} for display to the user.
      */
     public static String format(Todo todo) {
@@ -76,7 +66,7 @@ public class Messages {
         if (todo.getPersons().isEmpty()) {
             personsFormatted = "None";
         } else {
-            personsFormatted = IntStream.range(0, todo.getPersons().size())
+            personsFormatted = "\n" + IntStream.range(0, todo.getPersons().size())
                     .mapToObj(i -> (i + 1) + ". " + getSimplifiedFormat(todo.getPersons().get(i)))
                     .collect(Collectors.joining("\n"));
         }
@@ -84,7 +74,7 @@ public class Messages {
         return todo.getName()
                 + "; Deadline: " + todo.getDeadline()
                 + "; Location: " + todo.getLocation()
-                + "; Persons:\n" + personsFormatted;
+                + "; Persons: " + personsFormatted;
     }
 
     /**
@@ -95,5 +85,15 @@ public class Messages {
                 + "; Start Time: " + event.getStartTime()
                 + "; End Time: " + event.getEndTime()
                 + "; Location: " + event.getLocation();
+    }
+
+    /**
+     * Returns a simplified format of a {@code person} for display to the user.
+     */
+    public static String getSimplifiedFormat(Person person) {
+        return person.getName()
+                + "; ID: " + person.getId()
+                + "; Course: " + person.getCourse()
+                + "; Group: " + person.getGroup();
     }
 }
