@@ -10,22 +10,20 @@ import static seedu.address.testutil.TypicalPersons.ALICE;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
-import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.model.event.Event;
-import seedu.address.model.item.ItemManager;
-import seedu.address.model.person.PersonManager;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
+import seedu.address.model.event.Event;
+import seedu.address.model.item.ItemManager;
 import seedu.address.model.item.ItemManagerWithFilteredList;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonManager;
 import seedu.address.model.todo.Todo;
 import seedu.address.testutil.PersonBuilder;
 
@@ -56,7 +54,8 @@ public class AddPersonCommandTest {
         AddPersonCommand addPersonCommand = new AddPersonCommand(validPerson);
         ModelStub modelStub = new ModelStub(new PersonManagerAndListStub(validPerson));
 
-        assertThrows(CommandException.class, AddPersonCommand.MESSAGE_DUPLICATE_PERSON, () -> addPersonCommand.execute(modelStub));
+        assertThrows(CommandException.class, AddPersonCommand.MESSAGE_DUPLICATE_PERSON, () ->
+                addPersonCommand.execute(modelStub));
     }
 
     @Test
@@ -147,7 +146,7 @@ public class AddPersonCommandTest {
     }
 
     /**
-     * A ItemManagerWithFilteredList<Person> stub that contains a single person.
+     * A ItemManagerWithFilteredList stub that contains a single person.
      */
     private class PersonManagerAndListStub extends ItemManagerWithFilteredList<Person> {
         private final Person person;
@@ -166,7 +165,7 @@ public class AddPersonCommandTest {
     }
 
     /**
-     * A ItemManagerWithFilteredList<Person> stub that always accept the person being added.
+     * A ItemManagerWithFilteredList stub that always accept the person being added.
      */
     private class PersonManagerAndListStubAcceptingPersonAdded
             extends ItemManagerWithFilteredList<Person> {

@@ -11,10 +11,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.model.UserPrefs;
 import seedu.address.model.item.ItemManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonManager;
-import seedu.address.model.UserPrefs;
 
 public class StorageManagerTest {
 

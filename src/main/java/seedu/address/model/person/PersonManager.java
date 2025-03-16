@@ -13,7 +13,7 @@ public class PersonManager extends ItemManager<Person> {
     }
 
     /**
-     * Creates an AddressBook using the Persons in the {@code toBeCopied}
+     * Creates a PersonManager using the Persons in the {@code toBeCopied}
      */
     public PersonManager(ItemManager<Person> toBeCopied) {
         this();

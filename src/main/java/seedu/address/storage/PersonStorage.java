@@ -20,7 +20,7 @@ public interface PersonStorage {
     Path getAddressBookFilePath();
 
     /**
-     * Returns AddressBook data as a {@link ItemManager<Person>}.
+     * Returns AddressBook data as a {@link ItemManager}.
      * Returns {@code Optional.empty()} if storage file is not found.
      *
      * @throws DataLoadingException if loading the data from storage failed.
@@ -33,14 +33,14 @@ public interface PersonStorage {
     Optional<ItemManager<Person>> readAddressBook(Path filePath) throws DataLoadingException;
 
     /**
-     * Saves the given {@link ItemManager<Person>} to the storage.
+     * Saves the given {@link ItemManager} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     void saveAddressBook(ItemManager<Person> addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ItemManager<Person>)
+     * @see #saveAddressBook(ItemManager)
      */
     void saveAddressBook(ItemManager<Person> addressBook, Path filePath) throws IOException;
 

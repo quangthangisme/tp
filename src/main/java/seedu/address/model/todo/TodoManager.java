@@ -11,6 +11,9 @@ public class TodoManager extends ItemManager<Todo> {
         super(new UniqueTodoList());
     }
 
+    /**
+     * Creates a TodoManager using the Todos in the {@code copy}
+     */
     public TodoManager(ItemManager<Todo> copy) {
         this();
         resetData(copy);

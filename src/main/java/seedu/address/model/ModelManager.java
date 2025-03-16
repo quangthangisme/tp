@@ -4,17 +4,13 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.nio.file.Path;
-import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.item.ItemManagerWithFilteredList;
-import seedu.address.model.person.PersonManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonManagerWithFilteredList;
 import seedu.address.model.todo.Todo;
@@ -33,7 +29,7 @@ public class ModelManager implements Model {
     private final ItemManagerWithFilteredList<Event> eventManagerAndList;
 
     /**
-     * Initializes a ModelManager with the given addressBook and userPrefs.
+     * Initializes a ModelManager with the given managers with lists and userPrefs.
      */
     public ModelManager(ReadOnlyUserPrefs userPrefs,
                         ItemManagerWithFilteredList<Person> personManagerAndList,
@@ -52,6 +48,9 @@ public class ModelManager implements Model {
         this.eventManagerAndList = eventManagerAndList;
     }
 
+    /**
+     * Initializes a default ModelManager.
+     */
     public ModelManager() {
         this(new UserPrefs(), new PersonManagerWithFilteredList(),
                 new TodoMangerWithFilteredList(), new EventManagerWithFilteredList());

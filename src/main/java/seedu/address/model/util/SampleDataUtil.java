@@ -5,13 +5,13 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import seedu.address.model.item.ItemManager;
-import seedu.address.model.person.PersonManager;
 import seedu.address.model.person.Course;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Group;
 import seedu.address.model.person.Id;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonManager;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Tag;
 

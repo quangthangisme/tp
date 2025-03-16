@@ -60,7 +60,8 @@ public class ParserImplTest {
         EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder(person).build();
         EditPersonCommand command =
                 (EditPersonCommand) parser.parseCommand(EditPersonCommand.COMMAND_WORD + " "
-                        + INDEX_FIRST_PERSON.getOneBased() + " " + PersonUtil.getEditPersonDescriptorDetails(descriptor));
+                        + INDEX_FIRST_PERSON.getOneBased() + " "
+                        + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditPersonCommand(INDEX_FIRST_PERSON, descriptor), command);
     }
 

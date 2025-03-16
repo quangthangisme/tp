@@ -66,7 +66,7 @@ public class JsonPersonStorage implements PersonStorage {
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ItemManager<Person>)}.
+     * Similar to {@link #saveAddressBook(ItemManager)}.
      *
      * @param filePath location of the data. Cannot be null.
      */

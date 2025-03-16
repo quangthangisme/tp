@@ -7,6 +7,10 @@ import seedu.address.model.item.ItemManager;
  * Wraps all {@code Event}-related data. Duplicates are not allowed.
  */
 public class EventManager extends ItemManager<Event> {
+
+    /**
+     * Creates an EventManager using the Events in the {@code copy}
+     */
     public EventManager(ItemManager<Event> copy) {
         this();
         resetData(copy);

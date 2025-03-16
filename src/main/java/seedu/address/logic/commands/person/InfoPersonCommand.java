@@ -17,8 +17,8 @@ public class InfoPersonCommand extends DisplayInformationCommand<Person> {
 
     public static final String COMMAND_WORD = "info";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the complete " +
-            "information belonging to the "
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Displays the complete "
+            + "information belonging to the "
             + "person identified by the index number used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 2";
