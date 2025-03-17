@@ -81,10 +81,19 @@ public class Messages {
      * Formats the {@code todo} for display to the user.
      */
     public static String format(Event event) {
+        String personListFormatted;
+        if (event.getPersons().isEmpty()) {
+            personListFormatted = "None";
+        } else {
+            personListFormatted = "\n" + IntStream.range(0, event.getPersons().size())
+                    .mapToObj(i -> String.format("%d. %s", i + 1, getSimplifiedFormat(event.getPersons().get(i))))
+                    .collect(Collectors.joining("\n"));
+        }
         return event.getName()
                 + "; Start Time: " + event.getStartTime()
                 + "; End Time: " + event.getEndTime()
-                + "; Location: " + event.getLocation();
+                + "; Location: " + event.getLocation()
+                + "; personListFormatted" + personListFormatted;
     }
 
     /**
