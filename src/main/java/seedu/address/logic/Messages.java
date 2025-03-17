@@ -102,7 +102,7 @@ public class Messages {
     private static String getEventPersonListFormatted(Event event) {
         if (event.getPersons().isEmpty()) {
             return "None";
-        } 
+        }
         String string = "\n" + IntStream.range(0, event.getPersons().size())
                 .mapToObj(i -> String.format("%d.[%s] %s",
                         i + 1, event.getMarkedList().get(i) ? "X" : " ",

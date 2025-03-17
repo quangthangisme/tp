@@ -31,7 +31,7 @@ public class AddPersonToLogEventCommand extends EditCommand<Event> {
             "The person index provided is invalid: %1$s";
     public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX =
             "The event index provided is invalid";
-    public static final String MESSAGE_ADD_LOG_SUCCESS = "Added attendence from persons from event: %1$s";
+    public static final String MESSAGE_ADD_LOG_SUCCESS = "Added attendence from persons to event: %1$s";
     public static final String MESSAGE_NOT_REMOVED = "At least one person must be provided.";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists";
 

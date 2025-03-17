@@ -20,7 +20,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class AddPersonToEventCommandParser implements Parser<AddPersonToEventCommand> {
     /**
      * Parses the given {@code String} of arguments in the context of the
-     * AddPersonToEventCommandParser and returns a AddPersonToEventCommandParser object for
+     * AddPersonToEventCommandParser and returns a AddPersonToEventCommand object for
      * execution.
      *
      * @throws ParseException if the user input does not conform the expected format

@@ -17,7 +17,7 @@ import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
 /**
- * Remove some associated people from an event class
+ * Remove some associated people from an event class via index.
  */
 public class RemovePersonFromEventCommand extends EditCommand<Event> {
     public static final String COMMAND_WORD = "unlink";

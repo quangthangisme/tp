@@ -5,7 +5,7 @@ import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
 /**
- * Lists all events to the user
+ * Lists all events to the user.
  */
 public class ListEventCommand extends ListCommand<Event> {
 
