@@ -13,7 +13,7 @@ public class ExitCommand extends Command {
     public static final String COMMAND_WORD_KILL = "kill";
 
     public static final String MESSAGE_EXIT_ACKNOWLEDGEMENT = "Exiting Address Book as requested ...";
-    public static final String MESSAGE_USAGE = "";
+    public static final String MESSAGE_USAGE = "exit/bye/quit/kill";
 
     @Override
     public CommandResult execute(Model model) {
