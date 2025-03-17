@@ -29,7 +29,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonManager;
 import seedu.address.model.person.PersonManagerWithFilteredList;
 import seedu.address.model.todo.TodoManager;
-import seedu.address.model.todo.TodoMangerWithFilteredList;
+import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
 
@@ -41,7 +41,7 @@ public class EditPersonCommandTest {
     private final Model model = new ModelManager(
             new UserPrefs(),
             new PersonManagerWithFilteredList(getTypicalAddressBook()),
-            new TodoMangerWithFilteredList(),
+            new TodoManagerWithFilteredList(),
             new EventManagerWithFilteredList()
     );
 
@@ -59,7 +59,7 @@ public class EditPersonCommandTest {
                 new PersonManagerWithFilteredList(
                         new PersonManager(model.getPersonManagerAndList().getItemManager())
                 ),
-                new TodoMangerWithFilteredList(
+                new TodoManagerWithFilteredList(
                         new TodoManager(model.getTodoManagerAndList().getItemManager())
                 ),
                 new EventManagerWithFilteredList(
@@ -96,7 +96,7 @@ public class EditPersonCommandTest {
                 new PersonManagerWithFilteredList(
                         new PersonManager(model.getPersonManagerAndList().getItemManager())
                 ),
-                new TodoMangerWithFilteredList(
+                new TodoManagerWithFilteredList(
                         new TodoManager(model.getTodoManagerAndList().getItemManager())
                 ),
                 new EventManagerWithFilteredList(
@@ -123,7 +123,7 @@ public class EditPersonCommandTest {
                 new PersonManagerWithFilteredList(
                         new PersonManager(model.getPersonManagerAndList().getItemManager())
                 ),
-                new TodoMangerWithFilteredList(
+                new TodoManagerWithFilteredList(
                         new TodoManager(model.getTodoManagerAndList().getItemManager())
                 ),
                 new EventManagerWithFilteredList(
@@ -152,7 +152,7 @@ public class EditPersonCommandTest {
                 new PersonManagerWithFilteredList(
                         new PersonManager(model.getPersonManagerAndList().getItemManager())
                 ),
-                new TodoMangerWithFilteredList(
+                new TodoManagerWithFilteredList(
                         new TodoManager(model.getTodoManagerAndList().getItemManager())
                 ),
                 new EventManagerWithFilteredList(

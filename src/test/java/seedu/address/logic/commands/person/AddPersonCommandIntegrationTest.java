@@ -17,7 +17,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonManager;
 import seedu.address.model.person.PersonManagerWithFilteredList;
 import seedu.address.model.todo.TodoManager;
-import seedu.address.model.todo.TodoMangerWithFilteredList;
+import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.testutil.PersonBuilder;
 
 /**
@@ -32,7 +32,7 @@ public class AddPersonCommandIntegrationTest {
         model = new ModelManager(
                 new UserPrefs(),
                 new PersonManagerWithFilteredList(getTypicalAddressBook()),
-                new TodoMangerWithFilteredList(),
+                new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         );
     }
@@ -46,7 +46,7 @@ public class AddPersonCommandIntegrationTest {
                 new PersonManagerWithFilteredList(
                         new PersonManager(model.getPersonManagerAndList().getItemManager())
                 ),
-                new TodoMangerWithFilteredList(
+                new TodoManagerWithFilteredList(
                         new TodoManager(model.getTodoManagerAndList().getItemManager())
                 ),
                 new EventManagerWithFilteredList(

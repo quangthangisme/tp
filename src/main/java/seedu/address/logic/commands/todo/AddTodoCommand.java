@@ -24,7 +24,7 @@ public class AddTodoCommand extends AddCommand<Todo> {
             + PREFIX_TODO_DEADLINE + "PREFIX_TODO_DEADLINE "
             + PREFIX_TODO_LOCATION + "LOCATION\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_TODO_NAME + "Grading students' projects"
+            + PREFIX_TODO_NAME + "Grading students projects "
             + PREFIX_TODO_DEADLINE + "25-05-23 17:00 "
             + PREFIX_TODO_LOCATION + "NUS Science ";
 

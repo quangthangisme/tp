@@ -11,7 +11,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.person.PersonManager;
 import seedu.address.model.person.PersonManagerWithFilteredList;
-import seedu.address.model.todo.TodoMangerWithFilteredList;
+import seedu.address.model.todo.TodoManagerWithFilteredList;
 
 public class ClearPersonCommandTest {
 
@@ -29,13 +29,13 @@ public class ClearPersonCommandTest {
         Model model = new ModelManager(
                 new UserPrefs(),
                 new PersonManagerWithFilteredList(getTypicalAddressBook()),
-                new TodoMangerWithFilteredList(),
+                new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         );
         Model expectedModel = new ModelManager(
                 new UserPrefs(),
                 new PersonManagerWithFilteredList(getTypicalAddressBook()),
-                new TodoMangerWithFilteredList(),
+                new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         );
         expectedModel.getPersonManagerAndList().setItemManager(new PersonManager());
