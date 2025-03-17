@@ -28,7 +28,7 @@ import seedu.address.model.person.PersonManager;
 import seedu.address.model.person.PersonManagerWithFilteredList;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManager;
-import seedu.address.model.todo.TodoMangerWithFilteredList;
+import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.model.util.SampleDataUtil;
 import seedu.address.storage.JsonPersonStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
@@ -103,7 +103,7 @@ public class MainApp extends Application {
         return new ModelManager(
                 userPrefs,
                 new PersonManagerWithFilteredList(initialPersonData),
-                new TodoMangerWithFilteredList(initialTodoData),
+                new TodoManagerWithFilteredList(initialTodoData),
                 new EventManagerWithFilteredList(initialEventData)
         );
     }

@@ -13,7 +13,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.person.PersonManagerWithFilteredList;
-import seedu.address.model.todo.TodoMangerWithFilteredList;
+import seedu.address.model.todo.TodoManagerWithFilteredList;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for ListCommand.
@@ -28,7 +28,7 @@ public class ListPersonCommandTest {
         model = new ModelManager(
                 new UserPrefs(),
                 new PersonManagerWithFilteredList(getTypicalAddressBook()),
-                new TodoMangerWithFilteredList(),
+                new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         );
         expectedModel = new ModelManager(

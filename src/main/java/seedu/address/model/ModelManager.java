@@ -14,7 +14,7 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonManagerWithFilteredList;
 import seedu.address.model.todo.Todo;
-import seedu.address.model.todo.TodoMangerWithFilteredList;
+import seedu.address.model.todo.TodoManagerWithFilteredList;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -53,7 +53,7 @@ public class ModelManager implements Model {
      */
     public ModelManager() {
         this(new UserPrefs(), new PersonManagerWithFilteredList(),
-                new TodoMangerWithFilteredList(), new EventManagerWithFilteredList());
+                new TodoManagerWithFilteredList(), new EventManagerWithFilteredList());
     }
 
     @Override

@@ -21,7 +21,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.PersonManagerWithFilteredList;
-import seedu.address.model.todo.TodoMangerWithFilteredList;
+import seedu.address.model.todo.TodoManagerWithFilteredList;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code FindPersonCommand}.
@@ -30,13 +30,13 @@ public class FindPersonCommandTest {
     private final Model model = new ModelManager(
             new UserPrefs(),
             new PersonManagerWithFilteredList(getTypicalAddressBook()),
-            new TodoMangerWithFilteredList(),
+            new TodoManagerWithFilteredList(),
             new EventManagerWithFilteredList()
     );
     private final Model expectedModel = new ModelManager(
             new UserPrefs(),
             new PersonManagerWithFilteredList(getTypicalAddressBook()),
-            new TodoMangerWithFilteredList(),
+            new TodoManagerWithFilteredList(),
             new EventManagerWithFilteredList()
     );
 
