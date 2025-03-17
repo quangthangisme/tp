@@ -66,7 +66,7 @@ public class Messages {
         if (todo.getPersons().isEmpty()) {
             personsFormatted = "None";
         } else {
-            personsFormatted = "\n" + IntStream.range(0, todo.getPersons().size())
+            personsFormatted = IntStream.range(0, todo.getPersons().size())
                     .mapToObj(i -> (i + 1) + ". " + getSimplifiedFormat(todo.getPersons().get(i)))
                     .collect(Collectors.joining("\n"));
         }
@@ -74,7 +74,7 @@ public class Messages {
         return todo.getName()
                 + "; Deadline: " + todo.getDeadline()
                 + "; Location: " + todo.getLocation()
-                + "; Persons: " + personsFormatted;
+                + "; Persons:" + (todo.getPersons().isEmpty() ? " " : "\n") + personsFormatted;
     }
 
     /**

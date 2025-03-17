@@ -23,7 +23,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonManager;
 import seedu.address.model.person.PersonManagerWithFilteredList;
 import seedu.address.model.todo.TodoManager;
-import seedu.address.model.todo.TodoMangerWithFilteredList;
+import seedu.address.model.todo.TodoManagerWithFilteredList;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -34,7 +34,7 @@ public class DeletePersonCommandTest {
     private final Model model = new ModelManager(
             new UserPrefs(),
             new PersonManagerWithFilteredList(getTypicalAddressBook()),
-            new TodoMangerWithFilteredList(),
+            new TodoManagerWithFilteredList(),
             new EventManagerWithFilteredList()
     );
 
@@ -52,7 +52,7 @@ public class DeletePersonCommandTest {
                 new PersonManagerWithFilteredList(
                         new PersonManager(model.getPersonManagerAndList().getItemManager())
                 ),
-                new TodoMangerWithFilteredList(
+                new TodoManagerWithFilteredList(
                         new TodoManager(model.getTodoManagerAndList().getItemManager())
                 ),
                 new EventManagerWithFilteredList(
@@ -89,7 +89,7 @@ public class DeletePersonCommandTest {
                 new PersonManagerWithFilteredList(
                         new PersonManager(model.getPersonManagerAndList().getItemManager())
                 ),
-                new TodoMangerWithFilteredList(
+                new TodoManagerWithFilteredList(
                         new TodoManager(model.getTodoManagerAndList().getItemManager())
                 ),
                 new EventManagerWithFilteredList(

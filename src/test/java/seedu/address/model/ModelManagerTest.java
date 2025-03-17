@@ -19,7 +19,7 @@ import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.PersonManager;
 import seedu.address.model.person.PersonManagerWithFilteredList;
-import seedu.address.model.todo.TodoMangerWithFilteredList;
+import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.testutil.AddressBookBuilder;
 
 public class ModelManagerTest {
@@ -110,13 +110,13 @@ public class ModelManagerTest {
         modelManager = new ModelManager(
                 userPrefs,
                 new PersonManagerWithFilteredList(personManager),
-                new TodoMangerWithFilteredList(),
+                new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         );
         ModelManager modelManagerCopy = new ModelManager(
                 userPrefs,
                 new PersonManagerWithFilteredList(personManager),
-                new TodoMangerWithFilteredList(),
+                new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         );
         assertTrue(modelManager.equals(modelManagerCopy));
@@ -134,7 +134,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(
                 userPrefs,
                 new PersonManagerWithFilteredList(differentPersonManager),
-                new TodoMangerWithFilteredList(),
+                new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         )));
 
@@ -145,7 +145,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(
                 userPrefs,
                 new PersonManagerWithFilteredList(personManager),
-                new TodoMangerWithFilteredList(),
+                new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         )));
 
@@ -158,7 +158,7 @@ public class ModelManagerTest {
         assertFalse(modelManager.equals(new ModelManager(
                 differentUserPrefs,
                 new PersonManagerWithFilteredList(personManager),
-                new TodoMangerWithFilteredList(),
+                new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         )));
     }

@@ -28,8 +28,8 @@ public class ParserUtil {
     public static final String MESSAGE_DUPLICATE_INDEX = "Duplicate index found: %1$s";
 
     /**
-     * Parses {@code oneBasedIndex} into an {@code Index} and returns it. Leading and trailing
-     * whitespaces will be trimmed.
+     * Parses {@code oneBasedIndex} into an {@code Index} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the specified index is invalid (not non-zero unsigned integer).
      */
@@ -42,8 +42,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses {@code oneBasedIndices} into a {@code List<Index>} and returns it. Leading and
-     * trailing whitespaces will be trimmed.
+     * Parses {@code oneBasedIndices} into a {@code List<Index>} and returns it.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if any specified index is invalid (not a non-zero unsigned integer) or
      *                        if there are duplicate indices.
@@ -76,8 +76,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String id} into an {@code Id}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String id} into an {@code Id}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code id} is invalid.
      */
@@ -91,8 +91,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String name} into a {@code Name}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String name} into a {@code Name}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
@@ -106,8 +106,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String phone} into a {@code Phone}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String phone} into a {@code Phone}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code phone} is invalid.
      */
@@ -121,8 +121,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String email} into an {@code Email}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String email} into an {@code Email}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code email} is invalid.
      */
@@ -136,8 +136,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String module} into a {@code Course}. Leading and trailing whitespaces will
-     * be trimmed.
+     * Parses a {@code String module} into a {@code Course}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code module} is invalid.
      */
@@ -151,8 +151,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String group} into a {@code Group}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String group} into a {@code Group}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code group} is invalid.
      */
@@ -166,8 +166,8 @@ public class ParserUtil {
     }
 
     /**
-     * Parses a {@code String tag} into a {@code Tag}. Leading and trailing whitespaces will be
-     * trimmed.
+     * Parses a {@code String tag} into a {@code Tag}.
+     * Leading and trailing whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code tag} is invalid.
      */
