@@ -84,6 +84,15 @@ public abstract class ItemManager<T extends Item> {
         return items.asUnmodifiableObservableList();
     }
 
+    //// miscellaneous methods
+
+    /**
+     * Returns the duplicate checker instance used in the underlying list.
+     */
+    public DuplicateChecker<T> getDuplicateChecker() {
+        return items.getDuplicateChecker();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -91,11 +100,11 @@ public abstract class ItemManager<T extends Item> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ItemManager<?> otherAddressBook)) {
+        if (!(other instanceof ItemManager<?> otherItemManager)) {
             return false;
         }
 
-        return items.equals(otherAddressBook.items);
+        return items.equals(otherItemManager.items);
     }
 
     @Override

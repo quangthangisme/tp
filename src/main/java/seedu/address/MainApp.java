@@ -15,15 +15,22 @@ import seedu.address.commons.util.ConfigUtil;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.Logic;
 import seedu.address.logic.LogicManager;
-import seedu.address.model.AddressBook;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
-import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.Event;
+import seedu.address.model.event.EventManager;
+import seedu.address.model.event.EventManagerWithFilteredList;
+import seedu.address.model.item.ItemManager;
+import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonManager;
+import seedu.address.model.person.PersonManagerWithFilteredList;
+import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.TodoManager;
+import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.AddressBookStorage;
-import seedu.address.storage.JsonAddressBookStorage;
+import seedu.address.storage.JsonPersonStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -57,8 +64,8 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        AddressBookStorage addressBookStorage = new JsonAddressBookStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        JsonPersonStorage personStorage = new JsonPersonStorage(userPrefs.getAddressBookFilePath());
+        storage = new StorageManager(personStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -75,22 +82,30 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         logger.info("Using data file : " + storage.getAddressBookFilePath());
 
-        Optional<ReadOnlyAddressBook> addressBookOptional;
-        ReadOnlyAddressBook initialData;
+        Optional<ItemManager<Person>> addressBookOptional;
+        ItemManager<Person> initialPersonData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getAddressBookFilePath()
                         + " populated with a sample AddressBook.");
             }
-            initialData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
+            initialPersonData = addressBookOptional.orElseGet(SampleDataUtil::getSampleAddressBook);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getAddressBookFilePath() + " could not be loaded."
                     + " Will be starting with an empty AddressBook.");
-            initialData = new AddressBook();
+            initialPersonData = new PersonManager();
         }
 
-        return new ModelManager(initialData, userPrefs);
+        ItemManager<Todo> initialTodoData = new TodoManager();
+        ItemManager<Event> initialEventData = new EventManager();
+
+        return new ModelManager(
+                userPrefs,
+                new PersonManagerWithFilteredList(initialPersonData),
+                new TodoManagerWithFilteredList(initialTodoData),
+                new EventManagerWithFilteredList(initialEventData)
+        );
     }
 
     private void initLogging(Config config) {
