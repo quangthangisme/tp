@@ -10,10 +10,12 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.logic.commands.todo.DeleteTodoCommand;
 import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
 import seedu.address.logic.commands.todo.ListTodoCommand;
+import seedu.address.logic.commands.todo.RemovePersonFromTodoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -64,6 +66,12 @@ public class TodoParser {
 
         case DeleteTodoCommand.COMMAND_WORD:
             return new DeleteTodoCommandParser().parse(arguments);
+
+        case AddPersonToTodoCommand.COMMAND_WORD:
+            return new AddPersonToTodoCommandParser().parse(arguments);
+
+        case RemovePersonFromTodoCommand.COMMAND_WORD:
+            return new RemovePersonFromTodoCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

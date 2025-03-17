@@ -45,7 +45,7 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
         }
 
         T itemToEdit = lastShownList.get(index.getZeroBased());
-        T editedItem = createEditedItem(itemToEdit);
+        T editedItem = createEditedItem(model, itemToEdit);
 
         if (!managerAndList.getDuplicateChecker().check(itemToEdit, editedItem)
                 && managerAndList.hasItem(editedItem)) {
@@ -60,7 +60,7 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Creates an edited version of the given item to be applied to the list.
      */
-    public abstract T createEditedItem(T itemToEdit);
+    public abstract T createEditedItem(Model model, T itemToEdit) throws CommandException;
 
     /**
      * Returns the message to be displayed when the provided index is invalid.
