@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.todo;
 
+import static seedu.address.logic.TodoMessages.MESSAGE_INVALID_TODO_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import seedu.address.commons.core.index.Index;
@@ -20,8 +21,6 @@ public class DeleteTodoCommand extends DeleteCommand<Todo> {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_INVALID_TODO_DISPLAYED_INDEX =
-            "The todo index provided is invalid";
     public static final String MESSAGE_DELETE_TODO_SUCCESS = "Deleted todo: %1$s";
 
     /**
