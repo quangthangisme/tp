@@ -15,6 +15,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
+/**
+ * Removes the log of the given contacts via index.
+ */
 public class RemovePersonFromLogEventCommand extends EditCommand<Event> {
     public static final String COMMAND_WORD = "unlog";
 
@@ -56,7 +59,7 @@ public class RemovePersonFromLogEventCommand extends EditCommand<Event> {
         personIndices.stream()
                 .map(Index::getZeroBased)
                 .sorted(Comparator.reverseOrder())
-                .forEach(index -> newMarkList.add(index, false));
+                .forEach(index -> newMarkList.set(index, false));
         return new Event(
                 eventToEdit.getName(),
                 eventToEdit.getStartTime(),

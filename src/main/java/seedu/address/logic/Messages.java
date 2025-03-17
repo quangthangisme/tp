@@ -82,13 +82,11 @@ public class Messages {
      */
     public static String format(Event event) {
         String personListFormatted = getEventPersonListFormatted(event);
-        String markedPersonListFormated = getEventMarkedPersonListFormatted(event);
         return event.getName()
                 + "; Start Time: " + event.getStartTime()
                 + "; End Time: " + event.getEndTime()
                 + "; Location: " + event.getLocation()
-                + "; Persons: " + personListFormatted
-                + "; Marked Persons:  " + markedPersonListFormated;
+                + "; Persons: " + personListFormatted;
     }
 
     /**
@@ -102,29 +100,14 @@ public class Messages {
     }
 
     private static String getEventPersonListFormatted(Event event) {
-        String string;
         if (event.getPersons().isEmpty()) {
-            string = "None";
-        } else {
-            string = "\n" + IntStream.range(0, event.getPersons().size())
-                    .mapToObj(i -> String.format("%d. %s", i + 1, getSimplifiedFormat(event.getPersons().get(i))))
-                    .collect(Collectors.joining("\n"));
-        }
-        return string;
-    }
-
-    private static String getEventMarkedPersonListFormatted(Event event) {
-        String string;
-        if (event.getMarkedList().isEmpty()) {
-            string = "None";
-        } else {
-            string = IntStream.range(0, event.getPersons().size())
-                    .mapToObj(x -> String.format(
-                            "%d.[%s] %s", x + 1,
-                            event.getMarkedList().get(x) ? "X" : " ",
-                            event.getPersons().get(x)))
-                    .collect(Collectors.joining("\n"));
-        }
+            return "None";
+        } 
+        String string = "\n" + IntStream.range(0, event.getPersons().size())
+                .mapToObj(i -> String.format("%d.[%s] %s",
+                        i + 1, event.getMarkedList().get(i) ? "X" : " ",
+                        getSimplifiedFormat(event.getPersons().get(i))))
+                .collect(Collectors.joining("\n"));
         return string;
     }
 }

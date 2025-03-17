@@ -15,7 +15,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
-public class AddPersonToLogEventCommand extends EditCommand<Event>{
+/**
+ * Adds the log of given contacts via index.
+ */
+public class AddPersonToLogEventCommand extends EditCommand<Event> {
     public static final String COMMAND_WORD = "log";
 
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
@@ -28,15 +31,15 @@ public class AddPersonToLogEventCommand extends EditCommand<Event>{
             "The person index provided is invalid: %1$s";
     public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX =
             "The event index provided is invalid";
-    public static final String MESSAGE_ADD_LOG_SUCCESS = "Removed attendence from persons from event: %1$s";
+    public static final String MESSAGE_ADD_LOG_SUCCESS = "Added attendence from persons from event: %1$s";
     public static final String MESSAGE_NOT_REMOVED = "At least one person must be provided.";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists";
 
     private final List<Index> personIndices;
 
     /**
-     * Creates a RemovePersonFromEventCommand to remove the persons at the specific {@code 
-     * personIndices}
+     * Creates a RemovePersonFromEventCommand to remove the persons at the specific {@code
+     * personIndices}.
      */
     public AddPersonToLogEventCommand(Index index, List<Index> personIndices) {
         super(index, Model::getEventManagerAndList);
@@ -56,7 +59,7 @@ public class AddPersonToLogEventCommand extends EditCommand<Event>{
         personIndices.stream()
                 .map(Index::getZeroBased)
                 .sorted(Comparator.reverseOrder())
-                .forEach(index -> newMarkList.add(index, true));
+                .forEach(index -> newMarkList.set(index, true));
         return new Event(
                 eventToEdit.getName(),
                 eventToEdit.getStartTime(),
