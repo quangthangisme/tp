@@ -14,36 +14,31 @@ import seedu.address.logic.abstractcommand.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Person;
 
-/**
- * Remove some associated people from an event class
- */
-public class RemovePersonFromEventCommand extends EditCommand<Event> {
-    public static final String COMMAND_WORD = "unlink";
+public class AddPersonToLogEventCommand extends EditCommand<Event>{
+    public static final String COMMAND_WORD = "log";
 
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
-            + ": Remove the association between a event and some contacts.\n"
+            + ": Logs some contacts with an event.\n"
             + "Parameters: INDEX "
             + PREFIX_LINKED_PERSON_INDEX + " [PERSON_INDEX]...\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_LINKED_PERSON_INDEX + " 1 3 4";
-
+            + PREFIX_LINKED_PERSON_INDEX + " 1 2 3";
     public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX =
             "The person index provided is invalid: %1$s";
     public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX =
             "The event index provided is invalid";
-    public static final String MESSAGE_REMOVE_PERSON_SUCCESS = "Removed persons from event: %1$s";
+    public static final String MESSAGE_ADD_LOG_SUCCESS = "Removed attendence from persons from event: %1$s";
     public static final String MESSAGE_NOT_REMOVED = "At least one person must be provided.";
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists";
 
     private final List<Index> personIndices;
 
     /**
-     * Creates a RemovePersonFromEventCommand to remove the persons at the specified {@code
-     * personIndices} from the list of persons in the event at the specified {@code index}.
+     * Creates a RemovePersonFromEventCommand to remove the persons at the specific {@code 
+     * personIndices}
      */
-    public RemovePersonFromEventCommand(Index index, List<Index> personIndices) {
+    public AddPersonToLogEventCommand(Index index, List<Index> personIndices) {
         super(index, Model::getEventManagerAndList);
         requireNonNull(personIndices);
         this.personIndices = personIndices;
@@ -53,29 +48,22 @@ public class RemovePersonFromEventCommand extends EditCommand<Event> {
     public Event createEditedItem(Model model, Event eventToEdit) throws CommandException {
         for (Index index : personIndices) {
             if (index.getZeroBased() >= eventToEdit.getPersons().size()) {
-                // System.out.println();
                 throw new CommandException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
                         index.getOneBased()));
             }
         }
-        List<Person> newPersons = new ArrayList<>(eventToEdit.getPersons());
         List<Boolean> newMarkList = new ArrayList<>(eventToEdit.getMarkedList());
         personIndices.stream()
                 .map(Index::getZeroBased)
                 .sorted(Comparator.reverseOrder())
-                .forEach(index -> newPersons.remove((int) index));
-        personIndices.stream()
-                .map(Index::getZeroBased)
-                .sorted(Comparator.reverseOrder())
-                .forEach(index -> newMarkList.remove((int) index));
+                .forEach(index -> newMarkList.add(index, true));
         return new Event(
-            eventToEdit.getName(),
-            eventToEdit.getStartTime(),
-            eventToEdit.getEndTime(),
-            eventToEdit.getLocation(),
-            List.copyOf(newPersons),
-            List.copyOf(newMarkList)
-        );
+                eventToEdit.getName(),
+                eventToEdit.getStartTime(),
+                eventToEdit.getEndTime(),
+                eventToEdit.getLocation(),
+                eventToEdit.getPersons(),
+                List.copyOf(newMarkList));
     }
 
     @Override
@@ -90,6 +78,6 @@ public class RemovePersonFromEventCommand extends EditCommand<Event> {
 
     @Override
     public String getSuccessMessage(Event editedItem) {
-        return String.format(MESSAGE_REMOVE_PERSON_SUCCESS, Messages.format(editedItem));
+        return String.format(MESSAGE_ADD_LOG_SUCCESS, Messages.format(editedItem));
     }
 }

@@ -72,12 +72,18 @@ public class AddPersonToEventCommand extends EditCommand<Event> {
         List<Person> combinedPersonList = Stream
                 .concat(itemToEdit.getPersons().stream(), addedPersons.stream())
                 .toList();
+        // To add a mapping of newly added persons to a new position in markedList
+        List<Boolean> combinedMarkedList = Stream
+                .concat(itemToEdit.getMarkedList().stream(), addedPersons.stream().map(x -> false))
+                .toList();
         return new Event(
                 itemToEdit.getName(),
                 itemToEdit.getStartTime(),
                 itemToEdit.getEndTime(),
                 itemToEdit.getLocation(),
-                combinedPersonList);
+                combinedPersonList,
+                combinedMarkedList
+        );
     }
 
     @Override
