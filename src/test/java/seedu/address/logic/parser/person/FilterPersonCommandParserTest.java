@@ -1,7 +1,6 @@
 package seedu.address.logic.parser.person;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import static seedu.address.logic.Messages.MESSAGE_UNRECOGNIZED_OPERATOR;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
@@ -63,7 +62,8 @@ public class FilterPersonCommandParserTest {
     public void parse_quotedValues_returnsFilterCommand() {
         // Quote-wrapped values
         Map<Column, FilterCriteria> expectedPredicateMap = new HashMap<>();
-        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.AND, Collections.singletonList("alice pauline")));
+        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.AND,
+                Collections.singletonList("alice pauline")));
         PersonPredicate expectedPredicate = new PersonPredicate(expectedPredicateMap);
         FilterPersonCommand expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 

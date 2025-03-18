@@ -121,7 +121,8 @@ public class PersonPredicateTest {
 
         // Test PHONE field
         predicateMap.clear();
-        predicateMap.put(Column.PHONE, new FilterCriteria(Operator.AND, Collections.singletonList(ALICE.getPhone().value)));
+        predicateMap.put(Column.PHONE, new FilterCriteria(Operator.AND,
+                Collections.singletonList(ALICE.getPhone().value)));
         predicate = new PersonPredicate(predicateMap);
         assertTrue(predicate.test(ALICE));
 
