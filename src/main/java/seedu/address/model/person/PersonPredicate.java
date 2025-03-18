@@ -86,14 +86,14 @@ public class PersonPredicate implements Predicate<Person> {
      */
     private boolean testCriteria(List<String> personValues, FilterCriteria criteria) {
         return switch (criteria.getOperator()) {
-            case AND -> criteria.getValues().stream().allMatch(value ->
-                    personValues.stream().anyMatch(pv -> pv.contains(value.toLowerCase())));
-            case OR -> criteria.getValues().stream().anyMatch(value ->
-                    personValues.stream().anyMatch(pv -> pv.contains(value.toLowerCase())));
-            case NAND -> !criteria.getValues().stream().allMatch(value ->
-                    personValues.stream().anyMatch(pv -> pv.contains(value.toLowerCase())));
-            case NOR -> criteria.getValues().stream().noneMatch(value ->
-                    personValues.stream().anyMatch(pv -> pv.contains(value.toLowerCase())));
+        case AND -> criteria.getValues().stream().allMatch(value ->
+                personValues.stream().anyMatch(pv -> pv.contains(value.toLowerCase())));
+        case OR -> criteria.getValues().stream().anyMatch(value ->
+                personValues.stream().anyMatch(pv -> pv.contains(value.toLowerCase())));
+        case NAND -> !criteria.getValues().stream().allMatch(value ->
+                personValues.stream().anyMatch(pv -> pv.contains(value.toLowerCase())));
+        case NOR -> criteria.getValues().stream().noneMatch(value ->
+                personValues.stream().anyMatch(pv -> pv.contains(value.toLowerCase())));
         };
     }
 

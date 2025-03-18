@@ -207,9 +207,7 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
                     }
                 }
             }
-        }
-
-        else if (values.isEmpty() && !input.trim().isEmpty()) {
+        } else if (values.isEmpty() && !input.trim().isEmpty()) {
             for (String value : input.trim().split("\\s+")) {
                 if (!value.trim().isEmpty()) {
                     values.add(value.trim());

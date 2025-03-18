@@ -35,9 +35,12 @@ public class FilterPersonCommand extends FilterCommand<Person> {
             + "   Find students with ID 12 or 13.\n"
             + "2. " + COMMAND_WORD + " " + PREFIX_NAME + "\"Darren Tan\" " + PREFIX_COURSE + " CS1010S "
             + PREFIX_GROUP + "or: T01 T02 T03\n"
-            + "   Find contacts with \"Darren Tan\" in their name who enroll in course CS1010S and class T01, T02, or T03.\n"
-            + "3. " + COMMAND_WORD + " " + PREFIX_NAME + "nand: \"My enemy\" Hater " + PREFIX_TAG + "and: handsome smart\n"
-            + "   Find contacts whose names do not contain \"My enemy\" and \"Hater\" and are tagged with both \"handsome\" and \"smart\".";
+            + "   Find contacts with \"Darren Tan\" in their name who"
+            + " enroll in course CS1010S and class T01, T02, or T03.\n"
+            + "3. " + COMMAND_WORD + " " + PREFIX_NAME + "nand: \"My enemy\" Hater "
+            + PREFIX_TAG + "and: handsome smart\n"
+            + "   Find contacts whose names do not contain \"My enemy\" and"
+            + " \"Hater\" and are tagged with both \"handsome\" and \"smart\".";
 
     /**
      * Constructs a FilterPersonCommand with the given predicate.
