@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
@@ -22,7 +23,7 @@ import seedu.address.model.person.PersonPredicate;
 
 public class FilterPersonCommandParserTest {
 
-    private FilterPersonCommandParser parser = new FilterPersonCommandParser();
+    private final FilterPersonCommandParser parser = new FilterPersonCommandParser();
 
     @Test
     public void parse_emptyArg_throwsParseException() {
@@ -123,9 +124,9 @@ public class FilterPersonCommandParserTest {
     public void parse_multipleFilters_returnsFilterCommand() {
         // Test combining multiple filters with different operators
         Map<Column, FilterCriteria> expectedPredicateMap = new HashMap<>();
-        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.AND, Arrays.asList("alice")));
+        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.AND, List.of("alice")));
         expectedPredicateMap.put(Column.EMAIL, new FilterCriteria(Operator.OR, Arrays.asList("gmail", "yahoo")));
-        expectedPredicateMap.put(Column.TAG, new FilterCriteria(Operator.NAND, Arrays.asList("friend")));
+        expectedPredicateMap.put(Column.TAG, new FilterCriteria(Operator.NAND, List.of("friend")));
         PersonPredicate expectedPredicate = new PersonPredicate(expectedPredicateMap);
         FilterPersonCommand expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 

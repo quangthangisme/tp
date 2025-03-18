@@ -10,6 +10,7 @@ import static seedu.address.testutil.TypicalPersons.BENSON;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.junit.jupiter.api.Test;
@@ -87,7 +88,7 @@ public class PersonPredicateTest {
 
         // NAND operator
         predicateMap.clear();
-        predicateMap.put(Column.NAME, new FilterCriteria(Operator.NAND, Arrays.asList("Alice")));
+        predicateMap.put(Column.NAME, new FilterCriteria(Operator.NAND, List.of("Alice")));
         predicate = new PersonPredicate(predicateMap);
         assertFalse(predicate.test(ALICE)); // Alice contains Alice, so NAND fails
 
