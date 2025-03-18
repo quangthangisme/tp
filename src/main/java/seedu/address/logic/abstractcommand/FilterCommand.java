@@ -22,8 +22,10 @@ public abstract class FilterCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Creates a {@code FilterCommand} to filter items that match the given {@code predicate}.
      *
+     * @param predicate the predicate used to filter items
+     * @param managerAndListGetter function that returns the item manager and filtered list
      * @throws NullPointerException if {@code predicate} or {@code managerAndListGetter} is
-     *                              {@code null}.
+     *                              {@code null}
      */
     public FilterCommand(Predicate<T> predicate,
                          Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
@@ -46,6 +48,9 @@ public abstract class FilterCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Returns an overview message about the result of the filter operation, including the
      * number of items that match the filter criteria.
+     *
+     * @param numberOfResults the number of items that match the filter criteria
+     * @return a string containing the overview message
      */
     public abstract String getResultOverviewMessage(int numberOfResults);
 }

@@ -39,6 +39,11 @@ public class FilterPersonCommand extends FilterCommand<Person> {
             + "3. " + COMMAND_WORD + " " + PREFIX_NAME + "nand: \"My enemy\" Hater " + PREFIX_TAG + "and: handsome smart\n"
             + "   Find contacts whose names do not contain \"My enemy\" and \"Hater\" and are tagged with both \"handsome\" and \"smart\".";
 
+    /**
+     * Constructs a FilterPersonCommand with the given predicate.
+     *
+     * @param predicate the predicate used to filter persons
+     */
     public FilterPersonCommand(PersonPredicate predicate) {
         super(predicate, Model::getPersonManagerAndList);
     }

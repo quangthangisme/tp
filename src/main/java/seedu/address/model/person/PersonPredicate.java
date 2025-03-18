@@ -6,7 +6,8 @@ import java.util.Map;
 import java.util.function.Predicate;
 
 /**
- * Represents a complex predicate for filtering Person objects.
+ * Represents a complex predicate for filtering Person objects based on multiple criteria.
+ * Each criterion consists of a column and associated filter conditions.
  */
 public class PersonPredicate implements Predicate<Person> {
 
@@ -14,6 +15,8 @@ public class PersonPredicate implements Predicate<Person> {
 
     /**
      * Constructs a PersonPredicate with the given filter criteria map.
+     *
+     * @param filterCriteriaMap map of columns to their filter criteria
      */
     public PersonPredicate(Map<Column, FilterCriteria> filterCriteriaMap) {
         this.filterCriteriaMap = filterCriteriaMap;
@@ -21,7 +24,6 @@ public class PersonPredicate implements Predicate<Person> {
 
     @Override
     public boolean test(Person person) {
-        // Test each filter criterion
         for (Map.Entry<Column, FilterCriteria> entry : filterCriteriaMap.entrySet()) {
             Column column = entry.getKey();
             FilterCriteria criteria = entry.getValue();
@@ -36,6 +38,13 @@ public class PersonPredicate implements Predicate<Person> {
         return true;
     }
 
+    /**
+     * Extracts values from a person based on the specified column.
+     *
+     * @param person the person to extract values from
+     * @param column the column to extract values for
+     * @return a list of values from the person for the specified column
+     */
     private List<String> getPersonValues(Person person, Column column) {
         List<String> values = new ArrayList<>();
         switch (column) {
@@ -62,10 +71,19 @@ public class PersonPredicate implements Predicate<Person> {
                     .map(tag -> tag.tagName.toLowerCase())
                     .toList());
             break;
+        default:
+            break;
         }
         return values;
     }
 
+    /**
+     * Tests if the person's values match the filter criteria.
+     *
+     * @param personValues the values from the person
+     * @param criteria the filter criteria to match against
+     * @return true if the values match the criteria, false otherwise
+     */
     private boolean testCriteria(List<String> personValues, FilterCriteria criteria) {
         return switch (criteria.getOperator()) {
             case AND -> criteria.getValues().stream().allMatch(value ->

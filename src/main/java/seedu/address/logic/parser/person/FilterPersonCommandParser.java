@@ -8,11 +8,11 @@ import static seedu.address.logic.Messages.MESSAGE_UNRECOGNIZED_COLUMN;
 import static seedu.address.logic.Messages.MESSAGE_UNRECOGNIZED_OPERATOR;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,13 +28,14 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.FilterCriteria;
-import seedu.address.model.person.PersonPredicate;
 import seedu.address.model.person.Column;
+import seedu.address.model.person.FilterCriteria;
 import seedu.address.model.person.Operator;
+import seedu.address.model.person.PersonPredicate;
 
 /**
  * Parses input arguments and creates a new FilterPersonCommand object.
+ * Handles complex filter criteria with different operators and values.
  */
 public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
 
@@ -42,6 +43,13 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
 
     private static final Pattern QUOTED_VALUE_PATTERN = Pattern.compile("\"([^\"]*)\"");
 
+    /**
+     * Converts a prefix to its corresponding column.
+     *
+     * @param prefix the prefix to convert
+     * @return the corresponding column
+     * @throws ParseException if the prefix does not correspond to a valid column
+     */
     private Column getColumnFromPrefix(Prefix prefix) throws ParseException {
         String prefixStr = prefix.getPrefix();
 
@@ -64,7 +72,17 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
         }
     }
 
-    private void parsePrefixes(List<Prefix> allPrefixes, ArgumentMultimap argMultimap, Map<Column, FilterCriteria> filterCriteriaMap) throws ParseException {
+    /**
+     * Parses all prefixes in the argument multimap and adds the corresponding filter criteria
+     * to the provided map.
+     *
+     * @param allPrefixes the list of all prefixes to parse
+     * @param argMultimap the argument multimap containing the parsed arguments
+     * @param filterCriteriaMap the map to store the parsed filter criteria
+     * @throws ParseException if there is an error parsing any prefix
+     */
+    private void parsePrefixes(List<Prefix> allPrefixes, ArgumentMultimap argMultimap,
+                               Map<Column, FilterCriteria> filterCriteriaMap) throws ParseException {
         for (Prefix prefix : allPrefixes) {
             List<String> rawValues = argMultimap.getAllValues(prefix);
             if (rawValues.isEmpty()) {
@@ -83,7 +101,18 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
         }
     }
 
-    private void parseValues(Prefix prefix, Column column, Map<Column, FilterCriteria> filterCriteriaMap, List<String> rawValues) throws ParseException {
+    /**
+     * Parses the values for a specific prefix and adds the corresponding filter criteria
+     * to the provided map.
+     *
+     * @param prefix the prefix being parsed
+     * @param column the column corresponding to the prefix
+     * @param filterCriteriaMap the map to store the parsed filter criteria
+     * @param rawValues the list of raw values to parse
+     * @throws ParseException if there is an error parsing the values
+     */
+    private void parseValues(Prefix prefix, Column column, Map<Column, FilterCriteria> filterCriteriaMap,
+                             List<String> rawValues) throws ParseException {
         if (filterCriteriaMap.containsKey(column)) {
             throw new ParseException(MESSAGE_DUPLICATE_COLUMN);
         }
@@ -152,6 +181,12 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
         return new FilterPersonCommand(new PersonPredicate(filterCriteriaMap));
     }
 
+    /**
+     * Extracts individual values from an input string, handling both quoted and unquoted values.
+     *
+     * @param input the input string to extract values from
+     * @return a list of extracted values
+     */
     private List<String> extractValues(String input) {
         List<String> values = new ArrayList<>();
         Matcher quotedValueMatcher = QUOTED_VALUE_PATTERN.matcher(input);
