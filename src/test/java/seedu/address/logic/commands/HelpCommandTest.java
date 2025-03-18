@@ -4,6 +4,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 
@@ -13,7 +14,7 @@ public class HelpCommandTest {
 
     @Test
     public void execute_help_success() {
-        CommandResult expectedCommandResult = new CommandResult("todo add", true, false);
+        CommandResult expectedCommandResult = new CommandResult(AddTodoCommand.MESSAGE_USAGE, true, false);
         assertCommandSuccess(new HelpCommand("todo add"), model, expectedCommandResult, expectedModel);
     }
 }
