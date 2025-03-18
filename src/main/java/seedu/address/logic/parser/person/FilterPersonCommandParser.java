@@ -64,6 +64,66 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
         }
     }
 
+    private void parsePrefixes(List<Prefix> allPrefixes, ArgumentMultimap argMultimap, Map<Column, FilterCriteria> filterCriteriaMap) throws ParseException {
+        for (Prefix prefix : allPrefixes) {
+            List<String> rawValues = argMultimap.getAllValues(prefix);
+            if (rawValues.isEmpty()) {
+                continue;
+            }
+
+            try {
+                Column column = getColumnFromPrefix(prefix);
+
+                parseValues(prefix, column, filterCriteriaMap, rawValues);
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(
+                        String.format(MESSAGE_UNRECOGNIZED_COLUMN, prefix.getPrefix())
+                );
+            }
+        }
+    }
+
+    private void parseValues(Prefix prefix, Column column, Map<Column, FilterCriteria> filterCriteriaMap, List<String> rawValues) throws ParseException {
+        if (filterCriteriaMap.containsKey(column)) {
+            throw new ParseException(MESSAGE_DUPLICATE_COLUMN);
+        }
+
+        String firstValue = rawValues.get(0);
+        Operator operator = Operator.AND; // Default operator
+        List<String> values = new ArrayList<>();
+
+        Matcher operatorMatcher = OPERATOR_FORMAT.matcher(firstValue);
+        if (operatorMatcher.find()) {
+            String operatorStr = operatorMatcher.group(1);
+            try {
+                operator = Operator.valueOf(operatorStr.toUpperCase());
+            } catch (IllegalArgumentException e) {
+                throw new ParseException(
+                        String.format(MESSAGE_UNRECOGNIZED_OPERATOR, operatorStr)
+                );
+            }
+
+            firstValue = firstValue.substring(operatorMatcher.end()).trim();
+            if (!firstValue.isEmpty()) {
+                values.addAll(extractValues(firstValue));
+            }
+        } else {
+            values.addAll(extractValues(firstValue));
+        }
+
+        for (int i = 1; i < rawValues.size(); i++) {
+            values.addAll(extractValues(rawValues.get(i)));
+        }
+
+        if (values.isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_NO_VALUES, prefix.getPrefix())
+            );
+        }
+
+        filterCriteriaMap.put(column, new FilterCriteria(operator, values));
+    }
+
     /**
      * Parses the given {@code String} of arguments in the context of the FilterPersonCommand
      * and returns a FilterPersonCommand object for execution.
@@ -83,64 +143,7 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
         List<Prefix> allPrefixes = List.of(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
                 PREFIX_ID, PREFIX_COURSE, PREFIX_GROUP, PREFIX_TAG);
 
-        for (Prefix prefix : allPrefixes) {
-            if (prefix.getPrefix().isEmpty()) {
-                continue;
-            }
-
-            List<String> rawValues = argMultimap.getAllValues(prefix);
-            if (rawValues.isEmpty()) {
-                continue;
-            }
-
-            try {
-                Column column = getColumnFromPrefix(prefix);
-
-                if (filterCriteriaMap.containsKey(column)) {
-                    throw new ParseException(MESSAGE_DUPLICATE_COLUMN);
-                }
-
-                String firstValue = rawValues.get(0);
-                Operator operator = Operator.AND; // Default operator
-                List<String> values = new ArrayList<>();
-
-                Matcher operatorMatcher = OPERATOR_FORMAT.matcher(firstValue);
-                if (operatorMatcher.find()) {
-                    String operatorStr = operatorMatcher.group(1);
-                    try {
-                        operator = Operator.valueOf(operatorStr.toUpperCase());
-                    } catch (IllegalArgumentException e) {
-                        throw new ParseException(
-                                String.format(MESSAGE_UNRECOGNIZED_OPERATOR, operatorStr)
-                        );
-                    }
-
-                    firstValue = firstValue.substring(operatorMatcher.end()).trim();
-                    if (!firstValue.isEmpty()) {
-                        values.addAll(extractValues(firstValue));
-                    }
-                } else {
-                    values.addAll(extractValues(firstValue));
-                }
-
-                for (int i = 1; i < rawValues.size(); i++) {
-                    values.addAll(extractValues(rawValues.get(i)));
-                }
-
-                if (values.isEmpty()) {
-                    throw new ParseException(
-                            String.format(MESSAGE_NO_VALUES, prefix.getPrefix())
-                    );
-                }
-
-                filterCriteriaMap.put(column, new FilterCriteria(operator, values));
-
-            } catch (IllegalArgumentException e) {
-                throw new ParseException(
-                        String.format(MESSAGE_UNRECOGNIZED_COLUMN, prefix.getPrefix())
-                );
-            }
-        }
+        parsePrefixes(allPrefixes, argMultimap, filterCriteriaMap);
 
         if (filterCriteriaMap.isEmpty()) {
             throw new ParseException(MESSAGE_NO_COLUMNS);
@@ -163,7 +166,6 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
         if (lastPosition > 0 && lastPosition < input.length()) {
             String remaining = input.substring(lastPosition).trim();
             if (!remaining.isEmpty()) {
-                // Split remaining text by whitespace
                 for (String value : remaining.split("\\s+")) {
                     if (!value.trim().isEmpty()) {
                         values.add(value.trim());
@@ -171,6 +173,7 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
                 }
             }
         }
+
         else if (values.isEmpty() && !input.trim().isEmpty()) {
             for (String value : input.trim().split("\\s+")) {
                 if (!value.trim().isEmpty()) {
