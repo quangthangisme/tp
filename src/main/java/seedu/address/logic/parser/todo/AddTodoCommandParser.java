@@ -29,13 +29,11 @@ public class AddTodoCommandParser implements Parser<AddTodoCommand> {
      * @throws ParseException if the user input does not conform the expected format.
      */
     public AddTodoCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap =
-                ArgumentTokenizer.tokenize(args, PREFIX_TODO_NAME, PREFIX_TODO_DEADLINE,
-                        PREFIX_TODO_LOCATION);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_NAME,
+                PREFIX_TODO_DEADLINE, PREFIX_TODO_LOCATION);
 
-        if (!arePrefixesPresent(argMultimap, PREFIX_TODO_NAME, PREFIX_TODO_DEADLINE,
-                PREFIX_TODO_LOCATION)
-                || !argMultimap.getPreamble().isEmpty()) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_TODO_NAME, PREFIX_TODO_DEADLINE,
+                PREFIX_TODO_LOCATION) || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddTodoCommand.MESSAGE_USAGE));
         }
@@ -51,14 +49,5 @@ public class AddTodoCommandParser implements Parser<AddTodoCommand> {
         Todo todo = new Todo(name, deadline, location);
 
         return new AddTodoCommand(todo);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap,
-                                              Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }

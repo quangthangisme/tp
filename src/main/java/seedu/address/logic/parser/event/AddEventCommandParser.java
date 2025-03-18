@@ -32,11 +32,14 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
     public AddEventCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME, PREFIX_START_DATETIME,
                 PREFIX_END_DATETIME, PREFIX_EVENT_LOCATION);
-        if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_NAME, PREFIX_START_DATETIME,
+
+        if (!argMultimap.arePrefixesPresent(PREFIX_EVENT_NAME, PREFIX_START_DATETIME,
                 PREFIX_END_DATETIME, PREFIX_EVENT_LOCATION)
                 || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddEventCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddEventCommand.MESSAGE_USAGE));
         }
+
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_NAME, PREFIX_START_DATETIME,
                 PREFIX_END_DATETIME, PREFIX_EVENT_LOCATION);
         EventName name = EventParseUtil.parseName(argMultimap.getValue(PREFIX_EVENT_NAME).get());
@@ -47,14 +50,5 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         Event event = new Event(name, startTime, endTime, location);
 
         return new AddEventCommand(event);
-    }
-
-    /**
-     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
-     * {@code ArgumentMultimap}.
-     */
-    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap,
-            Prefix... prefixes) {
-        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
     }
 }
