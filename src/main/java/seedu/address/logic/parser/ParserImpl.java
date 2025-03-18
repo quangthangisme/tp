@@ -17,6 +17,7 @@ import seedu.address.logic.commands.person.AddPersonCommand;
 import seedu.address.logic.commands.person.ClearPersonCommand;
 import seedu.address.logic.commands.person.DeletePersonCommand;
 import seedu.address.logic.commands.person.EditPersonCommand;
+import seedu.address.logic.commands.person.FilterPersonCommand;
 import seedu.address.logic.commands.person.FindPersonCommand;
 import seedu.address.logic.commands.person.InfoPersonCommand;
 import seedu.address.logic.commands.person.ListPersonCommand;
@@ -25,6 +26,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.logic.parser.person.AddPersonCommandParser;
 import seedu.address.logic.parser.person.DeletePersonCommandParser;
 import seedu.address.logic.parser.person.EditPersonCommandParser;
+import seedu.address.logic.parser.person.FilterPersonCommandParser;
 import seedu.address.logic.parser.person.FindPersonCommandParser;
 import seedu.address.logic.parser.person.InfoPersonCommandParser;
 import seedu.address.logic.parser.todo.TodoParser;
@@ -86,6 +88,9 @@ public class ParserImpl {
 
         case InfoPersonCommand.COMMAND_WORD:
             return new InfoPersonCommandParser().parse(arguments);
+
+        case FilterPersonCommand.COMMAND_WORD:
+            return new FilterPersonCommandParser().parse(arguments);
 
         case ExitCommand.COMMAND_WORD_EXIT, ExitCommand.COMMAND_WORD_BYE,
              ExitCommand.COMMAND_WORD_QUIT, ExitCommand.COMMAND_WORD_KILL:

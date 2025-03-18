@@ -23,6 +23,12 @@ public class Messages {
                 "Multiple values specified for the following single-valued field(s): ";
     public static final String MESSAGE_DISPLAY_SPECIFIC_PERSON_INFO = "Displaying full information of student: %s!";
 
+    public static final String MESSAGE_DUPLICATE_COLUMN = "Duplicate column: %s.";
+    public static final String MESSAGE_NO_COLUMNS = "Specify at least one column and value.";
+    public static final String MESSAGE_NO_VALUES = "No values specified for column '%s'.";
+    public static final String MESSAGE_UNRECOGNIZED_COLUMN = "Unrecognized column: '%s'.";
+    public static final String MESSAGE_UNRECOGNIZED_OPERATOR = "Unrecognized operator: '%s'.";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */
