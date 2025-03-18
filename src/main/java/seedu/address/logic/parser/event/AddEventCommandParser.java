@@ -6,13 +6,10 @@ import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCAT
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_START_DATETIME;
 
-import java.util.stream.Stream;
-
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
-import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDateTime;
