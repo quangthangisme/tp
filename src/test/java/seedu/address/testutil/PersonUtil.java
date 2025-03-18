@@ -1,5 +1,6 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
@@ -24,7 +25,7 @@ public class PersonUtil {
      * Returns an add command string for adding the {@code person}.
      */
     public static String getAddCommand(Person person) {
-        return AddPersonCommand.COMMAND_WORD + " " + getPersonDetails(person);
+        return PERSON_COMMAND_WORD + " " + AddPersonCommand.COMMAND_WORD + " " + getPersonDetails(person);
     }
 
     /**
@@ -32,14 +33,14 @@ public class PersonUtil {
      */
     public static String getPersonDetails(Person person) {
         StringBuilder sb = new StringBuilder();
-        sb.append(PREFIX_ID + person.getId().fullId + " ")
-                .append(PREFIX_NAME + person.getName().fullName + " ")
-                .append(PREFIX_PHONE + person.getPhone().value + " ")
-                .append(PREFIX_EMAIL + person.getEmail().value + " ")
-                .append(PREFIX_COURSE + person.getCourse().fullModule + " ")
-                .append(PREFIX_GROUP + person.getGroup().fullGroup + " ");
+        sb.append(PREFIX_ID).append(person.getId().fullId).append(" ")
+                .append(PREFIX_NAME).append(person.getName().fullName).append(" ")
+                .append(PREFIX_PHONE).append(person.getPhone().value).append(" ")
+                .append(PREFIX_EMAIL).append(person.getEmail().value).append(" ")
+                .append(PREFIX_COURSE).append(person.getCourse().fullModule).append(" ")
+                .append(PREFIX_GROUP).append(person.getGroup().fullGroup).append(" ");
         person.getTags().stream().forEach(
-            s -> sb.append(PREFIX_TAG + s.tagName + " ")
+            s -> sb.append(PREFIX_TAG).append(s.tagName).append(" ")
         );
         return sb.toString();
     }
