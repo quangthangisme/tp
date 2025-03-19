@@ -14,7 +14,7 @@ public class HelpCommandTest {
 
     @Test
     public void execute_help_success() {
-        CommandResult expectedCommandResult = new CommandResult(AddTodoCommand.MESSAGE_USAGE, true, false);
+        CommandResult expectedCommandResult = new CommandResult(AddTodoCommand.MESSAGE_USAGE, false, false);
         assertCommandSuccess(new HelpCommand("todo add"), model, expectedCommandResult, expectedModel);
     }
 }
