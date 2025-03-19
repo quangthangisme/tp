@@ -74,6 +74,7 @@ public class Messages {
         return todo.getName()
                 + "; Deadline: " + todo.getDeadline()
                 + "; Location: " + todo.getLocation()
+                + "; Status: " + todo.getStatus()
                 + "; Persons:" + (todo.getPersons().isEmpty() ? " " : "\n") + personsFormatted;
     }
 
