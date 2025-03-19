@@ -8,14 +8,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.person.Email;
-import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoDeadline;
-import seedu.address.model.todo.TodoName;
 import seedu.address.model.todo.TodoLocation;
+import seedu.address.model.todo.TodoName;
 import seedu.address.model.todo.TodoStatus;
 import seedu.address.storage.person.JsonAdaptedPerson;
 
@@ -41,7 +38,7 @@ public class JsonAdaptedTodo {
             @JsonProperty("deadline") String deadline,
             @JsonProperty("location") String location,
             @JsonProperty("status") String status,
-            @JsonProperty("persons") List<JsonAdaptedPerson> persons){
+            @JsonProperty("persons") List<JsonAdaptedPerson> persons) {
         this.name = name;
         this.deadline = deadline;
         this.location = location;
@@ -75,15 +72,17 @@ public class JsonAdaptedTodo {
             todoPersons.add(person.toModelType());
         }
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TodoName.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, TodoName.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
+        if (!TodoName.isValid(name)) {
             throw new IllegalValueException(TodoName.MESSAGE_CONSTRAINTS);
         }
         final TodoName todoName = new TodoName(name);
 
         if (deadline == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TodoDeadline.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, TodoDeadline.class.getSimpleName()));
         }
         if (!TodoDeadline.isValid(deadline)) {
             throw new IllegalValueException(TodoDeadline.MESSAGE_CONSTRAINTS);
@@ -91,7 +90,8 @@ public class JsonAdaptedTodo {
         final TodoDeadline todoDeadline = new TodoDeadline(deadline);
 
         if (location == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, TodoLocation.class.getSimpleName()));
+            throw new IllegalValueException(String.format(
+                    MISSING_FIELD_MESSAGE_FORMAT, TodoLocation.class.getSimpleName()));
         }
         if (!TodoLocation.isValid(location)) {
             throw new IllegalValueException(TodoLocation.MESSAGE_CONSTRAINTS);
