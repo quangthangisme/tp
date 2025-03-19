@@ -1,12 +1,13 @@
 package seedu.address.logic.commands.person;
 
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_COURSE;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EMAIL;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -23,22 +24,23 @@ public class FilterPersonCommand extends FilterCommand<Person> {
 
     public static final String COMMAND_WORD = "filter";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Filters persons based on specified criteria "
-            + "and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = PERSON_COMMAND_WORD + " " + COMMAND_WORD + ": Filters persons based on"
+            + "specified criteria and displays them as a list with index numbers.\n"
             + "Parameters: <col>/ [<op>:] <value(s)> [...]\n"
-            + "- <col>/ : Column to filter on (" + PREFIX_NAME + ", " + PREFIX_PHONE + ", " + PREFIX_EMAIL + ", "
-            + PREFIX_ID + ", " + PREFIX_COURSE + ", " + PREFIX_GROUP + ", " + PREFIX_TAG + ")\n"
+            + "- <col>/ : Column to filter on (" + PREFIX_PERSON_NAME + ", " + PREFIX_PERSON_PHONE + ", "
+            + PREFIX_PERSON_EMAIL + ", " + PREFIX_PERSON_ID + ", " + PREFIX_PERSON_COURSE + ", " + PREFIX_PERSON_GROUP
+            + ", " + PREFIX_PERSON_TAG + ")\n"
             + "- <op>: : Operator (and, or, nand, nor). Defaults to 'and' if not specified\n"
             + "- <value(s)>: One or more values to filter by. Use quotes for values with spaces.\n"
             + "Examples:\n"
-            + "1. " + COMMAND_WORD + " " + PREFIX_ID + " or: 12 13\n"
+            + "1. " + PERSON_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_PERSON_ID + " or: 12 13\n"
             + "   Find students with ID 12 or 13.\n"
-            + "2. " + COMMAND_WORD + " " + PREFIX_NAME + "\"Darren Tan\" " + PREFIX_COURSE + " CS1010S "
-            + PREFIX_GROUP + "or: T01 T02 T03\n"
+            + "2. " + PERSON_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_PERSON_NAME + "\"Darren Tan\" "
+            + PREFIX_PERSON_COURSE + " CS1010S " + PREFIX_PERSON_GROUP + "or: T01 T02 T03\n"
             + "   Find contacts with \"Darren Tan\" in their name who"
             + " enroll in course CS1010S and class T01, T02, or T03.\n"
-            + "3. " + COMMAND_WORD + " " + PREFIX_NAME + "nand: \"My enemy\" Hater "
-            + PREFIX_TAG + "and: handsome smart\n"
+            + "3. " + PERSON_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_PERSON_NAME + "nand: \"My enemy\" Hater "
+            + PREFIX_PERSON_TAG + "and: handsome smart\n"
             + "   Find contacts whose names do not contain \"My enemy\" and"
             + " \"Hater\" and are tagged with both \"handsome\" and \"smart\".";
 
