@@ -30,7 +30,8 @@ import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManager;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.JsonPersonStorage;
+import seedu.address.storage.person.JsonPersonStorage;
+import seedu.address.storage.todo.JsonTodoStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
@@ -65,7 +66,8 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         JsonPersonStorage personStorage = new JsonPersonStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(personStorage, userPrefsStorage);
+        JsonTodoStorage todoStorage = new JsonTodoStorage(userPrefs.getTodoListFilePath());
+        storage = new StorageManager(personStorage, todoStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -97,7 +99,21 @@ public class MainApp extends Application {
             initialPersonData = new PersonManager();
         }
 
-        ItemManager<Todo> initialTodoData = new TodoManager();
+        Optional<ItemManager<Todo>> todoListOptional;
+        ItemManager<Todo> initialTodoData;
+        try {
+            todoListOptional = storage.readTodoList();
+            if (!todoListOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getTodoListFilePath()
+                        + " populated with a sample AddressBook.");
+            }
+            initialTodoData = todoListOptional.orElseGet(SampleDataUtil::getSampleTodoList);
+        } catch (DataLoadingException e) {
+            logger.warning("Data file at " + storage.getTodoListFilePath() + " could not be loaded."
+                    + " Will be starting with an empty AddressBook.");
+            initialTodoData = new TodoManager();
+        }
+
         ItemManager<Event> initialEventData = new EventManager();
 
         return new ModelManager(

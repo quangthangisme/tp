@@ -1,6 +1,7 @@
 package seedu.address.model.util;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -14,6 +15,11 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonManager;
 import seedu.address.model.person.Phone;
 import seedu.address.model.person.Tag;
+import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.TodoManager;
+import seedu.address.model.todo.TodoName;
+import seedu.address.model.todo.TodoDeadline;
+import seedu.address.model.todo.TodoLocation;
 
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -48,12 +54,26 @@ public class SampleDataUtil {
         };
     }
 
+    public static Todo[] getSampleTodos() {
+        return new Todo[]{
+                new Todo(new TodoName("Grading"), new TodoDeadline("25-03-23 17:00"),
+                        new TodoLocation("NUS Science"))};
+    }
+
     public static ItemManager<Person> getSampleAddressBook() {
         PersonManager sampleAb = new PersonManager();
         for (Person samplePerson : getSamplePersons()) {
             sampleAb.addItem(samplePerson);
         }
         return sampleAb;
+    }
+
+    public static ItemManager<Todo> getSampleTodoList() {
+        TodoManager sampleTd = new TodoManager();
+        for (Todo sampleTodo : getSampleTodos()) {
+            sampleTd.addItem(sampleTodo);
+        }
+        return sampleTd;
     }
 
     /**

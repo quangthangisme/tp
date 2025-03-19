@@ -47,6 +47,16 @@ public interface Model {
     void setAddressBookFilePath(Path addressBookFilePath);
 
     /**
+     * Returns the user prefs' todo list file path.
+     */
+    Path getTodoListFilePath();
+
+    /**
+     * Sets the user prefs' address book file path.
+     */
+    void setTodoListFilePath(Path addressBookFilePath);
+
+    /**
      * Returns the person manager and display list.
      */
     ItemManagerWithFilteredList<Person> getPersonManagerAndList();

@@ -30,6 +30,11 @@ public interface Logic {
      */
     ItemManager<Person> getAddressBook();
 
+    /**
+     * Returns the TodoList.
+     */
+    ItemManager<Todo> getTodoList();
+
     /** Returns an unmodifiable view of the filtered list of persons */
     ObservableList<Person> getFilteredPersonList();
 
@@ -43,6 +48,11 @@ public interface Logic {
      * Returns the user prefs' address book file path.
      */
     Path getAddressBookFilePath();
+
+    /**
+     * Returns the user prefs' todo list file path.
+     */
+    public Path getTodoListFilePath();
 
     /**
      * Returns the user prefs' GUI settings.

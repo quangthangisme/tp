@@ -30,7 +30,9 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.item.ItemManager;
 import seedu.address.model.person.Person;
-import seedu.address.storage.JsonPersonStorage;
+import seedu.address.model.todo.Todo;
+import seedu.address.storage.person.JsonPersonStorage;
+import seedu.address.storage.todo.JsonTodoStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
 import seedu.address.testutil.PersonBuilder;
@@ -49,8 +51,10 @@ public class LogicManagerTest {
     public void setUp() {
         JsonPersonStorage addressBookStorage =
                 new JsonPersonStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonTodoStorage todoStorage =
+                new JsonTodoStorage(temporaryFolder.resolve("todolist.json"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, todoStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -164,10 +168,17 @@ public class LogicManagerTest {
                 throw e;
             }
         };
+        JsonTodoStorage todoStorage = new JsonTodoStorage(prefPath) {
+            @Override
+            public void saveTodoList(ItemManager<Todo> todoManager, Path filePath)
+                    throws IOException {
+                throw e;
+            }
+        };
 
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, todoStorage, userPrefsStorage);
 
         logic = new LogicManager(model, storage);
 

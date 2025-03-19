@@ -20,6 +20,7 @@ import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.item.ItemManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonManager;
+import seedu.address.storage.person.JsonPersonStorage;
 
 public class JsonPersonManagerStorageTest {
     private static final Path TEST_DATA_FOLDER = Paths.get("src", "test", "data", "JsonAddressBookStorageTest");
