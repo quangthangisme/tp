@@ -12,6 +12,7 @@ import seedu.address.logic.commands.person.AddPersonCommand;
 import seedu.address.logic.commands.person.ClearPersonCommand;
 import seedu.address.logic.commands.person.DeletePersonCommand;
 import seedu.address.logic.commands.person.EditPersonCommand;
+import seedu.address.logic.commands.person.FilterPersonCommand;
 import seedu.address.logic.commands.person.FindPersonCommand;
 import seedu.address.logic.commands.person.InfoPersonCommand;
 import seedu.address.logic.commands.person.ListPersonCommand;
@@ -20,6 +21,8 @@ import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.logic.commands.todo.DeleteTodoCommand;
 import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
 import seedu.address.logic.commands.todo.ListTodoCommand;
+import seedu.address.logic.commands.todo.MarkTodoAsDoneCommand;
+import seedu.address.logic.commands.todo.MarkTodoAsNotDoneCommand;
 import seedu.address.logic.commands.todo.RemovePersonFromTodoCommand;
 
 
@@ -63,6 +66,9 @@ public class UsageMessageProvider {
         case FindPersonCommand.COMMAND_WORD:
             return FindPersonCommand.MESSAGE_USAGE;
 
+        case FilterPersonCommand.COMMAND_WORD:
+            return FilterPersonCommand.MESSAGE_USAGE;
+
         case ListPersonCommand.COMMAND_WORD:
             return ListPersonCommand.MESSAGE_USAGE;
 
@@ -93,7 +99,9 @@ public class UsageMessageProvider {
                     ListTodoCommand.MESSAGE_USAGE,
                     DeleteTodoCommand.MESSAGE_USAGE,
                     AddPersonToTodoCommand.MESSAGE_USAGE,
-                    RemovePersonFromTodoCommand.MESSAGE_USAGE);
+                    RemovePersonFromTodoCommand.MESSAGE_USAGE,
+                    MarkTodoAsDoneCommand.MESSAGE_USAGE,
+                    MarkTodoAsNotDoneCommand.MESSAGE_USAGE);
 
         case AddTodoCommand.COMMAND_WORD:
             return AddTodoCommand.MESSAGE_USAGE;
@@ -112,6 +120,12 @@ public class UsageMessageProvider {
 
         case RemovePersonFromTodoCommand.COMMAND_WORD:
             return RemovePersonFromTodoCommand.MESSAGE_USAGE;
+
+        case MarkTodoAsDoneCommand.COMMAND_WORD:
+            return MarkTodoAsDoneCommand.MESSAGE_USAGE;
+
+        case MarkTodoAsNotDoneCommand.COMMAND_WORD:
+            return MarkTodoAsNotDoneCommand.MESSAGE_USAGE;
 
         default:
             throw new CommandException(String.format(
