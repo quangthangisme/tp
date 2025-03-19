@@ -30,17 +30,23 @@ public class UsageMessageProvider {
 
     public static final String UNKNOWN_FEATURE_MESSAGE = "Feature %s not recognized.";
 
+
     public String getMessageUsage(String feature) throws CommandException {
 
         if (feature.startsWith(TODO_COMMAND_WORD)) {
-            return getMessageUsageTodo(feature);
+            return getMessageUsageTodo(feature.substring(
+                    TODO_COMMAND_WORD.length()).trim());
         }
 
         if (feature.startsWith(EVENT_COMMAND_WORD)) {
-            return getMessageUsageEvent(feature);
+            return getMessageUsageEvent(feature.substring(
+                    EVENT_COMMAND_WORD.length()).trim());
         }
 
         switch (feature) {
+
+        case "":
+            return HelpCommand.SHOWING_HELP_MESSAGE;
 
         case AddPersonCommand.COMMAND_WORD:
             return AddPersonCommand.MESSAGE_USAGE;
@@ -78,7 +84,16 @@ public class UsageMessageProvider {
 
     private String getMessageUsageTodo(String todoFeature) throws CommandException {
 
-        switch (todoFeature.split(" ")[1]) {
+        switch (todoFeature) {
+
+        case "":
+            return String.join("\n\n",
+                    AddTodoCommand.MESSAGE_USAGE,
+                    DisplayTodoInformationCommand.MESSAGE_USAGE,
+                    ListTodoCommand.MESSAGE_USAGE,
+                    DeleteTodoCommand.MESSAGE_USAGE,
+                    AddPersonToTodoCommand.MESSAGE_USAGE,
+                    RemovePersonFromTodoCommand.MESSAGE_USAGE);
 
         case AddTodoCommand.COMMAND_WORD:
             return AddTodoCommand.MESSAGE_USAGE;
@@ -106,7 +121,14 @@ public class UsageMessageProvider {
 
     private String getMessageUsageEvent(String eventFeature) throws CommandException {
 
-        switch (eventFeature.split(" ")[1]) {
+        switch (eventFeature) {
+
+        case "":
+            return String.join("\n\n",
+                    AddEventCommand.MESSAGE_USAGE,
+                    DisplayEventInformationCommand.MESSAGE_USAGE,
+                    ListEventCommand.MESSAGE_USAGE,
+                    DeleteEventCommand.MESSAGE_USAGE);
 
         case AddEventCommand.COMMAND_WORD:
             return AddEventCommand.MESSAGE_USAGE;

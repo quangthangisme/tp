@@ -13,16 +13,27 @@ public class HelpCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
             + "Example: " + COMMAND_WORD;
 
+    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+
     private final String feature;
+    private boolean isShowingHelp;
 
     public HelpCommand(String feature) {
         this.feature = feature;
+        this.isShowingHelp = false;
+    }
+
+    private void showHelp() {
+        this.isShowingHelp = true;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
         UsageMessageProvider provider = new UsageMessageProvider();
         String usageMessage = provider.getMessageUsage(feature);
-        return new CommandResult(usageMessage, true, false);
+        if (usageMessage.equals(SHOWING_HELP_MESSAGE)) {
+            showHelp();
+        }
+        return new CommandResult(usageMessage, isShowingHelp, false);
     }
 }
