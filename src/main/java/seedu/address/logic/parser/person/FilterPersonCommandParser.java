@@ -6,13 +6,13 @@ import static seedu.address.logic.Messages.MESSAGE_NO_COLUMNS;
 import static seedu.address.logic.Messages.MESSAGE_NO_VALUES;
 import static seedu.address.logic.Messages.MESSAGE_UNRECOGNIZED_COLUMN;
 import static seedu.address.logic.Messages.MESSAGE_UNRECOGNIZED_OPERATOR;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_COURSE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_GROUP;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ID;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_COURSE;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EMAIL;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE;
+import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -52,17 +52,17 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
     private Column getColumnFromPrefix(Prefix prefix) throws ParseException {
         String prefixStr = prefix.getPrefix();
 
-        if (prefixStr.equals(PREFIX_NAME.getPrefix())) {
+        if (prefixStr.equals(PREFIX_PERSON_NAME.getPrefix())) {
             return Column.NAME;
-        } else if (prefixStr.equals(PREFIX_PHONE.getPrefix())) {
+        } else if (prefixStr.equals(PREFIX_PERSON_PHONE.getPrefix())) {
             return Column.PHONE;
-        } else if (prefixStr.equals(PREFIX_EMAIL.getPrefix())) {
+        } else if (prefixStr.equals(PREFIX_PERSON_EMAIL.getPrefix())) {
             return Column.EMAIL;
-        } else if (prefixStr.equals(PREFIX_TAG.getPrefix())) {
+        } else if (prefixStr.equals(PREFIX_PERSON_TAG.getPrefix())) {
             return Column.TAG;
-        } else if (prefixStr.equals(PREFIX_COURSE.getPrefix())) {
+        } else if (prefixStr.equals(PREFIX_PERSON_COURSE.getPrefix())) {
             return Column.COURSE;
-        } else if (prefixStr.equals(PREFIX_GROUP.getPrefix())) {
+        } else if (prefixStr.equals(PREFIX_PERSON_GROUP.getPrefix())) {
             return Column.GROUP;
         } else {
             throw new ParseException(
@@ -164,12 +164,13 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
-                PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL, PREFIX_ID, PREFIX_COURSE, PREFIX_GROUP, PREFIX_TAG);
+                PREFIX_PERSON_NAME, PREFIX_PERSON_PHONE, PREFIX_PERSON_EMAIL, PREFIX_PERSON_ID, PREFIX_PERSON_COURSE,
+                PREFIX_PERSON_GROUP, PREFIX_PERSON_TAG);
 
         Map<Column, FilterCriteria> filterCriteriaMap = new HashMap<>();
 
-        List<Prefix> allPrefixes = List.of(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL,
-                PREFIX_ID, PREFIX_COURSE, PREFIX_GROUP, PREFIX_TAG);
+        List<Prefix> allPrefixes = List.of(PREFIX_PERSON_NAME, PREFIX_PERSON_PHONE, PREFIX_PERSON_EMAIL,
+                PREFIX_PERSON_ID, PREFIX_PERSON_COURSE, PREFIX_PERSON_GROUP, PREFIX_PERSON_TAG);
 
         parsePrefixes(allPrefixes, argMultimap, filterCriteriaMap);
 

@@ -1,5 +1,7 @@
 package seedu.address.logic.commands.person;
 
+import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.abstractcommand.FindCommand;
@@ -15,10 +17,11 @@ public class FindPersonCommand extends FindCommand<Person> {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of "
-            + "the specified keywords (case-insensitive) and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = PERSON_COMMAND_WORD + " " + COMMAND_WORD + ": Finds all persons whose "
+            + "names contain any of the specified keywords (case-insensitive) and displays them as a list with index "
+            + "numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
-            + "Example: " + COMMAND_WORD + " alice bob charlie";
+            + "Example: " + PERSON_COMMAND_WORD + " " + COMMAND_WORD + " alice bob charlie";
 
     public FindPersonCommand(NameContainsKeywordsPredicate predicate) {
         super(predicate, Model::getPersonManagerAndList);
