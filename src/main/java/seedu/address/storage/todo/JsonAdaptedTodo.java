@@ -94,7 +94,7 @@ public class JsonAdaptedTodo {
         }
         final TodoLocation todoLocation = new TodoLocation(location);
 
-        return new Todo(todoName, todoDeadline, todoLocation, todoPersons);
+        return new Todo(todoName, todoDeadline, todoLocation, todoPersons.stream().toList());
     }
 
 }
