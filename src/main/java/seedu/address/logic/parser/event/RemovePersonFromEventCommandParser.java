@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_LINKED_PERSON
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.EventMessages;
 import seedu.address.logic.commands.event.RemovePersonFromEventCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -22,7 +23,11 @@ public class RemovePersonFromEventCommandParser implements Parser<RemovePersonFr
     public RemovePersonFromEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_LINKED_PERSON_INDEX);
-
+        if (!argMultimap.arePrefixesPresent(PREFIX_LINKED_PERSON_INDEX)
+                || argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    RemovePersonFromEventCommand.MESSAGE_USAGE));
+        }
         Index index;
 
         try {
@@ -37,7 +42,7 @@ public class RemovePersonFromEventCommandParser implements Parser<RemovePersonFr
                 ParserUtil.parseIndices(argMultimap.getValue(PREFIX_LINKED_PERSON_INDEX).get());
 
         if (personIndices.isEmpty()) {
-            throw new ParseException(RemovePersonFromEventCommand.MESSAGE_NOT_REMOVED);
+            throw new ParseException(EventMessages.MESSAGE_NOT_REMOVED);
         }
 
         return new RemovePersonFromEventCommand(index, personIndices);

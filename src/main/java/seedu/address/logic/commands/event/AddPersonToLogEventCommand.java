@@ -7,8 +7,10 @@ import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_LINKED_PERS
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.EventMessages;
 import seedu.address.logic.Messages;
 import seedu.address.logic.abstractcommand.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -27,13 +29,9 @@ public class AddPersonToLogEventCommand extends EditCommand<Event> {
             + PREFIX_LINKED_PERSON_INDEX + " [PERSON_INDEX]...\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_LINKED_PERSON_INDEX + " 1 2 3";
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX =
-            "The person index provided is invalid: %1$s";
-    public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX =
-            "The event index provided is invalid";
     public static final String MESSAGE_ADD_LOG_SUCCESS = "Added attendence from persons to event: %1$s";
-    public static final String MESSAGE_NOT_REMOVED = "At least one person must be provided.";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists";
+    public static final String MESSAGE_PERSON_ALREADY_LOGGED =
+            "The person at the following index(es) are already logged: %s";
 
     private final List<Index> personIndices;
 
@@ -51,11 +49,21 @@ public class AddPersonToLogEventCommand extends EditCommand<Event> {
     public Event createEditedItem(Model model, Event eventToEdit) throws CommandException {
         for (Index index : personIndices) {
             if (index.getZeroBased() >= eventToEdit.getPersons().size()) {
-                throw new CommandException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
+                throw new CommandException(String.format(EventMessages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
                         index.getOneBased()));
             }
         }
         List<Boolean> newMarkList = new ArrayList<>(eventToEdit.getMarkedList());
+        List<Index> checkPersonMarked = personIndices.stream()
+                .filter(x -> newMarkList.get(x.getZeroBased()))
+                .toList();
+        if (!checkPersonMarked.isEmpty()) {
+            throw new CommandException(String.format(MESSAGE_PERSON_ALREADY_LOGGED,
+                    checkPersonMarked.stream()
+                            .map(x -> String.valueOf(x.getOneBased()))
+                            .collect(Collectors.joining(", ")))
+            );
+        }
         personIndices.stream()
                 .map(Index::getZeroBased)
                 .sorted(Comparator.reverseOrder())
@@ -71,12 +79,12 @@ public class AddPersonToLogEventCommand extends EditCommand<Event> {
 
     @Override
     public String getInvalidIndexMessage() {
-        return MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
+        return EventMessages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
     }
 
     @Override
     public String getDuplicateMessage() {
-        return MESSAGE_DUPLICATE_EVENT;
+        return EventMessages.MESSAGE_DUPLICATE_EVENT;
     }
 
     @Override

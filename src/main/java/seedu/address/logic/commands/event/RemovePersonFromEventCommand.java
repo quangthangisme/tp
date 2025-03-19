@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.EventMessages;
 import seedu.address.logic.Messages;
 import seedu.address.logic.abstractcommand.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,14 +29,7 @@ public class RemovePersonFromEventCommand extends EditCommand<Event> {
             + PREFIX_LINKED_PERSON_INDEX + " [PERSON_INDEX]...\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_LINKED_PERSON_INDEX + " 1 3 4";
-
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX =
-            "The person index provided is invalid: %1$s";
-    public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX =
-            "The event index provided is invalid";
     public static final String MESSAGE_REMOVE_PERSON_SUCCESS = "Removed persons from event: %1$s";
-    public static final String MESSAGE_NOT_REMOVED = "At least one person must be provided.";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists";
 
     private final List<Index> personIndices;
 
@@ -54,7 +48,7 @@ public class RemovePersonFromEventCommand extends EditCommand<Event> {
         for (Index index : personIndices) {
             if (index.getZeroBased() >= eventToEdit.getPersons().size()) {
                 // System.out.println();
-                throw new CommandException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
+                throw new CommandException(String.format(EventMessages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
                         index.getOneBased()));
             }
         }
@@ -80,12 +74,12 @@ public class RemovePersonFromEventCommand extends EditCommand<Event> {
 
     @Override
     public String getInvalidIndexMessage() {
-        return MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
+        return EventMessages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
     }
 
     @Override
     public String getDuplicateMessage() {
-        return MESSAGE_DUPLICATE_EVENT;
+        return EventMessages.MESSAGE_DUPLICATE_EVENT;
     }
 
     @Override

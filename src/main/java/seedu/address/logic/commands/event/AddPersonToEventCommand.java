@@ -9,6 +9,7 @@ import java.util.function.Function;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.EventMessages;
 import seedu.address.logic.Messages;
 import seedu.address.logic.abstractcommand.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -28,13 +29,8 @@ public class AddPersonToEventCommand extends EditCommand<Event> {
             + PREFIX_LINKED_PERSON_INDEX + " [PERSON_INDEX]...\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + "1 "
             + PREFIX_LINKED_PERSON_INDEX + " 1 3 4";
-
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX = "The person index provided is invalid: %1$s";
-    public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX = "The event index provided is invalid";
     public static final String MESSAGE_ADD_PERSON_SUCCESS = "Added persons to event: %1$s";
-    public static final String MESSAGE_NOT_ADDED = "At least one person must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "Person %1$s is already assigned to this event.";
-    public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists";
 
     private final List<Index> personIndices;
     private final Function<Model, ItemManagerWithFilteredList<Person>> personManagerAndListGetter =
@@ -55,7 +51,7 @@ public class AddPersonToEventCommand extends EditCommand<Event> {
         List<Person> filteredPersons = personManagerAndListGetter.apply(model).getFilteredItemsList();
         for (Index index : this.personIndices) {
             if (index.getZeroBased() >= filteredPersons.size()) {
-                throw new CommandException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
+                throw new CommandException(String.format(EventMessages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
                         index.getOneBased()));
             }
         }
@@ -88,12 +84,12 @@ public class AddPersonToEventCommand extends EditCommand<Event> {
 
     @Override
     public String getInvalidIndexMessage() {
-        return MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
+        return EventMessages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
     }
 
     @Override
     public String getDuplicateMessage() {
-        return MESSAGE_DUPLICATE_EVENT;
+        return EventMessages.MESSAGE_DUPLICATE_EVENT;
     }
 
     @Override

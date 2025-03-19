@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_LINKED_PERSON
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.EventMessages;
 import seedu.address.logic.commands.event.AddPersonToEventCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -29,6 +30,11 @@ public class AddPersonToEventCommandParser implements Parser<AddPersonToEventCom
     public AddPersonToEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_LINKED_PERSON_INDEX);
+        if (!argMultimap.arePrefixesPresent(PREFIX_LINKED_PERSON_INDEX)
+                || argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    AddPersonToEventCommand.MESSAGE_USAGE));
+        }
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
@@ -40,7 +46,7 @@ public class AddPersonToEventCommandParser implements Parser<AddPersonToEventCom
         List<Index> personIndices =
                 ParserUtil.parseIndices(argMultimap.getValue(PREFIX_LINKED_PERSON_INDEX).get());
         if (personIndices.isEmpty()) {
-            throw new ParseException(AddPersonToEventCommand.MESSAGE_NOT_ADDED);
+            throw new ParseException(EventMessages.MESSAGE_NOT_REMOVED);
         }
         return new AddPersonToEventCommand(index, personIndices);
     }
