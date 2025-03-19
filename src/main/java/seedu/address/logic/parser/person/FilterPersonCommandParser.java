@@ -22,7 +22,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.logic.commands.person.FilterPersonCommand;
-import seedu.address.logic.commands.person.FindPersonCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -76,8 +75,8 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
      * Parses all prefixes in the argument multimap and adds the corresponding filter criteria
      * to the provided map.
      *
-     * @param allPrefixes the list of all prefixes to parse
-     * @param argMultimap the argument multimap containing the parsed arguments
+     * @param allPrefixes       the list of all prefixes to parse
+     * @param argMultimap       the argument multimap containing the parsed arguments
      * @param filterCriteriaMap the map to store the parsed filter criteria
      * @throws ParseException if there is an error parsing any prefix
      */
@@ -105,10 +104,10 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
      * Parses the values for a specific prefix and adds the corresponding filter criteria
      * to the provided map.
      *
-     * @param prefix the prefix being parsed
-     * @param column the column corresponding to the prefix
+     * @param prefix            the prefix being parsed
+     * @param column            the column corresponding to the prefix
      * @param filterCriteriaMap the map to store the parsed filter criteria
-     * @param rawValues the list of raw values to parse
+     * @param rawValues         the list of raw values to parse
      * @throws ParseException if there is an error parsing the values
      */
     private void parseValues(Prefix prefix, Column column, Map<Column, FilterCriteria> filterCriteriaMap,
@@ -161,7 +160,7 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
     public FilterPersonCommand parse(String args) throws ParseException {
         if (args.trim().isEmpty()) {
             throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindPersonCommand.MESSAGE_USAGE));
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterPersonCommand.MESSAGE_USAGE));
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
