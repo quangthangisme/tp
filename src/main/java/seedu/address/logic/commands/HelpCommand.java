@@ -18,6 +18,12 @@ public class HelpCommand extends Command {
     private final String feature;
     private boolean isShowingHelp;
 
+    /**
+     * Constructs a new HelpCommand for a specified feature.
+     *
+     * @param feature the name of the feature or command for which help is requested;
+     *                this is used to retrieve and display the appropriate usage instructions.
+     */
     public HelpCommand(String feature) {
         this.feature = feature;
         this.isShowingHelp = false;
