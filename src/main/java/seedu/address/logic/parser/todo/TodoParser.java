@@ -15,6 +15,8 @@ import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.logic.commands.todo.DeleteTodoCommand;
 import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
 import seedu.address.logic.commands.todo.ListTodoCommand;
+import seedu.address.logic.commands.todo.MarkTodoAsDoneCommand;
+import seedu.address.logic.commands.todo.MarkTodoAsNotDoneCommand;
 import seedu.address.logic.commands.todo.RemovePersonFromTodoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
@@ -72,6 +74,12 @@ public class TodoParser {
 
         case RemovePersonFromTodoCommand.COMMAND_WORD:
             return new RemovePersonFromTodoCommandParser().parse(arguments);
+
+        case MarkTodoAsDoneCommand.COMMAND_WORD:
+            return new MarkTodoAsDoneCommandParser().parse(arguments);
+
+        case MarkTodoAsNotDoneCommand.COMMAND_WORD:
+            return new MarkTodoAsNotDoneCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
