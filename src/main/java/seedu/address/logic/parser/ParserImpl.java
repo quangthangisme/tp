@@ -3,6 +3,7 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import java.util.logging.Logger;
@@ -13,22 +14,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.person.AddPersonCommand;
-import seedu.address.logic.commands.person.ClearPersonCommand;
-import seedu.address.logic.commands.person.DeletePersonCommand;
-import seedu.address.logic.commands.person.EditPersonCommand;
-import seedu.address.logic.commands.person.FilterPersonCommand;
-import seedu.address.logic.commands.person.FindPersonCommand;
-import seedu.address.logic.commands.person.InfoPersonCommand;
-import seedu.address.logic.commands.person.ListPersonCommand;
 import seedu.address.logic.parser.event.EventParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.person.AddPersonCommandParser;
-import seedu.address.logic.parser.person.DeletePersonCommandParser;
-import seedu.address.logic.parser.person.EditPersonCommandParser;
-import seedu.address.logic.parser.person.FilterPersonCommandParser;
-import seedu.address.logic.parser.person.FindPersonCommandParser;
-import seedu.address.logic.parser.person.InfoPersonCommandParser;
+import seedu.address.logic.parser.person.PersonParser;
 import seedu.address.logic.parser.todo.TodoParser;
 
 /**
@@ -68,36 +56,15 @@ public class ParserImpl {
 
         switch (commandWord) {
 
-        case AddPersonCommand.COMMAND_WORD:
-            return new AddPersonCommandParser().parse(arguments);
-
-        case EditPersonCommand.COMMAND_WORD:
-            return new EditPersonCommandParser().parse(arguments);
-
-        case DeletePersonCommand.COMMAND_WORD:
-            return new DeletePersonCommandParser().parse(arguments);
-
-        case ClearPersonCommand.COMMAND_WORD:
-            return new ClearPersonCommand();
-
-        case FindPersonCommand.COMMAND_WORD:
-            return new FindPersonCommandParser().parse(arguments);
-
-        case ListPersonCommand.COMMAND_WORD:
-            return new ListPersonCommand();
-
-        case InfoPersonCommand.COMMAND_WORD:
-            return new InfoPersonCommandParser().parse(arguments);
-
-        case FilterPersonCommand.COMMAND_WORD:
-            return new FilterPersonCommandParser().parse(arguments);
-
         case ExitCommand.COMMAND_WORD_EXIT, ExitCommand.COMMAND_WORD_BYE,
              ExitCommand.COMMAND_WORD_QUIT, ExitCommand.COMMAND_WORD_KILL:
             return new ExitCommand();
 
         case HelpCommand.COMMAND_WORD:
             return new HelpCommand();
+
+        case PERSON_COMMAND_WORD:
+            return new PersonParser().parseCommand(arguments);
 
         case TODO_COMMAND_WORD:
             return new TodoParser().parseCommand(arguments);
