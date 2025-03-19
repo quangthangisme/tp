@@ -50,14 +50,12 @@ public class ParserUtil {
      */
     public static List<Index> parseIndices(String oneBasedIndices) throws ParseException {
         String trimmedIndices = oneBasedIndices.trim();
-        if (trimmedIndices.isEmpty()) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
-        }
+        String[] indices = trimmedIndices.isEmpty() ? new String[0] : trimmedIndices.split("\\s+");
 
         List<Index> indexList = new ArrayList<>();
         Set<Index> seenIndices = new HashSet<>();
 
-        for (String strIndex : trimmedIndices.split("\\s+")) {
+        for (String strIndex : indices) {
             if (!StringUtil.isNonZeroUnsignedInteger(strIndex)) {
                 throw new ParseException(MESSAGE_INVALID_INDEX);
             }
