@@ -21,16 +21,19 @@ public class Todo implements Item {
     // Data fields
     private final TodoDeadline deadline;
     private final TodoLocation location;
+    private final TodoStatus status;
     private final List<Person> persons;
 
     /**
      * Every field must be present and not null.
      */
-    public Todo(TodoName name, TodoDeadline deadline, TodoLocation location, List<Person> persons) {
-        requireAllNonNull(name, deadline, location);
+    public Todo(TodoName name, TodoDeadline deadline, TodoLocation location, TodoStatus status,
+                List<Person> persons) {
+        requireAllNonNull(name, deadline, status, location);
         this.name = name;
         this.deadline = deadline;
         this.location = location;
+        this.status = status;
         this.persons = persons.stream().toList();
     }
 
@@ -42,6 +45,7 @@ public class Todo implements Item {
         this.name = name;
         this.deadline = deadline;
         this.location = location;
+        this.status = new TodoStatus(false);
         this.persons = List.of();
     }
 
@@ -55,6 +59,10 @@ public class Todo implements Item {
 
     public TodoLocation getLocation() {
         return location;
+    }
+
+    public TodoStatus getStatus() {
+        return status;
     }
 
     public List<Person> getPersons() {
@@ -79,13 +87,14 @@ public class Todo implements Item {
         return name.equals(otherTodo.name)
                 && deadline.equals(otherTodo.deadline)
                 && location.equals(otherTodo.location)
+                && status.equals(otherTodo.status)
                 && persons.equals(otherTodo.persons);
     }
 
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, deadline, location, persons);
+        return Objects.hash(name, deadline, location, status, persons);
     }
 
     @Override
@@ -94,6 +103,7 @@ public class Todo implements Item {
                 .add("name", name)
                 .add("deadline", deadline)
                 .add("location", location)
+                .add("status", status)
                 .add("persons", persons)
                 .toString();
     }

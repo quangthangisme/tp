@@ -2,6 +2,7 @@ package seedu.address.logic.parser.todo;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.TodoMessages.MESSAGE_MISSING_PERSON_INDEX;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_LINKED_PERSON_INDEX;
 
 import java.util.List;
@@ -44,7 +45,7 @@ public class RemovePersonFromTodoCommandParser implements Parser<RemovePersonFro
                 ParserUtil.parseIndices(argMultimap.getValue(PREFIX_LINKED_PERSON_INDEX).get());
 
         if (personIndices.isEmpty()) {
-            throw new ParseException(RemovePersonFromTodoCommand.MESSAGE_NOT_REMOVED);
+            throw new ParseException(MESSAGE_MISSING_PERSON_INDEX);
         }
 
         return new RemovePersonFromTodoCommand(index, personIndices);
