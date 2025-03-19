@@ -69,7 +69,6 @@ public class JsonAdaptedTodo {
         for (JsonAdaptedPerson person : persons) {
             todoPersons.add(person.toModelType());
         }
-
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
@@ -93,7 +92,6 @@ public class JsonAdaptedTodo {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
         final TodoLocation todoLocation = new TodoLocation(location);
-
         return new Todo(todoName, todoDeadline, todoLocation, todoPersons);
     }
 
