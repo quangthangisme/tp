@@ -55,8 +55,8 @@ public class SampleDataUtil {
 
     public static Todo[] getSampleTodos() {
         return new Todo[]{
-                new Todo(new TodoName("Grading"), new TodoDeadline("25-03-23 17:00"),
-                        new TodoLocation("NUS Science"))};
+            new Todo(new TodoName("Grading"), new TodoDeadline("25-03-23 17:00"),
+                    new TodoLocation("NUS Science"))};
     }
 
     public static ItemManager<Person> getSampleAddressBook() {
