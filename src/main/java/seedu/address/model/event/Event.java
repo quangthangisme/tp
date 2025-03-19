@@ -41,6 +41,7 @@ public class Event implements Item {
      */
     public Event(EventName name, EventDateTime startTime,
             EventDateTime endTime, EventLocation location) {
+        requireAllNonNull(name, startTime, endTime, location);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;

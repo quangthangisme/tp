@@ -43,7 +43,7 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         EventDateTime startTime = EventParseUtil.parseDateTime(argMultimap.getValue(PREFIX_START_DATETIME).get());
         EventDateTime endTime = EventParseUtil.parseDateTime(argMultimap.getValue(PREFIX_END_DATETIME).get());
         EventLocation location = EventParseUtil.parseLocation(argMultimap.getValue(PREFIX_EVENT_LOCATION).get());
-        if (endTime.isBefore(startTime)) {
+        if (!startTime.isBefore(endTime)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EventDateTime.MESSAGE_NEGATIVE_DURATION));
         }
