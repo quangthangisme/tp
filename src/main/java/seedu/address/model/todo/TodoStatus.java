@@ -5,6 +5,9 @@ package seedu.address.model.todo;
  * Guarantees: immutable
  */
 public class TodoStatus {
+    private static final String DONE_LABEL = "Done";
+    private static final String NOT_DONE_LABEL = "Not done";
+
     private final boolean isDone;
 
     /**
@@ -25,7 +28,7 @@ public class TodoStatus {
 
     @Override
     public String toString() {
-        return isDone ? "Done" : "Not done";
+        return isDone ? DONE_LABEL : NOT_DONE_LABEL;
     }
 
     @Override
