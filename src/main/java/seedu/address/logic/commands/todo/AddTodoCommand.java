@@ -1,5 +1,6 @@
 package seedu.address.logic.commands.todo;
 
+import static seedu.address.logic.TodoMessages.MESSAGE_DUPLICATE_TODO;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION;
@@ -29,7 +30,6 @@ public class AddTodoCommand extends AddCommand<Todo> {
             + PREFIX_TODO_LOCATION + "NUS Science ";
 
     public static final String MESSAGE_SUCCESS = "New todo added: %1$s";
-    public static final String MESSAGE_DUPLICATE_TODO = "This todo already exists";
 
     /**
      * Creates an AddTodoCommand to add the specified {@code todo}.

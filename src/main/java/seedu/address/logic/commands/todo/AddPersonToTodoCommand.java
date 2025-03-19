@@ -10,6 +10,7 @@ import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
+import seedu.address.logic.TodoMessages;
 import seedu.address.logic.abstractcommand.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -31,15 +32,9 @@ public class AddPersonToTodoCommand extends EditCommand<Todo> {
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_LINKED_PERSON_INDEX + " 1 3 4";
 
-    public static final String MESSAGE_INVALID_PERSON_DISPLAYED_INDEX =
-            "The person index provided is invalid: %1$s";
-    public static final String MESSAGE_INVALID_TODO_DISPLAYED_INDEX =
-            "The todo index provided is invalid";
     public static final String MESSAGE_ADD_PERSON_SUCCESS = "Added persons to todo: %1$s";
-    public static final String MESSAGE_NOT_ADDED = "At least one person must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON =
             "Person %1$s is already assigned to this todo.";
-    public static final String MESSAGE_DUPLICATE_TODO = "This todo already exists";
 
     private final List<Index> personIndices;
     private final Function<Model, ItemManagerWithFilteredList<Person>>
@@ -62,8 +57,8 @@ public class AddPersonToTodoCommand extends EditCommand<Todo> {
 
         for (Index index : personIndices) {
             if (index.getZeroBased() >= filteredPersons.size()) {
-                throw new CommandException(String.format(MESSAGE_INVALID_PERSON_DISPLAYED_INDEX,
-                        index.getOneBased()));
+                throw new CommandException(String.format(
+                        TodoMessages.MESSAGE_INVALID_LINKED_PERSON_INDEX, index.getOneBased()));
             }
         }
 
@@ -84,18 +79,19 @@ public class AddPersonToTodoCommand extends EditCommand<Todo> {
                 itemToEdit.getName(),
                 itemToEdit.getDeadline(),
                 itemToEdit.getLocation(),
+                itemToEdit.getStatus(),
                 combinedPersons
         );
     }
 
     @Override
     public String getInvalidIndexMessage() {
-        return MESSAGE_INVALID_TODO_DISPLAYED_INDEX;
+        return TodoMessages.MESSAGE_INVALID_TODO_DISPLAYED_INDEX;
     }
 
     @Override
     public String getDuplicateMessage() {
-        return MESSAGE_DUPLICATE_TODO;
+        return TodoMessages.MESSAGE_DUPLICATE_TODO;
     }
 
     @Override
