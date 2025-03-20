@@ -101,6 +101,17 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getEventListFilePath() {
+        return userPrefs.getEventListFilePath();
+    }
+
+    @Override
+    public void setEventListFilePath(Path eventListFilePath) {
+        requireNonNull(eventListFilePath);
+        userPrefs.setEventListFilePath(eventListFilePath);
+    }
+
+    @Override
     public ItemManagerWithFilteredList<Person> getPersonManagerAndList() {
         return personManagerAndList;
     }

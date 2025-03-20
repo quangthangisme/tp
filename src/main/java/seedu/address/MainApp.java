@@ -34,6 +34,7 @@ import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.event.JsonEventStorage;
 import seedu.address.storage.person.JsonPersonStorage;
 import seedu.address.storage.todo.JsonTodoStorage;
 import seedu.address.ui.Ui;
@@ -67,7 +68,8 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         JsonPersonStorage personStorage = new JsonPersonStorage(userPrefs.getAddressBookFilePath());
         JsonTodoStorage todoStorage = new JsonTodoStorage(userPrefs.getTodoListFilePath());
-        storage = new StorageManager(personStorage, todoStorage, userPrefsStorage);
+        JsonEventStorage eventStorage = new JsonEventStorage(userPrefs.getAddressBookFilePath());
+        storage = new StorageManager(personStorage, todoStorage, eventStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -75,7 +77,6 @@ public class MainApp extends Application {
 
         ui = new UiManager(logic);
     }
-
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
@@ -114,7 +115,20 @@ public class MainApp extends Application {
             initialTodoData = new TodoManager();
         }
 
-        ItemManager<Event> initialEventData = new EventManager();
+        Optional<ItemManager<Event>> eventListOptional;
+        ItemManager<Event> initialEventData;
+        try {
+            eventListOptional = storage.readEventList();
+            if (!eventListOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getEventListFilePath()
+                        + " populated with a sample AddressBook.");
+            }
+            initialEventData = eventListOptional.orElseGet(SampleDataUtil::getSampleEventList);
+        } catch (DataLoadingException e) {
+            logger.warning("Data file at " + storage.getEventListFilePath() + " could not be loaded."
+                    + " Will be starting with an empty AddressBook.");
+            initialEventData = new EventManager();
+        }
 
         return new ModelManager(
                 userPrefs,
