@@ -54,6 +54,8 @@ public interface Logic {
      */
     public Path getTodoListFilePath();
 
+    Path getEventListFilePath();
+
     /**
      * Returns the user prefs' GUI settings.
      */

@@ -55,6 +55,7 @@ public class LogicManager implements Logic {
         try {
             storage.saveAddressBook(model.getPersonManagerAndList().getItemManager());
             storage.saveTodoList(model.getTodoManagerAndList().getItemManager());
+            storage.saveEventList(model.getEventManagerAndList().getItemManager());
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
@@ -97,6 +98,11 @@ public class LogicManager implements Logic {
     @Override
     public Path getTodoListFilePath() {
         return model.getTodoListFilePath();
+    }
+
+    @Override
+    public Path getEventListFilePath() {
+        return model.getEventListFilePath();
     }
 
     @Override

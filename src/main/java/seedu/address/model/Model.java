@@ -15,6 +15,8 @@ import seedu.address.model.todo.Todo;
 public interface Model {
     /** {@code Predicate} that always evaluate to true */
     Predicate<Person> PREDICATE_SHOW_ALL_PERSONS = unused -> true;
+    Predicate<Event> PREDICATE_SHOW_ALL_EVENTS = unused -> true;
+    Predicate<Todo> PREDICATE_SHOW_ALL_TODOS = unused -> true;
 
     /**
      * Replaces user prefs data with the data in {@code userPrefs}.
@@ -55,6 +57,16 @@ public interface Model {
      * Sets the user prefs' address book file path.
      */
     void setTodoListFilePath(Path addressBookFilePath);
+
+    /**
+     * Returns the user prefs' event list file path.
+     */
+    Path getEventListFilePath();
+
+    /**
+     * Sets the user prefs' address book file path.
+     */
+    void setEventListFilePath(Path addressBookFilePath);
 
     /**
      * Returns the person manager and display list.
