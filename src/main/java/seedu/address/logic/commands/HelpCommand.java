@@ -14,6 +14,7 @@ public class HelpCommand extends Command {
             + "Example: " + COMMAND_WORD;
 
     public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
+    public static final String MESSAGE_UNKNOWN_COMMAND = ;
 
     private final String feature;
     private boolean isShowingHelp;
