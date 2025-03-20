@@ -54,24 +54,37 @@ import seedu.address.logic.commands.todo.RemovePersonFromTodoCommand;
 public class HelpCommandParser implements Parser<HelpCommand> {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Feature not recognized.\n" + HelpCommand.MESSAGE_USAGE;
-    public static final String MESSAGE_PERSON_COMMANDS = PERSON_COMMAND_WORD + ": Manages your contacts. Supported "
-        + "subcommands:\n" + AddPersonCommand.COMMAND_WORD + ", " + EditPersonCommand.COMMAND_WORD + ", "
-        + DeletePersonCommand.COMMAND_WORD + ", " + ClearPersonCommand.COMMAND_WORD + ", "
-        + FindPersonCommand.COMMAND_WORD + ", " + FilterPersonCommand.COMMAND_WORD + ", "
-        + ListPersonCommand.COMMAND_WORD + ", " + InfoPersonCommand.COMMAND_WORD;
+    public static final String MESSAGE_PERSON_COMMANDS = PERSON_COMMAND_WORD
+        + ": Manages your contacts. Supported subcommands:\n"
+        + AddPersonCommand.COMMAND_WORD + ", "
+        + EditPersonCommand.COMMAND_WORD + ", "
+        + DeletePersonCommand.COMMAND_WORD + ", "
+        + ClearPersonCommand.COMMAND_WORD + ", "
+        + FindPersonCommand.COMMAND_WORD + ", "
+        + FilterPersonCommand.COMMAND_WORD + ", "
+        + ListPersonCommand.COMMAND_WORD + ", "
+        + InfoPersonCommand.COMMAND_WORD;
 
     public static final String MESSAGE_TODO_COMMANDS = TODO_COMMAND_WORD
-        + ": Manages your todos. Supported subcommands:\n" + AddTodoCommand.COMMAND_WORD + ", "
-        + DeleteTodoCommand.COMMAND_WORD + ", " + DisplayTodoInformationCommand.COMMAND_WORD
-        + ListTodoCommand.COMMAND_WORD + ", " + AddPersonToTodoCommand.COMMAND_WORD + ", "
-        + RemovePersonFromTodoCommand.COMMAND_WORD + ", " + MarkTodoAsDoneCommand.COMMAND_WORD + ", "
+        + ": Manages your todos. Supported subcommands:\n"
+        + AddTodoCommand.COMMAND_WORD + ", "
+        + DeleteTodoCommand.COMMAND_WORD + ", "
+        + DisplayTodoInformationCommand.COMMAND_WORD + ", "
+        + ListTodoCommand.COMMAND_WORD + ", "
+        + AddPersonToTodoCommand.COMMAND_WORD + ", "
+        + RemovePersonFromTodoCommand.COMMAND_WORD + ", "
+        + MarkTodoAsDoneCommand.COMMAND_WORD + ", "
         + MarkTodoAsNotDoneCommand.COMMAND_WORD;
 
     public static final String MESSAGE_EVENT_COMMANDS = EVENT_COMMAND_WORD
-        + ": Manages your events. Supported subcommands:\n" + AddEventCommand.COMMAND_WORD + ", "
-        + DeleteEventCommand.COMMAND_WORD + ", " + DisplayEventInformationCommand.COMMAND_WORD + ", "
-        + ListEventCommand.COMMAND_WORD + ", " + AddPersonToEventCommand.COMMAND_WORD + ", "
-        + RemovePersonFromEventCommand.COMMAND_WORD + ", " + AddPersonToLogEventCommand.COMMAND_WORD + ", "
+        + ": Manages your events. Supported subcommands:\n"
+        + AddEventCommand.COMMAND_WORD + ", "
+        + DeleteEventCommand.COMMAND_WORD + ", "
+        + DisplayEventInformationCommand.COMMAND_WORD + ", "
+        + ListEventCommand.COMMAND_WORD + ", "
+        + AddPersonToEventCommand.COMMAND_WORD + ", "
+        + RemovePersonFromEventCommand.COMMAND_WORD + ", "
+        + AddPersonToLogEventCommand.COMMAND_WORD + ", "
         + RemovePersonFromLogEventCommand.COMMAND_WORD;
 
     /**
