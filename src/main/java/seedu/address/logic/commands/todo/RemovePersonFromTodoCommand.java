@@ -26,7 +26,7 @@ public class RemovePersonFromTodoCommand extends EditCommand<Todo> {
 
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Remove the association between a todo and some contacts.\n"
-            + "Parameters: INDEX"
+            + "Parameters: INDEX "
             + PREFIX_LINKED_PERSON_INDEX + "[PERSON_INDEX]...\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_LINKED_PERSON_INDEX + " 1 3 4";
