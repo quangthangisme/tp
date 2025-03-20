@@ -26,8 +26,8 @@ public class JsonAdaptedTodo {
     private final String name;
     private final String deadline;
     private final String location;
-    private final String status;
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final boolean status;
+    private final List<JsonAdaptedPerson> personList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -37,14 +37,14 @@ public class JsonAdaptedTodo {
             @JsonProperty("name") String name,
             @JsonProperty("deadline") String deadline,
             @JsonProperty("location") String location,
-            @JsonProperty("status") String status,
-            @JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+            @JsonProperty("status") boolean status,
+            @JsonProperty("persons") List<JsonAdaptedPerson> personList) {
         this.name = name;
         this.deadline = deadline;
         this.location = location;
         this.status = status;
-        if (persons != null) {
-            this.persons.addAll(persons);
+        if (personList != null) {
+            this.personList.addAll(personList);
         }
     }
 
@@ -55,8 +55,8 @@ public class JsonAdaptedTodo {
         name = source.getName().toString();
         deadline = source.getDeadline().toString();
         location = source.getLocation().toString();
-        status = source.getStatus().toString();
-        persons.addAll(source.getPersons().stream()
+        status = source.getStatus().isDone();
+        personList.addAll(source.getPersons().stream()
                 .map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList()));
     }
@@ -68,7 +68,7 @@ public class JsonAdaptedTodo {
      */
     public Todo toModelType() throws IllegalValueException {
         final List<Person> todoPersons = new ArrayList<>();
-        for (JsonAdaptedPerson person : persons) {
+        for (JsonAdaptedPerson person : personList) {
             todoPersons.add(person.toModelType());
         }
         if (name == null) {
@@ -98,8 +98,7 @@ public class JsonAdaptedTodo {
         }
         final TodoLocation todoLocation = new TodoLocation(location);
 
-        boolean isDone = status.equals("Done");
-        final TodoStatus todoStatus = new TodoStatus(isDone);
+        final TodoStatus todoStatus = new TodoStatus(status);
 
         return new Todo(todoName, todoDeadline, todoLocation, todoStatus, todoPersons);
     }
