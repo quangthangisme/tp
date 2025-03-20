@@ -112,9 +112,6 @@ public class JsonAdaptedEvent {
         }
         final EventLocation eventLocation = new EventLocation(location);
 
-        if (markedList.isEmpty()) {
-            throw new IllegalValueException("Marked list is empty!");
-        }
         return new Event(eventName, eventStartTime, eventEndTime, eventLocation, eventPersonList, markedList);
     }
 }
