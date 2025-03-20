@@ -27,7 +27,7 @@ public class JsonAdaptedTodo {
     private final String deadline;
     private final String location;
     private final String status;
-    private final List<JsonAdaptedPerson> persons = new ArrayList<>();
+    private final List<JsonAdaptedPerson> personList = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedTodo} with the given todo details.
@@ -38,13 +38,13 @@ public class JsonAdaptedTodo {
             @JsonProperty("deadline") String deadline,
             @JsonProperty("location") String location,
             @JsonProperty("status") String status,
-            @JsonProperty("persons") List<JsonAdaptedPerson> persons) {
+            @JsonProperty("persons") List<JsonAdaptedPerson> personList) {
         this.name = name;
         this.deadline = deadline;
         this.location = location;
         this.status = status;
-        if (persons != null) {
-            this.persons.addAll(persons);
+        if (personList != null) {
+            this.personList.addAll(personList);
         }
     }
 
@@ -56,7 +56,7 @@ public class JsonAdaptedTodo {
         deadline = source.getDeadline().toString();
         location = source.getLocation().toString();
         status = source.getStatus().toString();
-        persons.addAll(source.getPersons().stream()
+        personList.addAll(source.getPersons().stream()
                 .map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList()));
     }
@@ -68,7 +68,7 @@ public class JsonAdaptedTodo {
      */
     public Todo toModelType() throws IllegalValueException {
         final List<Person> todoPersons = new ArrayList<>();
-        for (JsonAdaptedPerson person : persons) {
+        for (JsonAdaptedPerson person : personList) {
             todoPersons.add(person.toModelType());
         }
         if (name == null) {
