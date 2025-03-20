@@ -26,7 +26,7 @@ public class JsonAdaptedTodo {
     private final String name;
     private final String deadline;
     private final String location;
-    private final String status;
+    private final boolean status;
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**
@@ -37,7 +37,7 @@ public class JsonAdaptedTodo {
             @JsonProperty("name") String name,
             @JsonProperty("deadline") String deadline,
             @JsonProperty("location") String location,
-            @JsonProperty("status") String status,
+            @JsonProperty("status") boolean status,
             @JsonProperty("persons") List<JsonAdaptedPerson> persons) {
         this.name = name;
         this.deadline = deadline;
@@ -55,7 +55,7 @@ public class JsonAdaptedTodo {
         name = source.getName().toString();
         deadline = source.getDeadline().toString();
         location = source.getLocation().toString();
-        status = source.getStatus().toString();
+        status = source.getStatus().isDone();
         persons.addAll(source.getPersons().stream()
                 .map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList()));
@@ -98,8 +98,7 @@ public class JsonAdaptedTodo {
         }
         final TodoLocation todoLocation = new TodoLocation(location);
 
-        boolean isDone = status.equals("Done");
-        final TodoStatus todoStatus = new TodoStatus(isDone);
+        final TodoStatus todoStatus = new TodoStatus(status);
 
         return new Todo(todoName, todoDeadline, todoLocation, todoStatus, todoPersons);
     }
