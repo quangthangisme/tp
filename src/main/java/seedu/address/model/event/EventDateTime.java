@@ -14,6 +14,8 @@ import java.time.format.DateTimeParseException;
 public class EventDateTime {
     public static final String MESSAGE_CONSTRAINTS =
             "Event start/end time should be in the format YY-MM-DD HH:MM, where HH is in 24-hour format.";
+    public static final String MESSAGE_NEGATIVE_DURATION =
+            "The given event start-time is not before the given end-time.";
     public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm");
     public final LocalDateTime dateTime;
 
@@ -38,6 +40,10 @@ public class EventDateTime {
         } catch (DateTimeParseException e) {
             return false;
         }
+    }
+
+    public boolean isBefore(EventDateTime otherEventDateTime) {
+        return this.dateTime.isBefore(otherEventDateTime.dateTime);
     }
 
     @Override
