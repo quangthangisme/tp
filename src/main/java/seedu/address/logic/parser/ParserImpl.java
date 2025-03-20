@@ -63,7 +63,7 @@ public class ParserImpl {
             return new ExitCommand();
 
         case HELP_COMMAND_WORD:
-            return new HelpCommand(arguments.trim());
+            return new HelpCommandParser().parse(arguments);
 
         case PERSON_COMMAND_WORD:
             return new PersonParser().parseCommand(arguments);

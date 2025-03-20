@@ -10,37 +10,22 @@ public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n"
-            + "Example: " + COMMAND_WORD;
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Shows program usage instructions.\n" + "Example: "
+        + COMMAND_WORD;
 
-    public static final String SHOWING_HELP_MESSAGE = "Opened help window.";
-    public static final String MESSAGE_UNKNOWN_COMMAND = ;
-
-    private final String feature;
-    private boolean isShowingHelp;
+    private final String helpMessage;
 
     /**
      * Constructs a new HelpCommand for a specified feature.
      *
-     * @param feature the name of the feature or command for which help is requested;
-     *                this is used to retrieve and display the appropriate usage instructions.
+     * @param helpMessage the help message to be displayed;
      */
-    public HelpCommand(String feature) {
-        this.feature = feature;
-        this.isShowingHelp = false;
-    }
-
-    private void showHelp() {
-        this.isShowingHelp = true;
+    public HelpCommand(String helpMessage) {
+        this.helpMessage = helpMessage;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        UsageMessageProvider provider = new UsageMessageProvider();
-        String usageMessage = provider.getMessageUsage(feature);
-        if (usageMessage.equals(SHOWING_HELP_MESSAGE)) {
-            showHelp();
-        }
-        return new CommandResult(usageMessage, isShowingHelp, false);
+        return new CommandResult(helpMessage, false, false);
     }
 }
