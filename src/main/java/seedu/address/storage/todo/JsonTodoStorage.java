@@ -16,18 +16,19 @@ import seedu.address.model.item.ItemManager;
 import seedu.address.model.todo.Todo;
 
 /**
- * A class to access AddressBook data stored as a json file on the hard disk.
+ * A class to access Todo data stored as a JSON file on the hard disk.
  */
 public class JsonTodoStorage implements TodoStorage {
 
     private static final Logger logger = LogsCenter.getLogger(JsonTodoStorage.class);
 
-    private Path filePath;
+    private final Path filePath;
 
     public JsonTodoStorage(Path filePath) {
         this.filePath = filePath;
     }
 
+    @Override
     public Path getTodoListFilePath() {
         return filePath;
     }
@@ -38,22 +39,23 @@ public class JsonTodoStorage implements TodoStorage {
     }
 
     /**
-     * Similar to {@link #readTodoList}.
+     * Similar to {@link #readTodoList()}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataLoadingException if loading the data from storage failed.
      */
+    @Override
     public Optional<ItemManager<Todo>> readTodoList(Path filePath) throws DataLoadingException {
         requireNonNull(filePath);
 
-        Optional<JsonSerializableTodoManager> jsonAddressBook = JsonUtil.readJsonFile(
+        Optional<JsonSerializableTodoManager> jsonTodoManager = JsonUtil.readJsonFile(
                 filePath, JsonSerializableTodoManager.class);
-        if (!jsonAddressBook.isPresent()) {
+        if (jsonTodoManager.isEmpty()) {
             return Optional.empty();
         }
 
         try {
-            return Optional.of(jsonAddressBook.get().toModelType());
+            return Optional.of(jsonTodoManager.get().toModelType());
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataLoadingException(ive);
@@ -70,6 +72,7 @@ public class JsonTodoStorage implements TodoStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
+    @Override
     public void saveTodoList(ItemManager<Todo> todoManager, Path filePath) throws IOException {
         requireNonNull(todoManager);
         requireNonNull(filePath);
@@ -77,6 +80,4 @@ public class JsonTodoStorage implements TodoStorage {
         FileUtil.createIfMissing(filePath);
         JsonUtil.saveJsonFile(new JsonSerializableTodoManager(todoManager), filePath);
     }
-
 }
-

@@ -31,7 +31,7 @@ class JsonSerializableTodoManager {
     }
 
     /**
-     * Converts a given {@code ItemManager<Person>} into this class for Jackson use.
+     * Converts a given {@code ItemManager<Todo>} into this class for Jackson use.
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
@@ -40,7 +40,7 @@ class JsonSerializableTodoManager {
     }
 
     /**
-     * Converts this address book into the model's {@code PersonManager} object.
+     * Converts this address book into the model's {@code TodoManager} object.
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
@@ -57,4 +57,3 @@ class JsonSerializableTodoManager {
     }
 
 }
-

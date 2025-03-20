@@ -34,14 +34,14 @@ public interface TodoStorage {
 
     /**
      * Saves the given {@link ItemManager} to the storage.
-     * @param addressBook cannot be null.
+     * @param todoManager cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveTodoList(ItemManager<Todo> addressBook) throws IOException;
+    void saveTodoList(ItemManager<Todo> todoManager) throws IOException;
 
     /**
      * @see #saveTodoList(ItemManager)
      */
-    void saveTodoList(ItemManager<Todo> addressBook, Path filePath) throws IOException;
+    void saveTodoList(ItemManager<Todo> todoManager, Path filePath) throws IOException;
 
 }

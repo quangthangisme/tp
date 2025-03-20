@@ -17,11 +17,11 @@ import seedu.address.model.todo.TodoStatus;
 import seedu.address.storage.person.JsonAdaptedPerson;
 
 /**
- * Jackson-friendly version of {@link Person}.
+ * Jackson-friendly version of {@link Todo}.
  */
 public class JsonAdaptedTodo {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Person's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Todo's %s field is missing!";
 
     private final String name;
     private final String deadline;
@@ -30,7 +30,7 @@ public class JsonAdaptedTodo {
     private final List<JsonAdaptedPerson> persons = new ArrayList<>();
 
     /**
-     * Constructs a {@code JsonAdaptedPerson} with the given person details.
+     * Constructs a {@code JsonAdaptedTodo} with the given todo details.
      */
     @JsonCreator
     public JsonAdaptedTodo(
@@ -49,7 +49,7 @@ public class JsonAdaptedTodo {
     }
 
     /**
-     * Converts a given {@code Person} into this class for Jackson use.
+     * Converts a given {@code Todo} into this class for Jackson use.
      */
     public JsonAdaptedTodo(Todo source) {
         name = source.getName().toString();
@@ -62,9 +62,9 @@ public class JsonAdaptedTodo {
     }
 
     /**
-     * Converts this Jackson-friendly adapted person object into the model's {@code Person} object.
+     * Converts this Jackson-friendly adapted todo object into the model's {@code Todo} object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted person.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted todo.
      */
     public Todo toModelType() throws IllegalValueException {
         final List<Person> todoPersons = new ArrayList<>();
