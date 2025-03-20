@@ -1,7 +1,6 @@
 package seedu.address.logic.parser.event;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_ARGUMENTS;
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 
 import java.util.logging.Logger;
@@ -29,7 +28,7 @@ public class EventParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT =
-            Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+        Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Logger logger = LogsCenter.getLogger(EventParser.class);
 
     /**
