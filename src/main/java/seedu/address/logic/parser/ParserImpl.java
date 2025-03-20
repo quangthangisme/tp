@@ -2,8 +2,13 @@ package seedu.address.logic.parser;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
+import static seedu.address.logic.parser.CliSyntax.BYE_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.EXIT_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.HELP_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.KILL_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.QUIT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import java.util.logging.Logger;
@@ -27,8 +32,7 @@ public class ParserImpl {
     /**
      * Used for initial separation of command word and args.
      */
-    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)"
-            + "(?<arguments>.*)");
+    private static final Pattern BASIC_COMMAND_FORMAT = Pattern.compile("(?<commandWord>\\S+)" + "(?<arguments>.*)");
     private static final Logger logger = LogsCenter.getLogger(ParserImpl.class);
 
     /**
@@ -41,8 +45,7 @@ public class ParserImpl {
     public Command parseCommand(String userInput) throws ParseException {
         final Matcher matcher = BASIC_COMMAND_FORMAT.matcher(userInput.trim());
         if (!matcher.matches()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    HelpCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, HelpCommand.MESSAGE_USAGE));
         }
 
         final String commandWord = matcher.group("commandWord");
@@ -56,12 +59,11 @@ public class ParserImpl {
 
         switch (commandWord) {
 
-        case ExitCommand.COMMAND_WORD_EXIT, ExitCommand.COMMAND_WORD_BYE,
-             ExitCommand.COMMAND_WORD_QUIT, ExitCommand.COMMAND_WORD_KILL:
+        case EXIT_COMMAND_WORD, BYE_COMMAND_WORD, QUIT_COMMAND_WORD, KILL_COMMAND_WORD:
             return new ExitCommand();
 
-        case HelpCommand.COMMAND_WORD:
-            return new HelpCommand();
+        case HELP_COMMAND_WORD:
+            return new HelpCommandParser().parse(arguments);
 
         case PERSON_COMMAND_WORD:
             return new PersonParser().parseCommand(arguments);
