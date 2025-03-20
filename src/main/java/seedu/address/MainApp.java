@@ -68,7 +68,7 @@ public class MainApp extends Application {
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         JsonPersonStorage personStorage = new JsonPersonStorage(userPrefs.getAddressBookFilePath());
         JsonTodoStorage todoStorage = new JsonTodoStorage(userPrefs.getTodoListFilePath());
-        JsonEventStorage eventStorage = new JsonEventStorage(userPrefs.getAddressBookFilePath());
+        JsonEventStorage eventStorage = new JsonEventStorage(userPrefs.getEventListFilePath());
         storage = new StorageManager(personStorage, todoStorage, eventStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
@@ -106,12 +106,12 @@ public class MainApp extends Application {
             todoListOptional = storage.readTodoList();
             if (!todoListOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getTodoListFilePath()
-                        + " populated with a sample AddressBook.");
+                        + " populated with a sample Todo list.");
             }
             initialTodoData = todoListOptional.orElseGet(SampleDataUtil::getSampleTodoList);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getTodoListFilePath() + " could not be loaded."
-                    + " Will be starting with an empty AddressBook.");
+                    + " Will be starting with an empty Todo list.");
             initialTodoData = new TodoManager();
         }
 
@@ -121,12 +121,12 @@ public class MainApp extends Application {
             eventListOptional = storage.readEventList();
             if (!eventListOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getEventListFilePath()
-                        + " populated with a sample AddressBook.");
+                        + " populated with a sample Event list.");
             }
             initialEventData = eventListOptional.orElseGet(SampleDataUtil::getSampleEventList);
         } catch (DataLoadingException e) {
             logger.warning("Data file at " + storage.getEventListFilePath() + " could not be loaded."
-                    + " Will be starting with an empty AddressBook.");
+                    + " Will be starting with an empty Event list.");
             initialEventData = new EventManager();
         }
 
