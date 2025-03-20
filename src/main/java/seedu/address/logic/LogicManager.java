@@ -54,6 +54,8 @@ public class LogicManager implements Logic {
 
         try {
             storage.saveAddressBook(model.getPersonManagerAndList().getItemManager());
+            storage.saveTodoList(model.getTodoManagerAndList().getItemManager());
+            storage.saveEventList(model.getEventManagerAndList().getItemManager());
         } catch (AccessDeniedException e) {
             throw new CommandException(String.format(FILE_OPS_PERMISSION_ERROR_FORMAT, e.getMessage()), e);
         } catch (IOException ioe) {
@@ -74,6 +76,16 @@ public class LogicManager implements Logic {
     }
 
     @Override
+    public ItemManager<Todo> getTodoList() {
+        return model.getTodoManagerAndList().getItemManager();
+    }
+
+    @Override
+    public ItemManager<Event> getEventList() {
+        return model.getEventManagerAndList().getItemManager();
+    }
+
+    @Override
     public ObservableList<Todo> getFilteredTodoList() {
         return model.getTodoManagerAndList().getFilteredItemsList();
     }
@@ -86,6 +98,16 @@ public class LogicManager implements Logic {
     @Override
     public Path getAddressBookFilePath() {
         return model.getAddressBookFilePath();
+    }
+
+    @Override
+    public Path getTodoListFilePath() {
+        return model.getTodoListFilePath();
+    }
+
+    @Override
+    public Path getEventListFilePath() {
+        return model.getEventListFilePath();
     }
 
     @Override

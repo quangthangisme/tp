@@ -90,6 +90,28 @@ public class ModelManager implements Model {
     }
 
     @Override
+    public Path getTodoListFilePath() {
+        return userPrefs.getTodoListFilePath();
+    }
+
+    @Override
+    public void setTodoListFilePath(Path todoListFilePath) {
+        requireNonNull(todoListFilePath);
+        userPrefs.setTodoListFilePath(todoListFilePath);
+    }
+
+    @Override
+    public Path getEventListFilePath() {
+        return userPrefs.getEventListFilePath();
+    }
+
+    @Override
+    public void setEventListFilePath(Path eventListFilePath) {
+        requireNonNull(eventListFilePath);
+        userPrefs.setEventListFilePath(eventListFilePath);
+    }
+
+    @Override
     public ItemManagerWithFilteredList<Person> getPersonManagerAndList() {
         return personManagerAndList;
     }

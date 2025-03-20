@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.person;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +16,7 @@ import seedu.address.model.person.PersonManager;
  * An Immutable AddressBook that is serializable to JSON format.
  */
 @JsonRootName(value = "addressbook")
-class JsonSerializablePersonManager {
+public class JsonSerializablePersonManager {
 
     public static final String MESSAGE_DUPLICATE_PERSON = "Persons list contains duplicate person(s).";
 

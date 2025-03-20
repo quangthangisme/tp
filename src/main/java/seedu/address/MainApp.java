@@ -30,11 +30,13 @@ import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManager;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.model.util.SampleDataUtil;
-import seedu.address.storage.JsonPersonStorage;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.Storage;
 import seedu.address.storage.StorageManager;
 import seedu.address.storage.UserPrefsStorage;
+import seedu.address.storage.event.JsonEventStorage;
+import seedu.address.storage.person.JsonPersonStorage;
+import seedu.address.storage.todo.JsonTodoStorage;
 import seedu.address.ui.Ui;
 import seedu.address.ui.UiManager;
 
@@ -43,7 +45,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(0, 2, 2, true);
+    public static final Version VERSION = new Version(1, 3, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -65,7 +67,9 @@ public class MainApp extends Application {
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
         JsonPersonStorage personStorage = new JsonPersonStorage(userPrefs.getAddressBookFilePath());
-        storage = new StorageManager(personStorage, userPrefsStorage);
+        JsonTodoStorage todoStorage = new JsonTodoStorage(userPrefs.getTodoListFilePath());
+        JsonEventStorage eventStorage = new JsonEventStorage(userPrefs.getEventListFilePath());
+        storage = new StorageManager(personStorage, todoStorage, eventStorage, userPrefsStorage);
 
         model = initModelManager(storage, userPrefs);
 
@@ -73,7 +77,6 @@ public class MainApp extends Application {
 
         ui = new UiManager(logic);
     }
-
     /**
      * Returns a {@code ModelManager} with the data from {@code storage}'s address book and {@code userPrefs}. <br>
      * The data from the sample address book will be used instead if {@code storage}'s address book is not found,
@@ -97,8 +100,35 @@ public class MainApp extends Application {
             initialPersonData = new PersonManager();
         }
 
-        ItemManager<Todo> initialTodoData = new TodoManager();
-        ItemManager<Event> initialEventData = new EventManager();
+        Optional<ItemManager<Todo>> todoListOptional;
+        ItemManager<Todo> initialTodoData;
+        try {
+            todoListOptional = storage.readTodoList();
+            if (!todoListOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getTodoListFilePath()
+                        + " populated with a sample Todo list.");
+            }
+            initialTodoData = todoListOptional.orElseGet(SampleDataUtil::getSampleTodoList);
+        } catch (DataLoadingException e) {
+            logger.warning("Data file at " + storage.getTodoListFilePath() + " could not be loaded."
+                    + " Will be starting with an empty Todo list.");
+            initialTodoData = new TodoManager();
+        }
+
+        Optional<ItemManager<Event>> eventListOptional;
+        ItemManager<Event> initialEventData;
+        try {
+            eventListOptional = storage.readEventList();
+            if (!eventListOptional.isPresent()) {
+                logger.info("Creating a new data file " + storage.getEventListFilePath()
+                        + " populated with a sample Event list.");
+            }
+            initialEventData = eventListOptional.orElseGet(SampleDataUtil::getSampleEventList);
+        } catch (DataLoadingException e) {
+            logger.warning("Data file at " + storage.getEventListFilePath() + " could not be loaded."
+                    + " Will be starting with an empty Event list.");
+            initialEventData = new EventManager();
+        }
 
         return new ModelManager(
                 userPrefs,

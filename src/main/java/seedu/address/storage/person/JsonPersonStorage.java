@@ -1,4 +1,4 @@
-package seedu.address.storage;
+package seedu.address.storage.person;
 
 import static java.util.Objects.requireNonNull;
 
@@ -70,6 +70,7 @@ public class JsonPersonStorage implements PersonStorage {
      *
      * @param filePath location of the data. Cannot be null.
      */
+    @Override
     public void saveAddressBook(ItemManager<Person> addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);

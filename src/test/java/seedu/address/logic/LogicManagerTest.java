@@ -27,11 +27,15 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.event.Event;
 import seedu.address.model.item.ItemManager;
 import seedu.address.model.person.Person;
-import seedu.address.storage.JsonPersonStorage;
+import seedu.address.model.todo.Todo;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
+import seedu.address.storage.event.JsonEventStorage;
+import seedu.address.storage.person.JsonPersonStorage;
+import seedu.address.storage.todo.JsonTodoStorage;
 import seedu.address.testutil.PersonBuilder;
 
 public class LogicManagerTest {
@@ -48,8 +52,13 @@ public class LogicManagerTest {
     public void setUp() {
         JsonPersonStorage addressBookStorage =
                 new JsonPersonStorage(temporaryFolder.resolve("addressBook.json"));
+        JsonTodoStorage todoStorage =
+                new JsonTodoStorage(temporaryFolder.resolve("todolist.json"));
+        JsonEventStorage eventStorage =
+                new JsonEventStorage(temporaryFolder.resolve("eventlist.json"));
+
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(temporaryFolder.resolve("userPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
+        StorageManager storage = new StorageManager(addressBookStorage, todoStorage, eventStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
     }
 
@@ -163,11 +172,24 @@ public class LogicManagerTest {
                 throw e;
             }
         };
+        JsonTodoStorage todoStorage = new JsonTodoStorage(prefPath) {
+            @Override
+            public void saveTodoList(ItemManager<Todo> todoManager, Path filePath)
+                    throws IOException {
+                throw e;
+            }
+        };
+        JsonEventStorage eventStorage = new JsonEventStorage(prefPath) {
+            @Override
+            public void saveEventList(ItemManager<Event> eventManager, Path filePath)
+                    throws IOException {
+                throw e;
+            }
+        };
 
         JsonUserPrefsStorage userPrefsStorage =
                 new JsonUserPrefsStorage(temporaryFolder.resolve("ExceptionUserPrefs.json"));
-        StorageManager storage = new StorageManager(addressBookStorage, userPrefsStorage);
-
+        StorageManager storage = new StorageManager(addressBookStorage, todoStorage, eventStorage, userPrefsStorage);
         logic = new LogicManager(model, storage);
 
         // Triggers the saveAddressBook method by executing an add command

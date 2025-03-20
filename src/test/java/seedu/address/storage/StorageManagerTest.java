@@ -15,6 +15,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.item.ItemManager;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonManager;
+import seedu.address.storage.event.JsonEventStorage;
+import seedu.address.storage.person.JsonPersonStorage;
+import seedu.address.storage.todo.JsonTodoStorage;
 
 public class StorageManagerTest {
 
@@ -26,8 +29,10 @@ public class StorageManagerTest {
     @BeforeEach
     public void setUp() {
         JsonPersonStorage addressBookStorage = new JsonPersonStorage(getTempFilePath("ab"));
+        JsonTodoStorage todoStorage = new JsonTodoStorage(getTempFilePath("ab"));
+        JsonEventStorage eventStorage = new JsonEventStorage(getTempFilePath("ab"));
         JsonUserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(getTempFilePath("prefs"));
-        storageManager = new StorageManager(addressBookStorage, userPrefsStorage);
+        storageManager = new StorageManager(addressBookStorage, todoStorage, eventStorage, userPrefsStorage);
     }
 
     private Path getTempFilePath(String fileName) {
