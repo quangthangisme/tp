@@ -138,6 +138,15 @@ public class AddPersonCommandTest {
         public void setTodoListFilePath(Path todoListFilePath) {
             throw new AssertionError("This method should not be called.");
         }
+        @Override
+        public Path getEventListFilePath() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setEventListFilePath(Path eventListFilePath) {
+            throw new AssertionError("This method should not be called.");
+        }
 
         @Override
         public ItemManagerWithFilteredList<Person> getPersonManagerAndList() {
