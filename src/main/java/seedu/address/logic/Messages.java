@@ -88,10 +88,12 @@ public class Messages {
      * Formats the {@code todo} for display to the user.
      */
     public static String format(Event event) {
+        String personListFormatted = getEventPersonListFormatted(event);
         return event.getName()
                 + "; Start Time: " + event.getStartTime()
                 + "; End Time: " + event.getEndTime()
-                + "; Location: " + event.getLocation();
+                + "; Location: " + event.getLocation()
+                + "; Persons: " + personListFormatted;
     }
 
     /**
@@ -102,5 +104,17 @@ public class Messages {
                 + "; ID: " + person.getId()
                 + "; Course: " + person.getCourse()
                 + "; Group: " + person.getGroup();
+    }
+
+    private static String getEventPersonListFormatted(Event event) {
+        if (event.getPersons().isEmpty()) {
+            return "None";
+        }
+        String string = "\n" + IntStream.range(0, event.getPersons().size())
+                .mapToObj(i -> String.format("%d.[%s] %s",
+                        i + 1, event.getMarkedList().get(i) ? "X" : " ",
+                        getSimplifiedFormat(event.getPersons().get(i))))
+                .collect(Collectors.joining("\n"));
+        return string;
     }
 }
