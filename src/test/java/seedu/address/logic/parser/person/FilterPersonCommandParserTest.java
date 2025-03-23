@@ -14,9 +14,9 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.person.FilterPersonCommand;
-import seedu.address.model.person.Column;
+import seedu.address.model.person.PersonColumn;
 import seedu.address.model.person.FilterCriteria;
-import seedu.address.model.person.Operator;
+import seedu.address.commons.core.Operator;
 import seedu.address.model.person.PersonPredicate;
 
 public class FilterPersonCommandParserTest {
@@ -32,8 +32,8 @@ public class FilterPersonCommandParserTest {
     @Test
     public void parse_validArgs_returnsFilterCommand() {
         // Single value with default AND operator
-        Map<Column, FilterCriteria> expectedPredicateMap = new HashMap<>();
-        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.AND, Collections.singletonList("alice")));
+        Map<PersonColumn, FilterCriteria> expectedPredicateMap = new HashMap<>();
+        expectedPredicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.AND, Collections.singletonList("alice")));
         PersonPredicate expectedPredicate = new PersonPredicate(expectedPredicateMap);
         FilterPersonCommand expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
@@ -41,7 +41,7 @@ public class FilterPersonCommandParserTest {
 
         // Multiple values with explicit OR operator
         expectedPredicateMap.clear();
-        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.OR, Arrays.asList("alice", "bob")));
+        expectedPredicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.OR, Arrays.asList("alice", "bob")));
         expectedPredicate = new PersonPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
@@ -49,8 +49,8 @@ public class FilterPersonCommandParserTest {
 
         // Multiple columns
         expectedPredicateMap.clear();
-        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.AND, Collections.singletonList("alice")));
-        expectedPredicateMap.put(Column.EMAIL, new FilterCriteria(Operator.AND, Collections.singletonList("gmail")));
+        expectedPredicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.AND, Collections.singletonList("alice")));
+        expectedPredicateMap.put(PersonColumn.EMAIL, new FilterCriteria(Operator.AND, Collections.singletonList("gmail")));
         expectedPredicate = new PersonPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
@@ -60,8 +60,8 @@ public class FilterPersonCommandParserTest {
     @Test
     public void parse_quotedValues_returnsFilterCommand() {
         // Quote-wrapped values
-        Map<Column, FilterCriteria> expectedPredicateMap = new HashMap<>();
-        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.AND,
+        Map<PersonColumn, FilterCriteria> expectedPredicateMap = new HashMap<>();
+        expectedPredicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.AND,
                 Collections.singletonList("alice pauline")));
         PersonPredicate expectedPredicate = new PersonPredicate(expectedPredicateMap);
         FilterPersonCommand expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
@@ -70,7 +70,7 @@ public class FilterPersonCommandParserTest {
 
         // Mix of quoted and unquoted values
         expectedPredicateMap.clear();
-        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.OR, Arrays.asList("alice pauline", "bob")));
+        expectedPredicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.OR, Arrays.asList("alice pauline", "bob")));
         expectedPredicate = new PersonPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
@@ -80,8 +80,8 @@ public class FilterPersonCommandParserTest {
     @Test
     public void parse_allOperators_returnsFilterCommand() {
         // AND operator
-        Map<Column, FilterCriteria> expectedPredicateMap = new HashMap<>();
-        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.AND, Arrays.asList("alice", "pauline")));
+        Map<PersonColumn, FilterCriteria> expectedPredicateMap = new HashMap<>();
+        expectedPredicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.AND, Arrays.asList("alice", "pauline")));
         PersonPredicate expectedPredicate = new PersonPredicate(expectedPredicateMap);
         FilterPersonCommand expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
@@ -89,7 +89,7 @@ public class FilterPersonCommandParserTest {
 
         // OR operator
         expectedPredicateMap.clear();
-        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.OR, Arrays.asList("alice", "bob")));
+        expectedPredicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.OR, Arrays.asList("alice", "bob")));
         expectedPredicate = new PersonPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
@@ -97,7 +97,7 @@ public class FilterPersonCommandParserTest {
 
         // NAND operator
         expectedPredicateMap.clear();
-        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.NAND, Arrays.asList("alice", "bob")));
+        expectedPredicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.NAND, Arrays.asList("alice", "bob")));
         expectedPredicate = new PersonPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
@@ -105,7 +105,7 @@ public class FilterPersonCommandParserTest {
 
         // NOR operator
         expectedPredicateMap.clear();
-        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.NOR, Arrays.asList("alice", "bob")));
+        expectedPredicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.NOR, Arrays.asList("alice", "bob")));
         expectedPredicate = new PersonPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 
@@ -122,10 +122,10 @@ public class FilterPersonCommandParserTest {
     @Test
     public void parse_multipleFilters_returnsFilterCommand() {
         // Test combining multiple filters with different operators
-        Map<Column, FilterCriteria> expectedPredicateMap = new HashMap<>();
-        expectedPredicateMap.put(Column.NAME, new FilterCriteria(Operator.AND, List.of("alice")));
-        expectedPredicateMap.put(Column.EMAIL, new FilterCriteria(Operator.OR, Arrays.asList("gmail", "yahoo")));
-        expectedPredicateMap.put(Column.TAG, new FilterCriteria(Operator.NAND, List.of("friend")));
+        Map<PersonColumn, FilterCriteria> expectedPredicateMap = new HashMap<>();
+        expectedPredicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.AND, List.of("alice")));
+        expectedPredicateMap.put(PersonColumn.EMAIL, new FilterCriteria(Operator.OR, Arrays.asList("gmail", "yahoo")));
+        expectedPredicateMap.put(PersonColumn.TAG, new FilterCriteria(Operator.NAND, List.of("friend")));
         PersonPredicate expectedPredicate = new PersonPredicate(expectedPredicateMap);
         FilterPersonCommand expectedFilterCommand = new FilterPersonCommand(expectedPredicate);
 

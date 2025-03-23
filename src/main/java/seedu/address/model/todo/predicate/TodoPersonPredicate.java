@@ -8,11 +8,21 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.person.Person;
 import seedu.address.model.todo.Todo;
 
-public class TodoContactPredicate implements Predicate<Todo> {
+/**
+ * Tests if a {@code Todo}'s linked persons contains the specified persons based on the provided
+ * {@code Operator}.
+ */
+public class TodoPersonPredicate implements Predicate<Todo> {
     private final Operator operator;
     private final List<Person> persons;
 
-    public TodoContactPredicate(Operator operator, List<Person> persons) {
+    /**
+     * Constructs a {@code TodoNamePredicate} with the given operator and list of persons.
+     *
+     * @param operator The operator to apply (e.g., AND, OR) to the persons matching logic.
+     * @param persons  The list of persons to search for in the todo's linked persons.
+     */
+    public TodoPersonPredicate(Operator operator, List<Person> persons) {
         this.operator = operator;
         this.persons = persons;
     }
@@ -29,7 +39,7 @@ public class TodoContactPredicate implements Predicate<Todo> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof TodoContactPredicate otherPredicate)) {
+        if (!(other instanceof TodoPersonPredicate otherPredicate)) {
             return false;
         }
 

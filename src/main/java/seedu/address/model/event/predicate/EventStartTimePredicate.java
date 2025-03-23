@@ -8,10 +8,22 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.event.Event;
 import seedu.address.model.util.DatetimePredicate;
 
+/**
+ * Tests if an {@code Event}'s start time satisfies the given {@code DatetimePredicate}s based on
+ * the specified {@code Operator}.
+ */
 public class EventStartTimePredicate implements Predicate<Event> {
     private final Operator operator;
     private final List<DatetimePredicate> predicates;
 
+    /**
+     * Constructs an {@code EventStartTimePredicate} with the given operator and list of datetime
+     * predicates.
+     *
+     * @param operator   The operator to apply (e.g., AND, OR) to the predicates.
+     * @param predicates The list of {@code DatetimePredicate} objects to test against the event
+     *                   start time.
+     */
     public EventStartTimePredicate(Operator operator, List<DatetimePredicate> predicates) {
         this.operator = operator;
         this.predicates = predicates;

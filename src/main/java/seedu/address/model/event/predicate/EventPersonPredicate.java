@@ -8,10 +8,20 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.event.Event;
 import seedu.address.model.person.Person;
 
+/**
+ * Tests if an {@code Event}'s linked persons contains the specified persons based on the provided
+ * {@code Operator}.
+ */
 public class EventPersonPredicate implements Predicate<Event> {
     private final Operator operator;
     private final List<Person> persons;
 
+    /**
+     * Constructs an {@code EventPersonPredicate} with the given operator and list of persons.
+     *
+     * @param operator The operator to apply (e.g., AND, OR) to the person matching logic.
+     * @param persons  The list of persons to search for in the event's linked persons.
+     */
     public EventPersonPredicate(Operator operator, List<Person> persons) {
         this.operator = operator;
         this.persons = persons;

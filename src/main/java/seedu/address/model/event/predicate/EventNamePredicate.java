@@ -6,21 +6,31 @@ import java.util.function.Predicate;
 import seedu.address.commons.core.Operator;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.todo.Todo;
+import seedu.address.model.event.Event;
 
-public class TodoNamePredicate implements Predicate<Todo> {
+/**
+ * Tests if an {@code Event}'s name contains the specified keywords based on the provided
+ * {@code Operator}.
+ */
+public class EventNamePredicate implements Predicate<Event> {
     private final Operator operator;
     private final List<String> keywords;
 
-    public TodoNamePredicate(Operator operator, List<String> keywords) {
+    /**
+     * Constructs an {@code EventNamePredicate} with the given operator and list of keywords.
+     *
+     * @param operator The operator to apply (e.g., AND, OR) to the keyword matching logic.
+     * @param keywords The list of keywords to search for in the event's name.
+     */
+    public EventNamePredicate(Operator operator, List<String> keywords) {
         this.operator = operator;
         this.keywords = keywords;
     }
 
     @Override
-    public boolean test(Todo todo) {
+    public boolean test(Event event) {
         return operator.apply(keywords.stream(), keyword
-                -> StringUtil.containsWordIgnoreCase(todo.getName().name, keyword));
+                -> StringUtil.containsWordIgnoreCase(event.getName().name, keyword));
     }
 
     @Override
@@ -30,7 +40,7 @@ public class TodoNamePredicate implements Predicate<Todo> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof TodoNamePredicate otherPredicate)) {
+        if (!(other instanceof EventNamePredicate otherPredicate)) {
             return false;
         }
 
