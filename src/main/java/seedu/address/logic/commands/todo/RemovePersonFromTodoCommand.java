@@ -66,7 +66,8 @@ public class RemovePersonFromTodoCommand extends EditCommand<Todo> {
                 todoToEdit.getDeadline(),
                 todoToEdit.getLocation(),
                 todoToEdit.getStatus(),
-                newPersons.stream().toList()
+                newPersons.stream().toList(),
+                todoToEdit.getTags()
         );
     }
 

@@ -48,7 +48,8 @@ public class MarkTodoAsNotDoneCommand extends EditCommand<Todo> {
                 todoToEdit.getDeadline(),
                 todoToEdit.getLocation(),
                 new TodoStatus(false),
-                todoToEdit.getPersons()
+                todoToEdit.getPersons(),
+                todoToEdit.getTags()
         );
     }
 

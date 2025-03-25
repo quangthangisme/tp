@@ -28,6 +28,7 @@ import seedu.address.logic.commands.person.FindPersonCommand;
 import seedu.address.logic.commands.person.InfoPersonCommand;
 import seedu.address.logic.commands.person.ListPersonCommand;
 import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
+import seedu.address.logic.commands.todo.AddTagToTodoCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.logic.commands.todo.DeleteTodoCommand;
 import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
@@ -35,6 +36,7 @@ import seedu.address.logic.commands.todo.ListTodoCommand;
 import seedu.address.logic.commands.todo.MarkTodoAsDoneCommand;
 import seedu.address.logic.commands.todo.MarkTodoAsNotDoneCommand;
 import seedu.address.logic.commands.todo.RemovePersonFromTodoCommand;
+import seedu.address.logic.commands.todo.RemoveTagFromTodoCommand;
 
 /**
  * Parses input arguments and creates a new HelpCommand object.
@@ -74,7 +76,9 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         + AddPersonToTodoCommand.COMMAND_WORD + ", "
         + RemovePersonFromTodoCommand.COMMAND_WORD + ", "
         + MarkTodoAsDoneCommand.COMMAND_WORD + ", "
-        + MarkTodoAsNotDoneCommand.COMMAND_WORD;
+        + MarkTodoAsNotDoneCommand.COMMAND_WORD + ", "
+        + AddTagToTodoCommand.COMMAND_WORD + ", "
+        + RemoveTagFromTodoCommand.COMMAND_WORD;
 
     public static final String MESSAGE_EVENT_COMMANDS = EVENT_COMMAND_WORD
         + ": Manages your events. Supported subcommands:\n"
@@ -190,6 +194,10 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(MarkTodoAsDoneCommand.MESSAGE_USAGE);
         case MarkTodoAsNotDoneCommand.COMMAND_WORD:
             return new HelpCommand(MarkTodoAsNotDoneCommand.MESSAGE_USAGE);
+        case AddTagToTodoCommand.COMMAND_WORD:
+            return new HelpCommand(AddTagToTodoCommand.MESSAGE_USAGE);
+        case RemoveTagFromTodoCommand.COMMAND_WORD:
+            return new HelpCommand(RemoveTagFromTodoCommand.MESSAGE_USAGE);
         default:
             return new HelpCommand("Subcommand " + subcommand + " not recognized.\n" + MESSAGE_TODO_COMMANDS);
         }

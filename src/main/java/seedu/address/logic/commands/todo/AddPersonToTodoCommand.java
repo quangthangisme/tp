@@ -80,7 +80,8 @@ public class AddPersonToTodoCommand extends EditCommand<Todo> {
                 itemToEdit.getDeadline(),
                 itemToEdit.getLocation(),
                 itemToEdit.getStatus(),
-                combinedPersons
+                combinedPersons,
+                itemToEdit.getTags()
         );
     }
 
