@@ -28,8 +28,8 @@ public class FilterPersonCommand extends FilterCommand<Person> {
         + "specified criteria and displays them as a list with index numbers.\n"
         + "Parameters: <col>/ [<op>:] <value(s)> [...]\n"
         + "- <col>/ : Column to filter on (" + PREFIX_PERSON_NAME_LONG + ", " + PREFIX_PERSON_PHONE_LONG + ", "
-        + PREFIX_PERSON_EMAIL_LONG + ", " + PREFIX_PERSON_ID_LONG + ", " + PREFIX_PERSON_COURSE_LONG + ", " + PREFIX_PERSON_GROUP_LONG
-        + ", " + PREFIX_PERSON_TAG_LONG + ")\n"
+        + PREFIX_PERSON_EMAIL_LONG + ", " + PREFIX_PERSON_ID_LONG + ", " + PREFIX_PERSON_COURSE_LONG + ", "
+        + PREFIX_PERSON_GROUP_LONG + ", " + PREFIX_PERSON_TAG_LONG + ")\n"
         + "- <op>: : Operator (and, or, nand, nor). Defaults to 'and' if not specified\n"
         + "- <value(s)>: One or more values to filter by. Use quotes for values with spaces.\n"
         + "Examples:\n"

@@ -163,7 +163,8 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterPersonCommand.MESSAGE_USAGE));
         }
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PERSON_NAME_LONG, PREFIX_PERSON_PHONE_LONG,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PERSON_NAME_LONG,
+            PREFIX_PERSON_PHONE_LONG,
             PREFIX_PERSON_EMAIL_LONG, PREFIX_PERSON_ID_LONG, PREFIX_PERSON_COURSE_LONG, PREFIX_PERSON_GROUP_LONG,
             PREFIX_PERSON_TAG_LONG);
 

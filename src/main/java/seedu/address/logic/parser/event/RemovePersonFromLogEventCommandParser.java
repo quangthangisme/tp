@@ -43,7 +43,8 @@ public class RemovePersonFromLogEventCommandParser implements Parser<RemovePerso
                     RemovePersonFromLogEventCommand.MESSAGE_USAGE), pe);
         }
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_LINKED_PERSON_LONG);
-        List<Index> personIndices = ParserUtil.parseIndices(argMultimap.getValue(PREFIX_EVENT_LINKED_PERSON_LONG).get());
+        List<Index> personIndices = ParserUtil.parseIndices(
+            argMultimap.getValue(PREFIX_EVENT_LINKED_PERSON_LONG).get());
         if (personIndices.isEmpty()) {
             throw new ParseException(EventMessages.MESSAGE_NOT_REMOVED);
         }

@@ -28,7 +28,7 @@ public class AddPersonToTodoCommand extends EditCommand<Todo> {
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Associate a todo with some contacts.\n"
             + "Parameters: INDEX "
-            + PREFIX_TODO_LINKED_PERSON_LONG + "[PERSON_INDEX]...\n"
+            + PREFIX_TODO_LINKED_PERSON_LONG + " [PERSON_INDEX]...\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_TODO_LINKED_PERSON_LONG + " 1 3 4";
 
