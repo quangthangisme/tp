@@ -30,7 +30,7 @@ public class TodoLocationPredicate implements Predicate<Todo> {
     @Override
     public boolean test(Todo todo) {
         return operator.apply(keywords.stream(), keyword
-                -> StringUtil.containsWordIgnoreCase(todo.getName().name, keyword));
+                -> StringUtil.containsWordIgnoreCase(todo.getLocation().value, keyword));
     }
 
     @Override

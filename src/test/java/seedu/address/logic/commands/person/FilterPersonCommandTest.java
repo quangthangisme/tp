@@ -2,7 +2,7 @@ package seedu.address.logic.commands.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.logic.Messages.MESSAGE_SEARCH_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.CARL;
@@ -87,7 +87,7 @@ public class FilterPersonCommandTest {
         FilterPersonCommand command = new FilterPersonCommand(predicate);
 
         expectedModel.getPersonManagerAndList().updateFilteredItemsList(predicate);
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, 2);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(CARL, DANIEL),
@@ -104,7 +104,7 @@ public class FilterPersonCommandTest {
         FilterPersonCommand command = new FilterPersonCommand(predicate);
 
         expectedModel.getPersonManagerAndList().updateFilteredItemsList(predicate);
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, 1);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Collections.singletonList(ALICE),

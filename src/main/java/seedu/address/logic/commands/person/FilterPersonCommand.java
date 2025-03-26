@@ -79,7 +79,7 @@ public class FilterPersonCommand extends FilterCommand<Person> {
 
     @Override
     public String getResultOverviewMessage(int numberOfResults) {
-        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, numberOfResults);
+        return String.format(Messages.MESSAGE_SEARCH_OVERVIEW, numberOfResults);
     }
 
     @Override

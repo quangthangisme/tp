@@ -30,7 +30,7 @@ public class EventLocationPredicate implements Predicate<Event> {
     @Override
     public boolean test(Event event) {
         return operator.apply(keywords.stream(), keyword
-                -> StringUtil.containsWordIgnoreCase(event.getName().name, keyword));
+                -> StringUtil.containsWordIgnoreCase(event.getLocation().toString(), keyword));
     }
 
     @Override
