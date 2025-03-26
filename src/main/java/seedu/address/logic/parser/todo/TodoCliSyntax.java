@@ -20,11 +20,4 @@ public class TodoCliSyntax {
     public static final Prefix PREFIX_TODO_LOCATION_SHORT = new Prefix("-l");
     public static final Prefix PREFIX_TODO_TAG_SHORT = new Prefix("-t");
     public static final Prefix PREFIX_TODO_LINKED_PERSON_SHORT = new Prefix("-p");
-
-    /* To be removed */
-    public static final Prefix PREFIX_TODO_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_TODO_DEADLINE = new Prefix("d/");
-    public static final Prefix PREFIX_TODO_LOCATION = new Prefix("l/");
-    public static final Prefix PREFIX_LINKED_PERSON_INDEX = new Prefix("p/");
-
 }
