@@ -99,10 +99,12 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
     }
 
     /**
-     * Returns the predicate currently applied to the filtered list
+     * Returns the predicate currently applied to the filtered list.
+     * If the predicate is null, it returns the predefined predicateShowAll.
      */
     public Predicate<? super T> getPredicate() {
-        return filteredItems.getPredicate();
+        Predicate<? super T> predicate = filteredItems.getPredicate();
+        return predicate != null ? predicate : predicateShowAll;
     }
 
     /**
