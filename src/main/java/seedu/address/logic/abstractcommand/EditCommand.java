@@ -53,7 +53,9 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
         }
 
         managerAndList.setItem(itemToEdit, editedItem);
-        managerAndList.showAllItems();
+        managerAndList.updateFilteredItemsList(
+                managerAndList.getPredicate().or(item -> item.equals(editedItem))
+        );
         return new CommandResult(getSuccessMessage(editedItem));
     }
 

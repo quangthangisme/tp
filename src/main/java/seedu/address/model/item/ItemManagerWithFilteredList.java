@@ -92,10 +92,17 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
     //=========== Filtered Item List Accessors =====================================================
 
     /**
-     * Returns an unmodifiable view of the filtered person list
+     * Returns an unmodifiable view of the filtered list
      */
     public ObservableList<T> getFilteredItemsList() {
         return filteredItems;
+    }
+
+    /**
+     * Returns the predicate currently applied to the filtered list
+     */
+    public Predicate<? super T> getPredicate() {
+        return filteredItems.getPredicate();
     }
 
     /**
@@ -103,7 +110,7 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
      *
      * @throws NullPointerException if {@code predicate} is null.
      */
-    public void updateFilteredItemsList(Predicate<T> predicate) {
+    public void updateFilteredItemsList(Predicate<? super T> predicate) {
         requireNonNull(predicate);
         filteredItems.setPredicate(predicate);
     }
