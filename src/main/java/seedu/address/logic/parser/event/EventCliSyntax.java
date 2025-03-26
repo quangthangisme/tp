@@ -22,11 +22,4 @@ public class EventCliSyntax {
     public static final Prefix PREFIX_EVENT_LOCATION_SHORT = new Prefix("-l");
     public static final Prefix PREFIX_EVENT_TAG_SHORT = new Prefix("-t");
     public static final Prefix PREFIX_EVENT_LINKED_PERSON_SHORT = new Prefix("-p");
-
-    /* To be removed */
-    public static final Prefix PREFIX_EVENT_NAME = new Prefix("n/");
-    public static final Prefix PREFIX_START_DATETIME = new Prefix("s/");
-    public static final Prefix PREFIX_END_DATETIME = new Prefix("e/");
-    public static final Prefix PREFIX_EVENT_LOCATION = new Prefix("l/");
-    public static final Prefix PREFIX_LINKED_PERSON_INDEX = new Prefix("p/");
 }
