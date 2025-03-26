@@ -1,14 +1,6 @@
 package seedu.address.logic.commands.todo;
 
-import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_COURSE;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EMAIL;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_LINKED_PERSON_INDEX;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION;
@@ -52,8 +44,8 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
             + ", " + PREFIX_TODO_LOCATION + ", " + PREFIX_TODO_STATUS + ", "
             + PREFIX_LINKED_PERSON_INDEX + ")\n"
 
-            + "- <OP>: : Operator (and, or, nand, nor) to apply to the column criterion. Defaults" +
-            " to 'and' if not specified. Cannot be applied to status criterion.\n"
+            + "- <OP>: : Operator (and, or, nand, nor) to apply to the column criterion. Defaults"
+            + " to 'and' if not specified. Cannot be applied to status criterion.\n"
 
             + "- <VALUE(s)>: One or more values to filter by.\n"
             + "    + For name and location, use keywords separated by whitespaces.\n"

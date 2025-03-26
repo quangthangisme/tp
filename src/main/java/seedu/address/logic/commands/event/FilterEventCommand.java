@@ -2,7 +2,6 @@ package seedu.address.logic.commands.event;
 
 import static seedu.address.logic.EventMessages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
-import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_END_DATETIME;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME;
