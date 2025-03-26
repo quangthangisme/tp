@@ -2,10 +2,12 @@ package seedu.address.model.todo;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.DatetimeUtil.DATE_TIME_FORMATTER;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+
+import seedu.address.commons.util.DatetimeUtil;
 
 /**
  * Represents a Todo's deadline.
@@ -15,9 +17,6 @@ public class TodoDeadline {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Deadline should be in the format YY-MM-DD HH:MM, where HH is in 24-hour format.";
-
-    public static final DateTimeFormatter DATE_TIME_FORMATTER =
-            DateTimeFormatter.ofPattern("yy-MM-dd HH:mm");
 
     public final LocalDateTime deadline;
 
@@ -29,7 +28,7 @@ public class TodoDeadline {
     public TodoDeadline(String deadline) {
         requireNonNull(deadline);
         checkArgument(isValid(deadline), MESSAGE_CONSTRAINTS);
-        this.deadline = LocalDateTime.parse(deadline, DATE_TIME_FORMATTER);
+        this.deadline = DatetimeUtil.parse(deadline);
     }
 
     /**
@@ -37,9 +36,9 @@ public class TodoDeadline {
      */
     public static boolean isValid(String test) {
         try {
-            LocalDateTime.parse(test, DATE_TIME_FORMATTER);
+            DatetimeUtil.parse(test);
             return true;
-        } catch (DateTimeParseException e) {
+        } catch (IllegalArgumentException e) {
             return false;
         }
     }

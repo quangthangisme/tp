@@ -10,7 +10,7 @@ import seedu.address.model.todo.TodoName;
 /**
  * Contains utility methods used for parsing strings in the various classes parsing todo commands.
  */
-public class TodoParseUtil {
+public class TodoParserUtil {
     /**
      * Parses a {@code String name} into a {@code TodoName}. Leading and trailing whitespaces will
      * be trimmed.

@@ -7,8 +7,8 @@ import static seedu.address.logic.Messages.MESSAGE_DISPLAY_SPECIFIC_PERSON_INFO;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showPersonAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
-import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
@@ -43,8 +43,8 @@ public class InfoPersonCommandTest {
     @Test
     public void execute_validIndexUnfilteredList_success() {
         Person personToShow =
-                model.getPersonManagerAndList().getFilteredItemsList().get(INDEX_FIRST_PERSON.getZeroBased());
-        InfoPersonCommand infoCommand = new InfoPersonCommand(INDEX_FIRST_PERSON);
+                model.getPersonManagerAndList().getFilteredItemsList().get(INDEX_FIRST.getZeroBased());
+        InfoPersonCommand infoCommand = new InfoPersonCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(MESSAGE_DISPLAY_SPECIFIC_PERSON_INFO,
                 personToShow.getName());
@@ -61,11 +61,11 @@ public class InfoPersonCommandTest {
 
     @Test
     public void execute_validIndexFilteredList_success() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
+        showPersonAtIndex(model, INDEX_FIRST);
+        showPersonAtIndex(expectedModel, INDEX_FIRST);
         Person personToShow = model.getPersonManagerAndList()
-                .getFilteredItemsList().get(INDEX_FIRST_PERSON.getZeroBased());
-        InfoPersonCommand infoCommand = new InfoPersonCommand(INDEX_FIRST_PERSON);
+                .getFilteredItemsList().get(INDEX_FIRST.getZeroBased());
+        InfoPersonCommand infoCommand = new InfoPersonCommand(INDEX_FIRST);
         String expectedMessage = String.format(MESSAGE_DISPLAY_SPECIFIC_PERSON_INFO,
                 personToShow.getName());
         assertCommandSuccess(infoCommand, model, expectedMessage, expectedModel);
@@ -73,8 +73,8 @@ public class InfoPersonCommandTest {
 
     @Test
     public void execute_invalidIndexFilteredList_throwsCommandException() {
-        showPersonAtIndex(model, INDEX_FIRST_PERSON);
-        Index outOfBoundIndex = INDEX_SECOND_PERSON;
+        showPersonAtIndex(model, INDEX_FIRST);
+        Index outOfBoundIndex = INDEX_SECOND;
         assertTrue(outOfBoundIndex.getZeroBased() < model.getPersonManagerAndList().getItemManager()
                 .getItemList().size());
         InfoPersonCommand infoCommand = new InfoPersonCommand(outOfBoundIndex);
@@ -83,14 +83,14 @@ public class InfoPersonCommandTest {
 
     @Test
     public void equals() {
-        InfoPersonCommand showFirstCommand = new InfoPersonCommand(INDEX_FIRST_PERSON);
-        InfoPersonCommand showSecondCommand = new InfoPersonCommand(INDEX_SECOND_PERSON);
+        InfoPersonCommand showFirstCommand = new InfoPersonCommand(INDEX_FIRST);
+        InfoPersonCommand showSecondCommand = new InfoPersonCommand(INDEX_SECOND);
 
         // same object -> returns true
         assertTrue(showFirstCommand.equals(showFirstCommand));
 
         // same values -> returns true
-        InfoPersonCommand showFirstCommandCopy = new InfoPersonCommand(INDEX_FIRST_PERSON);
+        InfoPersonCommand showFirstCommandCopy = new InfoPersonCommand(INDEX_FIRST);
         assertTrue(showFirstCommand.equals(showFirstCommandCopy));
 
         // different types -> returns false
@@ -105,9 +105,9 @@ public class InfoPersonCommandTest {
 
     @Test
     public void toStringMethod() {
-        InfoPersonCommand infoCommand = new InfoPersonCommand(INDEX_FIRST_PERSON);
+        InfoPersonCommand infoCommand = new InfoPersonCommand(INDEX_FIRST);
         String expected =
-                InfoPersonCommand.class.getCanonicalName() + "{targetIndex=" + INDEX_FIRST_PERSON + "}";
+                InfoPersonCommand.class.getCanonicalName() + "{targetIndex=" + INDEX_FIRST + "}";
         assertEquals(expected, infoCommand.toString());
     }
 }

@@ -37,11 +37,11 @@ public class AddTodoCommandParser implements Parser<AddTodoCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME, PREFIX_TODO_DEADLINE,
                 PREFIX_TODO_LOCATION);
-        TodoName name = TodoParseUtil.parseName(argMultimap.getValue(PREFIX_TODO_NAME).get());
+        TodoName name = TodoParserUtil.parseName(argMultimap.getValue(PREFIX_TODO_NAME).get());
         TodoDeadline deadline =
-                TodoParseUtil.parseDeadline(argMultimap.getValue(PREFIX_TODO_DEADLINE).get());
+                TodoParserUtil.parseDeadline(argMultimap.getValue(PREFIX_TODO_DEADLINE).get());
         TodoLocation location =
-                TodoParseUtil.parseLocation(argMultimap.getValue(PREFIX_TODO_LOCATION).get());
+                TodoParserUtil.parseLocation(argMultimap.getValue(PREFIX_TODO_LOCATION).get());
 
         Todo todo = new Todo(name, deadline, location);
 
