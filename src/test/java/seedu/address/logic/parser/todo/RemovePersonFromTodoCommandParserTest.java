@@ -13,35 +13,35 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
+import seedu.address.logic.commands.todo.RemovePersonFromTodoCommand;
 
-public class AddPersonToTodoCommandParserTest {
+public class RemovePersonFromTodoCommandParserTest {
 
-    private AddPersonToTodoCommandParser parser = new AddPersonToTodoCommandParser();
+    private RemovePersonFromTodoCommandParser parser = new RemovePersonFromTodoCommandParser();
 
     @Test
-    public void parse_validArgs1_returnsAddPersonToTodoCommand() {
+    public void parse_validArgs1_returnsRemovePersonFromTodoCommand() {
         assertParseSuccess(parser, "1 " + PREFIX_LINKED_PERSON_INDEX + "1 2",
-                new AddPersonToTodoCommand(INDEX_FIRST, List.of(INDEX_FIRST, INDEX_SECOND)));
+                new RemovePersonFromTodoCommand(INDEX_FIRST, List.of(INDEX_FIRST, INDEX_SECOND)));
     }
 
     @Test
-    public void parse_validArgs2_returnsAddPersonToTodoCommand() {
+    public void parse_validArgs2_returnsRemovePersonFromTodoCommand() {
         assertParseSuccess(parser, "1 " + PREFIX_LINKED_PERSON_INDEX + "1",
-                new AddPersonToTodoCommand(INDEX_FIRST, List.of(INDEX_FIRST)));
+                new RemovePersonFromTodoCommand(INDEX_FIRST, List.of(INDEX_FIRST)));
     }
 
     @Test
     public void parse_missingTodoIndex_throwsParseException() {
         assertParseFailure(parser, PREFIX_LINKED_PERSON_INDEX + "1 2",
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                        AddPersonToTodoCommand.MESSAGE_USAGE));
+                        RemovePersonFromTodoCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_missingPrefix_throwsParseException() {
         assertParseFailure(parser, "1", String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                AddPersonToTodoCommand.MESSAGE_USAGE));
+                RemovePersonFromTodoCommand.MESSAGE_USAGE));
     }
 
     @Test

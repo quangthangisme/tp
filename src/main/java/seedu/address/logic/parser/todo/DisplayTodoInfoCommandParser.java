@@ -1,7 +1,5 @@
 package seedu.address.logic.parser.todo;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
 import seedu.address.logic.parser.Parser;
@@ -20,12 +18,7 @@ public class DisplayTodoInfoCommandParser implements Parser<DisplayTodoInformati
      * @throws ParseException if the user input does not conform the expected format
      */
     public DisplayTodoInformationCommand parse(String args) throws ParseException {
-        try {
-            Index index = ParserUtil.parseIndex(args);
-            return new DisplayTodoInformationCommand(index);
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DisplayTodoInformationCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = ParserUtil.parseIndex(args);
+        return new DisplayTodoInformationCommand(index);
     }
 }

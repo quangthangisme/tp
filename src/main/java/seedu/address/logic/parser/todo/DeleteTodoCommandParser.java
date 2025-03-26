@@ -1,7 +1,5 @@
 package seedu.address.logic.parser.todo;
 
-import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.todo.DeleteTodoCommand;
 import seedu.address.logic.parser.Parser;
@@ -20,13 +18,8 @@ public class DeleteTodoCommandParser implements Parser<DeleteTodoCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteTodoCommand parse(String args) throws ParseException {
-        try {
-            Index index = ParserUtil.parseIndex(args);
-            return new DeleteTodoCommand(index);
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    DeleteTodoCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = ParserUtil.parseIndex(args);
+        return new DeleteTodoCommand(index);
     }
 
 }
