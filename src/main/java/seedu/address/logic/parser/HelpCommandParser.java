@@ -24,7 +24,6 @@ import seedu.address.logic.commands.person.ClearPersonCommand;
 import seedu.address.logic.commands.person.DeletePersonCommand;
 import seedu.address.logic.commands.person.EditPersonCommand;
 import seedu.address.logic.commands.person.FilterPersonCommand;
-import seedu.address.logic.commands.person.FindPersonCommand;
 import seedu.address.logic.commands.person.InfoPersonCommand;
 import seedu.address.logic.commands.person.ListPersonCommand;
 import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
@@ -60,7 +59,6 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         + EditPersonCommand.COMMAND_WORD + ", "
         + DeletePersonCommand.COMMAND_WORD + ", "
         + ClearPersonCommand.COMMAND_WORD + ", "
-        + FindPersonCommand.COMMAND_WORD + ", "
         + FilterPersonCommand.COMMAND_WORD + ", "
         + ListPersonCommand.COMMAND_WORD + ", "
         + InfoPersonCommand.COMMAND_WORD;
@@ -153,9 +151,6 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(DeletePersonCommand.MESSAGE_USAGE);
         case ClearPersonCommand.COMMAND_WORD:
             return new HelpCommand(ClearPersonCommand.MESSAGE_USAGE);
-        // To be deprecated soon
-        case FindPersonCommand.COMMAND_WORD:
-            return new HelpCommand(FindPersonCommand.MESSAGE_USAGE);
         case FilterPersonCommand.COMMAND_WORD:
             return new HelpCommand(FilterPersonCommand.MESSAGE_USAGE);
         case ListPersonCommand.COMMAND_WORD:
