@@ -13,7 +13,7 @@ import seedu.address.model.todo.TodoManager;
  */
 public class ClearTodoCommand extends ClearCommand<Todo> {
     public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD + ": Clears the todo list.\n";
+    public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD + ": Clears the todo list.";
     public static final String MESSAGE_SUCCESS = "Cleared todo list.";
 
     /**
