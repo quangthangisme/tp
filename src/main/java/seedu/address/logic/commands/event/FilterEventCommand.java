@@ -44,8 +44,8 @@ public class FilterEventCommand extends FilterCommand<Event> {
             + ", " + PREFIX_END_DATETIME + ", " + PREFIX_EVENT_LOCATION + ", "
             + PREFIX_LINKED_PERSON_INDEX + ")\n"
 
-            + "- <OP>: : Operator (and, or, nand, nor) to apply to the column criterion. Defaults" +
-            " to 'and' if not specified.\n"
+            + "- <OP>: : Operator (and, or, nand, nor) to apply to the column criterion. Defaults"
+            + " to 'and' if not specified.\n"
 
             + "- <VALUE(s)>: One or more values to filter by.\n"
             + "    + For name and location, use keywords separated by whitespaces.\n"
