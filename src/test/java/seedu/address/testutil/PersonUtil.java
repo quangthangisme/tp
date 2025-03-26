@@ -55,8 +55,9 @@ public class PersonUtil {
         descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PERSON_PHONE_LONG).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_PERSON_EMAIL_LONG).append(email.value).append(" "));
         descriptor.getCourse().ifPresent(course -> sb.append(PREFIX_PERSON_COURSE_LONG).append(course.fullModule)
-                .append(" "));
-        descriptor.getGroup().ifPresent(group -> sb.append(PREFIX_PERSON_GROUP_LONG).append(group.fullGroup).append(" "));
+            .append(" "));
+        descriptor.getGroup()
+            .ifPresent(group -> sb.append(PREFIX_PERSON_GROUP_LONG).append(group.fullGroup).append(" "));
         if (descriptor.getTags().isPresent()) {
             Set<Tag> tags = descriptor.getTags().get();
             if (tags.isEmpty()) {

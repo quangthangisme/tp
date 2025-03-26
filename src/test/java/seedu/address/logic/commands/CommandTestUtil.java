@@ -59,10 +59,14 @@ public class CommandTestUtil {
     public static final String GROUP_DESC_AMY = " " + PREFIX_PERSON_GROUP_LONG + VALID_GROUP_AMY;
     public static final String GROUP_DESC_BOB = " " + PREFIX_PERSON_GROUP_LONG + VALID_GROUP_BOB;
 
-    public static final String INVALID_NAME_DESC = " " + PREFIX_PERSON_NAME_LONG + "James&"; // '&' not allowed in names
-    public static final String INVALID_PHONE_DESC = " " + PREFIX_PERSON_PHONE_LONG + "911a"; // 'a' not allowed in phones
-    public static final String INVALID_EMAIL_DESC = " " + PREFIX_PERSON_EMAIL_LONG + "bob!yahoo"; // missing '@' symbol
-    public static final String INVALID_TAG_DESC = " " + PREFIX_PERSON_TAG_LONG + "hubby*"; // '*' not allowed in tags
+    // '&' not allowed in names
+    public static final String INVALID_NAME_DESC = " " + PREFIX_PERSON_NAME_LONG + "James&";
+    // 'a' not allowed in phones
+    public static final String INVALID_PHONE_DESC = " " + PREFIX_PERSON_PHONE_LONG + "911a";
+    // missing '@' symbol
+    public static final String INVALID_EMAIL_DESC = " " + PREFIX_PERSON_EMAIL_LONG + "bob!yahoo";
+    // '*' not allowed in tags
+    public static final String INVALID_TAG_DESC = " " + PREFIX_PERSON_TAG_LONG + "hubby*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
