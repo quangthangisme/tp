@@ -1,6 +1,13 @@
 package seedu.address.logic.commands.event;
 
 import static seedu.address.logic.EventMessages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX;
+import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_END_DATETIME;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_LINKED_PERSON_INDEX;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_START_DATETIME;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,6 +36,45 @@ import seedu.address.model.person.Person;
 public class FilterEventCommand extends FilterCommand<Event> {
 
     public static final String COMMAND_WORD = "filter";
+
+    public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
+            + ": Filters events based on specified criteria.\n"
+            + "Parameters: COL/ [<OP>:] <VALUE(s)> [...]\n"
+
+            + "- COL/ : Column to filter on (" + PREFIX_EVENT_NAME + ", " + PREFIX_START_DATETIME
+            + ", " + PREFIX_END_DATETIME + ", " + PREFIX_EVENT_LOCATION + ", "
+            + PREFIX_LINKED_PERSON_INDEX + ")\n"
+
+            + "- <OP>: : Operator (and, or, nand, nor) to apply to the column criterion. Defaults" +
+            " to 'and' if not specified.\n"
+
+            + "- <VALUE(s)>: One or more values to filter by.\n"
+            + "    + For name and location, use keywords separated by whitespaces.\n"
+            + "    + For start and end time, use closed intervals separated by whitespaces. "
+            + "Each interval is in the format \"(<INTERVAL_START>/<INTERVAL_END>)\". The "
+            + "interval start and end can be in the format YY-MM-DD HH:MM, where HH is in 24-hour "
+            + "format, or can be - to specify no lower bound or upper bound. At least one of the "
+            + "two bounds must be specified.\n"
+            + "    + For linked persons, use the indices in the currently displayed person list.\n"
+
+            + "Examples:\n"
+
+            + "1. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_NAME + " or: "
+            + "Exam PRESENTATION\n"
+            + "   Find todos whose name contains at least one of the keywords \"exam\" or "
+            + "\"presentation.\"\n"
+
+            + "2. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_NAME
+            + "CS1010S eXAM " + PREFIX_START_DATETIME + "or: (25-03-13 23:59/25-03-20 23:59) "
+            + "(25-03-27 23:59/-)\n"
+            + "   Find todos whose name contains both the keywords \"CS1010S\" and "
+            + "\"exam\" and whose start time is between 25-03-13 23:59 and 25-03-20 23:59 "
+            + "inclusive or not before 25-03-27 23:59.\n"
+
+            + "3. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_LOCATION
+            + "nand: NUS Home " + PREFIX_LINKED_PERSON_INDEX + "1 2 3\n"
+            + "   Find todos whose location does not contain the keywords \"NUS\" or "
+            + "\"home\" and which are is linked to the people currently at index 1, 2 and 3.\n";
 
     private final EventPredicate eventPredicate;
 
