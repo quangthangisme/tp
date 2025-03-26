@@ -92,8 +92,8 @@ public class DatetimePredicate implements Predicate<LocalDateTime> {
      */
     @Override
     public boolean test(LocalDateTime time) {
-        return startTimeOpt.map(startTime -> startTime.isBefore(time)).orElse(true)
-                && endTimeOpt.map(endTime -> endTime.isAfter(time)).orElse(true);
+        return startTimeOpt.map(startTime -> !startTime.isAfter(time)).orElse(true)
+                && endTimeOpt.map(endTime -> !endTime.isBefore(time)).orElse(true);
     }
 
     /**
