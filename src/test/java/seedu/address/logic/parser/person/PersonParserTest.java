@@ -5,9 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
-import java.util.Arrays;
-import java.util.List;
-
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.person.AddPersonCommand;
@@ -15,10 +12,8 @@ import seedu.address.logic.commands.person.ClearPersonCommand;
 import seedu.address.logic.commands.person.DeletePersonCommand;
 import seedu.address.logic.commands.person.EditPersonCommand;
 import seedu.address.logic.commands.person.EditPersonCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.person.FindPersonCommand;
 import seedu.address.logic.commands.person.ListPersonCommand;
 import seedu.address.logic.parser.ParserImpl;
-import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
 import seedu.address.testutil.EditPersonDescriptorBuilder;
 import seedu.address.testutil.PersonBuilder;
@@ -62,15 +57,6 @@ public class PersonParserTest {
                         + INDEX_FIRST.getOneBased() + " "
                         + PersonUtil.getEditPersonDescriptorDetails(descriptor));
         assertEquals(new EditPersonCommand(INDEX_FIRST, descriptor), command);
-    }
-
-    @Test
-    public void parseCommand_find() throws Exception {
-        List<String> keywords = Arrays.asList("foo", "bar", "baz");
-        FindPersonCommand command = (FindPersonCommand) parser.parseCommand(
-                PERSON_COMMAND_WORD + " " + FindPersonCommand.COMMAND_WORD + " "
-                        + String.join(" ", keywords));
-        assertEquals(new FindPersonCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 
     @Test

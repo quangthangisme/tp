@@ -68,7 +68,8 @@ public class RemovePersonFromEventCommand extends EditCommand<Event> {
             eventToEdit.getEndTime(),
             eventToEdit.getLocation(),
             List.copyOf(newPersons),
-            List.copyOf(newMarkList)
+            List.copyOf(newMarkList),
+            eventToEdit.getTags()
         );
     }
 
