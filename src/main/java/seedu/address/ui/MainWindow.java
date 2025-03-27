@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.PERSON_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
+
 import java.util.logging.Logger;
 
 import javafx.fxml.FXML;
@@ -10,7 +14,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.event.ListEventCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.person.ListPersonCommand;
+import seedu.address.logic.commands.todo.ListTodoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -155,11 +162,33 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Handles resetting filter (shows all persons)
+     * Handles resetting filter (shows all items in the current view)
      */
     @FXML
     private void handleResetButton() {
-        // Reset view to view all
+        logger.info("Reset button clicked, showing all items for current view");
+
+        try {
+            switch (currentViewMode) {
+            case PERSON:
+                executeCommand(String.format("%s %s", PERSON_COMMAND_WORD, ListPersonCommand.COMMAND_WORD));
+                break;
+            case EVENT:
+                executeCommand(String.format("%s %s", EVENT_COMMAND_WORD, ListEventCommand.COMMAND_WORD));
+                break;
+            case TODO:
+                executeCommand(String.format("%s %s", TODO_COMMAND_WORD, ListTodoCommand.COMMAND_WORD));
+                break;
+            default:
+                return;
+            }
+
+            logger.info("Reset successful");
+
+        } catch (CommandException | ParseException e) {
+            logger.info("Reset operation failed: " + e.getMessage());
+            resultDisplay.setFeedbackToUser(e.getMessage());
+        }
     }
 
     /**
