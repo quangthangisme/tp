@@ -9,6 +9,8 @@ import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NA
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG;
 
+import java.util.function.Predicate;
+
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.abstractcommand.FilterCommand;
@@ -44,13 +46,16 @@ public class FilterPersonCommand extends FilterCommand<Person> {
             + "   Find contacts whose names do not contain \"My enemy\" and"
             + " \"Hater\" and are tagged with both \"handsome\" and \"smart\".";
 
+    private final Predicate<Person> predicate;
+
     /**
      * Constructs a FilterPersonCommand with the given predicate.
      *
      * @param predicate the predicate used to filter persons
      */
     public FilterPersonCommand(PersonPredicate predicate) {
-        super(predicate, Model::getPersonManagerAndList);
+        super(Model::getPersonManagerAndList);
+        this.predicate = predicate;
     }
 
     @Override
@@ -68,8 +73,13 @@ public class FilterPersonCommand extends FilterCommand<Person> {
     }
 
     @Override
+    public Predicate<Person> createPredicate(Model model) {
+        return predicate;
+    }
+
+    @Override
     public String getResultOverviewMessage(int numberOfResults) {
-        return String.format(Messages.MESSAGE_PERSONS_LISTED_OVERVIEW, numberOfResults);
+        return String.format(Messages.MESSAGE_SEARCH_OVERVIEW, numberOfResults);
     }
 
     @Override

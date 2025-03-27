@@ -2,7 +2,7 @@ package seedu.address.logic.commands.person;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
-import static seedu.address.logic.Messages.MESSAGE_PERSONS_LISTED_OVERVIEW;
+import static seedu.address.logic.Messages.MESSAGE_SEARCH_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.CARL;
@@ -17,13 +17,13 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.Operator;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.event.EventManagerWithFilteredList;
-import seedu.address.model.person.Column;
 import seedu.address.model.person.FilterCriteria;
-import seedu.address.model.person.Operator;
+import seedu.address.model.person.PersonColumn;
 import seedu.address.model.person.PersonManagerWithFilteredList;
 import seedu.address.model.person.PersonPredicate;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
@@ -47,10 +47,12 @@ public class FilterPersonCommandTest {
 
     @Test
     public void equals() {
-        Map<Column, FilterCriteria> firstPredicateMap = new HashMap<>();
-        Map<Column, FilterCriteria> secondPredicateMap = new HashMap<>();
-        firstPredicateMap.put(Column.NAME, new FilterCriteria(Operator.AND, Arrays.asList("first", "test")));
-        secondPredicateMap.put(Column.NAME, new FilterCriteria(Operator.OR, Arrays.asList("second", "test")));
+        Map<PersonColumn, FilterCriteria> firstPredicateMap = new HashMap<>();
+        Map<PersonColumn, FilterCriteria> secondPredicateMap = new HashMap<>();
+        firstPredicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.AND, Arrays.asList(
+                "first", "test")));
+        secondPredicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.OR, Arrays.asList(
+                "second", "test")));
 
         PersonPredicate firstPredicate = new PersonPredicate(firstPredicateMap);
         PersonPredicate secondPredicate = new PersonPredicate(secondPredicateMap);
@@ -77,32 +79,35 @@ public class FilterPersonCommandTest {
 
     @Test
     public void execute_nameFilter_multiplePersonsFound() {
-        Map<Column, FilterCriteria> predicateMap = new HashMap<>();
-        predicateMap.put(Column.NAME, new FilterCriteria(Operator.OR, Arrays.asList("Carl", "Daniel")));
+        Map<PersonColumn, FilterCriteria> predicateMap = new HashMap<>();
+        predicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.OR, Arrays.asList("Carl",
+                "Daniel")));
 
         PersonPredicate predicate = new PersonPredicate(predicateMap);
         FilterPersonCommand command = new FilterPersonCommand(predicate);
 
         expectedModel.getPersonManagerAndList().updateFilteredItemsList(predicate);
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 2);
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, 2);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, DANIEL), model.getPersonManagerAndList().getFilteredItemsList());
+        assertEquals(Arrays.asList(CARL, DANIEL),
+                model.getPersonManagerAndList().getFilteredItemsList());
     }
 
     @Test
     public void execute_multipleFilters_matchingPersonFound() {
-        Map<Column, FilterCriteria> predicateMap = new HashMap<>();
-        predicateMap.put(Column.NAME, new FilterCriteria(Operator.AND, List.of("alice")));
-        predicateMap.put(Column.TAG, new FilterCriteria(Operator.AND, List.of("friends")));
+        Map<PersonColumn, FilterCriteria> predicateMap = new HashMap<>();
+        predicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.AND, List.of("alice")));
+        predicateMap.put(PersonColumn.TAG, new FilterCriteria(Operator.AND, List.of("friends")));
 
         PersonPredicate predicate = new PersonPredicate(predicateMap);
         FilterPersonCommand command = new FilterPersonCommand(predicate);
 
         expectedModel.getPersonManagerAndList().updateFilteredItemsList(predicate);
-        String expectedMessage = String.format(MESSAGE_PERSONS_LISTED_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, 1);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(ALICE), model.getPersonManagerAndList().getFilteredItemsList());
+        assertEquals(Collections.singletonList(ALICE),
+                model.getPersonManagerAndList().getFilteredItemsList());
     }
 }

@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME;
 
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.abstractcommand.AddCommand;
 import seedu.address.model.Model;
@@ -46,5 +47,26 @@ public class AddTodoCommand extends AddCommand<Todo> {
     @Override
     public String getSuccessMessage(Todo todo) {
         return String.format(MESSAGE_SUCCESS, Messages.format(todo));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AddTodoCommand otherAddTodoCommand)) {
+            return false;
+        }
+
+        return itemToAdd.equals(otherAddTodoCommand.itemToAdd);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("toAdd", itemToAdd)
+                .toString();
     }
 }

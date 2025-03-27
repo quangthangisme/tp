@@ -4,6 +4,7 @@ import static seedu.address.logic.TodoMessages.MESSAGE_INVALID_TODO_DISPLAYED_IN
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.abstractcommand.DeleteCommand;
 import seedu.address.model.Model;
@@ -41,5 +42,26 @@ public class DeleteTodoCommand extends DeleteCommand<Todo> {
     @Override
     public String getSuccessMessage(Todo todo) {
         return String.format(MESSAGE_DELETE_TODO_SUCCESS, Messages.format(todo));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof DeleteTodoCommand otherDeleteCommand)) {
+            return false;
+        }
+
+        return targetIndex.equals(otherDeleteCommand.targetIndex);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("targetIndex", targetIndex)
+                .toString();
     }
 }

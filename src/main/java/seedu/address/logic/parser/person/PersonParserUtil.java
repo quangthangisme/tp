@@ -18,7 +18,7 @@ import seedu.address.model.person.Tag;
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
  */
-public class PersonParseUtil {
+public class PersonParserUtil {
 
     /**
      * Parses a {@code String id} into an {@code Id}.

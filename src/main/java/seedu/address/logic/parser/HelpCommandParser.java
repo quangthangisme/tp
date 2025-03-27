@@ -14,11 +14,15 @@ import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.AddPersonToEventCommand;
 import seedu.address.logic.commands.event.AddPersonToLogEventCommand;
+import seedu.address.logic.commands.event.AddTagToEventCommand;
+import seedu.address.logic.commands.event.ClearEventCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.DisplayEventInformationCommand;
+import seedu.address.logic.commands.event.FilterEventCommand;
 import seedu.address.logic.commands.event.ListEventCommand;
 import seedu.address.logic.commands.event.RemovePersonFromEventCommand;
 import seedu.address.logic.commands.event.RemovePersonFromLogEventCommand;
+import seedu.address.logic.commands.event.RemoveTagFromEventCommand;
 import seedu.address.logic.commands.person.AddPersonCommand;
 import seedu.address.logic.commands.person.AddTagToPersonCommand;
 import seedu.address.logic.commands.person.ClearPersonCommand;
@@ -30,8 +34,10 @@ import seedu.address.logic.commands.person.ListPersonCommand;
 import seedu.address.logic.commands.person.RemoveTagFromPersonCommand;
 import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
+import seedu.address.logic.commands.todo.ClearTodoCommand;
 import seedu.address.logic.commands.todo.DeleteTodoCommand;
 import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
+import seedu.address.logic.commands.todo.FilterTodoCommand;
 import seedu.address.logic.commands.todo.ListTodoCommand;
 import seedu.address.logic.commands.todo.MarkTodoAsDoneCommand;
 import seedu.address.logic.commands.todo.MarkTodoAsNotDoneCommand;
@@ -76,7 +82,9 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         + AddPersonToTodoCommand.COMMAND_WORD + ", "
         + RemovePersonFromTodoCommand.COMMAND_WORD + ", "
         + MarkTodoAsDoneCommand.COMMAND_WORD + ", "
-        + MarkTodoAsNotDoneCommand.COMMAND_WORD;
+        + MarkTodoAsNotDoneCommand.COMMAND_WORD + ", "
+        + FilterTodoCommand.COMMAND_WORD + ", "
+        + ClearTodoCommand.COMMAND_WORD;
 
     public static final String MESSAGE_EVENT_COMMANDS = EVENT_COMMAND_WORD
         + ": Manages your events. Supported subcommands:\n"
@@ -84,10 +92,14 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         + DeleteEventCommand.COMMAND_WORD + ", "
         + DisplayEventInformationCommand.COMMAND_WORD + ", "
         + ListEventCommand.COMMAND_WORD + ", "
+        + FilterEventCommand.COMMAND_WORD + ", "
         + AddPersonToEventCommand.COMMAND_WORD + ", "
         + RemovePersonFromEventCommand.COMMAND_WORD + ", "
+        + AddTagToEventCommand.COMMAND_WORD + ", "
+        + RemoveTagFromEventCommand.COMMAND_WORD + ", "
         + AddPersonToLogEventCommand.COMMAND_WORD + ", "
-        + RemovePersonFromLogEventCommand.COMMAND_WORD;
+        + RemovePersonFromLogEventCommand.COMMAND_WORD + ", "
+        + ClearEventCommand.COMMAND_WORD;
 
     /**
      * Parses the given {@code String} of arguments into a HelpCommand.
@@ -193,6 +205,10 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(MarkTodoAsDoneCommand.MESSAGE_USAGE);
         case MarkTodoAsNotDoneCommand.COMMAND_WORD:
             return new HelpCommand(MarkTodoAsNotDoneCommand.MESSAGE_USAGE);
+        case ClearTodoCommand.COMMAND_WORD:
+            return new HelpCommand(ClearTodoCommand.MESSAGE_USAGE);
+        case FilterTodoCommand.COMMAND_WORD:
+            return new HelpCommand(FilterTodoCommand.MESSAGE_USAGE);
         default:
             return new HelpCommand("Subcommand " + subcommand + " not recognized.\n" + MESSAGE_TODO_COMMANDS);
         }
@@ -221,6 +237,14 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(AddPersonToLogEventCommand.MESSAGE_USAGE);
         case RemovePersonFromLogEventCommand.COMMAND_WORD:
             return new HelpCommand(RemovePersonFromLogEventCommand.MESSAGE_USAGE);
+        case FilterEventCommand.COMMAND_WORD:
+            return new HelpCommand(FilterEventCommand.MESSAGE_USAGE);
+        case AddTagToEventCommand.COMMAND_WORD:
+            return new HelpCommand(AddTagToEventCommand.MESSAGE_USAGE);
+        case RemoveTagFromEventCommand.COMMAND_WORD:
+            return new HelpCommand(RemoveTagFromEventCommand.MESSAGE_USAGE);
+        case ClearEventCommand.COMMAND_WORD:
+            return new HelpCommand(ClearEventCommand.MESSAGE_USAGE);
         default:
             return new HelpCommand("Subcommand " + subcommand + " not recognized.\n" + MESSAGE_EVENT_COMMANDS);
         }

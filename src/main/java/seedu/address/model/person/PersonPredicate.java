@@ -11,21 +11,21 @@ import java.util.function.Predicate;
  */
 public class PersonPredicate implements Predicate<Person> {
 
-    private final Map<Column, FilterCriteria> filterCriteriaMap;
+    private final Map<PersonColumn, FilterCriteria> filterCriteriaMap;
 
     /**
      * Constructs a PersonPredicate with the given filter criteria map.
      *
      * @param filterCriteriaMap map of columns to their filter criteria
      */
-    public PersonPredicate(Map<Column, FilterCriteria> filterCriteriaMap) {
+    public PersonPredicate(Map<PersonColumn, FilterCriteria> filterCriteriaMap) {
         this.filterCriteriaMap = filterCriteriaMap;
     }
 
     @Override
     public boolean test(Person person) {
-        for (Map.Entry<Column, FilterCriteria> entry : filterCriteriaMap.entrySet()) {
-            Column column = entry.getKey();
+        for (Map.Entry<PersonColumn, FilterCriteria> entry : filterCriteriaMap.entrySet()) {
+            PersonColumn column = entry.getKey();
             FilterCriteria criteria = entry.getValue();
 
             List<String> personValues = getPersonValues(person, column);
@@ -45,7 +45,7 @@ public class PersonPredicate implements Predicate<Person> {
      * @param column the column to extract values for
      * @return a list of values from the person for the specified column
      */
-    private List<String> getPersonValues(Person person, Column column) {
+    private List<String> getPersonValues(Person person, PersonColumn column) {
         List<String> values = new ArrayList<>();
         switch (column) {
         case NAME:
