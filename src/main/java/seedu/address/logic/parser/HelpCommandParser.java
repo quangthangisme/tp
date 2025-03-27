@@ -15,6 +15,7 @@ import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.event.AddPersonToEventCommand;
 import seedu.address.logic.commands.event.AddPersonToLogEventCommand;
 import seedu.address.logic.commands.event.AddTagToEventCommand;
+import seedu.address.logic.commands.event.ClearEventCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.DisplayEventInformationCommand;
 import seedu.address.logic.commands.event.FilterEventCommand;
@@ -91,7 +92,8 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         + AddTagToEventCommand.COMMAND_WORD + ", "
         + RemoveTagFromEventCommand.COMMAND_WORD + ", "
         + AddPersonToLogEventCommand.COMMAND_WORD + ", "
-        + RemovePersonFromLogEventCommand.COMMAND_WORD;
+        + RemovePersonFromLogEventCommand.COMMAND_WORD + ", "
+        + ClearEventCommand.COMMAND_WORD;
 
     /**
      * Parses the given {@code String} of arguments into a HelpCommand.
@@ -229,6 +231,8 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(AddTagToEventCommand.MESSAGE_USAGE);
         case RemoveTagFromEventCommand.COMMAND_WORD:
             return new HelpCommand(RemoveTagFromEventCommand.MESSAGE_USAGE);
+        case ClearEventCommand.COMMAND_WORD:
+            return new HelpCommand(ClearEventCommand.MESSAGE_USAGE);
         default:
             return new HelpCommand("Subcommand " + subcommand + " not recognized.\n" + MESSAGE_EVENT_COMMANDS);
         }
