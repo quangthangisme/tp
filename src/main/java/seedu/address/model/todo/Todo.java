@@ -105,7 +105,7 @@ public class Todo implements Item {
     @Override
     public int hashCode() {
         // use this method for custom fields hashing instead of implementing your own
-        return Objects.hash(name, deadline, location, status, persons, tags);
+        return Objects.hash(name, deadline, location, status, persons);
     }
 
     @Override
