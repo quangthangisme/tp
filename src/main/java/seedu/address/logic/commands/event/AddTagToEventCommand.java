@@ -28,7 +28,7 @@ public class AddTagToEventCommand extends EditCommand<Event> {
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_EVENT_TAG + " TA ";
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag to event: %1$s";
-    public static final String MESSAGE_DUPLICATE_TAGS = "The tag are already assigned to this event";
+    public static final String MESSAGE_DUPLICATE_TAGS = "The tag is already assigned to this event";
 
     private final Tag tag;
 
