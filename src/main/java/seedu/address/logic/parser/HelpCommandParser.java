@@ -20,12 +20,14 @@ import seedu.address.logic.commands.event.ListEventCommand;
 import seedu.address.logic.commands.event.RemovePersonFromEventCommand;
 import seedu.address.logic.commands.event.RemovePersonFromLogEventCommand;
 import seedu.address.logic.commands.person.AddPersonCommand;
+import seedu.address.logic.commands.person.AddTagToPersonCommand;
 import seedu.address.logic.commands.person.ClearPersonCommand;
 import seedu.address.logic.commands.person.DeletePersonCommand;
 import seedu.address.logic.commands.person.EditPersonCommand;
 import seedu.address.logic.commands.person.FilterPersonCommand;
 import seedu.address.logic.commands.person.InfoPersonCommand;
 import seedu.address.logic.commands.person.ListPersonCommand;
+import seedu.address.logic.commands.person.RemoveTagFromPersonCommand;
 import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.logic.commands.todo.DeleteTodoCommand;
@@ -61,7 +63,9 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         + ClearPersonCommand.COMMAND_WORD + ", "
         + FilterPersonCommand.COMMAND_WORD + ", "
         + ListPersonCommand.COMMAND_WORD + ", "
-        + InfoPersonCommand.COMMAND_WORD;
+        + InfoPersonCommand.COMMAND_WORD + ", "
+        + AddTagToPersonCommand.COMMAND_WORD + ", "
+        + RemoveTagFromPersonCommand.COMMAND_WORD;
 
     public static final String MESSAGE_TODO_COMMANDS = TODO_COMMAND_WORD
         + ": Manages your todos. Supported subcommands:\n"
@@ -157,6 +161,10 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(ListPersonCommand.MESSAGE_USAGE);
         case InfoPersonCommand.COMMAND_WORD:
             return new HelpCommand(InfoPersonCommand.MESSAGE_USAGE);
+        case AddTagToPersonCommand.COMMAND_WORD:
+            return new HelpCommand(AddTagToPersonCommand.MESSAGE_USAGE);
+        case RemoveTagFromPersonCommand.COMMAND_WORD:
+            return new HelpCommand(RemoveTagFromPersonCommand.MESSAGE_USAGE);
         default:
             return new HelpCommand("Subcommand " + subcommand + " not recognized.\n" + MESSAGE_PERSON_COMMANDS);
         }

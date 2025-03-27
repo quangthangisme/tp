@@ -11,12 +11,14 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.person.AddPersonCommand;
+import seedu.address.logic.commands.person.AddTagToPersonCommand;
 import seedu.address.logic.commands.person.ClearPersonCommand;
 import seedu.address.logic.commands.person.DeletePersonCommand;
 import seedu.address.logic.commands.person.EditPersonCommand;
 import seedu.address.logic.commands.person.FilterPersonCommand;
 import seedu.address.logic.commands.person.InfoPersonCommand;
 import seedu.address.logic.commands.person.ListPersonCommand;
+import seedu.address.logic.commands.person.RemoveTagFromPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -71,6 +73,12 @@ public class PersonParser {
 
         case InfoPersonCommand.COMMAND_WORD:
             return new InfoPersonCommandParser().parse(arguments);
+
+        case AddTagToPersonCommand.COMMAND_WORD:
+            return new AddTagToPersonCommandParser().parse(arguments);
+
+        case RemoveTagFromPersonCommand.COMMAND_WORD:
+            return new RemoveTagFromPersonCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
