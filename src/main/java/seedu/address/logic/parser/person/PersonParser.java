@@ -15,7 +15,6 @@ import seedu.address.logic.commands.person.ClearPersonCommand;
 import seedu.address.logic.commands.person.DeletePersonCommand;
 import seedu.address.logic.commands.person.EditPersonCommand;
 import seedu.address.logic.commands.person.FilterPersonCommand;
-import seedu.address.logic.commands.person.FindPersonCommand;
 import seedu.address.logic.commands.person.InfoPersonCommand;
 import seedu.address.logic.commands.person.ListPersonCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -63,9 +62,6 @@ public class PersonParser {
 
         case ClearPersonCommand.COMMAND_WORD:
             return new ClearPersonCommand();
-
-        case FindPersonCommand.COMMAND_WORD:
-            return new FindPersonCommandParser().parse(arguments);
 
         case FilterPersonCommand.COMMAND_WORD:
             return new FilterPersonCommandParser().parse(arguments);

@@ -15,15 +15,19 @@ import java.util.Map;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.commons.core.Operator;
+
 public class PersonPredicateTest {
 
     @Test
     public void equals() {
-        Map<Column, FilterCriteria> firstPredicateMap = new HashMap<>();
-        firstPredicateMap.put(Column.NAME, new FilterCriteria(Operator.AND, Collections.singletonList("Alice")));
+        Map<PersonColumn, FilterCriteria> firstPredicateMap = new HashMap<>();
+        firstPredicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.AND,
+                Collections.singletonList("Alice")));
 
-        Map<Column, FilterCriteria> secondPredicateMap = new HashMap<>();
-        secondPredicateMap.put(Column.EMAIL, new FilterCriteria(Operator.OR, Collections.singletonList("gmail.com")));
+        Map<PersonColumn, FilterCriteria> secondPredicateMap = new HashMap<>();
+        secondPredicateMap.put(PersonColumn.EMAIL, new FilterCriteria(Operator.OR,
+                Collections.singletonList("gmail.com")));
 
         PersonPredicate firstPredicate = new PersonPredicate(firstPredicateMap);
         PersonPredicate secondPredicate = new PersonPredicate(secondPredicateMap);
@@ -48,26 +52,30 @@ public class PersonPredicateTest {
     @Test
     public void test_nameContainsKeywords_returnsTrue() {
         // AND operator - all keywords must match
-        Map<Column, FilterCriteria> predicateMap = new HashMap<>();
-        predicateMap.put(Column.NAME, new FilterCriteria(Operator.AND, Arrays.asList("Alice", "Pauline")));
+        Map<PersonColumn, FilterCriteria> predicateMap = new HashMap<>();
+        predicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.AND, Arrays.asList("Alice",
+                "Pauline")));
         PersonPredicate predicate = new PersonPredicate(predicateMap);
         assertTrue(predicate.test(ALICE)); // Alice Pauline matches
 
         // OR operator - at least one keyword must match
         predicateMap.clear();
-        predicateMap.put(Column.NAME, new FilterCriteria(Operator.OR, Arrays.asList("Alice", "Bob")));
+        predicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.OR, Arrays.asList("Alice",
+                "Bob")));
         predicate = new PersonPredicate(predicateMap);
         assertTrue(predicate.test(ALICE)); // Alice matches
 
         // NAND operator - at least one keyword must not match
         predicateMap.clear();
-        predicateMap.put(Column.NAME, new FilterCriteria(Operator.NAND, Arrays.asList("Bob", "Charlie")));
+        predicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.NAND, Arrays.asList("Bob",
+                "Charlie")));
         predicate = new PersonPredicate(predicateMap);
         assertTrue(predicate.test(ALICE)); // Alice doesn't contain Bob or Charlie
 
         // NOR operator - all keywords must not match
         predicateMap.clear();
-        predicateMap.put(Column.NAME, new FilterCriteria(Operator.NOR, Arrays.asList("Bob", "Charlie")));
+        predicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.NOR, Arrays.asList("Bob",
+                "Charlie")));
         predicate = new PersonPredicate(predicateMap);
         assertTrue(predicate.test(ALICE)); // Alice doesn't contain Bob or Charlie
     }
@@ -75,26 +83,29 @@ public class PersonPredicateTest {
     @Test
     public void test_nameDoesNotContainKeywords_returnsFalse() {
         // AND operator
-        Map<Column, FilterCriteria> predicateMap = new HashMap<>();
-        predicateMap.put(Column.NAME, new FilterCriteria(Operator.AND, Arrays.asList("Alice", "Bob")));
+        Map<PersonColumn, FilterCriteria> predicateMap = new HashMap<>();
+        predicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.AND, Arrays.asList("Alice",
+                "Bob")));
         PersonPredicate predicate = new PersonPredicate(predicateMap);
         assertFalse(predicate.test(BENSON)); // Benson doesn't contain Alice and Bob
 
         // OR operator
         predicateMap.clear();
-        predicateMap.put(Column.NAME, new FilterCriteria(Operator.OR, Arrays.asList("Charlie", "David")));
+        predicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.OR, Arrays.asList(
+                "Charlie", "David")));
         predicate = new PersonPredicate(predicateMap);
         assertFalse(predicate.test(ALICE)); // Alice doesn't contain Charlie or David
 
         // NAND operator
         predicateMap.clear();
-        predicateMap.put(Column.NAME, new FilterCriteria(Operator.NAND, List.of("Alice")));
+        predicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.NAND, List.of("Alice")));
         predicate = new PersonPredicate(predicateMap);
         assertFalse(predicate.test(ALICE)); // Alice contains Alice, so NAND fails
 
         // NOR operator
         predicateMap.clear();
-        predicateMap.put(Column.NAME, new FilterCriteria(Operator.NOR, Arrays.asList("Alice", "Bob")));
+        predicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.NOR, Arrays.asList("Alice",
+                "Bob")));
         predicate = new PersonPredicate(predicateMap);
         assertFalse(predicate.test(ALICE)); // Alice contains Alice, so NOR fails
     }
@@ -102,9 +113,11 @@ public class PersonPredicateTest {
     @Test
     public void test_multipleColumns_matchesAccordingly() {
         // Test multiple columns with AND relationship (implicit between columns)
-        Map<Column, FilterCriteria> predicateMap = new HashMap<>();
-        predicateMap.put(Column.NAME, new FilterCriteria(Operator.AND, Collections.singletonList("Alice")));
-        predicateMap.put(Column.EMAIL, new FilterCriteria(Operator.AND, Collections.singletonList("example")));
+        Map<PersonColumn, FilterCriteria> predicateMap = new HashMap<>();
+        predicateMap.put(PersonColumn.NAME, new FilterCriteria(Operator.AND,
+                Collections.singletonList("Alice")));
+        predicateMap.put(PersonColumn.EMAIL, new FilterCriteria(Operator.AND,
+                Collections.singletonList("example")));
 
         PersonPredicate predicate = new PersonPredicate(predicateMap);
         assertTrue(predicate.test(ALICE)); // Alice has both Alice in name and example in email
@@ -114,14 +127,15 @@ public class PersonPredicateTest {
     @Test
     public void test_differentFields_returnsCorrectResults() {
         // Test ID field
-        Map<Column, FilterCriteria> predicateMap = new HashMap<>();
-        predicateMap.put(Column.ID, new FilterCriteria(Operator.AND, Collections.singletonList(ALICE.getId().fullId)));
+        Map<PersonColumn, FilterCriteria> predicateMap = new HashMap<>();
+        predicateMap.put(PersonColumn.ID, new FilterCriteria(Operator.AND,
+                Collections.singletonList(ALICE.getId().fullId)));
         PersonPredicate predicate = new PersonPredicate(predicateMap);
         assertTrue(predicate.test(ALICE));
 
         // Test PHONE field
         predicateMap.clear();
-        predicateMap.put(Column.PHONE, new FilterCriteria(Operator.AND,
+        predicateMap.put(PersonColumn.PHONE, new FilterCriteria(Operator.AND,
                 Collections.singletonList(ALICE.getPhone().value)));
         predicate = new PersonPredicate(predicateMap);
         assertTrue(predicate.test(ALICE));
@@ -129,7 +143,8 @@ public class PersonPredicateTest {
         // Test TAG field
         predicateMap.clear();
         String tag = ALICE.getTags().stream().findFirst().get().tagName;
-        predicateMap.put(Column.TAG, new FilterCriteria(Operator.AND, Collections.singletonList(tag)));
+        predicateMap.put(PersonColumn.TAG, new FilterCriteria(Operator.AND,
+                Collections.singletonList(tag)));
         predicate = new PersonPredicate(predicateMap);
         assertTrue(predicate.test(ALICE));
     }

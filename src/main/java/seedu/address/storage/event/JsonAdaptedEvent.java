@@ -1,7 +1,9 @@
 package seedu.address.storage.event;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -13,7 +15,9 @@ import seedu.address.model.event.EventDateTime;
 import seedu.address.model.event.EventLocation;
 import seedu.address.model.event.EventName;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Tag;
 import seedu.address.storage.person.JsonAdaptedPerson;
+import seedu.address.storage.person.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Event}.
@@ -28,6 +32,7 @@ public class JsonAdaptedEvent {
     private final String location;
     private final List<JsonAdaptedPerson> personList = new ArrayList<>();
     private final List<Boolean> markedList = new ArrayList<>();
+    private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedEvent} with the given event details.
@@ -39,7 +44,8 @@ public class JsonAdaptedEvent {
         @JsonProperty("endTime") String endTime,
         @JsonProperty("location") String location,
         @JsonProperty("persons") List<JsonAdaptedPerson> personList,
-        @JsonProperty("markedList") List<Boolean> markedList) {
+        @JsonProperty("markedList") List<Boolean> markedList,
+        @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -49,6 +55,9 @@ public class JsonAdaptedEvent {
         }
         if (markedList != null) {
             this.markedList.addAll(markedList);
+        }
+        if (tags != null) {
+            this.tags.addAll(tags);
         }
     }
 
@@ -64,6 +73,9 @@ public class JsonAdaptedEvent {
             .map(JsonAdaptedPerson::new)
             .collect(Collectors.toList()));
         markedList.addAll(source.getMarkedList());
+        tags.addAll(source.getTags().stream()
+                .map(JsonAdaptedTag::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -76,6 +88,12 @@ public class JsonAdaptedEvent {
         for (JsonAdaptedPerson person : personList) {
             eventPersonList.add(person.toModelType());
         }
+
+        final Set<Tag> modelTags = new HashSet<>();
+        for (JsonAdaptedTag tag : tags) {
+            modelTags.add(tag.toModelType());
+        }
+
         if (name == null) {
             throw new IllegalValueException(String.format(
                 MISSING_FIELD_MESSAGE_FORMAT, EventName.class.getSimpleName()));
@@ -112,6 +130,7 @@ public class JsonAdaptedEvent {
         }
         final EventLocation eventLocation = new EventLocation(location);
 
-        return new Event(eventName, eventStartTime, eventEndTime, eventLocation, eventPersonList, markedList);
+        return new Event(eventName, eventStartTime, eventEndTime, eventLocation,
+                eventPersonList, markedList, modelTags);
     }
 }
