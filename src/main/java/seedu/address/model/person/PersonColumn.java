@@ -4,7 +4,7 @@ package seedu.address.model.person;
  * Represents the different columns or attributes of a Person that can be used for filtering.
  * Each column has an associated abbreviation for easy reference.
  */
-public enum Column {
+public enum PersonColumn {
     NAME("n"),
     PHONE("p"),
     EMAIL("e"),
@@ -20,7 +20,7 @@ public enum Column {
      *
      * @param abbrev the abbreviation for the column
      */
-    Column(String abbrev) {
+    PersonColumn(String abbrev) {
         this.abbrev = abbrev;
     }
 

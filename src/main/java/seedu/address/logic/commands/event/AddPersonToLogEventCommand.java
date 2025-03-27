@@ -74,7 +74,9 @@ public class AddPersonToLogEventCommand extends EditCommand<Event> {
                 eventToEdit.getEndTime(),
                 eventToEdit.getLocation(),
                 eventToEdit.getPersons(),
-                List.copyOf(newMarkList));
+                List.copyOf(newMarkList),
+                eventToEdit.getTags()
+        );
     }
 
     @Override

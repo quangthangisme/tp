@@ -78,7 +78,8 @@ public class AddPersonToEventCommand extends EditCommand<Event> {
                 itemToEdit.getEndTime(),
                 itemToEdit.getLocation(),
                 combinedPersonList,
-                combinedMarkedList
+                combinedMarkedList,
+                itemToEdit.getTags()
         );
     }
 
