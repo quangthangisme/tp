@@ -2,6 +2,8 @@ package seedu.address.model.person;
 
 import java.util.List;
 
+import seedu.address.commons.core.Operator;
+
 /**
  * Represents the filter criteria for a single column.
  * Each criteria consists of a logical operator and a list of values to match against.

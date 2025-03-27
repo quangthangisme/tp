@@ -6,6 +6,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.ItemManagerWithFilteredList;
@@ -17,30 +18,25 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
  */
 public abstract class FilterCommand<T extends Item> extends ItemCommand<T> {
 
-    protected final Predicate<T> predicate;
-
     /**
      * Creates a {@code FilterCommand} to filter items that match the given {@code predicate}.
      *
-     * @param predicate the predicate used to filter items
      * @param managerAndListGetter function that returns the item manager and filtered list
-     * @throws NullPointerException if {@code predicate} or {@code managerAndListGetter} is
-     *                              {@code null}
+     * @throws NullPointerException if {@code managerAndListGetter} is {@code null}
      */
-    public FilterCommand(Predicate<T> predicate,
-                         Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
+    public FilterCommand(Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
         super(managerAndListGetter);
-        requireNonNull(predicate);
-        this.predicate = predicate;
     }
 
+    public abstract Predicate<T> createPredicate(Model model) throws CommandException;
+
     @Override
-    public CommandResult execute(Model model) {
+    public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
         ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
 
-        managerAndList.updateFilteredItemsList(predicate);
+        managerAndList.updateFilteredItemsList(createPredicate(model));
         return new CommandResult(
                 getResultOverviewMessage(managerAndList.getFilteredItemsList().size()));
     }
