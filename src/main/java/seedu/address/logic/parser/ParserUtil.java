@@ -21,7 +21,8 @@ import seedu.address.model.util.DatetimePredicate;
  */
 public class ParserUtil {
 
-    public static final String MESSAGE_INVALID_INDEX = "Index is not a non-zero unsigned integer.";
+    public static final String MESSAGE_INVALID_INDEX =
+            "Index is not a non-zero unsigned integer: %1$s";
     public static final String MESSAGE_DUPLICATE_INDEX = "Duplicate index found: %1$s";
     public static final String MESSAGE_INVALID_BOOLEAN = "Invalid boolean value: %1$s";
     public static final String MESSAGE_INVALID_DATETIME_PAIR = "Invalid datetime pair: %1$s";
@@ -37,7 +38,7 @@ public class ParserUtil {
     public static Index parseIndex(String oneBasedIndex) throws ParseException {
         String trimmedIndex = oneBasedIndex.trim();
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {
-            throw new ParseException(MESSAGE_INVALID_INDEX);
+            throw new ParseException(String.format(MESSAGE_INVALID_INDEX, trimmedIndex));
         }
         return Index.fromOneBased(Integer.parseInt(trimmedIndex));
     }
@@ -58,7 +59,7 @@ public class ParserUtil {
 
         for (String strIndex : indices) {
             if (!StringUtil.isNonZeroUnsignedInteger(strIndex)) {
-                throw new ParseException(MESSAGE_INVALID_INDEX);
+                throw new ParseException(String.format(MESSAGE_INVALID_INDEX, strIndex));
             }
 
             Index index = Index.fromOneBased(Integer.parseInt(strIndex));

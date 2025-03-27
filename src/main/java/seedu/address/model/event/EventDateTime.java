@@ -2,10 +2,11 @@ package seedu.address.model.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
+import static seedu.address.commons.util.DatetimeUtil.DATE_TIME_FORMATTER;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
+
+import seedu.address.commons.util.DatetimeUtil;
 
 /**
  * Represents an Event's date and time.
@@ -16,7 +17,6 @@ public class EventDateTime {
             "Event start/end time should be in the format YY-MM-DD HH:MM, where HH is in 24-hour format.";
     public static final String MESSAGE_NEGATIVE_DURATION =
             "The given event start-time is not before the given end-time.";
-    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd HH:mm");
     public final LocalDateTime dateTime;
 
     /**
@@ -27,7 +27,7 @@ public class EventDateTime {
     public EventDateTime(String dateTime) {
         requireNonNull(dateTime);
         checkArgument(isValid(dateTime), MESSAGE_CONSTRAINTS);
-        this.dateTime = LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
+        this.dateTime = DatetimeUtil.parse(dateTime);
     }
 
     /**
@@ -35,9 +35,9 @@ public class EventDateTime {
      */
     public static boolean isValid(String dateTime) {
         try {
-            LocalDateTime.parse(dateTime, DATE_TIME_FORMATTER);
+            DatetimeUtil.parse(dateTime);
             return true;
-        } catch (DateTimeParseException e) {
+        } catch (IllegalArgumentException e) {
             return false;
         }
     }

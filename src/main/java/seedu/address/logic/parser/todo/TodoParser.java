@@ -12,6 +12,7 @@ import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
+import seedu.address.logic.commands.todo.ClearTodoCommand;
 import seedu.address.logic.commands.todo.DeleteTodoCommand;
 import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
 import seedu.address.logic.commands.todo.FilterTodoCommand;
@@ -80,6 +81,9 @@ public class TodoParser {
 
         case MarkTodoAsNotDoneCommand.COMMAND_WORD:
             return new MarkTodoAsNotDoneCommandParser().parse(arguments);
+
+        case ClearTodoCommand.COMMAND_WORD:
+            return new ClearTodoCommand();
 
         case FilterTodoCommand.COMMAND_WORD:
             return new FilterTodoCommandParser().parse(arguments);

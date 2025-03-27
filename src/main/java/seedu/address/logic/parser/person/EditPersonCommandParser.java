@@ -57,27 +57,23 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
         if (argMultimap.getValue(PREFIX_PERSON_ID_LONG).isPresent()) {
-            editPersonDescriptor.setId(PersonParseUtil.parseId(argMultimap.getValue(PREFIX_PERSON_ID_LONG).get()));
+            editPersonDescriptor.setId(PersonParserUtil.parseId(argMultimap.getValue(PREFIX_PERSON_ID_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_NAME_LONG).isPresent()) {
-            editPersonDescriptor.setName(
-                PersonParseUtil.parseName(argMultimap.getValue(PREFIX_PERSON_NAME_LONG).get()));
+            editPersonDescriptor.setName(PersonParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON_NAME_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_PHONE_LONG).isPresent()) {
-            editPersonDescriptor.setPhone(
-                PersonParseUtil.parsePhone(argMultimap.getValue(PREFIX_PERSON_PHONE_LONG).get()));
+            editPersonDescriptor.setPhone(PersonParserUtil.parsePhone(argMultimap.getValue(PREFIX_PERSON_PHONE_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_EMAIL_LONG).isPresent()) {
-            editPersonDescriptor.setEmail(
-                PersonParseUtil.parseEmail(argMultimap.getValue(PREFIX_PERSON_EMAIL_LONG).get()));
+            editPersonDescriptor.setEmail(PersonParserUtil.parseEmail(argMultimap.getValue(PREFIX_PERSON_EMAIL_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_COURSE_LONG).isPresent()) {
-            editPersonDescriptor.setCourse(PersonParseUtil
-                .parseModule(argMultimap.getValue(PREFIX_PERSON_COURSE_LONG).get()));
+            editPersonDescriptor.setCourse(PersonParserUtil
+                    .parseModule(argMultimap.getValue(PREFIX_PERSON_COURSE_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_GROUP_LONG).isPresent()) {
-            editPersonDescriptor.setGroup(
-                PersonParseUtil.parseGroup(argMultimap.getValue(PREFIX_PERSON_GROUP_LONG).get()));
+            editPersonDescriptor.setGroup(PersonParserUtil.parseGroup(argMultimap.getValue(PREFIX_PERSON_GROUP_LONG).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_PERSON_TAG_LONG)).ifPresent(editPersonDescriptor::setTags);
 
@@ -100,8 +96,8 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
             return Optional.empty();
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet()
-            : tags;
-        return Optional.of(PersonParseUtil.parseTags(tagSet));
+                : tags;
+        return Optional.of(PersonParserUtil.parseTags(tagSet));
     }
 
 }
