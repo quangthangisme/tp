@@ -15,6 +15,7 @@ import seedu.address.logic.commands.event.AddPersonToEventCommand;
 import seedu.address.logic.commands.event.AddPersonToLogEventCommand;
 import seedu.address.logic.commands.event.DeleteEventCommand;
 import seedu.address.logic.commands.event.DisplayEventInformationCommand;
+import seedu.address.logic.commands.event.FilterEventCommand;
 import seedu.address.logic.commands.event.ListEventCommand;
 import seedu.address.logic.commands.event.RemovePersonFromEventCommand;
 import seedu.address.logic.commands.event.RemovePersonFromLogEventCommand;
@@ -78,6 +79,9 @@ public class EventParser {
 
         case RemovePersonFromLogEventCommand.COMMAND_WORD:
             return new RemovePersonFromLogEventCommandParser().parse(arguments);
+
+        case FilterEventCommand.COMMAND_WORD:
+            return new FilterEventCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);
