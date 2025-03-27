@@ -31,15 +31,13 @@ public class RemovePersonFromTodoCommandParser implements Parser<RemovePersonFro
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_LINKED_PERSON_INDEX);
 
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
+        if (!argMultimap.arePrefixesPresent(PREFIX_LINKED_PERSON_INDEX)
+                || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    RemovePersonFromTodoCommand.MESSAGE_USAGE), pe);
+                    RemovePersonFromTodoCommand.MESSAGE_USAGE));
         }
 
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_LINKED_PERSON_INDEX);
         List<Index> personIndices =
                 ParserUtil.parseIndices(argMultimap.getValue(PREFIX_LINKED_PERSON_INDEX).get());

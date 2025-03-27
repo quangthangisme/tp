@@ -56,23 +56,23 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
         if (argMultimap.getValue(PREFIX_PERSON_ID).isPresent()) {
-            editPersonDescriptor.setId(PersonParseUtil.parseId(argMultimap.getValue(PREFIX_PERSON_ID).get()));
+            editPersonDescriptor.setId(PersonParserUtil.parseId(argMultimap.getValue(PREFIX_PERSON_ID).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_NAME).isPresent()) {
-            editPersonDescriptor.setName(PersonParseUtil.parseName(argMultimap.getValue(PREFIX_PERSON_NAME).get()));
+            editPersonDescriptor.setName(PersonParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON_NAME).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_PHONE).isPresent()) {
-            editPersonDescriptor.setPhone(PersonParseUtil.parsePhone(argMultimap.getValue(PREFIX_PERSON_PHONE).get()));
+            editPersonDescriptor.setPhone(PersonParserUtil.parsePhone(argMultimap.getValue(PREFIX_PERSON_PHONE).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_EMAIL).isPresent()) {
-            editPersonDescriptor.setEmail(PersonParseUtil.parseEmail(argMultimap.getValue(PREFIX_PERSON_EMAIL).get()));
+            editPersonDescriptor.setEmail(PersonParserUtil.parseEmail(argMultimap.getValue(PREFIX_PERSON_EMAIL).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_COURSE).isPresent()) {
-            editPersonDescriptor.setCourse(PersonParseUtil
+            editPersonDescriptor.setCourse(PersonParserUtil
                     .parseModule(argMultimap.getValue(PREFIX_PERSON_COURSE).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_GROUP).isPresent()) {
-            editPersonDescriptor.setGroup(PersonParseUtil.parseGroup(argMultimap.getValue(PREFIX_PERSON_GROUP).get()));
+            editPersonDescriptor.setGroup(PersonParserUtil.parseGroup(argMultimap.getValue(PREFIX_PERSON_GROUP).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_PERSON_TAG)).ifPresent(editPersonDescriptor::setTags);
 
@@ -96,7 +96,7 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet()
                 : tags;
-        return Optional.of(PersonParseUtil.parseTags(tagSet));
+        return Optional.of(PersonParserUtil.parseTags(tagSet));
     }
 
 }
