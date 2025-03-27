@@ -32,6 +32,7 @@ import seedu.address.logic.commands.person.InfoPersonCommand;
 import seedu.address.logic.commands.person.ListPersonCommand;
 import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
+import seedu.address.logic.commands.todo.ClearTodoCommand;
 import seedu.address.logic.commands.todo.DeleteTodoCommand;
 import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
 import seedu.address.logic.commands.todo.FilterTodoCommand;
@@ -69,16 +70,17 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             + InfoPersonCommand.COMMAND_WORD;
 
     public static final String MESSAGE_TODO_COMMANDS = TODO_COMMAND_WORD
-            + ": Manages your todos. Supported subcommands:\n"
-            + AddTodoCommand.COMMAND_WORD + ", "
-            + DeleteTodoCommand.COMMAND_WORD + ", "
-            + DisplayTodoInformationCommand.COMMAND_WORD + ", "
-            + ListTodoCommand.COMMAND_WORD + ", "
-            + AddPersonToTodoCommand.COMMAND_WORD + ", "
-            + RemovePersonFromTodoCommand.COMMAND_WORD + ", "
-            + MarkTodoAsDoneCommand.COMMAND_WORD + ", "
-            + MarkTodoAsNotDoneCommand.COMMAND_WORD + ", "
-            + FilterTodoCommand.COMMAND_WORD;
+        + ": Manages your todos. Supported subcommands:\n"
+        + AddTodoCommand.COMMAND_WORD + ", "
+        + DeleteTodoCommand.COMMAND_WORD + ", "
+        + DisplayTodoInformationCommand.COMMAND_WORD + ", "
+        + ListTodoCommand.COMMAND_WORD + ", "
+        + AddPersonToTodoCommand.COMMAND_WORD + ", "
+        + RemovePersonFromTodoCommand.COMMAND_WORD + ", "
+        + MarkTodoAsDoneCommand.COMMAND_WORD + ", "
+        + MarkTodoAsNotDoneCommand.COMMAND_WORD + ", "
+        + FilterTodoCommand.COMMAND_WORD + ", "
+        + ClearTodoCommand.COMMAND_WORD;
 
     public static final String MESSAGE_EVENT_COMMANDS = EVENT_COMMAND_WORD
         + ": Manages your events. Supported subcommands:\n"
@@ -195,6 +197,8 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(MarkTodoAsDoneCommand.MESSAGE_USAGE);
         case MarkTodoAsNotDoneCommand.COMMAND_WORD:
             return new HelpCommand(MarkTodoAsNotDoneCommand.MESSAGE_USAGE);
+        case ClearTodoCommand.COMMAND_WORD:
+            return new HelpCommand(ClearTodoCommand.MESSAGE_USAGE);
         case FilterTodoCommand.COMMAND_WORD:
             return new HelpCommand(FilterTodoCommand.MESSAGE_USAGE);
         default:
