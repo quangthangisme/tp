@@ -9,6 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.TodoMessages;
 import seedu.address.logic.abstractcommand.EditCommand;
@@ -84,5 +85,28 @@ public class RemovePersonFromTodoCommand extends EditCommand<Todo> {
     @Override
     public String getSuccessMessage(Todo editedItem) {
         return String.format(MESSAGE_REMOVE_PERSON_SUCCESS, Messages.format(editedItem));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof RemovePersonFromTodoCommand otherCommand)) {
+            return false;
+        }
+
+        return index.equals(otherCommand.index)
+                && personIndices.equals(otherCommand.personIndices);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("index", index)
+                .add("personIndicies", personIndices)
+                .toString();
     }
 }

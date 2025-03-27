@@ -3,6 +3,7 @@ package seedu.address.logic.commands.todo;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.TodoMessages;
 import seedu.address.logic.abstractcommand.EditCommand;
@@ -66,5 +67,26 @@ public class MarkTodoAsNotDoneCommand extends EditCommand<Todo> {
     @Override
     public String getSuccessMessage(Todo todo) {
         return String.format(MESSAGE_TODO_MARKED_NOT_DONE, Messages.format(todo));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof MarkTodoAsNotDoneCommand otherCommand)) {
+            return false;
+        }
+
+        return index.equals(otherCommand.index);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("index", index)
+                .toString();
     }
 }

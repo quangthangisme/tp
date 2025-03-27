@@ -37,15 +37,7 @@ public class AddPersonToTodoCommandParser implements Parser<AddPersonToTodoComma
                     AddPersonToTodoCommand.MESSAGE_USAGE));
         }
 
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddPersonToTodoCommand.MESSAGE_USAGE), pe);
-        }
-
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_LINKED_PERSON_INDEX);
         List<Index> personIndices =
                 ParserUtil.parseIndices(argMultimap.getValue(PREFIX_LINKED_PERSON_INDEX).get());

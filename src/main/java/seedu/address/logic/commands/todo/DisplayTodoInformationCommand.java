@@ -4,6 +4,7 @@ import static seedu.address.logic.TodoMessages.MESSAGE_INVALID_TODO_DISPLAYED_IN
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.abstractcommand.DisplayInformationCommand;
 import seedu.address.model.Model;
@@ -27,6 +28,7 @@ public class DisplayTodoInformationCommand extends DisplayInformationCommand<Tod
     /**
      * Creates a {@code DisplayTodoInformationCommand} to display information of the {@code Todo} at
      * the specified {@code index}.
+     *
      * @throws NullPointerException if {@code index} is {@code null}.
      */
     public DisplayTodoInformationCommand(Index index) {
@@ -41,5 +43,26 @@ public class DisplayTodoInformationCommand extends DisplayInformationCommand<Tod
     @Override
     public String getInformationMessage(Todo itemToDisplay) {
         return String.format(MESSAGE_DISPLAY_INFO, Messages.format(itemToDisplay));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof DisplayTodoInformationCommand otherCommand)) {
+            return false;
+        }
+
+        return index.equals(otherCommand.index);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("index", index)
+                .toString();
     }
 }

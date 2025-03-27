@@ -33,6 +33,7 @@ import seedu.address.logic.commands.person.ListPersonCommand;
 import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
 import seedu.address.logic.commands.todo.AddTagToTodoCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
+import seedu.address.logic.commands.todo.ClearTodoCommand;
 import seedu.address.logic.commands.todo.DeleteTodoCommand;
 import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
 import seedu.address.logic.commands.todo.FilterTodoCommand;
@@ -82,7 +83,8 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         + MarkTodoAsNotDoneCommand.COMMAND_WORD + ", "
         + AddTagToTodoCommand.COMMAND_WORD + ", "
         + RemoveTagFromTodoCommand.COMMAND_WORD + ", "
-        + FilterTodoCommand.COMMAND_WORD;
+        + FilterTodoCommand.COMMAND_WORD + ", "
+        + ClearTodoCommand.COMMAND_WORD;
 
     public static final String MESSAGE_EVENT_COMMANDS = EVENT_COMMAND_WORD
         + ": Manages your events. Supported subcommands:\n"
@@ -203,6 +205,8 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(AddTagToTodoCommand.MESSAGE_USAGE);
         case RemoveTagFromTodoCommand.COMMAND_WORD:
             return new HelpCommand(RemoveTagFromTodoCommand.MESSAGE_USAGE);
+        case ClearTodoCommand.COMMAND_WORD:
+            return new HelpCommand(ClearTodoCommand.MESSAGE_USAGE);
         case FilterTodoCommand.COMMAND_WORD:
             return new HelpCommand(FilterTodoCommand.MESSAGE_USAGE);
         default:

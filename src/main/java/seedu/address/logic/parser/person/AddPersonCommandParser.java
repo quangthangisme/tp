@@ -48,13 +48,13 @@ public class AddPersonCommandParser implements Parser<AddPersonCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_PERSON_ID, PREFIX_PERSON_NAME, PREFIX_PERSON_PHONE,
                 PREFIX_PERSON_EMAIL, PREFIX_PERSON_COURSE, PREFIX_PERSON_GROUP);
-        Id id = PersonParseUtil.parseId(argMultimap.getValue(PREFIX_PERSON_ID).get());
-        Name name = PersonParseUtil.parseName(argMultimap.getValue(PREFIX_PERSON_NAME).get());
-        Phone phone = PersonParseUtil.parsePhone(argMultimap.getValue(PREFIX_PERSON_PHONE).get());
-        Email email = PersonParseUtil.parseEmail(argMultimap.getValue(PREFIX_PERSON_EMAIL).get());
-        Course course = PersonParseUtil.parseModule(argMultimap.getValue(PREFIX_PERSON_COURSE).get());
-        Group group = PersonParseUtil.parseGroup(argMultimap.getValue(PREFIX_PERSON_GROUP).get());
-        Set<Tag> tagList = PersonParseUtil.parseTags(argMultimap.getAllValues(PREFIX_PERSON_TAG));
+        Id id = PersonParserUtil.parseId(argMultimap.getValue(PREFIX_PERSON_ID).get());
+        Name name = PersonParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON_NAME).get());
+        Phone phone = PersonParserUtil.parsePhone(argMultimap.getValue(PREFIX_PERSON_PHONE).get());
+        Email email = PersonParserUtil.parseEmail(argMultimap.getValue(PREFIX_PERSON_EMAIL).get());
+        Course course = PersonParserUtil.parseModule(argMultimap.getValue(PREFIX_PERSON_COURSE).get());
+        Group group = PersonParserUtil.parseGroup(argMultimap.getValue(PREFIX_PERSON_GROUP).get());
+        Set<Tag> tagList = PersonParserUtil.parseTags(argMultimap.getAllValues(PREFIX_PERSON_TAG));
 
         Person person = new Person(id, name, phone, email, course, group, tagList);
         return new AddPersonCommand(person);
