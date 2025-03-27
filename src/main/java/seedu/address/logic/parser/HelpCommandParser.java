@@ -24,13 +24,16 @@ import seedu.address.logic.commands.event.RemovePersonFromEventCommand;
 import seedu.address.logic.commands.event.RemovePersonFromLogEventCommand;
 import seedu.address.logic.commands.event.RemoveTagFromEventCommand;
 import seedu.address.logic.commands.person.AddPersonCommand;
+import seedu.address.logic.commands.person.AddTagToPersonCommand;
 import seedu.address.logic.commands.person.ClearPersonCommand;
 import seedu.address.logic.commands.person.DeletePersonCommand;
 import seedu.address.logic.commands.person.EditPersonCommand;
 import seedu.address.logic.commands.person.FilterPersonCommand;
 import seedu.address.logic.commands.person.InfoPersonCommand;
 import seedu.address.logic.commands.person.ListPersonCommand;
+import seedu.address.logic.commands.person.RemoveTagFromPersonCommand;
 import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
+import seedu.address.logic.commands.todo.AddTagToTodoCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.logic.commands.todo.ClearTodoCommand;
 import seedu.address.logic.commands.todo.DeleteTodoCommand;
@@ -40,6 +43,7 @@ import seedu.address.logic.commands.todo.ListTodoCommand;
 import seedu.address.logic.commands.todo.MarkTodoAsDoneCommand;
 import seedu.address.logic.commands.todo.MarkTodoAsNotDoneCommand;
 import seedu.address.logic.commands.todo.RemovePersonFromTodoCommand;
+import seedu.address.logic.commands.todo.RemoveTagFromTodoCommand;
 
 /**
  * Parses input arguments and creates a new HelpCommand object.
@@ -60,14 +64,16 @@ public class HelpCommandParser implements Parser<HelpCommand> {
 
     public static final String MESSAGE_UNKNOWN_COMMAND = "Feature not recognized.\n" + HelpCommand.MESSAGE_USAGE;
     public static final String MESSAGE_PERSON_COMMANDS = PERSON_COMMAND_WORD
-            + ": Manages your contacts. Supported subcommands:\n"
-            + AddPersonCommand.COMMAND_WORD + ", "
-            + EditPersonCommand.COMMAND_WORD + ", "
-            + DeletePersonCommand.COMMAND_WORD + ", "
-            + ClearPersonCommand.COMMAND_WORD + ", "
-            + FilterPersonCommand.COMMAND_WORD + ", "
-            + ListPersonCommand.COMMAND_WORD + ", "
-            + InfoPersonCommand.COMMAND_WORD;
+        + ": Manages your contacts. Supported subcommands:\n"
+        + AddPersonCommand.COMMAND_WORD + ", "
+        + EditPersonCommand.COMMAND_WORD + ", "
+        + DeletePersonCommand.COMMAND_WORD + ", "
+        + ClearPersonCommand.COMMAND_WORD + ", "
+        + FilterPersonCommand.COMMAND_WORD + ", "
+        + ListPersonCommand.COMMAND_WORD + ", "
+        + InfoPersonCommand.COMMAND_WORD + ", "
+        + AddTagToPersonCommand.COMMAND_WORD + ", "
+        + RemoveTagFromPersonCommand.COMMAND_WORD;
 
     public static final String MESSAGE_TODO_COMMANDS = TODO_COMMAND_WORD
         + ": Manages your todos. Supported subcommands:\n"
@@ -79,6 +85,8 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         + RemovePersonFromTodoCommand.COMMAND_WORD + ", "
         + MarkTodoAsDoneCommand.COMMAND_WORD + ", "
         + MarkTodoAsNotDoneCommand.COMMAND_WORD + ", "
+        + AddTagToTodoCommand.COMMAND_WORD + ", "
+        + RemoveTagFromTodoCommand.COMMAND_WORD + ", "
         + FilterTodoCommand.COMMAND_WORD + ", "
         + ClearTodoCommand.COMMAND_WORD;
 
@@ -169,6 +177,10 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(ListPersonCommand.MESSAGE_USAGE);
         case InfoPersonCommand.COMMAND_WORD:
             return new HelpCommand(InfoPersonCommand.MESSAGE_USAGE);
+        case AddTagToPersonCommand.COMMAND_WORD:
+            return new HelpCommand(AddTagToPersonCommand.MESSAGE_USAGE);
+        case RemoveTagFromPersonCommand.COMMAND_WORD:
+            return new HelpCommand(RemoveTagFromPersonCommand.MESSAGE_USAGE);
         default:
             return new HelpCommand("Subcommand " + subcommand + " not recognized.\n" + MESSAGE_PERSON_COMMANDS);
         }
@@ -197,6 +209,10 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(MarkTodoAsDoneCommand.MESSAGE_USAGE);
         case MarkTodoAsNotDoneCommand.COMMAND_WORD:
             return new HelpCommand(MarkTodoAsNotDoneCommand.MESSAGE_USAGE);
+        case AddTagToTodoCommand.COMMAND_WORD:
+            return new HelpCommand(AddTagToTodoCommand.MESSAGE_USAGE);
+        case RemoveTagFromTodoCommand.COMMAND_WORD:
+            return new HelpCommand(RemoveTagFromTodoCommand.MESSAGE_USAGE);
         case ClearTodoCommand.COMMAND_WORD:
             return new HelpCommand(ClearTodoCommand.MESSAGE_USAGE);
         case FilterTodoCommand.COMMAND_WORD:
