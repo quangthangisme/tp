@@ -161,6 +161,7 @@ public class EditPersonCommandTest {
         );
         expectedModel.getPersonManagerAndList().setItem(model.getPersonManagerAndList()
                 .getFilteredItemsList().get(0), editedPerson);
+        showPersonAtIndex(expectedModel, INDEX_FIRST_PERSON);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

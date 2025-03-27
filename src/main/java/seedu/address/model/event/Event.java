@@ -2,12 +2,15 @@ package seedu.address.model.event;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.item.Item;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Tag;
 
 /**
  * Represents an Event.
@@ -20,20 +23,22 @@ public class Event implements Item {
     private final EventLocation location;
     private final List<Person> persons;
     private final List<Boolean> markedList;
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null, field values are validated, immutable.
      */
-    public Event(EventName name, EventDateTime startTime,
-            EventDateTime endTime, EventLocation location,
-            List<Person> persons, List<Boolean> markedList) {
-        requireAllNonNull(name, startTime, endTime, location, persons);
+    public Event(EventName name, EventDateTime startTime, EventDateTime endTime,
+            EventLocation location, List<Person> persons, List<Boolean> markedList,
+            Set<Tag> tags) {
+        requireAllNonNull(name, startTime, endTime, location, persons, tags);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
         this.persons = persons;
         this.markedList = markedList;
+        this.tags.addAll(tags);
     }
 
     /**
@@ -74,6 +79,10 @@ public class Event implements Item {
         return this.markedList;
     }
 
+    public Set<Tag> getTags() {
+        return this.tags;
+    }
+
     @Override
     public String toString() {
         return new ToStringBuilder(this)
@@ -83,6 +92,7 @@ public class Event implements Item {
                 .add("location", location)
                 .add("persons", persons)
                 .add("marked_contacts", markedList)
+                .add("tags", tags)
                 .toString();
     }
 
@@ -99,11 +109,12 @@ public class Event implements Item {
                 && this.endTime.equals(otherEvent.endTime)
                 && this.location.equals(otherEvent.location)
                 && this.persons.equals(otherEvent.persons)
-                && this.markedList.equals(otherEvent.markedList);
+                && this.markedList.equals(otherEvent.markedList)
+                && this.tags.equals(otherEvent.tags);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, startTime, endTime, location, persons, markedList);
+        return Objects.hash(name, startTime, endTime, location, persons, markedList, tags);
     }
 }
