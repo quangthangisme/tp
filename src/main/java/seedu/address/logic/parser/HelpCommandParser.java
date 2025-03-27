@@ -31,6 +31,7 @@ import seedu.address.logic.commands.person.FilterPersonCommand;
 import seedu.address.logic.commands.person.InfoPersonCommand;
 import seedu.address.logic.commands.person.ListPersonCommand;
 import seedu.address.logic.commands.todo.AddPersonToTodoCommand;
+import seedu.address.logic.commands.todo.AddTagToTodoCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.logic.commands.todo.ClearTodoCommand;
 import seedu.address.logic.commands.todo.DeleteTodoCommand;
@@ -40,6 +41,7 @@ import seedu.address.logic.commands.todo.ListTodoCommand;
 import seedu.address.logic.commands.todo.MarkTodoAsDoneCommand;
 import seedu.address.logic.commands.todo.MarkTodoAsNotDoneCommand;
 import seedu.address.logic.commands.todo.RemovePersonFromTodoCommand;
+import seedu.address.logic.commands.todo.RemoveTagFromTodoCommand;
 
 /**
  * Parses input arguments and creates a new HelpCommand object.
@@ -79,6 +81,8 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         + RemovePersonFromTodoCommand.COMMAND_WORD + ", "
         + MarkTodoAsDoneCommand.COMMAND_WORD + ", "
         + MarkTodoAsNotDoneCommand.COMMAND_WORD + ", "
+        + AddTagToTodoCommand.COMMAND_WORD + ", "
+        + RemoveTagFromTodoCommand.COMMAND_WORD + ", "
         + FilterTodoCommand.COMMAND_WORD + ", "
         + ClearTodoCommand.COMMAND_WORD;
 
@@ -197,6 +201,10 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(MarkTodoAsDoneCommand.MESSAGE_USAGE);
         case MarkTodoAsNotDoneCommand.COMMAND_WORD:
             return new HelpCommand(MarkTodoAsNotDoneCommand.MESSAGE_USAGE);
+        case AddTagToTodoCommand.COMMAND_WORD:
+            return new HelpCommand(AddTagToTodoCommand.MESSAGE_USAGE);
+        case RemoveTagFromTodoCommand.COMMAND_WORD:
+            return new HelpCommand(RemoveTagFromTodoCommand.MESSAGE_USAGE);
         case ClearTodoCommand.COMMAND_WORD:
             return new HelpCommand(ClearTodoCommand.MESSAGE_USAGE);
         case FilterTodoCommand.COMMAND_WORD:

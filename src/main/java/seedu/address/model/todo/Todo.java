@@ -2,12 +2,15 @@ package seedu.address.model.todo;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.item.Item;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Tag;
 
 /**
  * Represents a Todo.
@@ -23,18 +26,20 @@ public class Todo implements Item {
     private final TodoLocation location;
     private final TodoStatus status;
     private final List<Person> persons;
+    private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null.
      */
     public Todo(TodoName name, TodoDeadline deadline, TodoLocation location, TodoStatus status,
-                List<Person> persons) {
+                List<Person> persons, Set<Tag> tags) {
         requireAllNonNull(name, deadline, status, location);
         this.name = name;
         this.deadline = deadline;
         this.location = location;
         this.status = status;
         this.persons = persons.stream().toList();
+        this.tags.addAll(tags);
     }
 
     /**
@@ -69,6 +74,11 @@ public class Todo implements Item {
         return persons;
     }
 
+    public Set<Tag> getTags() {
+        return this.tags;
+    }
+
+
     /**
      * Returns true if both todos have the same identity and data fields.
      * This defines a stronger notion of equality between two todos.
@@ -88,7 +98,8 @@ public class Todo implements Item {
                 && deadline.equals(otherTodo.deadline)
                 && location.equals(otherTodo.location)
                 && status.equals(otherTodo.status)
-                && persons.equals(otherTodo.persons);
+                && persons.equals(otherTodo.persons)
+                && tags.equals(otherTodo.tags);
     }
 
     @Override
@@ -105,6 +116,7 @@ public class Todo implements Item {
                 .add("location", location)
                 .add("status", status)
                 .add("persons", persons)
+                .add("tags", tags)
                 .toString();
     }
 }

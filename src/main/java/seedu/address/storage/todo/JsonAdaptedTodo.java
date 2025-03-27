@@ -1,7 +1,9 @@
 package seedu.address.storage.todo;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -9,12 +11,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Tag;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoDeadline;
 import seedu.address.model.todo.TodoLocation;
 import seedu.address.model.todo.TodoName;
 import seedu.address.model.todo.TodoStatus;
 import seedu.address.storage.person.JsonAdaptedPerson;
+import seedu.address.storage.person.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Person}.
@@ -28,6 +32,7 @@ public class JsonAdaptedTodo {
     private final String location;
     private final boolean status;
     private final List<JsonAdaptedPerson> personList = new ArrayList<>();
+    private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
      * Constructs a {@code JsonAdaptedPerson} with the given person details.
@@ -38,13 +43,17 @@ public class JsonAdaptedTodo {
             @JsonProperty("deadline") String deadline,
             @JsonProperty("location") String location,
             @JsonProperty("status") boolean status,
-            @JsonProperty("persons") List<JsonAdaptedPerson> personList) {
+            @JsonProperty("persons") List<JsonAdaptedPerson> personList,
+            @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.deadline = deadline;
         this.location = location;
         this.status = status;
         if (personList != null) {
             this.personList.addAll(personList);
+        }
+        if (tags != null) {
+            this.tags.addAll(tags);
         }
     }
 
@@ -59,6 +68,9 @@ public class JsonAdaptedTodo {
         personList.addAll(source.getPersons().stream()
                 .map(JsonAdaptedPerson::new)
                 .collect(Collectors.toList()));
+        tags.addAll(source.getTags().stream()
+                .map(JsonAdaptedTag::new)
+                .collect(Collectors.toList()));
     }
 
     /**
@@ -71,6 +83,12 @@ public class JsonAdaptedTodo {
         for (JsonAdaptedPerson person : personList) {
             todoPersons.add(person.toModelType());
         }
+
+        final Set<Tag> modelTags = new HashSet<>();
+        for (JsonAdaptedTag tag : tags) {
+            modelTags.add(tag.toModelType());
+        }
+
         if (name == null) {
             throw new IllegalValueException(String.format(
                     MISSING_FIELD_MESSAGE_FORMAT, TodoName.class.getSimpleName()));
@@ -100,7 +118,8 @@ public class JsonAdaptedTodo {
 
         final TodoStatus todoStatus = new TodoStatus(status);
 
-        return new Todo(todoName, todoDeadline, todoLocation, todoStatus, todoPersons);
+        return new Todo(todoName, todoDeadline, todoLocation,
+                todoStatus, todoPersons, modelTags);
     }
 
 }

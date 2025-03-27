@@ -1,8 +1,11 @@
 package seedu.address.testutil;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import seedu.address.model.person.Person;
+import seedu.address.model.person.Tag;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoDeadline;
 import seedu.address.model.todo.TodoLocation;
@@ -19,12 +22,14 @@ public class TodoBuilder {
     public static final String DEFAULT_LOCATION = "EARTH";
     public static final boolean DEFAULT_STATUS = false;
     public static final List<Person> DEFAULT_PERSONS = List.of();
+    public static final Set<Tag> DEFAULT_TAGS = new HashSet<>();
 
     private TodoName name;
     private TodoDeadline deadline;
     private TodoLocation location;
     private TodoStatus status;
     private List<Person> persons;
+    private Set<Tag> tags;
 
 
     /**
@@ -36,6 +41,7 @@ public class TodoBuilder {
         location = new TodoLocation(DEFAULT_LOCATION);
         status = new TodoStatus(DEFAULT_STATUS);
         persons = List.copyOf(DEFAULT_PERSONS);
+        tags = Set.copyOf(DEFAULT_TAGS);
     }
 
     /**
@@ -47,6 +53,7 @@ public class TodoBuilder {
         location = todoToCopy.getLocation();
         status = todoToCopy.getStatus();
         persons = List.copyOf(todoToCopy.getPersons());
+        tags = Set.copyOf(todoToCopy.getTags());
     }
 
     /**
@@ -90,7 +97,7 @@ public class TodoBuilder {
     }
 
     public Todo build() {
-        return new Todo(name, deadline, location, status, persons);
+        return new Todo(name, deadline, location, status, persons, tags);
     }
 
 }
