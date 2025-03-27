@@ -60,20 +60,24 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
             editPersonDescriptor.setId(PersonParserUtil.parseId(argMultimap.getValue(PREFIX_PERSON_ID_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_NAME_LONG).isPresent()) {
-            editPersonDescriptor.setName(PersonParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON_NAME_LONG).get()));
+            editPersonDescriptor.setName(
+                PersonParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON_NAME_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_PHONE_LONG).isPresent()) {
-            editPersonDescriptor.setPhone(PersonParserUtil.parsePhone(argMultimap.getValue(PREFIX_PERSON_PHONE_LONG).get()));
+            editPersonDescriptor.setPhone(
+                PersonParserUtil.parsePhone(argMultimap.getValue(PREFIX_PERSON_PHONE_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_EMAIL_LONG).isPresent()) {
-            editPersonDescriptor.setEmail(PersonParserUtil.parseEmail(argMultimap.getValue(PREFIX_PERSON_EMAIL_LONG).get()));
+            editPersonDescriptor.setEmail(
+                PersonParserUtil.parseEmail(argMultimap.getValue(PREFIX_PERSON_EMAIL_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_COURSE_LONG).isPresent()) {
             editPersonDescriptor.setCourse(PersonParserUtil
                     .parseModule(argMultimap.getValue(PREFIX_PERSON_COURSE_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_GROUP_LONG).isPresent()) {
-            editPersonDescriptor.setGroup(PersonParserUtil.parseGroup(argMultimap.getValue(PREFIX_PERSON_GROUP_LONG).get()));
+            editPersonDescriptor.setGroup(
+                PersonParserUtil.parseGroup(argMultimap.getValue(PREFIX_PERSON_GROUP_LONG).get()));
         }
         parseTagsForEdit(argMultimap.getAllValues(PREFIX_PERSON_TAG_LONG)).ifPresent(editPersonDescriptor::setTags);
 
