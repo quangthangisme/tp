@@ -11,7 +11,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.person.Tag;
+import seedu.address.model.contact.Tag;
 
 /**
  * Parses input arguments and creates a new AddTagToTodoCommandParser object.

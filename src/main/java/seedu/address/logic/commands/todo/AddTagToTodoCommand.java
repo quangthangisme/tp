@@ -13,7 +13,7 @@ import seedu.address.logic.TodoMessages;
 import seedu.address.logic.abstractcommand.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Tag;
+import seedu.address.model.contact.Tag;
 import seedu.address.model.todo.Todo;
 
 /**
@@ -53,7 +53,7 @@ public class AddTagToTodoCommand extends EditCommand<Todo> {
                 todoToEdit.getDeadline(),
                 todoToEdit.getLocation(),
                 todoToEdit.getStatus(),
-                todoToEdit.getPersons(),
+                todoToEdit.getContacts(),
                 Set.copyOf(newTags)
         );
     }

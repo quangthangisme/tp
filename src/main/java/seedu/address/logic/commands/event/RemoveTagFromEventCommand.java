@@ -14,7 +14,7 @@ import seedu.address.logic.abstractcommand.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
-import seedu.address.model.person.Tag;
+import seedu.address.model.contact.Tag;
 
 /**
  * Removes a tag from a specified event.
@@ -54,7 +54,7 @@ public class RemoveTagFromEventCommand extends EditCommand<Event> {
                 eventToEdit.getStartTime(),
                 eventToEdit.getEndTime(),
                 eventToEdit.getLocation(),
-                eventToEdit.getPersons(),
+                eventToEdit.getContacts(),
                 eventToEdit.getMarkedList(),
                 Set.copyOf(newTags)
         );
