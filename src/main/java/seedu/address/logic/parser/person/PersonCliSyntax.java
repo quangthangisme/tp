@@ -9,7 +9,6 @@ public class PersonCliSyntax {
 
     /* Long Prefix definitions */
     public static final Prefix PREFIX_PERSON_NAME_LONG = new Prefix("--name");
-    public static final Prefix PREFIX_PERSON_PHONE_LONG = new Prefix("--phone");
     public static final Prefix PREFIX_PERSON_EMAIL_LONG = new Prefix("--email");
     public static final Prefix PREFIX_PERSON_ID_LONG = new Prefix("--id");
     public static final Prefix PREFIX_PERSON_COURSE_LONG = new Prefix("--course");
@@ -18,7 +17,6 @@ public class PersonCliSyntax {
 
     /* Short Prefix definitions */
     public static final Prefix PREFIX_PERSON_NAME_SHORT = new Prefix("-n");
-    public static final Prefix PREFIX_PERSON_PHONE_SHORT = new Prefix("-p");
     public static final Prefix PREFIX_PERSON_EMAIL_SHORT = new Prefix("-e");
     public static final Prefix PREFIX_PERSON_ID_SHORT = new Prefix("-i");
     public static final Prefix PREFIX_PERSON_COURSE_SHORT = new Prefix("-c");

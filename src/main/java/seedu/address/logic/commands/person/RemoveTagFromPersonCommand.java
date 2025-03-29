@@ -48,7 +48,6 @@ public class RemoveTagFromPersonCommand extends EditCommand<Person> {
         return new Person(
             personToEdit.getId(),
             personToEdit.getName(),
-            personToEdit.getPhone(),
             personToEdit.getEmail(),
             personToEdit.getCourse(),
             personToEdit.getGroup(),

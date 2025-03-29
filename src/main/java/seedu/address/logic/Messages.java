@@ -51,8 +51,6 @@ public class Messages {
         builder.append(person.getName())
                .append("; ID: ")
                .append(person.getId())
-               .append("; Phone: ")
-               .append(person.getPhone())
                .append("; Email: ")
                .append(person.getEmail())
                .append("; Course: ")

@@ -6,7 +6,6 @@ package seedu.address.model.person;
  */
 public enum PersonColumn {
     NAME("n"),
-    PHONE("p"),
     EMAIL("e"),
     ID("i"),
     COURSE("c"),

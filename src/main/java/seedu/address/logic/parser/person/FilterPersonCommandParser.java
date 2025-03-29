@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EM
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME_LONG;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG_LONG;
 
 import java.util.ArrayList;
@@ -54,8 +53,6 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
 
         if (prefixStr.equals(PREFIX_PERSON_NAME_LONG.getPrefix())) {
             return PersonColumn.NAME;
-        } else if (prefixStr.equals(PREFIX_PERSON_PHONE_LONG.getPrefix())) {
-            return PersonColumn.PHONE;
         } else if (prefixStr.equals(PREFIX_PERSON_EMAIL_LONG.getPrefix())) {
             return PersonColumn.EMAIL;
         } else if (prefixStr.equals(PREFIX_PERSON_TAG_LONG.getPrefix())) {
@@ -167,13 +164,12 @@ public class FilterPersonCommandParser implements Parser<FilterPersonCommand> {
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PERSON_NAME_LONG,
-            PREFIX_PERSON_PHONE_LONG,
             PREFIX_PERSON_EMAIL_LONG, PREFIX_PERSON_ID_LONG, PREFIX_PERSON_COURSE_LONG, PREFIX_PERSON_GROUP_LONG,
             PREFIX_PERSON_TAG_LONG);
 
         Map<PersonColumn, FilterCriteria> filterCriteriaMap = new HashMap<>();
 
-        List<Prefix> allPrefixes = List.of(PREFIX_PERSON_NAME_LONG, PREFIX_PERSON_PHONE_LONG, PREFIX_PERSON_EMAIL_LONG,
+        List<Prefix> allPrefixes = List.of(PREFIX_PERSON_NAME_LONG, PREFIX_PERSON_EMAIL_LONG,
             PREFIX_PERSON_ID_LONG, PREFIX_PERSON_COURSE_LONG, PREFIX_PERSON_GROUP_LONG, PREFIX_PERSON_TAG_LONG);
 
         parsePrefixes(allPrefixes, argMultimap, filterCriteriaMap);

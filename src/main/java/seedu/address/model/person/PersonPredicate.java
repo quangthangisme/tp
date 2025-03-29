@@ -51,9 +51,6 @@ public class PersonPredicate implements Predicate<Person> {
         case NAME:
             values.add(person.getName().fullName.toLowerCase());
             break;
-        case PHONE:
-            values.add(person.getPhone().value.toLowerCase());
-            break;
         case EMAIL:
             values.add(person.getEmail().value.toLowerCase());
             break;

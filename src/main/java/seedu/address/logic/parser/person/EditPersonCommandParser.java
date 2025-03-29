@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EM
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME_LONG;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG_LONG;
 
 import java.util.Collection;
@@ -39,7 +38,7 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
     public EditPersonCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_PERSON_ID_LONG, PREFIX_PERSON_NAME_LONG,
-            PREFIX_PERSON_PHONE_LONG, PREFIX_PERSON_EMAIL_LONG, PREFIX_PERSON_TAG_LONG, PREFIX_PERSON_COURSE_LONG,
+            PREFIX_PERSON_EMAIL_LONG, PREFIX_PERSON_TAG_LONG, PREFIX_PERSON_COURSE_LONG,
             PREFIX_PERSON_GROUP_LONG);
 
         Index index;
@@ -52,7 +51,7 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_PERSON_ID_LONG, PREFIX_PERSON_NAME_LONG,
-            PREFIX_PERSON_PHONE_LONG, PREFIX_PERSON_EMAIL_LONG, PREFIX_PERSON_COURSE_LONG, PREFIX_PERSON_GROUP_LONG);
+            PREFIX_PERSON_EMAIL_LONG, PREFIX_PERSON_COURSE_LONG, PREFIX_PERSON_GROUP_LONG);
 
         EditPersonDescriptor editPersonDescriptor = new EditPersonDescriptor();
 
@@ -62,10 +61,6 @@ public class EditPersonCommandParser implements Parser<EditPersonCommand> {
         if (argMultimap.getValue(PREFIX_PERSON_NAME_LONG).isPresent()) {
             editPersonDescriptor.setName(
                 PersonParserUtil.parseName(argMultimap.getValue(PREFIX_PERSON_NAME_LONG).get()));
-        }
-        if (argMultimap.getValue(PREFIX_PERSON_PHONE_LONG).isPresent()) {
-            editPersonDescriptor.setPhone(
-                PersonParserUtil.parsePhone(argMultimap.getValue(PREFIX_PERSON_PHONE_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_PERSON_EMAIL_LONG).isPresent()) {
             editPersonDescriptor.setEmail(

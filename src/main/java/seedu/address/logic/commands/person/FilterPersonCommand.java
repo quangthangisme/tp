@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EM
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME_LONG;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG_LONG;
 
 import java.util.function.Predicate;
@@ -29,7 +28,7 @@ public class FilterPersonCommand extends FilterCommand<Person> {
     public static final String MESSAGE_USAGE = PERSON_COMMAND_WORD + " " + COMMAND_WORD + ": Filters persons based on"
         + "specified criteria and displays them as a list with index numbers.\n"
         + "Parameters: <col>/ [<op>:] <value(s)> [...]\n"
-        + "- <col>/ : Column to filter on (" + PREFIX_PERSON_NAME_LONG + ", " + PREFIX_PERSON_PHONE_LONG + ", "
+        + "- <col>/ : Column to filter on (" + PREFIX_PERSON_NAME_LONG + ", "
         + PREFIX_PERSON_EMAIL_LONG + ", " + PREFIX_PERSON_ID_LONG + ", " + PREFIX_PERSON_COURSE_LONG + ", "
         + PREFIX_PERSON_GROUP_LONG + ", " + PREFIX_PERSON_TAG_LONG + ")\n"
         + "- <op>: : Operator (and, or, nand, nor). Defaults to 'and' if not specified\n"

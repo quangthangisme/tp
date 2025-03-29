@@ -7,7 +7,6 @@ import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EM
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME_LONG;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG_LONG;
 
 import java.util.Collections;
@@ -28,7 +27,6 @@ import seedu.address.model.person.Group;
 import seedu.address.model.person.Id;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.person.Tag;
 
 /**
@@ -44,13 +42,11 @@ public class EditPersonCommand extends EditCommand<Person> {
         + "Parameters: INDEX (must be a positive integer) "
         + "[" + PREFIX_PERSON_ID_LONG + " ID] "
         + "[" + PREFIX_PERSON_NAME_LONG + " NAME] "
-        + "[" + PREFIX_PERSON_PHONE_LONG + " PHONE] "
         + "[" + PREFIX_PERSON_EMAIL_LONG + " EMAIL] "
         + "[" + PREFIX_PERSON_COURSE_LONG + " COURSE] "
         + "[" + PREFIX_PERSON_GROUP_LONG + " GROUP] "
         + "[" + PREFIX_PERSON_TAG_LONG + " TAG]...\n"
         + "Example: " + PERSON_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-        + PREFIX_PERSON_PHONE_LONG + " 91234567 "
         + PREFIX_PERSON_EMAIL_LONG + " johndoe@example.com";
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
@@ -79,13 +75,12 @@ public class EditPersonCommand extends EditCommand<Person> {
 
         Id updatedId = editPersonDescriptor.getId().orElse(personToEdit.getId());
         Name updatedName = editPersonDescriptor.getName().orElse(personToEdit.getName());
-        Phone updatedPhone = editPersonDescriptor.getPhone().orElse(personToEdit.getPhone());
         Email updatedEmail = editPersonDescriptor.getEmail().orElse(personToEdit.getEmail());
         Course updatedCourse = editPersonDescriptor.getCourse().orElse(personToEdit.getCourse());
         Group updatedGroup = editPersonDescriptor.getGroup().orElse(personToEdit.getGroup());
         Set<Tag> updatedTags = editPersonDescriptor.getTags().orElse(personToEdit.getTags());
 
-        return new Person(updatedId, updatedName, updatedPhone, updatedEmail, updatedCourse,
+        return new Person(updatedId, updatedName, updatedEmail, updatedCourse,
             updatedGroup, updatedTags);
     }
 
@@ -134,7 +129,6 @@ public class EditPersonCommand extends EditCommand<Person> {
     public static class EditPersonDescriptor {
         private Id id;
         private Name name;
-        private Phone phone;
         private Email email;
         private Course course;
         private Group group;
@@ -149,7 +143,6 @@ public class EditPersonCommand extends EditCommand<Person> {
         public EditPersonDescriptor(EditPersonDescriptor toCopy) {
             setId(toCopy.id);
             setName(toCopy.name);
-            setPhone(toCopy.phone);
             setEmail(toCopy.email);
             setTags(toCopy.tags);
             setCourse(toCopy.course);
@@ -160,7 +153,7 @@ public class EditPersonCommand extends EditCommand<Person> {
          * Returns true if at least one field is edited.
          */
         public boolean isAnyFieldEdited() {
-            return CollectionUtil.isAnyNonNull(id, name, phone, email, tags, course, group);
+            return CollectionUtil.isAnyNonNull(id, name, email, tags, course, group);
         }
 
         public Optional<Id> getId() {
@@ -177,14 +170,6 @@ public class EditPersonCommand extends EditCommand<Person> {
 
         public void setName(Name name) {
             this.name = name;
-        }
-
-        public Optional<Phone> getPhone() {
-            return Optional.ofNullable(phone);
-        }
-
-        public void setPhone(Phone phone) {
-            this.phone = phone;
         }
 
         public Optional<Email> getEmail() {
@@ -241,7 +226,6 @@ public class EditPersonCommand extends EditCommand<Person> {
 
             return Objects.equals(id, otherEditPersonDescriptor.id)
                 && Objects.equals(name, otherEditPersonDescriptor.name)
-                && Objects.equals(phone, otherEditPersonDescriptor.phone)
                 && Objects.equals(email, otherEditPersonDescriptor.email)
                 && Objects.equals(course, otherEditPersonDescriptor.course)
                 && Objects.equals(group, otherEditPersonDescriptor.group)
@@ -253,7 +237,6 @@ public class EditPersonCommand extends EditCommand<Person> {
             return new ToStringBuilder(this)
                 .add("id", id)
                 .add("name", name)
-                .add("phone", phone)
                 .add("email", email)
                 .add("course", course)
                 .add("group", group)

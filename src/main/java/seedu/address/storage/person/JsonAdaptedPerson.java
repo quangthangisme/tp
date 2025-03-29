@@ -16,7 +16,6 @@ import seedu.address.model.person.Group;
 import seedu.address.model.person.Id;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.person.Tag;
 
 /**
@@ -28,7 +27,6 @@ public class JsonAdaptedPerson {
 
     private final String id;
     private final String name;
-    private final String phone;
     private final String email;
     private final String module;
     private final String group;
@@ -40,13 +38,12 @@ public class JsonAdaptedPerson {
     @JsonCreator
     public JsonAdaptedPerson(
         @JsonProperty("id") String id,
-        @JsonProperty("name") String name, @JsonProperty("phone") String phone,
+        @JsonProperty("name") String name,
         @JsonProperty("email") String email, @JsonProperty("course") String module,
         @JsonProperty("group") String group,
         @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.id = id;
         this.name = name;
-        this.phone = phone;
         this.email = email;
         this.module = module;
         this.group = group;
@@ -61,7 +58,6 @@ public class JsonAdaptedPerson {
     public JsonAdaptedPerson(Person source) {
         id = source.getId().fullId;
         name = source.getName().fullName;
-        phone = source.getPhone().value;
         email = source.getEmail().value;
         module = source.getCourse().fullModule;
         group = source.getGroup().fullGroup;
@@ -94,14 +90,6 @@ public class JsonAdaptedPerson {
         }
         final Name modelName = new Name(name);
 
-        if (phone == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Phone.class.getSimpleName()));
-        }
-        if (!Phone.isValidPhone(phone)) {
-            throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-        }
-        final Phone modelPhone = new Phone(phone);
-
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
         }
@@ -127,7 +115,7 @@ public class JsonAdaptedPerson {
         final Group modelGroup = new Group(group);
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
-        return new Person(modelId, modelName, modelPhone, modelEmail, modelCourse, modelGroup,
+        return new Person(modelId, modelName, modelEmail, modelCourse, modelGroup,
             modelTags);
     }
 
