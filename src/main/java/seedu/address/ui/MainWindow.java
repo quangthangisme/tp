@@ -17,7 +17,7 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.read.ListContactCommand;
 import seedu.address.logic.commands.read.ListEventCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.todo.ListTodoCommand;
+import seedu.address.logic.commands.read.ListTodoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**

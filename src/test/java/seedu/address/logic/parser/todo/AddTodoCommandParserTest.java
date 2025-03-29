@@ -25,7 +25,7 @@ import static seedu.address.testutil.TypicalTodos.GRADING;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.todo.AddTodoCommand;
+import seedu.address.logic.commands.create.AddTodoCommand;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoDeadline;
 import seedu.address.model.todo.TodoName;

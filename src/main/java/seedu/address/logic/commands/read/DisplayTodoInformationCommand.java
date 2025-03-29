@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.todo;
+package seedu.address.logic.commands.read;
 
 import static seedu.address.logic.TodoMessages.MESSAGE_INVALID_TODO_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.read.DisplayInformationCommand;
 import seedu.address.model.Model;
 import seedu.address.model.todo.Todo;
 

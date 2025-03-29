@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
 
-import seedu.address.logic.commands.todo.AddTodoCommand;
+import seedu.address.logic.commands.create.AddTodoCommand;
 import seedu.address.model.todo.Todo;
 
 /**

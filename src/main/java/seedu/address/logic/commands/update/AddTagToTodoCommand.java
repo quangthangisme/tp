@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.todo;
+package seedu.address.logic.commands.update;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
@@ -10,32 +10,31 @@ import java.util.Set;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.TodoMessages;
-import seedu.address.logic.commands.update.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Tag;
 import seedu.address.model.todo.Todo;
 
 /**
- * Remove a tag from a specified todo
+ * Adds a tag to a specified todo
  */
-public class RemoveTagFromTodoCommand extends EditCommand<Todo> {
-    public static final String COMMAND_WORD = "untag";
+public class AddTagToTodoCommand extends EditCommand<Todo> {
+    public static final String COMMAND_WORD = "tag";
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
-            + ": Removes a tag from a specified todo.\n"
+            + ": Adds a tag to a specified todo.\n"
             + "Parameters: INDEX "
             + PREFIX_TODO_TAG_LONG + " <tag>\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_TODO_TAG_LONG + " important ";
-    public static final String MESSAGE_REMOVE_TAG_SUCCESS = "Removed tag from todo: %1$s";
-    public static final String MESSAGE_NO_TAG_PRESENT = "The tag is already removed from this todo.";
+    public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag to todo: %1$s";
+    public static final String MESSAGE_DUPLICATE_TAGS = "The tag are already assigned to this todo";
 
     private final Tag tag;
 
     /**
-     * Creates a RemoveTagFromTodoCommand to remove tags from a todo at a specified index.
+     * Creates a AddTagToTodoCommand to add tags to a todo at a specific index.
      */
-    public RemoveTagFromTodoCommand(Index index, Tag tag) {
+    public AddTagToTodoCommand(Index index, Tag tag) {
         super(index, Model::getTodoManagerAndList);
         requireNonNull(tag);
         this.tag = tag;
@@ -43,11 +42,11 @@ public class RemoveTagFromTodoCommand extends EditCommand<Todo> {
 
     @Override
     public Todo createEditedItem(Model model, Todo todoToEdit) throws CommandException {
-        if (!todoToEdit.getTags().contains(tag)) {
-            throw new CommandException(String.format(MESSAGE_NO_TAG_PRESENT));
+        if (todoToEdit.getTags().contains(tag)) {
+            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS));
         }
         Set<Tag> newTags = new HashSet<>(todoToEdit.getTags());
-        newTags.remove(this.tag);
+        newTags.add(this.tag);
         return new Todo(
                 todoToEdit.getName(),
                 todoToEdit.getDeadline(),
@@ -70,6 +69,6 @@ public class RemoveTagFromTodoCommand extends EditCommand<Todo> {
 
     @Override
     public String getSuccessMessage(Todo editedItem) {
-        return String.format(MESSAGE_REMOVE_TAG_SUCCESS, Messages.format(editedItem));
+        return String.format(MESSAGE_ADD_TAG_SUCCESS, Messages.format(editedItem));
     }
 }

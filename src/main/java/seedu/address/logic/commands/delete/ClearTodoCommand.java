@@ -1,9 +1,8 @@
 
-package seedu.address.logic.commands.todo;
+package seedu.address.logic.commands.delete;
 
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
-import seedu.address.logic.commands.delete.ClearCommand;
 import seedu.address.model.Model;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManager;

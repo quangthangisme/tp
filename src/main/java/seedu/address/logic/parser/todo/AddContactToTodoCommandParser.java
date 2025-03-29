@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_C
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.todo.AddContactToTodoCommand;
+import seedu.address.logic.commands.update.AddContactToTodoCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;

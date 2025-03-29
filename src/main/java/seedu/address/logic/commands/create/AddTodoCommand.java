@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.todo;
+package seedu.address.logic.commands.create;
 
 import static seedu.address.logic.TodoMessages.MESSAGE_DUPLICATE_TODO;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LON
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.create.AddCommand;
 import seedu.address.model.Model;
 import seedu.address.model.todo.Todo;
 

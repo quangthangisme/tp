@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.todo;
+package seedu.address.logic.commands.update;
 
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
@@ -6,26 +6,26 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.TodoMessages;
-import seedu.address.logic.commands.update.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoStatus;
 
 /**
- * Mark a todo as done.
+ * Mark a todo as not done.
  */
-public class MarkTodoAsDoneCommand extends EditCommand<Todo> {
+public class MarkTodoAsNotDoneCommand extends EditCommand<Todo> {
 
-    public static final String COMMAND_WORD = "mark";
+    public static final String COMMAND_WORD = "unmark";
 
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
-            + ": Mark a todo as done.\n"
+            + ": Mark a todo as not done.\n"
             + "Parameters: INDEX\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 ";
 
-    public static final String MESSAGE_TODO_ALREADY_DONE = "This todo is already marked as done";
-    public static final String MESSAGE_TODO_MARKED_DONE = "Marked as done: %1$s";
+    public static final String MESSAGE_TODO_ALREADY_NOT_DONE =
+            "This todo is already marked as not done";
+    public static final String MESSAGE_TODO_MARKED_NOT_DONE = "Marked as not done: %1$s";
 
     /**
      * Creates an {@code MarkTodoAsDoneCommand} to mark a todo as done at the specified {@code
@@ -33,21 +33,21 @@ public class MarkTodoAsDoneCommand extends EditCommand<Todo> {
      *
      * @throws NullPointerException if {@code index} is {@code null}.
      */
-    public MarkTodoAsDoneCommand(Index index) {
+    public MarkTodoAsNotDoneCommand(Index index) {
         super(index, Model::getTodoManagerAndList);
     }
 
     @Override
     public Todo createEditedItem(Model model, Todo todoToEdit) throws CommandException {
-        if (todoToEdit.getStatus().isDone()) {
-            throw new CommandException(MESSAGE_TODO_ALREADY_DONE);
+        if (!todoToEdit.getStatus().isDone()) {
+            throw new CommandException(MESSAGE_TODO_ALREADY_NOT_DONE);
         }
 
         return new Todo(
                 todoToEdit.getName(),
                 todoToEdit.getDeadline(),
                 todoToEdit.getLocation(),
-                new TodoStatus(true),
+                new TodoStatus(false),
                 todoToEdit.getContacts(),
                 todoToEdit.getTags()
         );
@@ -65,7 +65,7 @@ public class MarkTodoAsDoneCommand extends EditCommand<Todo> {
 
     @Override
     public String getSuccessMessage(Todo todo) {
-        return String.format(MESSAGE_TODO_MARKED_DONE, Messages.format(todo));
+        return String.format(MESSAGE_TODO_MARKED_NOT_DONE, Messages.format(todo));
     }
 
     @Override
@@ -75,7 +75,7 @@ public class MarkTodoAsDoneCommand extends EditCommand<Todo> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof MarkTodoAsDoneCommand otherCommand)) {
+        if (!(other instanceof MarkTodoAsNotDoneCommand otherCommand)) {
             return false;
         }
 

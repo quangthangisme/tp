@@ -7,12 +7,12 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.todo.AddTodoCommand;
-import seedu.address.logic.commands.todo.DeleteTodoCommand;
-import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
-import seedu.address.logic.commands.todo.ListTodoCommand;
-import seedu.address.logic.commands.todo.MarkTodoAsDoneCommand;
-import seedu.address.logic.commands.todo.MarkTodoAsNotDoneCommand;
+import seedu.address.logic.commands.create.AddTodoCommand;
+import seedu.address.logic.commands.delete.DeleteTodoCommand;
+import seedu.address.logic.commands.read.DisplayTodoInformationCommand;
+import seedu.address.logic.commands.read.ListTodoCommand;
+import seedu.address.logic.commands.update.MarkTodoAsDoneCommand;
+import seedu.address.logic.commands.update.MarkTodoAsNotDoneCommand;
 import seedu.address.logic.parser.ParserImpl;
 import seedu.address.model.todo.Todo;
 import seedu.address.testutil.TodoBuilder;
