@@ -21,11 +21,11 @@ import seedu.address.commons.core.Operator;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.contact.ContactPredicate;
-import seedu.address.model.event.EventManagerWithFilteredList;
-import seedu.address.model.contact.FilterCriteria;
 import seedu.address.model.contact.ContactColumn;
 import seedu.address.model.contact.ContactManagerWithFilteredList;
+import seedu.address.model.contact.ContactPredicate;
+import seedu.address.model.contact.FilterCriteria;
+import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 
 /**

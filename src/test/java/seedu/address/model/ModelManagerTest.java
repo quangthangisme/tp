@@ -16,9 +16,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.contact.ContactManager;
-import seedu.address.model.event.EventManagerWithFilteredList;
-import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.model.contact.ContactManagerWithFilteredList;
+import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.testutil.AddressBookBuilder;
 

@@ -6,9 +6,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
+import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import org.junit.jupiter.api.Test;
 
@@ -17,11 +17,11 @@ import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
+import seedu.address.model.contact.ContactManagerWithFilteredList;
 import seedu.address.model.event.EventManager;
 import seedu.address.model.event.EventManagerWithFilteredList;
-import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.ContactManagerWithFilteredList;
 import seedu.address.model.todo.TodoManager;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 

@@ -18,9 +18,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Operator;
 import seedu.address.logic.commands.contact.FilterContactCommand;
+import seedu.address.model.contact.ContactColumn;
 import seedu.address.model.contact.ContactPredicate;
 import seedu.address.model.contact.FilterCriteria;
-import seedu.address.model.contact.ContactColumn;
 
 public class FilterContactCommandParserTest {
 

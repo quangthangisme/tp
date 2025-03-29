@@ -2,8 +2,8 @@ package seedu.address.logic.commands.contact;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
-import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,8 +11,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.contact.ContactManagerWithFilteredList;
+import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 
 /**

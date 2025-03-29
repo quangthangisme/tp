@@ -1,16 +1,16 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.contact.AddContactCommand;
+import seedu.address.logic.commands.event.AddEventCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;

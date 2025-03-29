@@ -15,9 +15,9 @@ import seedu.address.logic.commands.contact.EditContactCommand.EditContactDescri
 import seedu.address.logic.commands.contact.ListContactCommand;
 import seedu.address.logic.parser.ParserImpl;
 import seedu.address.model.contact.Contact;
-import seedu.address.testutil.EditContactDescriptorBuilder;
 import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.ContactUtil;
+import seedu.address.testutil.EditContactDescriptorBuilder;
 
 public class ContactParserTest {
 

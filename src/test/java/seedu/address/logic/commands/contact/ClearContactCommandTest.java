@@ -8,9 +8,9 @@ import org.junit.jupiter.api.Test;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.contact.ContactManager;
 import seedu.address.model.contact.ContactManagerWithFilteredList;
+import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 
 public class ClearContactCommandTest {

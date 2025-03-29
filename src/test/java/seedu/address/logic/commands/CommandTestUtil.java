@@ -18,8 +18,8 @@ import seedu.address.logic.commands.contact.EditContactCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.model.contact.ContactManager;
+import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 
 /**
