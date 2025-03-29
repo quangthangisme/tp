@@ -27,7 +27,7 @@ public class AddPersonToEventCommand extends EditCommand<Event> {
             + ": Associate an event with some contacts.\n"
             + "Parameters: INDEX "
             + PREFIX_EVENT_LINKED_PERSON_LONG + " [PERSON_INDEX]...\n"
-            + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + "1 "
+            + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_EVENT_LINKED_PERSON_LONG + " 1 3 4";
     public static final String MESSAGE_ADD_PERSON_SUCCESS = "Added persons to event: %1$s";
     public static final String MESSAGE_DUPLICATE_PERSON = "Person %1$s is already assigned to this event.";

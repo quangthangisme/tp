@@ -30,7 +30,7 @@ public class AddPersonCommand extends AddCommand<Person> {
         + PREFIX_PERSON_EMAIL_LONG + " EMAIL "
         + PREFIX_PERSON_COURSE_LONG + " COURSE "
         + PREFIX_PERSON_GROUP_LONG + " GROUP "
-        + "[" + PREFIX_PERSON_TAG_LONG + "TAG]...\n"
+        + "[" + PREFIX_PERSON_TAG_LONG + " TAG]...\n"
         + "Example: " + PERSON_COMMAND_WORD + " " + COMMAND_WORD + " "
         + PREFIX_PERSON_ID_LONG + " A1234567A "
         + PREFIX_PERSON_NAME_LONG + " John Doe "
