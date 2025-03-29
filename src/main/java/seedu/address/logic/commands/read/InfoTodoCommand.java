@@ -12,7 +12,7 @@ import seedu.address.model.todo.Todo;
 /**
  * Displays a todo's information identified using its displayed index.
  */
-public class DisplayTodoInformationCommand extends DisplayInformationCommand<Todo> {
+public class InfoTodoCommand extends InfoCommand<Todo> {
 
     public static final String COMMAND_WORD = "info";
 
@@ -25,12 +25,12 @@ public class DisplayTodoInformationCommand extends DisplayInformationCommand<Tod
     public static final String MESSAGE_DISPLAY_INFO = "%1$s";
 
     /**
-     * Creates a {@code DisplayTodoInformationCommand} to display information of the {@code Todo} at
+     * Creates a {@code InfoTodoCommand} to display information of the {@code Todo} at
      * the specified {@code index}.
      *
      * @throws NullPointerException if {@code index} is {@code null}.
      */
-    public DisplayTodoInformationCommand(Index index) {
+    public InfoTodoCommand(Index index) {
         super(index, Model::getTodoManagerAndList);
     }
 
@@ -51,7 +51,7 @@ public class DisplayTodoInformationCommand extends DisplayInformationCommand<Tod
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DisplayTodoInformationCommand otherCommand)) {
+        if (!(other instanceof InfoTodoCommand otherCommand)) {
             return false;
         }
 

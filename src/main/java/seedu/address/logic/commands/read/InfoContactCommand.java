@@ -13,7 +13,7 @@ import seedu.address.model.contact.Contact;
  * Finds and lists all contacts in address book whose name contains any of the argument keywords.
  * Keyword matching is case-insensitive.
  */
-public class InfoContactCommand extends DisplayInformationCommand<Contact> {
+public class InfoContactCommand extends InfoCommand<Contact> {
 
     public static final String COMMAND_WORD = "info";
 

@@ -10,7 +10,7 @@ import seedu.address.model.event.Event;
 /**
  * Displays an event's information identified using its displayed index.
  */
-public class DisplayEventInformationCommand extends DisplayInformationCommand<Event> {
+public class InfoEventCommand extends InfoCommand<Event> {
 
     public static final String COMMAND_WORD = "info";
 
@@ -25,11 +25,11 @@ public class DisplayEventInformationCommand extends DisplayInformationCommand<Ev
     public static final String MESSAGE_DISPLAY_INFO = "%1$s";
 
     /**
-     * Creates a {@code DisplayEventInformationCommand} to display information of the {@code Event} at
+     * Creates a {@code InfoEventCommand} to display information of the {@code Event} at
      * the specified {@code index}.
      * @throws NullPointerException if {@code index} is {@code null}.
      */
-    public DisplayEventInformationCommand(Index index) {
+    public InfoEventCommand(Index index) {
         super(index, Model::getEventManagerAndList);
     }
 

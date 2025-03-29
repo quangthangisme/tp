@@ -12,6 +12,7 @@ import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.create.AddContactCommand;
+import seedu.address.logic.commands.read.InfoEventCommand;
 import seedu.address.logic.commands.update.AddTagToContactCommand;
 import seedu.address.logic.commands.delete.ClearContactCommand;
 import seedu.address.logic.commands.delete.DeleteContactCommand;
@@ -26,7 +27,6 @@ import seedu.address.logic.commands.create.AddEventCommand;
 import seedu.address.logic.commands.update.AddTagToEventCommand;
 import seedu.address.logic.commands.delete.ClearEventCommand;
 import seedu.address.logic.commands.delete.DeleteEventCommand;
-import seedu.address.logic.commands.read.DisplayEventInformationCommand;
 import seedu.address.logic.commands.read.FilterEventCommand;
 import seedu.address.logic.commands.read.ListEventCommand;
 import seedu.address.logic.commands.update.RemoveContactFromEventCommand;
@@ -37,7 +37,7 @@ import seedu.address.logic.commands.update.AddTagToTodoCommand;
 import seedu.address.logic.commands.create.AddTodoCommand;
 import seedu.address.logic.commands.delete.ClearTodoCommand;
 import seedu.address.logic.commands.delete.DeleteTodoCommand;
-import seedu.address.logic.commands.read.DisplayTodoInformationCommand;
+import seedu.address.logic.commands.read.InfoTodoCommand;
 import seedu.address.logic.commands.read.FilterTodoCommand;
 import seedu.address.logic.commands.read.ListTodoCommand;
 import seedu.address.logic.commands.update.MarkTodoAsDoneCommand;
@@ -79,7 +79,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         + ": Manages your todos. Supported subcommands:\n"
         + AddTodoCommand.COMMAND_WORD + ", "
         + DeleteTodoCommand.COMMAND_WORD + ", "
-        + DisplayTodoInformationCommand.COMMAND_WORD + ", "
+        + InfoTodoCommand.COMMAND_WORD + ", "
         + ListTodoCommand.COMMAND_WORD + ", "
         + AddContactToTodoCommand.COMMAND_WORD + ", "
         + RemoveContactFromTodoCommand.COMMAND_WORD + ", "
@@ -94,7 +94,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
         + ": Manages your events. Supported subcommands:\n"
         + AddEventCommand.COMMAND_WORD + ", "
         + DeleteEventCommand.COMMAND_WORD + ", "
-        + DisplayEventInformationCommand.COMMAND_WORD + ", "
+        + InfoEventCommand.COMMAND_WORD + ", "
         + ListEventCommand.COMMAND_WORD + ", "
         + FilterEventCommand.COMMAND_WORD + ", "
         + AddContactToEventCommand.COMMAND_WORD + ", "
@@ -197,8 +197,8 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(AddTodoCommand.MESSAGE_USAGE);
         case DeleteTodoCommand.COMMAND_WORD:
             return new HelpCommand(DeleteTodoCommand.MESSAGE_USAGE);
-        case DisplayTodoInformationCommand.COMMAND_WORD:
-            return new HelpCommand(DisplayTodoInformationCommand.MESSAGE_USAGE);
+        case InfoTodoCommand.COMMAND_WORD:
+            return new HelpCommand(InfoTodoCommand.MESSAGE_USAGE);
         case ListTodoCommand.COMMAND_WORD:
             return new HelpCommand(ListTodoCommand.MESSAGE_USAGE);
         case AddContactToTodoCommand.COMMAND_WORD:
@@ -233,8 +233,8 @@ public class HelpCommandParser implements Parser<HelpCommand> {
             return new HelpCommand(AddEventCommand.MESSAGE_USAGE);
         case DeleteEventCommand.COMMAND_WORD:
             return new HelpCommand(DeleteEventCommand.MESSAGE_USAGE);
-        case DisplayEventInformationCommand.COMMAND_WORD:
-            return new HelpCommand(DisplayEventInformationCommand.MESSAGE_USAGE);
+        case InfoEventCommand.COMMAND_WORD:
+            return new HelpCommand(InfoEventCommand.MESSAGE_USAGE);
         case ListEventCommand.COMMAND_WORD:
             return new HelpCommand(ListEventCommand.MESSAGE_USAGE);
         case AddContactToEventCommand.COMMAND_WORD:

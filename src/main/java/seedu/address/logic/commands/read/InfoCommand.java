@@ -20,17 +20,17 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
  * @param <T> the type of {@code Item} whose information is being displayed, which must extend
  *            {@link Item}.
  */
-public abstract class DisplayInformationCommand<T extends Item> extends ItemCommand<T> {
+public abstract class InfoCommand<T extends Item> extends ItemCommand<T> {
     protected final Index index;
 
     /**
-     * Creates a {@code DisplayInformationCommand} to display information of the {@code Item} at the
+     * Creates a {@code InfoCommand} to display information of the {@code Item} at the
      * specified {@code index}.
      *
      * @throws NullPointerException if {@code index} or {@code managerAndListGetter} is
      *                              {@code null}.
      */
-    public DisplayInformationCommand(Index index, Function<Model,
+    public InfoCommand(Index index, Function<Model,
             ItemManagerWithFilteredList<T>> managerAndListGetter) {
         super(managerAndListGetter);
         requireNonNull(index);
