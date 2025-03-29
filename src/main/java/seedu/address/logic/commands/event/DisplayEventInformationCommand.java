@@ -4,7 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.abstractcommand.DisplayInformationCommand;
+import seedu.address.logic.commands.read.DisplayInformationCommand;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 

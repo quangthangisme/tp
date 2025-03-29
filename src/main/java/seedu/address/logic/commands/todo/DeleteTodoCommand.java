@@ -6,7 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.abstractcommand.DeleteCommand;
+import seedu.address.logic.commands.delete.DeleteCommand;
 import seedu.address.model.Model;
 import seedu.address.model.todo.Todo;
 

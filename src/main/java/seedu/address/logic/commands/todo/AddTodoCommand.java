@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LON
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.abstractcommand.AddCommand;
+import seedu.address.logic.commands.create.AddCommand;
 import seedu.address.model.Model;
 import seedu.address.model.todo.Todo;
 

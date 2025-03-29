@@ -1,4 +1,4 @@
-package seedu.address.logic.abstractcommand;
+package seedu.address.logic.commands.update;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.function.Function;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.ItemCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;

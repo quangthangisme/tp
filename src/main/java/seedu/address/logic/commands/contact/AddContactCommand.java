@@ -10,7 +10,7 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.abstractcommand.AddCommand;
+import seedu.address.logic.commands.create.AddCommand;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 

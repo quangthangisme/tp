@@ -2,7 +2,7 @@ package seedu.address.logic.commands.todo;
 
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
-import seedu.address.logic.abstractcommand.ListCommand;
+import seedu.address.logic.commands.read.ListCommand;
 import seedu.address.model.Model;
 import seedu.address.model.todo.Todo;
 

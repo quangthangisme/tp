@@ -2,7 +2,7 @@ package seedu.address.logic.commands.event;
 
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 
-import seedu.address.logic.abstractcommand.ClearCommand;
+import seedu.address.logic.commands.delete.ClearCommand;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventManager;

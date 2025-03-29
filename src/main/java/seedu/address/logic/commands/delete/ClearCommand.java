@@ -1,10 +1,11 @@
-package seedu.address.logic.abstractcommand;
+package seedu.address.logic.commands.delete;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.function.Function;
 import java.util.function.Supplier;
 
+import seedu.address.logic.commands.ItemCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;

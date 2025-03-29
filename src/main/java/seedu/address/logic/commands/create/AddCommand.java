@@ -1,9 +1,10 @@
-package seedu.address.logic.abstractcommand;
+package seedu.address.logic.commands.create;
 
 import static java.util.Objects.requireNonNull;
 
 import java.util.function.Function;
 
+import seedu.address.logic.commands.ItemCommand;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;

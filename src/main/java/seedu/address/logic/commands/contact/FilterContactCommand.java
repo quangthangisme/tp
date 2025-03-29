@@ -12,7 +12,7 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.abstractcommand.FilterCommand;
+import seedu.address.logic.commands.read.FilterCommand;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactPredicate;

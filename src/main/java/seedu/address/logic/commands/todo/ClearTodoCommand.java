@@ -3,7 +3,7 @@ package seedu.address.logic.commands.todo;
 
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
-import seedu.address.logic.abstractcommand.ClearCommand;
+import seedu.address.logic.commands.delete.ClearCommand;
 import seedu.address.model.Model;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManager;
