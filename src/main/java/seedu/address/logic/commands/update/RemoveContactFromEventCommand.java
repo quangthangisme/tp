@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.event;
+package seedu.address.logic.commands.update;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
@@ -11,7 +11,6 @@ import java.util.List;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EventMessages;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.update.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;

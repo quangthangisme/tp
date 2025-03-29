@@ -8,7 +8,7 @@ import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EventMessages;
-import seedu.address.logic.commands.event.RemoveContactFromLogEventCommand;
+import seedu.address.logic.commands.update.RemoveContactFromLogEventCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;

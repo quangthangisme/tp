@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.event;
+package seedu.address.logic.commands.read;
 
 import static seedu.address.logic.EventMessages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
@@ -17,7 +17,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.read.FilterCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -113,7 +112,7 @@ public class FilterEventCommand extends FilterCommand<Event> {
         /**
          * Copy constructor. A defensive copy of {@code tags} is used internally.
          */
-        public EventPredicate(seedu.address.logic.commands.event.FilterEventCommand.EventPredicate toCopy) {
+        public EventPredicate(FilterEventCommand.EventPredicate toCopy) {
             setNamePredicate(toCopy.namePredicate);
             setStartTimePredicate(toCopy.startTimePredicate);
             setEndTimePredicate(toCopy.endTimePredicate);

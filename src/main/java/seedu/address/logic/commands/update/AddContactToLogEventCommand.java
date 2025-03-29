@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.event;
+package seedu.address.logic.commands.update;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
@@ -12,34 +12,33 @@ import java.util.stream.Collectors;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.EventMessages;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.update.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
 /**
- * Removes the log of the given contacts via index.
+ * Adds the log of given contacts via index.
  */
-public class RemoveContactFromLogEventCommand extends EditCommand<Event> {
-    public static final String COMMAND_WORD = "unlog";
+public class AddContactToLogEventCommand extends EditCommand<Event> {
+    public static final String COMMAND_WORD = "log";
 
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
-            + ": Remove the logs for some contacts with an event.\n"
-            + "Parameter: INDEX "
-            + PREFIX_EVENT_LINKED_CONTACT_LONG + " [CONTACT_INDEX] ...\n"
+            + ": Logs some contacts with an event.\n"
+            + "Parameters: INDEX "
+            + PREFIX_EVENT_LINKED_CONTACT_LONG + " [CONTACT_INDEX]...\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_EVENT_LINKED_CONTACT_LONG + " 1 2 3";
-    public static final String MESSAGE_REMOVE_LOG_CONTACT_SUCCESS = "Removed attendance from contact: %1$s";
-    public static final String MESSAGE_CONTACT_ALREADY_UNLOGGED =
-            "The contact at the following index(es) are already unlogged: %s";
+    public static final String MESSAGE_ADD_LOG_SUCCESS = "Added attendance from contacts to event: %1$s";
+    public static final String MESSAGE_CONTACT_ALREADY_LOGGED =
+            "The contact at the following index(es) are already logged: %s";
 
     private final List<Index> contactIndices;
 
     /**
-     * Creates a RemoveContactFromLogEventCommand to remove the log of the
-     * contacts at the specified {@code contactIndices}
+     * Creates a RemoveContactFromEventCommand to remove the contacts at the specific {@code
+     * contactIndices}.
      */
-    public RemoveContactFromLogEventCommand(Index index, List<Index> contactIndices) {
+    public AddContactToLogEventCommand(Index index, List<Index> contactIndices) {
         super(index, Model::getEventManagerAndList);
         requireNonNull(contactIndices);
         this.contactIndices = contactIndices;
@@ -55,10 +54,10 @@ public class RemoveContactFromLogEventCommand extends EditCommand<Event> {
         }
         List<Boolean> newMarkList = new ArrayList<>(eventToEdit.getMarkedList());
         List<Index> checkContactMarked = contactIndices.stream()
-                .filter(x -> !newMarkList.get(x.getZeroBased()))
+                .filter(x -> newMarkList.get(x.getZeroBased()))
                 .toList();
         if (!checkContactMarked.isEmpty()) {
-            throw new CommandException(String.format(MESSAGE_CONTACT_ALREADY_UNLOGGED,
+            throw new CommandException(String.format(MESSAGE_CONTACT_ALREADY_LOGGED,
                     checkContactMarked.stream()
                             .map(x -> String.valueOf(x.getOneBased()))
                             .collect(Collectors.joining(", ")))
@@ -67,7 +66,7 @@ public class RemoveContactFromLogEventCommand extends EditCommand<Event> {
         contactIndices.stream()
                 .map(Index::getZeroBased)
                 .sorted(Comparator.reverseOrder())
-                .forEach(index -> newMarkList.set(index, false));
+                .forEach(index -> newMarkList.set(index, true));
         return new Event(
                 eventToEdit.getName(),
                 eventToEdit.getStartTime(),
@@ -91,6 +90,6 @@ public class RemoveContactFromLogEventCommand extends EditCommand<Event> {
 
     @Override
     public String getSuccessMessage(Event editedItem) {
-        return String.format(MESSAGE_REMOVE_LOG_CONTACT_SUCCESS, Messages.format(editedItem));
+        return String.format(MESSAGE_ADD_LOG_SUCCESS, Messages.format(editedItem));
     }
 }

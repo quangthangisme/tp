@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.create.AddContactCommand;
-import seedu.address.logic.commands.event.AddEventCommand;
+import seedu.address.logic.commands.create.AddEventCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
