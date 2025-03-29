@@ -7,9 +7,9 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.item.ItemManager;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.todo.Todo;
 
 /**

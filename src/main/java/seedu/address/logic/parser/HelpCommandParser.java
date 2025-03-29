@@ -1,16 +1,17 @@
 package seedu.address.logic.parser;
 
 import static seedu.address.logic.parser.CliSyntax.BYE_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.EXIT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.HELP_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.KILL_COMMAND_WORD;
-import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.QUIT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.commands.contact.AddContactCommand;
 import seedu.address.logic.commands.contact.AddTagToContactCommand;
 import seedu.address.logic.commands.contact.ClearContactCommand;
 import seedu.address.logic.commands.contact.DeleteContactCommand;
@@ -31,7 +32,6 @@ import seedu.address.logic.commands.event.ListEventCommand;
 import seedu.address.logic.commands.event.RemoveContactFromEventCommand;
 import seedu.address.logic.commands.event.RemoveContactFromLogEventCommand;
 import seedu.address.logic.commands.event.RemoveTagFromEventCommand;
-import seedu.address.logic.commands.contact.AddContactCommand;
 import seedu.address.logic.commands.todo.AddContactToTodoCommand;
 import seedu.address.logic.commands.todo.AddTagToTodoCommand;
 import seedu.address.logic.commands.todo.AddTodoCommand;

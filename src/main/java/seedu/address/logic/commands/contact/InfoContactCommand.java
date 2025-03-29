@@ -19,9 +19,9 @@ public class InfoContactCommand extends DisplayInformationCommand<Contact> {
     public static final String COMMAND_WORD = "info";
 
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD + ": Displays the complete "
-            + "information belonging to the contact identified by the index number used in the displayed contact list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
-            + "Example: " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " 2";
+        + "information belonging to the contact identified by the index number used in the displayed contact list.\n"
+        + "Parameters: INDEX (must be a positive integer)\n"
+        + "Example: " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " 2";
 
     public InfoContactCommand(Index targetIndex) {
         super(targetIndex, Model::getContactManagerAndList);

@@ -14,9 +14,9 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.parser.ParserImpl;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.item.ItemManager;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.todo.Todo;
 import seedu.address.storage.Storage;
 

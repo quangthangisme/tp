@@ -11,8 +11,8 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.item.ItemManager;
 import seedu.address.model.todo.Todo;
-import seedu.address.storage.event.EventStorage;
 import seedu.address.storage.contact.ContactStorage;
+import seedu.address.storage.event.EventStorage;
 import seedu.address.storage.todo.TodoStorage;
 
 /**

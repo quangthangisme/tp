@@ -5,9 +5,9 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataLoadingException;
-import seedu.address.model.item.ItemManager;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
+import seedu.address.model.item.ItemManager;
 
 /**
  * Represents a storage for {@link ContactManager}.

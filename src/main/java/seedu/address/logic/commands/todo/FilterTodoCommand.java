@@ -22,10 +22,10 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.predicate.TodoContactPredicate;
 import seedu.address.model.todo.predicate.TodoDeadlinePredicate;
 import seedu.address.model.todo.predicate.TodoLocationPredicate;
 import seedu.address.model.todo.predicate.TodoNamePredicate;
-import seedu.address.model.todo.predicate.TodoContactPredicate;
 import seedu.address.model.todo.predicate.TodoStatusPredicate;
 
 /**

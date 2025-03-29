@@ -37,8 +37,8 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
      */
     public EditContactCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_NAME_LONG,
-            PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_TAG_LONG, PREFIX_CONTACT_COURSE_LONG,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_ID_LONG,
+            PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_TAG_LONG, PREFIX_CONTACT_COURSE_LONG,
             PREFIX_CONTACT_GROUP_LONG);
 
         Index index;
@@ -68,7 +68,7 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
         }
         if (argMultimap.getValue(PREFIX_CONTACT_COURSE_LONG).isPresent()) {
             editContactDescriptor.setCourse(ContactParserUtil
-                    .parseModule(argMultimap.getValue(PREFIX_CONTACT_COURSE_LONG).get()));
+                .parseModule(argMultimap.getValue(PREFIX_CONTACT_COURSE_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTACT_GROUP_LONG).isPresent()) {
             editContactDescriptor.setGroup(
@@ -95,7 +95,7 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
             return Optional.empty();
         }
         Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet()
-                : tags;
+            : tags;
         return Optional.of(ContactParserUtil.parseTags(tagSet));
     }
 

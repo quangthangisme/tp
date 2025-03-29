@@ -11,11 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Tag;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventDateTime;
 import seedu.address.model.event.EventLocation;
 import seedu.address.model.event.EventName;
-import seedu.address.model.contact.Tag;
 import seedu.address.storage.contact.JsonAdaptedContact;
 import seedu.address.storage.contact.JsonAdaptedTag;
 

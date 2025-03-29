@@ -9,10 +9,10 @@ import java.util.logging.Logger;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactManagerWithFilteredList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.item.ItemManagerWithFilteredList;
-import seedu.address.model.contact.ContactManagerWithFilteredList;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 

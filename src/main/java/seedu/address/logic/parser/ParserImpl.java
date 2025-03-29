@@ -3,11 +3,11 @@ package seedu.address.logic.parser;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.parser.CliSyntax.BYE_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.EXIT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.HELP_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.KILL_COMMAND_WORD;
-import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.QUIT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
@@ -19,9 +19,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
+import seedu.address.logic.parser.contact.ContactParser;
 import seedu.address.logic.parser.event.EventParser;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.logic.parser.contact.ContactParser;
 import seedu.address.logic.parser.todo.TodoParser;
 
 /**

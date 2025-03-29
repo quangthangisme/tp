@@ -35,15 +35,13 @@ public class AddContactCommandParser implements Parser<AddContactCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddContactCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_NAME_LONG,
-            PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_TAG_LONG, PREFIX_CONTACT_COURSE_LONG,
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_ID_LONG,
+            PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_TAG_LONG, PREFIX_CONTACT_COURSE_LONG,
             PREFIX_CONTACT_GROUP_LONG);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_NAME_LONG,
-            PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG)
-            || !argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(
-                String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddContactCommand.MESSAGE_USAGE));
+        if (!argMultimap.arePrefixesPresent(PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG,
+            PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG) || !argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddContactCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_NAME_LONG,

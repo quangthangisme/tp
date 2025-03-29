@@ -1,7 +1,7 @@
 package seedu.address.logic.commands;
 
-import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import seedu.address.logic.commands.exceptions.CommandException;
