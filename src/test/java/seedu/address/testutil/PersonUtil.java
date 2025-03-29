@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_EM
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_GROUP_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_ID_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_NAME_LONG;
-import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_PHONE_LONG;
 import static seedu.address.logic.parser.person.PersonCliSyntax.PREFIX_PERSON_TAG_LONG;
 
 import java.util.Set;
@@ -35,7 +34,6 @@ public class PersonUtil {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_PERSON_ID_LONG).append(person.getId().fullId).append(" ")
                 .append(PREFIX_PERSON_NAME_LONG).append(person.getName().fullName).append(" ")
-                .append(PREFIX_PERSON_PHONE_LONG).append(person.getPhone().value).append(" ")
                 .append(PREFIX_PERSON_EMAIL_LONG).append(person.getEmail().value).append(" ")
                 .append(PREFIX_PERSON_COURSE_LONG).append(person.getCourse().fullModule).append(" ")
                 .append(PREFIX_PERSON_GROUP_LONG).append(person.getGroup().fullGroup).append(" ");
@@ -52,7 +50,6 @@ public class PersonUtil {
         StringBuilder sb = new StringBuilder();
         descriptor.getId().ifPresent(id -> sb.append(PREFIX_PERSON_ID_LONG).append(id.fullId).append(" "));
         descriptor.getName().ifPresent(name -> sb.append(PREFIX_PERSON_NAME_LONG).append(name.fullName).append(" "));
-        descriptor.getPhone().ifPresent(phone -> sb.append(PREFIX_PERSON_PHONE_LONG).append(phone.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_PERSON_EMAIL_LONG).append(email.value).append(" "));
         descriptor.getCourse().ifPresent(course -> sb.append(PREFIX_PERSON_COURSE_LONG).append(course.fullModule)
             .append(" "));

@@ -9,7 +9,6 @@ import seedu.address.model.person.Group;
 import seedu.address.model.person.Id;
 import seedu.address.model.person.Name;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.Phone;
 import seedu.address.model.person.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
@@ -20,14 +19,12 @@ public class PersonBuilder {
 
     public static final String DEFAULT_ID = "A01234567";
     public static final String DEFAULT_NAME = "Amy Bee";
-    public static final String DEFAULT_PHONE = "85355255";
     public static final String DEFAULT_EMAIL = "amy@gmail.com";
     public static final String DEFAULT_COURSE = "CS50";
     public static final String DEFAULT_GROUP = "T24";
 
     private Id id;
     private Name name;
-    private Phone phone;
     private Email email;
     private Course course;
     private Group group;
@@ -39,7 +36,6 @@ public class PersonBuilder {
     public PersonBuilder() {
         id = new Id(DEFAULT_ID);
         name = new Name(DEFAULT_NAME);
-        phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         course = new Course(DEFAULT_COURSE);
         group = new Group(DEFAULT_GROUP);
@@ -52,7 +48,6 @@ public class PersonBuilder {
     public PersonBuilder(Person personToCopy) {
         id = personToCopy.getId();
         name = personToCopy.getName();
-        phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         course = personToCopy.getCourse();
         group = personToCopy.getGroup();
@@ -72,14 +67,6 @@ public class PersonBuilder {
      */
     public PersonBuilder withTags(String ... tags) {
         this.tags = SampleDataUtil.getTagSet(tags);
-        return this;
-    }
-
-    /**
-     * Sets the {@code Phone} of the {@code Person} that we are building.
-     */
-    public PersonBuilder withPhone(String phone) {
-        this.phone = new Phone(phone);
         return this;
     }
 
@@ -116,7 +103,7 @@ public class PersonBuilder {
     }
 
     public Person build() {
-        return new Person(id, name, phone, email, course, group, tags);
+        return new Person(id, name, email, course, group, tags);
     }
 
 }

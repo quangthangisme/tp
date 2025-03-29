@@ -133,13 +133,6 @@ public class PersonPredicateTest {
         PersonPredicate predicate = new PersonPredicate(predicateMap);
         assertTrue(predicate.test(ALICE));
 
-        // Test PHONE field
-        predicateMap.clear();
-        predicateMap.put(PersonColumn.PHONE, new FilterCriteria(Operator.AND,
-                Collections.singletonList(ALICE.getPhone().value)));
-        predicate = new PersonPredicate(predicateMap);
-        assertTrue(predicate.test(ALICE));
-
         // Test TAG field
         predicateMap.clear();
         String tag = ALICE.getTags().stream().findFirst().get().tagName;
