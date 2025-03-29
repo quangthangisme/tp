@@ -7,12 +7,12 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.contact.AddContactCommand;
-import seedu.address.logic.commands.contact.ClearContactCommand;
-import seedu.address.logic.commands.contact.DeleteContactCommand;
-import seedu.address.logic.commands.contact.EditContactCommand;
-import seedu.address.logic.commands.contact.EditContactCommand.EditContactDescriptor;
-import seedu.address.logic.commands.contact.ListContactCommand;
+import seedu.address.logic.commands.create.AddContactCommand;
+import seedu.address.logic.commands.delete.ClearContactCommand;
+import seedu.address.logic.commands.delete.DeleteContactCommand;
+import seedu.address.logic.commands.update.EditContactCommand;
+import seedu.address.logic.commands.update.EditContactCommand.EditContactDescriptor;
+import seedu.address.logic.commands.read.ListContactCommand;
 import seedu.address.logic.parser.ParserImpl;
 import seedu.address.model.contact.Contact;
 import seedu.address.testutil.ContactBuilder;

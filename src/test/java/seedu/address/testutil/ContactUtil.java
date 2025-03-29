@@ -10,8 +10,8 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 
 import java.util.Set;
 
-import seedu.address.logic.commands.contact.AddContactCommand;
-import seedu.address.logic.commands.contact.EditContactCommand.EditContactDescriptor;
+import seedu.address.logic.commands.create.AddContactCommand;
+import seedu.address.logic.commands.update.EditContactCommand.EditContactDescriptor;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Tag;
 

@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.contact;
+package seedu.address.logic.commands.create;
 
 import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_COURSE_LONG;
@@ -10,7 +10,6 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.create.AddCommand;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 

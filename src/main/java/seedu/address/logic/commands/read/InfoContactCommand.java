@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.contact;
+package seedu.address.logic.commands.read;
 
 import static seedu.address.logic.Messages.MESSAGE_DISPLAY_SPECIFIC_CONTACT_INFO;
 import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.read.DisplayInformationCommand;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 

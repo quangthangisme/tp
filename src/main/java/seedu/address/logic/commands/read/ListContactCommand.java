@@ -1,8 +1,7 @@
-package seedu.address.logic.commands.contact;
+package seedu.address.logic.commands.read;
 
 import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 
-import seedu.address.logic.commands.read.ListCommand;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 

@@ -1,8 +1,7 @@
-package seedu.address.logic.commands.contact;
+package seedu.address.logic.commands.delete;
 
 import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 
-import seedu.address.logic.commands.delete.ClearCommand;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;

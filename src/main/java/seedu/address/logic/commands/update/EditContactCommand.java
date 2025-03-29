@@ -1,4 +1,4 @@
-package seedu.address.logic.commands.contact;
+package seedu.address.logic.commands.update;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
@@ -19,7 +19,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.update.EditCommand;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Course;
