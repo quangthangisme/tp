@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -38,8 +37,8 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
     public EditContactCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_ID_LONG,
-            PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_TAG_LONG, PREFIX_CONTACT_COURSE_LONG,
-            PREFIX_CONTACT_GROUP_LONG);
+                PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_TAG_LONG,
+                PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG);
 
         Index index;
 
@@ -51,7 +50,7 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_NAME_LONG,
-            PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG);
+                PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG);
 
         EditContactDescriptor editContactDescriptor = new EditContactDescriptor();
 
@@ -60,43 +59,37 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
         }
         if (argMultimap.getValue(PREFIX_CONTACT_NAME_LONG).isPresent()) {
             editContactDescriptor.setName(
-                ContactParserUtil.parseName(argMultimap.getValue(PREFIX_CONTACT_NAME_LONG).get()));
+                    ContactParserUtil.parseName(argMultimap.getValue(PREFIX_CONTACT_NAME_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTACT_EMAIL_LONG).isPresent()) {
             editContactDescriptor.setEmail(
-                ContactParserUtil.parseEmail(argMultimap.getValue(PREFIX_CONTACT_EMAIL_LONG).get()));
+                    ContactParserUtil.parseEmail(argMultimap.getValue(PREFIX_CONTACT_EMAIL_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTACT_COURSE_LONG).isPresent()) {
-            editContactDescriptor.setCourse(ContactParserUtil
-                .parseModule(argMultimap.getValue(PREFIX_CONTACT_COURSE_LONG).get()));
+            editContactDescriptor.setCourse(
+                    ContactParserUtil.parseModule(argMultimap.getValue(PREFIX_CONTACT_COURSE_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTACT_GROUP_LONG).isPresent()) {
             editContactDescriptor.setGroup(
-                ContactParserUtil.parseGroup(argMultimap.getValue(PREFIX_CONTACT_GROUP_LONG).get()));
+                    ContactParserUtil.parseGroup(argMultimap.getValue(PREFIX_CONTACT_GROUP_LONG).get()));
         }
-        parseTagsForEdit(argMultimap.getAllValues(PREFIX_CONTACT_TAG_LONG)).ifPresent(editContactDescriptor::setTags);
+        if (argMultimap.getValue(PREFIX_CONTACT_TAG_LONG).isPresent()) {
+            Collection<String> tags = argMultimap.getAllValues(PREFIX_CONTACT_TAG_LONG);
+            Set<Tag> tagSet;
+            // Special allowance for empty tag to remove all tags
+            if (tags.size() == 1 && tags.contains("")) {
+                tagSet = Collections.emptySet();
+            } else {
+                tagSet = ContactParserUtil.parseTags(tags);
+            }
+            editContactDescriptor.setTags(tagSet);
+        }
 
         if (!editContactDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditContactCommand.MESSAGE_NOT_EDITED);
         }
 
         return new EditContactCommand(index, editContactDescriptor);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
-     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
-     * {@code Set<Tag>} containing zero tags.
-     */
-    private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws ParseException {
-        assert tags != null;
-
-        if (tags.isEmpty()) {
-            return Optional.empty();
-        }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet()
-            : tags;
-        return Optional.of(ContactParserUtil.parseTags(tagSet));
     }
 
 }
