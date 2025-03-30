@@ -15,7 +15,6 @@ import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.Messages;
 import seedu.address.logic.TodoMessages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -32,8 +31,6 @@ import seedu.address.model.todo.predicate.TodoStatusPredicate;
  * Filter criteria are formed with columns, operators, and values.
  */
 public class FilterTodoCommand extends FilterCommand<Todo> {
-
-    public static final String COMMAND_WORD = "filter";
 
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Filters todos based on specified criteria.\n"
@@ -91,11 +88,6 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
         return todoPredicate.getPredicate(model);
     }
 
-    @Override
-    public String getResultOverviewMessage(int numberOfResults) {
-        return String.format(Messages.MESSAGE_SEARCH_OVERVIEW, numberOfResults);
-    }
-
     /**
      * Stores the details to filter the todo with.
      */
@@ -130,36 +122,36 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
                     locationPredicate, statusPredicate, contactIndices);
         }
 
-        public void setNamePredicate(TodoNamePredicate namePredicate) {
-            this.namePredicate = namePredicate;
-        }
-
         public Optional<TodoNamePredicate> getNamePredicate() {
             return Optional.ofNullable(namePredicate);
         }
 
-        public void setDeadlinePredicate(TodoDeadlinePredicate deadlinePredicate) {
-            this.deadlinePredicate = deadlinePredicate;
+        public void setNamePredicate(TodoNamePredicate namePredicate) {
+            this.namePredicate = namePredicate;
         }
 
         public Optional<TodoDeadlinePredicate> getDeadlinePredicate() {
             return Optional.ofNullable(deadlinePredicate);
         }
 
-        public void setLocationPredicate(TodoLocationPredicate locationPredicate) {
-            this.locationPredicate = locationPredicate;
+        public void setDeadlinePredicate(TodoDeadlinePredicate deadlinePredicate) {
+            this.deadlinePredicate = deadlinePredicate;
         }
 
         public Optional<TodoLocationPredicate> getLocationPredicate() {
             return Optional.ofNullable(locationPredicate);
         }
 
-        public void setStatusPredicate(TodoStatusPredicate statusPredicate) {
-            this.statusPredicate = statusPredicate;
+        public void setLocationPredicate(TodoLocationPredicate locationPredicate) {
+            this.locationPredicate = locationPredicate;
         }
 
         public Optional<TodoStatusPredicate> getStatusPredicate() {
             return Optional.ofNullable(statusPredicate);
+        }
+
+        public void setStatusPredicate(TodoStatusPredicate statusPredicate) {
+            this.statusPredicate = statusPredicate;
         }
 
         public Optional<Operator> getContactOperator() {

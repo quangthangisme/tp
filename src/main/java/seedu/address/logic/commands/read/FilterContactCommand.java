@@ -11,7 +11,6 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 import java.util.function.Predicate;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactPredicate;
@@ -21,8 +20,6 @@ import seedu.address.model.contact.ContactPredicate;
  * Filter criteria are formed with columns, operators, and values.
  */
 public class FilterContactCommand extends FilterCommand<Contact> {
-
-    public static final String COMMAND_WORD = "filter";
 
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD + ": Filters contacts based on"
         + "specified criteria and displays them as a list with index numbers.\n"
@@ -77,11 +74,6 @@ public class FilterContactCommand extends FilterCommand<Contact> {
     @Override
     public Predicate<Contact> createPredicate(Model model) {
         return predicate;
-    }
-
-    @Override
-    public String getResultOverviewMessage(int numberOfResults) {
-        return String.format(Messages.MESSAGE_SEARCH_OVERVIEW, numberOfResults);
     }
 
     @Override

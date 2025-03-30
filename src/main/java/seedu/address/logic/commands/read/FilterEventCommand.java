@@ -16,7 +16,6 @@ import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -32,8 +31,6 @@ import seedu.address.model.event.predicate.EventStartTimePredicate;
  * Filter criteria are formed with columns, operators, and values.
  */
 public class FilterEventCommand extends FilterCommand<Event> {
-
-    public static final String COMMAND_WORD = "filter";
 
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Filters events based on specified criteria.\n"
@@ -67,7 +64,7 @@ public class FilterEventCommand extends FilterCommand<Event> {
             + "(25-03-27 23:59/-)\n"
             + "   Find todos whose name contains both the keywords \"CS1010S\" and "
             + "\"exam\" and whose start time is between 25-03-13 23:59 and 25-03-20 23:59 "
-            + "inclusive or not before 25-03-27 23:59.\n"
+            + "inclusive or after 25-03-27 23:59.\n"
 
             + "3. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_EVENT_LOCATION_LONG
             + "nand: NUS Home " + PREFIX_EVENT_LINKED_CONTACT_LONG + "1 2 3\n"
@@ -88,11 +85,6 @@ public class FilterEventCommand extends FilterCommand<Event> {
     @Override
     public Predicate<Event> createPredicate(Model model) throws CommandException {
         return eventPredicate.getPredicate(model);
-    }
-
-    @Override
-    public String getResultOverviewMessage(int numberOfResults) {
-        return String.format(Messages.MESSAGE_SEARCH_OVERVIEW, numberOfResults);
     }
 
     /**
@@ -129,41 +121,41 @@ public class FilterEventCommand extends FilterCommand<Event> {
                     locationPredicate, contactIndices);
         }
 
-        public void setNamePredicate(EventNamePredicate namePredicate) {
-            this.namePredicate = namePredicate;
-        }
-
         public Optional<EventNamePredicate> getNamePredicate() {
             return Optional.ofNullable(namePredicate);
         }
 
-        public void setStartTimePredicate(EventStartTimePredicate startTimePredicate) {
-            this.startTimePredicate = startTimePredicate;
+        public void setNamePredicate(EventNamePredicate namePredicate) {
+            this.namePredicate = namePredicate;
         }
 
         public Optional<EventStartTimePredicate> getStartTimePredicate() {
             return Optional.ofNullable(startTimePredicate);
         }
 
-        public void setLocationPredicate(EventLocationPredicate locationPredicate) {
-            this.locationPredicate = locationPredicate;
-        }
-
-        public void setEndTimePredicate(EventEndTimePredicate endTimePredicate) {
-            this.endTimePredicate = endTimePredicate;
+        public void setStartTimePredicate(EventStartTimePredicate startTimePredicate) {
+            this.startTimePredicate = startTimePredicate;
         }
 
         public Optional<EventEndTimePredicate> getEndTimePredicate() {
             return Optional.ofNullable(endTimePredicate);
         }
 
+        public void setEndTimePredicate(EventEndTimePredicate endTimePredicate) {
+            this.endTimePredicate = endTimePredicate;
+        }
+
         public Optional<EventLocationPredicate> getLocationPredicate() {
             return Optional.ofNullable(locationPredicate);
         }
 
-        public Optional<Operator> getContactOperator() {
-            return Optional.ofNullable(contactOperator);
+        public void setLocationPredicate(EventLocationPredicate locationPredicate) {
+            this.locationPredicate = locationPredicate;
         }
+
+        //public Optional<Operator> getContactOperator() {
+        //    return Optional.ofNullable(contactOperator);
+        //}
 
         public void setContactOperator(Operator contactOperator) {
             this.contactOperator = contactOperator;
