@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.ContactMessages;
+import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -47,7 +48,7 @@ public class InfoContactCommandTest {
         InfoContactCommand infoCommand = new InfoContactCommand(INDEX_FIRST);
 
         String expectedMessage = String.format(MESSAGE_INFO_CONTACT_SUCCESS,
-                contactToShow.getName());
+                Messages.format(contactToShow));
         assertCommandSuccess(infoCommand, model, expectedMessage, expectedModel);
     }
 
@@ -67,7 +68,7 @@ public class InfoContactCommandTest {
                 .getFilteredItemsList().get(INDEX_FIRST.getZeroBased());
         InfoContactCommand infoCommand = new InfoContactCommand(INDEX_FIRST);
         String expectedMessage = String.format(MESSAGE_INFO_CONTACT_SUCCESS,
-                contactToShow.getName());
+                Messages.format(contactToShow));
         assertCommandSuccess(infoCommand, model, expectedMessage, expectedModel);
     }
 
