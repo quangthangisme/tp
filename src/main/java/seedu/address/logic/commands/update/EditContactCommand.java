@@ -15,6 +15,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.ContactMessages;
 import seedu.address.logic.Messages;
+import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Course;
@@ -48,7 +49,7 @@ public class EditContactCommand extends EditCommand<Contact> {
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_CONTACT = "This contact already exists in the address book.";
 
-    private final EditContactDescriptor editContactDescriptor;
+    protected final EditContactDescriptor editContactDescriptor;
 
     /**
      * @param index                 of the contact in the filtered contact list to edit
@@ -64,7 +65,7 @@ public class EditContactCommand extends EditCommand<Contact> {
      * Creates and returns a {@code Contact} with the details of {@code contactToEdit} edited with
      * {@code editContactDescriptor}.
      */
-    public Contact createEditedItem(Model model, Contact contactToEdit) {
+    public Contact createEditedItem(Model model, Contact contactToEdit) throws CommandException {
         assert contactToEdit != null;
 
         Id updatedId = editContactDescriptor.getId().orElse(contactToEdit.getId());

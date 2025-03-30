@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.ContactMessages;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -18,54 +17,47 @@ import seedu.address.model.contact.Tag;
 /**
  * Adds a tag to a Contact in contact.
  */
-public class AddTagToContactCommand extends EditCommand<Contact> {
+public class AddTagToContactCommand extends EditContactCommand {
     public static final String COMMAND_WORD = "tag";
+
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Adds a tag to a specified contact.\n"
             + "Parameters: INDEX " + PREFIX_CONTACT_TAG_LONG + " <tag>\n"
             + "Example: " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_CONTACT_TAG_LONG + " TA";
-    public static final String MESSAGE_ADD_TAG_SUCCESSFUL = "Added tag to contact: %1$s";
+
+    public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag to contact: %1$s";
     public static final String MESSAGE_DUPLICATE_TAGS = "The tag is already assigned to this contact";
-    private final Tag tag;
 
     /**
      * Creates an EditCommand to add a tag to the specified {@code Contact}
      */
-    public AddTagToContactCommand(Index index, Tag tag) {
-        super(index, Model::getContactManagerAndList);
-        requireNonNull(tag);
-        this.tag = tag;
+    public AddTagToContactCommand(Index index, EditContactDescriptor editContactDescriptor) {
+        super(index, editContactDescriptor);
     }
 
     @Override
     public Contact createEditedItem(Model model, Contact contactToEdit) throws CommandException {
-        if (contactToEdit.getTags().contains(tag)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS));
+        requireNonNull(contactToEdit);
+        // Every tag that is intended to be added must not already be in the contact
+        Set<Tag> existingTags = contactToEdit.getTags();
+        Set<Tag> newTags = editContactDescriptor.getTags().get();
+        for (Tag tag : newTags) {
+            if (existingTags.contains(tag)) {
+                throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS));
+            }
         }
-        Set<Tag> newTags = new HashSet<>(contactToEdit.getTags());
-        newTags.add(tag);
-        return new Contact(
-                contactToEdit.getId(),
-                contactToEdit.getName(),
-                contactToEdit.getEmail(),
-                contactToEdit.getCourse(),
-                contactToEdit.getGroup(),
-                Set.copyOf(newTags));
-    }
 
-    @Override
-    public String getIndexOutOfRangeMessage() {
-        return ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT;
-    }
+        // Merge tags and update
+        Set<Tag> combinedTags = new HashSet<>(existingTags);
+        combinedTags.addAll(newTags);
+        editContactDescriptor.setTags(combinedTags);
 
-    @Override
-    public String getDuplicateMessage() {
-        return MESSAGE_DUPLICATE_TAGS;
+        return super.createEditedItem(model, contactToEdit);
     }
 
     @Override
     public String getSuccessMessage(Contact editedContact) {
-        return String.format(MESSAGE_ADD_TAG_SUCCESSFUL, Messages.format(editedContact));
+        return String.format(MESSAGE_ADD_TAG_SUCCESS, Messages.format(editedContact));
     }
 }
