@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.function.Function;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.ItemCommand;
 import seedu.address.logic.commands.CommandResult;
+import seedu.address.logic.commands.ItemCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;
@@ -20,16 +20,16 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
  * @param <T> the type of {@code Item} being edited, which must extend {@link Item}.
  */
 public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
+    public static final String COMMAND_WORD = "edit";
     protected final Index index;
 
     /**
      * Creates an {@code EditCommand} to edit an item at the specified {@code index}.
      *
      * @throws NullPointerException if {@code index}, {@code managerAndListGetter}, or
-     *                               {@code duplicateChecker} is {@code null}.
+     *                              {@code duplicateChecker} is {@code null}.
      */
-    public EditCommand(Index index,
-                       Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
+    public EditCommand(Index index, Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
         super(managerAndListGetter);
         requireAllNonNull(index);
         this.index = index;
@@ -42,7 +42,7 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
         List<T> lastShownList = managerAndList.getFilteredItemsList();
 
         if (index.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(getInvalidIndexMessage());
+            throw new CommandException(getIndexOutOfRangeMessage());
         }
 
         T itemToEdit = lastShownList.get(index.getZeroBased());
@@ -66,9 +66,9 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
     public abstract T createEditedItem(Model model, T itemToEdit) throws CommandException;
 
     /**
-     * Returns the message to be displayed when the provided index is invalid.
+     * Returns the message to be displayed when the provided {@code targetIndex} is out of range.
      */
-    public abstract String getInvalidIndexMessage();
+    public abstract String getIndexOutOfRangeMessage();
 
     /**
      * Returns the message to be displayed when the edited item is a duplicate of an existing item.
@@ -76,7 +76,7 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
     public abstract String getDuplicateMessage();
 
     /**
-     * Returns the success message to be displayed after successfully editing the item.
+     * Returns the success message to be displayed when an {@code Item} is successfully edited.
      */
     public abstract String getSuccessMessage(T editedItem);
 }

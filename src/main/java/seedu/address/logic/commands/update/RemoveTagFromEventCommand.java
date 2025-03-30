@@ -60,7 +60,7 @@ public class RemoveTagFromEventCommand extends EditCommand<Event> {
     }
 
     @Override
-    public String getInvalidIndexMessage() {
+    public String getIndexOutOfRangeMessage() {
         return EventMessages.MESSAGE_INDEX_OUT_OF_RANGE_EVENT;
     }
 

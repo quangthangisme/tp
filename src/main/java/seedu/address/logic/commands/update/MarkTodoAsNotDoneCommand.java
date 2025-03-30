@@ -54,7 +54,7 @@ public class MarkTodoAsNotDoneCommand extends EditCommand<Todo> {
     }
 
     @Override
-    public String getInvalidIndexMessage() {
+    public String getIndexOutOfRangeMessage() {
         return TodoMessages.MESSAGE_INDEX_OUT_OF_RANGE_TODO;
     }
 

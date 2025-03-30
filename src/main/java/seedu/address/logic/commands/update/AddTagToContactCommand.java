@@ -55,7 +55,7 @@ public class AddTagToContactCommand extends EditCommand<Contact> {
     }
 
     @Override
-    public String getInvalidIndexMessage() {
+    public String getIndexOutOfRangeMessage() {
         return ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT;
     }
 
