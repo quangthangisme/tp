@@ -10,9 +10,10 @@ import seedu.address.model.event.EventManager;
  * Clears the event list.
  */
 public class ClearEventCommand extends ClearCommand<Event> {
-    public static final String COMMAND_WORD = "clear";
-    public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD + ": Clears the event list.\n";
-    public static final String MESSAGE_SUCCESS = "Cleared event list.";
+
+    public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
+            + ": Clears the event list.\n";
+    public static final String MESSAGE_SUCCESS = "Event list has been cleared!";
 
     /**
      * Creates a {@code ClearEventCommand} to clear the event list in the Model.
