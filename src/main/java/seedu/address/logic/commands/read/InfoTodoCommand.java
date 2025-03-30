@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.read;
 
-import static seedu.address.logic.TodoMessages.MESSAGE_INVALID_TODO_DISPLAYED_INDEX;
+import static seedu.address.logic.TodoMessages.MESSAGE_INDEX_OUT_OF_RANGE_TODO;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import seedu.address.commons.core.index.Index;
@@ -36,7 +36,7 @@ public class InfoTodoCommand extends InfoCommand<Todo> {
 
     @Override
     public String getInvalidIndexMessage() {
-        return MESSAGE_INVALID_TODO_DISPLAYED_INDEX;
+        return MESSAGE_INDEX_OUT_OF_RANGE_TODO;
     }
 
     @Override

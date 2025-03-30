@@ -17,6 +17,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.ContactMessages;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.update.EditContactCommand.EditContactDescriptor;
 import seedu.address.logic.commands.delete.ClearContactCommand;
@@ -195,7 +196,7 @@ public class EditContactCommandTest {
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditContactCommand editCommand = new EditContactCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT);
     }
 
     /**
@@ -213,7 +214,7 @@ public class EditContactCommandTest {
         EditContactCommand editCommand = new EditContactCommand(outOfBoundIndex,
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertCommandFailure(editCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(editCommand, model, ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT);
     }
 
     @Test

@@ -5,7 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.Messages;
+import seedu.address.logic.ContactMessages;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 
@@ -43,7 +43,7 @@ public class InfoContactCommand extends InfoCommand<Contact> {
 
     @Override
     public String getInvalidIndexMessage() {
-        return Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
+        return ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT;
     }
 
     @Override

@@ -84,7 +84,7 @@ public class AddContactToEventCommand extends EditCommand<Event> {
 
     @Override
     public String getInvalidIndexMessage() {
-        return EventMessages.MESSAGE_INVALID_EVENT_DISPLAYED_INDEX;
+        return EventMessages.MESSAGE_INDEX_OUT_OF_RANGE_EVENT;
     }
 
     @Override

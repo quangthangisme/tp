@@ -3,6 +3,7 @@ package seedu.address.logic.commands.delete;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
@@ -13,6 +14,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.ContactMessages;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -70,7 +72,8 @@ public class DeleteContactCommandTest {
                 .getFilteredItemsList().size() + 1);
         DeleteContactCommand deleteCommand = new DeleteContactCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, String.format(MESSAGE_INDEX_OUT_OF_RANGE_CONTACT,
+                outOfBoundIndex.getOneBased()));
     }
 
     @Test
@@ -113,7 +116,8 @@ public class DeleteContactCommandTest {
 
         DeleteContactCommand deleteCommand = new DeleteContactCommand(outOfBoundIndex);
 
-        assertCommandFailure(deleteCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(deleteCommand, model, String.format(MESSAGE_INDEX_OUT_OF_RANGE_CONTACT,
+                outOfBoundIndex.getOneBased()));
     }
 
     @Test

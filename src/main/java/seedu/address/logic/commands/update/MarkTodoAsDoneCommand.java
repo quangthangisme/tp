@@ -54,7 +54,7 @@ public class MarkTodoAsDoneCommand extends EditCommand<Todo> {
 
     @Override
     public String getInvalidIndexMessage() {
-        return TodoMessages.MESSAGE_INVALID_TODO_DISPLAYED_INDEX;
+        return TodoMessages.MESSAGE_INDEX_OUT_OF_RANGE_TODO;
     }
 
     @Override

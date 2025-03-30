@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.ContactMessages;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -56,7 +57,7 @@ public class RemoveTagFromContactCommand extends EditCommand<Contact> {
 
     @Override
     public String getInvalidIndexMessage() {
-        return Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
+        return ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT;
     }
 
     @Override

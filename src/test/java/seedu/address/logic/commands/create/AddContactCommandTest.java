@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static seedu.address.logic.ContactMessages.MESSAGE_DUPLICATE_CONTACT;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 
@@ -54,7 +55,7 @@ public class AddContactCommandTest {
         AddContactCommand addContactCommand = new AddContactCommand(validContact);
         ModelStub modelStub = new ModelStub(new ContactManagerAndListStub(validContact));
 
-        assertThrows(CommandException.class, AddContactCommand.MESSAGE_DUPLICATE_CONTACT, () ->
+        assertThrows(CommandException.class, MESSAGE_DUPLICATE_CONTACT, () ->
                 addContactCommand.execute(modelStub));
     }
 

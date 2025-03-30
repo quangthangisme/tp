@@ -14,7 +14,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.Messages;
+import seedu.address.logic.ContactMessages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -56,7 +56,7 @@ public class InfoContactCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getContactManagerAndList()
                 .getFilteredItemsList().size() + 1);
         InfoContactCommand infoCommand = new InfoContactCommand(outOfBoundIndex);
-        assertCommandFailure(infoCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(infoCommand, model, ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT);
     }
 
     @Test
@@ -78,7 +78,7 @@ public class InfoContactCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getContactManagerAndList().getItemManager()
                 .getItemList().size());
         InfoContactCommand infoCommand = new InfoContactCommand(outOfBoundIndex);
-        assertCommandFailure(infoCommand, model, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
+        assertCommandFailure(infoCommand, model, ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT);
     }
 
     @Test

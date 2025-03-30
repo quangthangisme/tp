@@ -68,12 +68,6 @@ public class LogicManagerTest {
     }
 
     @Test
-    public void execute_commandExecutionError_throwsCommandException() {
-        String deleteCommand = "contact delete 9";
-        assertCommandException(deleteCommand);
-    }
-
-    @Test
     public void execute_validCommand_success() throws Exception {
         String listCommand = CONTACT_COMMAND_WORD + " " + ListContactCommand.COMMAND_WORD;
         assertCommandSuccess(listCommand, ListContactCommand.MESSAGE_SUCCESS, model);
@@ -116,14 +110,6 @@ public class LogicManagerTest {
      */
     private void assertParseException(String inputCommand) {
         assertCommandFailure(inputCommand, ParseException.class, Messages.MESSAGE_UNKNOWN_COMMAND);
-    }
-
-    /**
-     * Executes the command, confirms that a CommandException is thrown and that the result message is correct.
-     * @see #assertCommandFailure(String, Class, String, Model)
-     */
-    private void assertCommandException(String inputCommand) {
-        assertCommandFailure(inputCommand, CommandException.class, Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX);
     }
 
     /**

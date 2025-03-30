@@ -1,5 +1,6 @@
 package seedu.address.logic.commands;
 
+import static seedu.address.logic.ContactMessages.MESSAGE_DUPLICATE_CONTACT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
@@ -65,7 +66,7 @@ public class AddContactCommandIntegrationTest {
     public void execute_duplicateContact_throwsCommandException() {
         Contact contactInList = model.getContactManagerAndList().getItemManager().getItemList().get(0);
         assertCommandFailure(new AddContactCommand(contactInList), model,
-                AddContactCommand.MESSAGE_DUPLICATE_CONTACT);
+                MESSAGE_DUPLICATE_CONTACT);
     }
 
 }

@@ -1,9 +1,9 @@
 package seedu.address.logic.commands.delete;
 
+import static seedu.address.logic.ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -13,8 +13,6 @@ import seedu.address.model.contact.Contact;
  */
 public class DeleteContactCommand extends DeleteCommand<Contact> {
 
-    public static final String COMMAND_WORD = "delete";
-
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD + ": Deletes the contact "
             + "identified by the index number used in the displayed contact list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
@@ -22,14 +20,17 @@ public class DeleteContactCommand extends DeleteCommand<Contact> {
 
     public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Deleted Contact: %1$s";
 
+    /**
+     * Creates a DeleteContactCommand to delete the contact at the specified {@code targetIndex}
+     */
     public DeleteContactCommand(Index targetIndex) {
         super(targetIndex, Model::getContactManagerAndList);
     }
 
 
     @Override
-    public String getInvalidIndexMessage() {
-        return Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
+    public String getIndexOutOfRangeMessage() {
+        return MESSAGE_INDEX_OUT_OF_RANGE_CONTACT;
     }
 
     @Override
@@ -37,24 +38,4 @@ public class DeleteContactCommand extends DeleteCommand<Contact> {
         return String.format(MESSAGE_DELETE_CONTACT_SUCCESS, Messages.format(contactToDelete));
     }
 
-    @Override
-    public boolean equals(Object other) {
-        if (other == this) {
-            return true;
-        }
-
-        // instanceof handles nulls
-        if (!(other instanceof DeleteContactCommand otherDeleteCommand)) {
-            return false;
-        }
-
-        return targetIndex.equals(otherDeleteCommand.targetIndex);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
-                .toString();
-    }
 }
