@@ -4,7 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_NO_COLUMNS;
 import static seedu.address.logic.Messages.MESSAGE_NO_VALUES;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_PERSON_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS_LONG;
@@ -41,10 +41,10 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_NAME_LONG,
             PREFIX_TODO_DEADLINE_LONG, PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG,
-            PREFIX_TODO_LINKED_PERSON_LONG);
+            PREFIX_TODO_LINKED_CONTACT_LONG);
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
-            PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG, PREFIX_TODO_LINKED_PERSON_LONG);
+            PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG, PREFIX_TODO_LINKED_CONTACT_LONG);
 
         TodoPredicate predicate = new TodoPredicate();
 
@@ -80,16 +80,16 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
             predicate.setDeadlinePredicate(new TodoDeadlinePredicate(operatorStringPair.first(),
                 ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
         }
-        if (argMultimap.getValue(PREFIX_TODO_LINKED_PERSON_LONG).isPresent()) {
+        if (argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(
-                argMultimap.getValue(PREFIX_TODO_LINKED_PERSON_LONG).get());
-            predicate.setPersonOperator(operatorStringPair.first());
-            List<Index> personIndices = ParserUtil.parseIndices(operatorStringPair.second());
-            if (personIndices.isEmpty()) {
+                argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).get());
+            predicate.setContactOperator(operatorStringPair.first());
+            List<Index> contactIndices = ParserUtil.parseIndices(operatorStringPair.second());
+            if (contactIndices.isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES,
-                    PREFIX_TODO_LINKED_PERSON_LONG));
+                    PREFIX_TODO_LINKED_CONTACT_LONG));
             }
-            predicate.setPersonIndices(ParserUtil.parseIndices(operatorStringPair.second()));
+            predicate.setContactIndices(ParserUtil.parseIndices(operatorStringPair.second()));
         }
 
         if (!predicate.isAnyFieldNonNull()) {

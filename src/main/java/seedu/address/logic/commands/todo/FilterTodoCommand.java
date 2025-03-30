@@ -2,7 +2,7 @@ package seedu.address.logic.commands.todo;
 
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_PERSON_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS_LONG;
@@ -20,12 +20,12 @@ import seedu.address.logic.TodoMessages;
 import seedu.address.logic.abstractcommand.FilterCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.person.Person;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.predicate.TodoContactPredicate;
 import seedu.address.model.todo.predicate.TodoDeadlinePredicate;
 import seedu.address.model.todo.predicate.TodoLocationPredicate;
 import seedu.address.model.todo.predicate.TodoNamePredicate;
-import seedu.address.model.todo.predicate.TodoPersonPredicate;
 import seedu.address.model.todo.predicate.TodoStatusPredicate;
 
 /**
@@ -42,7 +42,7 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
 
             + "- COL/ : Column to filter on (" + PREFIX_TODO_NAME_LONG + ", " + PREFIX_TODO_DEADLINE_LONG
             + ", " + PREFIX_TODO_LOCATION_LONG + ", " + PREFIX_TODO_STATUS_LONG + ", "
-            + PREFIX_TODO_LINKED_PERSON_LONG + ")\n"
+            + PREFIX_TODO_LINKED_CONTACT_LONG + ")\n"
 
             + "- <OP>: : Operator (and, or, nand, nor) to apply to the column criterion. Defaults"
             + " to 'and' if not specified. Cannot be applied to status criterion.\n"
@@ -55,7 +55,7 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
             + "format, or can be - to specify no lower bound or upper bound. At least one of the "
             + "two bounds must be specified.\n"
             + "    + For status, use \"true\" for done and \"false\" for not done.\n"
-            + "    + For linked persons, use the indices in the currently displayed person list.\n"
+            + "    + For linked contacts, use the indices in the currently displayed contact list.\n"
 
             + "Examples:\n"
 
@@ -105,8 +105,8 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
         private TodoDeadlinePredicate deadlinePredicate;
         private TodoLocationPredicate locationPredicate;
         private TodoStatusPredicate statusPredicate;
-        private Operator personOperator;
-        private List<Index> personIndices;
+        private Operator contactOperator;
+        private List<Index> contactIndices;
 
         public TodoPredicate() {
         }
@@ -119,8 +119,8 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
             setDeadlinePredicate(toCopy.deadlinePredicate);
             setLocationPredicate(toCopy.locationPredicate);
             setStatusPredicate(toCopy.statusPredicate);
-            setPersonOperator(toCopy.personOperator);
-            setPersonIndices(toCopy.personIndices);
+            setContactOperator(toCopy.contactOperator);
+            setContactIndices(toCopy.contactIndices);
         }
 
         /**
@@ -128,7 +128,7 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
          */
         public boolean isAnyFieldNonNull() {
             return CollectionUtil.isAnyNonNull(namePredicate, deadlinePredicate,
-                    locationPredicate, statusPredicate, personIndices);
+                    locationPredicate, statusPredicate, contactIndices);
         }
 
         public void setNamePredicate(TodoNamePredicate namePredicate) {
@@ -163,50 +163,50 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
             return Optional.ofNullable(statusPredicate);
         }
 
-        public Optional<Operator> getPersonOperator() {
-            return Optional.ofNullable(personOperator);
+        public Optional<Operator> getContactOperator() {
+            return Optional.ofNullable(contactOperator);
         }
 
-        public void setPersonOperator(Operator personOperator) {
-            this.personOperator = personOperator;
+        public void setContactOperator(Operator contactOperator) {
+            this.contactOperator = contactOperator;
         }
 
-        public Optional<List<Index>> getPersonIndices() {
-            return (personIndices != null) ? Optional.of(List.copyOf(personIndices))
+        public Optional<List<Index>> getContactIndices() {
+            return (contactIndices != null) ? Optional.of(List.copyOf(contactIndices))
                     : Optional.empty();
         }
 
-        public void setPersonIndices(List<Index> personIndices) {
-            this.personIndices = (personIndices != null) ? List.copyOf(personIndices) : null;
+        public void setContactIndices(List<Index> contactIndices) {
+            this.contactIndices = (contactIndices != null) ? List.copyOf(contactIndices) : null;
         }
 
         public Predicate<Todo> getPredicate(Model model) throws CommandException {
-            Predicate<Todo> personPredicate;
-            if (personIndices != null) {
-                List<Person> filteredPersons = model.getPersonManagerAndList()
+            Predicate<Todo> contactPredicate;
+            if (contactIndices != null) {
+                List<Contact> filteredContacts = model.getContactManagerAndList()
                         .getFilteredItemsList();
 
-                for (Index index : personIndices) {
-                    if (index.getZeroBased() >= filteredPersons.size()) {
+                for (Index index : contactIndices) {
+                    if (index.getZeroBased() >= filteredContacts.size()) {
                         throw new CommandException(String.format(
-                                TodoMessages.MESSAGE_INVALID_LINKED_PERSON_INDEX, index.getOneBased()));
+                                TodoMessages.MESSAGE_INVALID_LINKED_CONTACT_INDEX, index.getOneBased()));
                     }
                 }
 
-                List<Person> persons = personIndices.stream()
-                        .map(index -> filteredPersons.get(index.getZeroBased())).toList();
+                List<Contact> contacts = contactIndices.stream()
+                        .map(index -> filteredContacts.get(index.getZeroBased())).toList();
 
-                personPredicate =
-                        todo -> new TodoPersonPredicate(personOperator, persons).test(todo);
+                contactPredicate =
+                        todo -> new TodoContactPredicate(contactOperator, contacts).test(todo);
             } else {
-                personPredicate = unused -> true;
+                contactPredicate = unused -> true;
             }
 
             return todo -> (namePredicate == null || namePredicate.test(todo))
                     && (deadlinePredicate == null || deadlinePredicate.test(todo))
                     && (locationPredicate == null || locationPredicate.test(todo))
                     && (statusPredicate == null || statusPredicate.test(todo))
-                    && (personPredicate.test(todo));
+                    && (contactPredicate.test(todo));
         }
 
         @Override
@@ -216,8 +216,8 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
                     .add("deadlinePredicate", deadlinePredicate)
                     .add("locationPredicate", locationPredicate)
                     .add("statusPredicate", statusPredicate)
-                    .add("personOperator", personOperator)
-                    .add("personIndices", personIndices)
+                    .add("contactOperator", contactOperator)
+                    .add("contactIndices", contactIndices)
                     .toString();
         }
 
