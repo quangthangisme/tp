@@ -10,10 +10,8 @@ import seedu.address.model.todo.Todo;
  */
 public class ListTodoCommand extends ListCommand<Todo> {
 
-    public static final String COMMAND_WORD = "list";
-
-    public static final String MESSAGE_SUCCESS = "Listed all todos";
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD + ": Lists all todos.";
+    public static final String MESSAGE_SUCCESS = "Listed all todos";
 
     /**
      * Creates a {@code ListTodoCommand}.
