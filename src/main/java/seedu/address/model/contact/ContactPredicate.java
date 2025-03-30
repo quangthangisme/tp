@@ -29,7 +29,7 @@ public class ContactPredicate implements Predicate<Contact> {
             FilterCriteria criteria = entry.getValue();
 
             List<String> contactValues = getContactValues(contact, column);
-            boolean match = testCriteria(contactValues, criteria);
+            boolean match = criteria.testCriteria(contactValues);
 
             if (!match) {
                 return false;
@@ -72,26 +72,6 @@ public class ContactPredicate implements Predicate<Contact> {
             break;
         }
         return values;
-    }
-
-    /**
-     * Tests if the contact's values match the filter criteria.
-     *
-     * @param contactValues the values from the contact
-     * @param criteria the filter criteria to match against
-     * @return true if the values match the criteria, false otherwise
-     */
-    private boolean testCriteria(List<String> contactValues, FilterCriteria criteria) {
-        return switch (criteria.getOperator()) {
-        case AND -> criteria.getValues().stream().allMatch(value ->
-                contactValues.stream().anyMatch(pv -> pv.contains(value.toLowerCase())));
-        case OR -> criteria.getValues().stream().anyMatch(value ->
-                contactValues.stream().anyMatch(pv -> pv.contains(value.toLowerCase())));
-        case NAND -> !criteria.getValues().stream().allMatch(value ->
-                contactValues.stream().anyMatch(pv -> pv.contains(value.toLowerCase())));
-        case NOR -> criteria.getValues().stream().noneMatch(value ->
-                contactValues.stream().anyMatch(pv -> pv.contains(value.toLowerCase())));
-        };
     }
 
     @Override

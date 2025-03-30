@@ -108,8 +108,7 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
      * @throws ParseException if there is an error parsing the values
      */
     private void parseValues(Prefix prefix, ContactColumn column, Map<ContactColumn,
-            FilterCriteria> filterCriteriaMap,
-                             List<String> rawValues) throws ParseException {
+            FilterCriteria> filterCriteriaMap, List<String> rawValues) throws ParseException {
         if (filterCriteriaMap.containsKey(column)) {
             throw new ParseException(MESSAGE_DUPLICATE_COLUMN);
         }
@@ -158,9 +157,7 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
      */
     public FilterContactCommand parse(String args) throws ParseException {
         if (args.trim().isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            FilterContactCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterContactCommand.MESSAGE_USAGE));
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_NAME_LONG,
