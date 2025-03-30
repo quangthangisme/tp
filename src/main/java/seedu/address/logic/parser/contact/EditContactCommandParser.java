@@ -16,7 +16,7 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.update.EditContactCommand;
-import seedu.address.logic.commands.update.EditContactCommand.EditContactDescriptor;
+import seedu.address.logic.commands.update.EditContactDescriptor;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;

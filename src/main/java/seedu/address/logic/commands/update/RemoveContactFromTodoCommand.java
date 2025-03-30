@@ -97,14 +97,14 @@ public class RemoveContactFromTodoCommand extends EditCommand<Todo> {
             return false;
         }
 
-        return index.equals(otherCommand.index)
+        return targetIndex.equals(otherCommand.targetIndex)
                 && contactIndices.equals(otherCommand.contactIndices);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("index", index)
+                .add("index", targetIndex)
                 .add("contactIndicies", contactIndices)
                 .toString();
     }

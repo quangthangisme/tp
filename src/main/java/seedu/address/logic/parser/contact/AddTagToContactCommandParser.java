@@ -21,22 +21,20 @@ public class AddTagToContactCommandParser implements Parser<AddTagToContactComma
     public AddTagToContactCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_TAG_LONG);
-        if (!argMultimap.arePrefixesPresent(PREFIX_CONTACT_TAG_LONG)
-                || argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddTagToContactCommand.MESSAGE_USAGE));
+        if (!argMultimap.arePrefixesPresent(PREFIX_CONTACT_TAG_LONG) || argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagToContactCommand.MESSAGE_USAGE));
         }
         Index index;
         try {
             index = ParserUtil.parseIndex(argMultimap.getPreamble());
         } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddTagToContactCommand.MESSAGE_USAGE), pe);
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagToContactCommand.MESSAGE_USAGE), pe);
         }
         String stringTag = argMultimap.getValue(PREFIX_CONTACT_TAG_LONG).get();
         if (!Tag.isValidTagName(stringTag)) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    Tag.MESSAGE_CONSTRAINTS));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, Tag.MESSAGE_CONSTRAINTS));
         }
         Tag tag = new Tag(stringTag);
         return new AddTagToContactCommand(index, tag);

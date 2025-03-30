@@ -1,6 +1,8 @@
 package seedu.address.logic.commands.update;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.TodoMessages.MESSAGE_DUPLICATE_TODO;
+import static seedu.address.logic.TodoMessages.MESSAGE_INDEX_OUT_OF_RANGE_TODO;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
@@ -59,12 +61,12 @@ public class AddTagToTodoCommand extends EditCommand<Todo> {
 
     @Override
     public String getIndexOutOfRangeMessage() {
-        return TodoMessages.MESSAGE_INDEX_OUT_OF_RANGE_TODO;
+        return MESSAGE_INDEX_OUT_OF_RANGE_TODO;
     }
 
     @Override
     public String getDuplicateMessage() {
-        return TodoMessages.MESSAGE_DUPLICATE_TODO;
+        return MESSAGE_DUPLICATE_TODO;
     }
 
     @Override

@@ -4,9 +4,11 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ItemCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -21,18 +23,15 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
  */
 public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
     public static final String COMMAND_WORD = "edit";
-    protected final Index index;
+    protected final Index targetIndex;
 
     /**
-     * Creates an {@code EditCommand} to edit an item at the specified {@code index}.
-     *
-     * @throws NullPointerException if {@code index}, {@code managerAndListGetter}, or
-     *                              {@code duplicateChecker} is {@code null}.
+     * Creates an {@code EditCommand} to edit an item at the specified {@code targetIndex}.
      */
-    public EditCommand(Index index, Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
+    public EditCommand(Index targetIndex, Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
         super(managerAndListGetter);
-        requireAllNonNull(index);
-        this.index = index;
+        requireAllNonNull(targetIndex);
+        this.targetIndex = targetIndex;
     }
 
     @Override
@@ -41,11 +40,11 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
         ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
         List<T> lastShownList = managerAndList.getFilteredItemsList();
 
-        if (index.getZeroBased() >= lastShownList.size()) {
+        if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(getIndexOutOfRangeMessage());
         }
 
-        T itemToEdit = lastShownList.get(index.getZeroBased());
+        T itemToEdit = lastShownList.get(targetIndex.getZeroBased());
         T editedItem = createEditedItem(model, itemToEdit);
 
         if (!managerAndList.getDuplicateChecker().check(itemToEdit, editedItem)
@@ -79,4 +78,30 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
      * Returns the success message to be displayed when an {@code Item} is successfully edited.
      */
     public abstract String getSuccessMessage(T editedItem);
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof EditCommand<? extends Item> otherEditCommand)) {
+            return false;
+        }
+
+        return managerAndListGetter.equals(otherEditCommand.managerAndListGetter);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(targetIndex, managerAndListGetter);
+    }
+
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("toEdit", managerAndListGetter)
+                .toString();
+    }
 }

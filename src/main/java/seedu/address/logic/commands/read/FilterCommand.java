@@ -48,6 +48,9 @@ public abstract class FilterCommand<T extends Item> extends ItemCommand<T> {
      */
     public abstract Predicate<T> createPredicate(Model model) throws CommandException;
 
+    /**
+     * Returns a success message to be displayed when the command executes successfully.
+     */
     public String getSuccessMessage(int numberOfResults) {
         return String.format(Messages.MESSAGE_SEARCH_OVERVIEW, numberOfResults);
     }
