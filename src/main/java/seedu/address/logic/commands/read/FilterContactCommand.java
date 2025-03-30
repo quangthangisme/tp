@@ -21,8 +21,8 @@ import seedu.address.model.contact.ContactPredicate;
  */
 public class FilterContactCommand extends FilterCommand<Contact> {
 
-    public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD + ": Filters contacts based on"
-            + "specified criteria and displays them as a list with index numbers.\n"
+    public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
+            + ": Filters contacts based on specified criteria and displays them as a list with index numbers.\n"
             + "Parameters: <col>/ [<op>:] <value(s)> [...]\n"
             + "- <col>/ : Column to filter on ("
             + PREFIX_CONTACT_NAME_LONG + ", "

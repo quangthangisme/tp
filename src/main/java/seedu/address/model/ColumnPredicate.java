@@ -1,6 +1,7 @@
-package seedu.address.model.contact;
+package seedu.address.model;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Operator;
@@ -9,17 +10,17 @@ import seedu.address.commons.core.Operator;
  * Represents the filter criteria for a single column.
  * Each criteria consist of a logical operator and a list of values to match against.
  */
-public class FilterCriteria {
+public class ColumnPredicate implements Predicate<List<String>> {
     private final Operator operator;
     private final List<String> valuesToSearch;
 
     /**
-     * Constructs a FilterCriteria with the given operator and values.
+     * Constructs a ColumnPredicate with the given operator and values.
      *
      * @param operator       the logical operator to apply
      * @param valuesToSearch the list of values to match against
      */
-    public FilterCriteria(Operator operator, List<String> valuesToSearch) {
+    public ColumnPredicate(Operator operator, List<String> valuesToSearch) {
         this.operator = operator;
         this.valuesToSearch = valuesToSearch;
     }
@@ -34,7 +35,8 @@ public class FilterCriteria {
      * @param itemColumnValues the values from the contact
      * @return true if the values match the criteria, false otherwise
      */
-    boolean testCriteria(List<String> itemColumnValues) {
+    @Override
+    public boolean test(List<String> itemColumnValues) {
         // Checks if the value is contained within itemColumnValues in a case-insensitive manner
         Predicate<String> isValueContained = searchValue -> itemColumnValues.stream().anyMatch(
                 itemValue -> itemValue.toLowerCase().contains(searchValue.toLowerCase())
@@ -48,7 +50,7 @@ public class FilterCriteria {
             return true;
         }
 
-        if (!(other instanceof FilterCriteria otherCriteria)) {
+        if (!(other instanceof ColumnPredicate otherCriteria)) {
             return false;
         }
 
@@ -58,9 +60,6 @@ public class FilterCriteria {
 
     @Override
     public int hashCode() {
-        int result = 17;
-        result = 31 * result + operator.hashCode();
-        result = 31 * result + valuesToSearch.hashCode();
-        return result;
+        return Objects.hash(operator, valuesToSearch);
     }
 }

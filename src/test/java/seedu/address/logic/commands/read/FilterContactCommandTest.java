@@ -18,13 +18,13 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Operator;
+import seedu.address.model.ColumnPredicate;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.ContactColumn;
 import seedu.address.model.contact.ContactManagerWithFilteredList;
 import seedu.address.model.contact.ContactPredicate;
-import seedu.address.model.contact.FilterCriteria;
 import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 
@@ -47,11 +47,11 @@ public class FilterContactCommandTest {
 
     @Test
     public void equals() {
-        Map<ContactColumn, FilterCriteria> firstPredicateMap = new HashMap<>();
-        Map<ContactColumn, FilterCriteria> secondPredicateMap = new HashMap<>();
-        firstPredicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.AND, Arrays.asList(
+        Map<ContactColumn, ColumnPredicate> firstPredicateMap = new HashMap<>();
+        Map<ContactColumn, ColumnPredicate> secondPredicateMap = new HashMap<>();
+        firstPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.AND, Arrays.asList(
                 "first", "test")));
-        secondPredicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.OR, Arrays.asList(
+        secondPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.OR, Arrays.asList(
                 "second", "test")));
 
         ContactPredicate firstPredicate = new ContactPredicate(firstPredicateMap);
@@ -79,8 +79,8 @@ public class FilterContactCommandTest {
 
     @Test
     public void execute_nameFilter_multipleContactsFound() {
-        Map<ContactColumn, FilterCriteria> predicateMap = new HashMap<>();
-        predicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.OR, Arrays.asList("Carl",
+        Map<ContactColumn, ColumnPredicate> predicateMap = new HashMap<>();
+        predicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.OR, Arrays.asList("Carl",
                 "Daniel")));
 
         ContactPredicate predicate = new ContactPredicate(predicateMap);
@@ -96,9 +96,9 @@ public class FilterContactCommandTest {
 
     @Test
     public void execute_multipleFilters_matchingContactFound() {
-        Map<ContactColumn, FilterCriteria> predicateMap = new HashMap<>();
-        predicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.AND, List.of("alice")));
-        predicateMap.put(ContactColumn.TAG, new FilterCriteria(Operator.AND, List.of("friends")));
+        Map<ContactColumn, ColumnPredicate> predicateMap = new HashMap<>();
+        predicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.AND, List.of("alice")));
+        predicateMap.put(ContactColumn.TAG, new ColumnPredicate(Operator.AND, List.of("friends")));
 
         ContactPredicate predicate = new ContactPredicate(predicateMap);
         FilterContactCommand command = new FilterContactCommand(predicate);
