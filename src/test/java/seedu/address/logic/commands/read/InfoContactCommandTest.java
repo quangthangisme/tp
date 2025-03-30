@@ -3,7 +3,7 @@ package seedu.address.logic.commands.read;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.Messages.MESSAGE_DISPLAY_SPECIFIC_CONTACT_INFO;
+import static seedu.address.logic.commands.read.InfoContactCommand.MESSAGE_INFO_CONTACT_SUCCESS;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
@@ -46,7 +46,7 @@ public class InfoContactCommandTest {
                 model.getContactManagerAndList().getFilteredItemsList().get(INDEX_FIRST.getZeroBased());
         InfoContactCommand infoCommand = new InfoContactCommand(INDEX_FIRST);
 
-        String expectedMessage = String.format(MESSAGE_DISPLAY_SPECIFIC_CONTACT_INFO,
+        String expectedMessage = String.format(MESSAGE_INFO_CONTACT_SUCCESS,
                 contactToShow.getName());
         assertCommandSuccess(infoCommand, model, expectedMessage, expectedModel);
     }
@@ -66,7 +66,7 @@ public class InfoContactCommandTest {
         Contact contactToShow = model.getContactManagerAndList()
                 .getFilteredItemsList().get(INDEX_FIRST.getZeroBased());
         InfoContactCommand infoCommand = new InfoContactCommand(INDEX_FIRST);
-        String expectedMessage = String.format(MESSAGE_DISPLAY_SPECIFIC_CONTACT_INFO,
+        String expectedMessage = String.format(MESSAGE_INFO_CONTACT_SUCCESS,
                 contactToShow.getName());
         assertCommandSuccess(infoCommand, model, expectedMessage, expectedModel);
     }
