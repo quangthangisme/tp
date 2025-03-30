@@ -11,7 +11,6 @@ import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.TodoMessages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Tag;
@@ -29,7 +28,7 @@ public class AddTagToTodoCommand extends EditCommand<Todo> {
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_TODO_TAG_LONG + " important ";
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag to todo: %1$s";
-    public static final String MESSAGE_DUPLICATE_TAGS = "The tag are already assigned to this todo";
+    public static final String MESSAGE_DUPLICATE_TAGS = "The tag is already assigned to this todo";
 
     private final Tag tag;
 

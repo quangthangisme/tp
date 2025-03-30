@@ -94,8 +94,7 @@ public class EditContactDescriptor {
      * modification is attempted. Returns {@code Optional#empty()} if {@code tags} is null.
      */
     public Optional<Set<Tag>> getTags() {
-        return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags))
-                : Optional.empty();
+        return (tags != null) ? Optional.of(Collections.unmodifiableSet(tags)) : Optional.empty();
     }
 
     /**
