@@ -21,7 +21,7 @@ public class DeleteTodoCommand extends DeleteCommand<Todo> {
     public static final String MESSAGE_DELETE_TODO_SUCCESS = "Deleted todo: %1$s";
 
     /**
-     * Creates a DeleteTodoCommand to delete the todo at the specified {@code targetIndex}
+     * Creates a {@code DeleteTodoCommand} to delete the todo at the specified {@code targetIndex}
      */
     public DeleteTodoCommand(Index targetIndex) {
         super(targetIndex, Model::getTodoManagerAndList);

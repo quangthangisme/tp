@@ -23,7 +23,7 @@ public abstract class AddCommand<T extends Item> extends ItemCommand<T> {
     protected final T itemToAdd;
 
     /**
-     * Creates an AddCommand to add the specified {@code item}
+     * Creates an {@code AddCommand} to add the specified {@code item}
      */
     public AddCommand(T item, Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
         super(managerAndListGetter);

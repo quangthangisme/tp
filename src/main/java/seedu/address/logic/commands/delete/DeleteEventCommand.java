@@ -21,7 +21,7 @@ public class DeleteEventCommand extends DeleteCommand<Event> {
     public static final String MESSAGE_DELETE_EVENT_SUCCESS = "Deleted event: %1$s";
 
     /**
-     * Creates a DeleteEventCommand to delete the event at the specified {@code targetIndex}.
+     * Creates a {@code DeleteEventCommand} to delete the event at the specified {@code targetIndex}.
      */
     public DeleteEventCommand(Index targetIndex) {
         super(targetIndex, Model::getEventManagerAndList);

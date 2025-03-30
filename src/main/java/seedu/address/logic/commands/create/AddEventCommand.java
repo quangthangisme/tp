@@ -35,7 +35,7 @@ public class AddEventCommand extends AddCommand<Event> {
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
 
     /**
-     * Creates an AddEventCommand to add the specified {@code event}.
+     * Creates an {@code AddEventCommand} to add the specified {@code event}.
      */
     public AddEventCommand(Event event) {
         super(event, Model::getEventManagerAndList);

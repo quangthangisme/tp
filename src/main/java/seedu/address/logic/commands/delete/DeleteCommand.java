@@ -26,7 +26,7 @@ public abstract class DeleteCommand<T extends Item> extends ItemCommand<T> {
     protected final Index targetIndex;
 
     /**
-     * Creates a DeleteCommand to delete the item at the specified {@code targetIndex}.
+     * Creates a {@code DeleteCommand} to delete the item at the specified {@code targetIndex}.
      */
     public DeleteCommand(Index targetIndex, Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
         super(managerAndListGetter);

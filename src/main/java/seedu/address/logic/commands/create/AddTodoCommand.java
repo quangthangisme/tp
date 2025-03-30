@@ -32,7 +32,7 @@ public class AddTodoCommand extends AddCommand<Todo> {
     public static final String MESSAGE_SUCCESS = "New todo added: %1$s";
 
     /**
-     * Creates an AddTodoCommand to add the specified {@code todo}.
+     * Creates an {@code AddTodoCommand} to add the specified {@code todo}.
      */
     public AddTodoCommand(Todo todo) {
         super(todo, Model::getTodoManagerAndList);

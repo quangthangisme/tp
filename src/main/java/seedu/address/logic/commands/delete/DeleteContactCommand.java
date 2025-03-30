@@ -21,7 +21,7 @@ public class DeleteContactCommand extends DeleteCommand<Contact> {
     public static final String MESSAGE_DELETE_CONTACT_SUCCESS = "Deleted Contact: %1$s";
 
     /**
-     * Creates a DeleteContactCommand to delete the contact at the specified {@code targetIndex}
+     * Creates a {@code DeleteContactCommand} to delete the contact at the specified {@code targetIndex}
      */
     public DeleteContactCommand(Index targetIndex) {
         super(targetIndex, Model::getContactManagerAndList);

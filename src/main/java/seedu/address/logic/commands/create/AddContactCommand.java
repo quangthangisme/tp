@@ -38,7 +38,7 @@ public class AddContactCommand extends AddCommand<Contact> {
     public static final String MESSAGE_SUCCESS = "New contact added: %1$s";
 
     /**
-     * Creates an AddContactCommand to add the specified {@code contact}
+     * Creates an {@code AddContactCommand} to add the specified {@code contact}
      */
     public AddContactCommand(Contact contact) {
         super(contact, Model::getContactManagerAndList);
