@@ -42,9 +42,6 @@ public class AddTagToTodoCommandParser implements Parser<AddTagToTodoCommand> {
         }
 
         Set<Tag> tags = ContactParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TODO_TAG_LONG));
-        EditTodoDescriptor editTodoDescriptor = new EditTodoDescriptor();
-        editTodoDescriptor.setTags(tags);
-
-        return new AddTagToTodoCommand(index, editTodoDescriptor);
+        return new AddTagToTodoCommand(index, tags);
     }
 }

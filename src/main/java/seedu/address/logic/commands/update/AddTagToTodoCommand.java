@@ -28,11 +28,15 @@ public class AddTagToTodoCommand extends EditTodoCommand {
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag to todo: %1$s";
     public static final String MESSAGE_DUPLICATE_TAGS = "The tag is already assigned to this todo";
 
+    private final Set<Tag> newTags;
+
     /**
      * Creates a AddTagToTodoCommand to add tags to a todo at a specific index.
      */
-    public AddTagToTodoCommand(Index index, EditTodoDescriptor editTodoDescriptor) {
-        super(index, editTodoDescriptor);
+    public AddTagToTodoCommand(Index index, Set<Tag> newTags) {
+        super(index, new EditTodoDescriptor());
+        requireNonNull(newTags);
+        this.newTags = newTags;
     }
 
     @Override
@@ -40,7 +44,6 @@ public class AddTagToTodoCommand extends EditTodoCommand {
         requireNonNull(todoToEdit);
         // Every tag that is intended to be added must not already be in the contact
         Set<Tag> existingTags = todoToEdit.getTags();
-        Set<Tag> newTags = editTodoDescriptor.getTags().get();
         for (Tag tag : newTags) {
             if (existingTags.contains(tag)) {
                 throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS));

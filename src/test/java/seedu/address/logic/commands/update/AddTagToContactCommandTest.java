@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
+import java.util.Set;
 import java.util.stream.Stream;
 
 import org.junit.jupiter.api.Test;
@@ -16,6 +17,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
 import seedu.address.model.contact.ContactManagerWithFilteredList;
+import seedu.address.model.contact.Tag;
 import seedu.address.model.event.EventManager;
 import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.todo.TodoManager;
@@ -41,16 +43,11 @@ public class AddTagToContactCommandTest {
                 .get(INDEX_FIRST.getZeroBased());
 
         String toAdd = "newTag";
+        AddTagToContactCommand addTagCommand = new AddTagToContactCommand(INDEX_FIRST, Set.of(new Tag(toAdd)));
+
         String[] editedTags = Stream.concat(initial.getTags().stream().map(t -> t.tagName), Stream.of(toAdd))
                 .toArray(String[]::new);
-
         Contact editedContact = new ContactBuilder(initial).withTags(editedTags).build();
-
-        EditContactDescriptor descriptor = new EditContactDescriptorBuilder()
-                .withTags(toAdd)
-                .build();
-        AddTagToContactCommand addTagCommand = new AddTagToContactCommand(INDEX_FIRST, descriptor);
-
         String expectedMessage = String.format(AddTagToContactCommand.MESSAGE_ADD_TAG_SUCCESS,
                 Messages.format(editedContact));
 
@@ -77,9 +74,8 @@ public class AddTagToContactCommandTest {
     public void execute_duplicateTag_failure() {
         Contact firstContact = model.getContactManagerAndList()
                 .getFilteredItemsList().get(INDEX_FIRST.getZeroBased());
-        EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact).build();
-        AddTagToContactCommand addTagCommand = new AddTagToContactCommand(INDEX_FIRST, descriptor);
-
+        Set<Tag> oneDuplicate = Set.of(firstContact.getTags().stream().findFirst().get());
+        AddTagToContactCommand addTagCommand = new AddTagToContactCommand(INDEX_FIRST, oneDuplicate);
         assertCommandFailure(addTagCommand, model, AddTagToContactCommand.MESSAGE_DUPLICATE_TAGS);
     }
 

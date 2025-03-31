@@ -29,11 +29,15 @@ public class AddTagToContactCommand extends EditContactCommand {
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag to contact: %1$s";
     public static final String MESSAGE_DUPLICATE_TAGS = "The tag is already assigned to this contact";
 
+    private final Set<Tag> newTags;
+
     /**
      * Creates an EditCommand to add a tag to the specified {@code Contact}
      */
-    public AddTagToContactCommand(Index index, EditContactDescriptor editContactDescriptor) {
-        super(index, editContactDescriptor);
+    public AddTagToContactCommand(Index index, Set<Tag> tags) {
+        super(index, new EditContactDescriptor());
+        requireNonNull(tags);
+        this.newTags = tags;
     }
 
     @Override
@@ -41,7 +45,6 @@ public class AddTagToContactCommand extends EditContactCommand {
         requireNonNull(contactToEdit);
         // Every tag that is intended to be added must not already be in the contact
         Set<Tag> existingTags = contactToEdit.getTags();
-        Set<Tag> newTags = editContactDescriptor.getTags().get();
         for (Tag tag : newTags) {
             if (existingTags.contains(tag)) {
                 throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS));

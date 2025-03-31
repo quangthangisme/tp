@@ -28,11 +28,15 @@ public class RemoveTagFromEventCommand extends EditEventCommand {
     public static final String MESSAGE_REMOVE_TAG_SUCCESS = "Removed tag from event: %1$s";
     public static final String MESSAGE_TAG_NOT_FOUND = "The tag is not assigned to this event";
 
+    private final Set<Tag> newTags;
+
     /**
      * Creates an RemoveTagFromEventCommand to remove a tag from the specified {@code Event}
      */
-    public RemoveTagFromEventCommand(Index index, EditEventDescriptor editEventDescriptor) {
-        super(index, editEventDescriptor);
+    public RemoveTagFromEventCommand(Index index, Set<Tag> tags) {
+        super(index, new EditEventDescriptor());
+        requireNonNull(tags);
+        this.newTags = tags;
     }
 
     @Override
@@ -40,7 +44,6 @@ public class RemoveTagFromEventCommand extends EditEventCommand {
         requireNonNull(eventToEdit);
         // Every tag that is intended to be removed must already be in the event
         Set<Tag> existingTags = eventToEdit.getTags();
-        Set<Tag> newTags = editEventDescriptor.getTags().get();
         for (Tag tag : newTags) {
             if (!existingTags.contains(tag)) {
                 throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND));

@@ -41,9 +41,6 @@ public class AddTagToContactCommandParser implements Parser<AddTagToContactComma
         }
 
         Set<Tag> tags = ContactParserUtil.parseTags(argMultimap.getAllValues(PREFIX_CONTACT_TAG_LONG));
-        EditContactDescriptor editContactDescriptor = new EditContactDescriptor();
-        editContactDescriptor.setTags(tags);
-
-        return new AddTagToContactCommand(index, editContactDescriptor);
+        return new AddTagToContactCommand(index, tags);
     }
 }

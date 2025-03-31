@@ -42,9 +42,6 @@ public class RemoveTagFromTodoCommandParser implements Parser<RemoveTagFromTodoC
         }
 
         Set<Tag> tags = ContactParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TODO_TAG_LONG));
-        EditTodoDescriptor editTodoDescriptor = new EditTodoDescriptor();
-        editTodoDescriptor.setTags(tags);
-
-        return new RemoveTagFromTodoCommand(index, editTodoDescriptor);
+        return new RemoveTagFromTodoCommand(index, tags);
     }
 }

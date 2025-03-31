@@ -42,9 +42,6 @@ public class RemoveTagFromEventCommandParser implements Parser<RemoveTagFromEven
         }
 
         Set<Tag> tags = ContactParserUtil.parseTags(argMultimap.getAllValues(PREFIX_EVENT_TAG_LONG));
-        EditEventDescriptor editEventDescriptor = new EditEventDescriptor();
-        editEventDescriptor.setTags(tags);
-
-        return new RemoveTagFromEventCommand(index, editEventDescriptor);
+        return new RemoveTagFromEventCommand(index, tags);
     }
 }

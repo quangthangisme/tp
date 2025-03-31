@@ -20,19 +20,23 @@ import seedu.address.model.event.Event;
 public class AddTagToEventCommand extends EditEventCommand {
     public static final String COMMAND_WORD = "tag";
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
-        + ": Adds a tag to a specified event.\n"
-        + "Parameters: INDEX "
-        + PREFIX_EVENT_TAG_LONG + " <tag>\n"
-        + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-        + PREFIX_EVENT_TAG_LONG + " TA ";
+            + ": Adds a tag to a specified event.\n"
+            + "Parameters: INDEX "
+            + PREFIX_EVENT_TAG_LONG + " <tag>\n"
+            + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
+            + PREFIX_EVENT_TAG_LONG + " TA ";
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag to event: %1$s";
     public static final String MESSAGE_DUPLICATE_TAGS = "The tag is already assigned to this event";
+
+    private final Set<Tag> newTags;
 
     /**
      * Creates a AddTagToEventCommand to add tags to an event at a specific index.
      */
-    public AddTagToEventCommand(Index index, EditEventDescriptor editEventDescriptor) {
-        super(index, editEventDescriptor);
+    public AddTagToEventCommand(Index index, Set<Tag> tags) {
+        super(index, new EditEventDescriptor());
+        requireNonNull(tags);
+        this.newTags = tags;
     }
 
     @Override
@@ -40,7 +44,6 @@ public class AddTagToEventCommand extends EditEventCommand {
         requireNonNull(eventToEdit);
         // Every tag that is intended to be added must not already be in the event
         Set<Tag> existingTags = eventToEdit.getTags();
-        Set<Tag> newTags = editEventDescriptor.getTags().get();
         for (Tag tag : newTags) {
             if (existingTags.contains(tag)) {
                 throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS));

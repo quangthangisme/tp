@@ -28,11 +28,15 @@ public class RemoveTagFromTodoCommand extends EditTodoCommand {
     public static final String MESSAGE_REMOVE_TAG_SUCCESS = "Removed tag from todo: %1$s";
     public static final String MESSAGE_TAG_NOT_FOUND = "The tag is not assigned to this todo";
 
+    private final Set<Tag> newTags;
+
     /**
      * Creates an RemoveTagFromTodoCommand to remove a tag from the specified {@code Todo}
      */
-    public RemoveTagFromTodoCommand(Index index, EditTodoDescriptor editTodoDescriptor) {
-        super(index, editTodoDescriptor);
+    public RemoveTagFromTodoCommand(Index index, Set<Tag> tags) {
+        super(index, new EditTodoDescriptor());
+        requireNonNull(tags);
+        this.newTags = tags;
     }
 
     @Override
@@ -40,7 +44,6 @@ public class RemoveTagFromTodoCommand extends EditTodoCommand {
         requireNonNull(todoToEdit);
         // Every tag that is intended to be removed must already be in the todo
         Set<Tag> existingTags = todoToEdit.getTags();
-        Set<Tag> newTags = editTodoDescriptor.getTags().get();
         for (Tag tag : newTags) {
             if (!existingTags.contains(tag)) {
                 throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND));
