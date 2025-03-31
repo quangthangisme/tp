@@ -28,20 +28,20 @@ public class HelpCommandParserTest {
 
     @Test
     public void parse_helpCommandContact_success() {
-        CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.MESSAGE_CONTACT_COMMANDS, false,
+        CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.getContactCommandsMessage(), false,
             false);
         assertCommandSuccess(parser.parse(CONTACT_COMMAND_WORD), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void parse_helpCommandTodo_success() {
-        CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.MESSAGE_TODO_COMMANDS, false, false);
+        CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.getTodoCommandsMessage(), false, false);
         assertCommandSuccess(parser.parse(TODO_COMMAND_WORD), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void parse_helpCommandEvent_success() {
-        CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.MESSAGE_EVENT_COMMANDS, false, false);
+        CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.getEventCommandsMessage(), false, false);
         assertCommandSuccess(parser.parse(EVENT_COMMAND_WORD), model, expectedCommandResult, expectedModel);
     }
 
@@ -76,7 +76,7 @@ public class HelpCommandParserTest {
     @Test
     public void parse_helpCommandInvalidSubcommand_fallbackToFeatureHelp() {
         CommandResult expectedCommandResult = new CommandResult(
-            "Subcommand invalid not recognized.\n" + HelpCommandParser.MESSAGE_CONTACT_COMMANDS, false, false);
+            "Subcommand invalid not recognized.\n" + HelpCommandParser.getContactCommandsMessage(), false, false);
         assertCommandSuccess(parser.parse(CONTACT_COMMAND_WORD + " invalid"), model, expectedCommandResult,
             expectedModel);
     }

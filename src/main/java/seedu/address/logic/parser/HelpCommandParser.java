@@ -122,17 +122,17 @@ public class HelpCommandParser implements Parser<HelpCommand> {
 
     }
 
-    private static String getContactCommandsMessage() {
+    public static String getContactCommandsMessage() {
         return CONTACT_COMMAND_WORD + ": Manages your contacts. Supported subcommands:\n" + String.join(", ",
                 CONTACT_COMMAND_USAGE_MAP.keySet());
     }
 
-    private static String getEventCommandsMessage() {
+    public static String getEventCommandsMessage() {
         return EVENT_COMMAND_WORD + ": Manages your events. Supported subcommands:\n" + String.join(", ",
                 EVENT_COMMAND_USAGE_MAP.keySet());
     }
 
-    private static String getTodoCommandsMessage() {
+    public static String getTodoCommandsMessage() {
         return TODO_COMMAND_WORD + ": Manages your todos. Supported subcommands:\n" + String.join(", ",
                 TODO_COMMAND_USAGE_MAP.keySet());
     }
