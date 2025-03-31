@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LON
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS_LONG;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.Pair;
@@ -22,8 +23,9 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.item.predicate.LocationPredicate;
 import seedu.address.model.item.predicate.NamePredicate;
-import seedu.address.model.todo.TodoPredicate;
+import seedu.address.model.todo.predicate.TodoContactPredicate;
 import seedu.address.model.todo.predicate.TodoDeadlinePredicate;
+import seedu.address.model.todo.predicate.TodoPredicate;
 import seedu.address.model.todo.predicate.TodoStatusPredicate;
 
 /**
@@ -80,22 +82,23 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
             predicate.setDeadlinePredicate(new TodoDeadlinePredicate(operatorStringPair.first(),
                     ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
         }
+        Optional<Pair<Operator, List<Index>>> contactFilterOpt = Optional.empty();
         if (argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(
                     argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).get());
-            predicate.setContactOperator(operatorStringPair.first());
             List<Index> contactIndices = ParserUtil.parseIndices(operatorStringPair.second());
             if (contactIndices.isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES,
                         PREFIX_TODO_LINKED_CONTACT_LONG));
             }
-            predicate.setContactIndices(ParserUtil.parseIndices(operatorStringPair.second()));
+            contactFilterOpt = Optional.of(new Pair<>(operatorStringPair.first(), contactIndices));
+            predicate.setContactPredicate(new TodoContactPredicate(Operator.OR, List.of()));
         }
 
         if (!predicate.isAnyFieldNonNull()) {
             throw new ParseException(MESSAGE_NO_COLUMNS);
         }
 
-        return new FilterTodoCommand(predicate);
+        return new FilterTodoCommand(predicate, contactFilterOpt);
     }
 }

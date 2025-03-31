@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Operator;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.item.NamedItem;
 
@@ -29,8 +28,8 @@ public class NamePredicate implements Predicate<NamedItem> {
 
     @Override
     public boolean test(NamedItem item) {
-        return operator.apply(keywords.stream(), keyword
-                -> StringUtil.containsWordIgnoreCase(item.getName().value, keyword));
+        return operator.apply(keywords.stream(), keyword ->
+                item.getName().value.toLowerCase().contains(keyword.toLowerCase()));
     }
 
     @Override

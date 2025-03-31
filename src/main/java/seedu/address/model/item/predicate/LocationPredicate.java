@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Operator;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.item.ItemWithLocation;
 
@@ -29,8 +28,8 @@ public class LocationPredicate implements Predicate<ItemWithLocation> {
 
     @Override
     public boolean test(ItemWithLocation item) {
-        return operator.apply(keywords.stream(), keyword
-                -> StringUtil.containsWordIgnoreCase(item.getLocation().value, keyword));
+        return operator.apply(keywords.stream(), keyword ->
+                item.getLocation().value.toLowerCase().contains(keyword.toLowerCase()));
     }
 
     @Override
