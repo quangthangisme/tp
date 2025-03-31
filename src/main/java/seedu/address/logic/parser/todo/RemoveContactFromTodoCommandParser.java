@@ -31,22 +31,25 @@ public class RemoveContactFromTodoCommandParser implements Parser<RemoveContactF
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_LINKED_CONTACT_LONG);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_TODO_LINKED_CONTACT_LONG)
-                || argMultimap.getPreamble().isEmpty()) {
+        // Ensure only one prefix is present
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_LINKED_CONTACT_LONG);
+        if (!argMultimap.arePrefixesPresent(PREFIX_TODO_LINKED_CONTACT_LONG) || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     RemoveContactFromTodoCommand.MESSAGE_USAGE));
         }
 
+        // Parse index of todo to edit
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_LINKED_CONTACT_LONG);
+
+        // Parse contact indices, duplicates are handled in parseIndices
         List<Index> contactIndices =
                 ParserUtil.parseIndices(argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).get());
 
+        // Check against empty and duplicate contact indices
         if (contactIndices.isEmpty()) {
             throw new ParseException(MESSAGE_MISSING_CONTACT_INDEX);
         }
 
         return new RemoveContactFromTodoCommand(index, contactIndices);
     }
-
 }

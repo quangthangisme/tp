@@ -1,36 +1,34 @@
 package seedu.address.logic.commands.update;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
 
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.TodoMessages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.todo.Todo;
 
 /**
- * Remove some associated contacts from a todo.
+ * Remove some associated contacts via index from a todo.
  */
-public class RemoveContactFromTodoCommand extends EditCommand<Todo> {
+public class RemoveContactFromTodoCommand extends EditTodoCommand {
 
     public static final String COMMAND_WORD = "unlink";
-
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Remove the association between a todo and some contacts.\n"
             + "Parameters: INDEX "
             + PREFIX_TODO_LINKED_CONTACT_LONG + " [CONTACT_INDEX]...\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_TODO_LINKED_CONTACT_LONG + " 1 3 4";
-
     public static final String MESSAGE_REMOVE_CONTACT_SUCCESS = "Removed contacts from todo: %1$s";
 
     private final List<Index> contactIndices;
@@ -40,45 +38,30 @@ public class RemoveContactFromTodoCommand extends EditCommand<Todo> {
      * contactIndices} from the list of contacts in the todo at the specified {@code index}.
      */
     public RemoveContactFromTodoCommand(Index index, List<Index> contactIndices) {
-        super(index, Model::getTodoManagerAndList);
+        super(index, new EditTodoDescriptor());
         requireNonNull(contactIndices);
         this.contactIndices = contactIndices;
     }
 
     @Override
     public Todo createEditedItem(Model model, Todo todoToEdit) throws CommandException {
+        // Check indices against current todo contact list
         for (Index index : contactIndices) {
             if (index.getZeroBased() >= todoToEdit.getContacts().size()) {
-                System.out.println();
-                throw new CommandException(String.format(
-                        TodoMessages.MESSAGE_INVALID_LINKED_CONTACT_INDEX, index.getOneBased()));
+                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_RANGE_CONTACT, index.getOneBased()));
             }
         }
 
+        // Map to contacts and remove
         List<Contact> newContacts = new ArrayList<>(todoToEdit.getContacts());
         contactIndices.stream()
                 .map(Index::getZeroBased)
                 .sorted(Comparator.reverseOrder())
                 .forEach(index -> newContacts.remove((int) index));
 
-        return new Todo(
-                todoToEdit.getName(),
-                todoToEdit.getDeadline(),
-                todoToEdit.getLocation(),
-                todoToEdit.getStatus(),
-                newContacts.stream().toList(),
-                todoToEdit.getTags()
-        );
-    }
-
-    @Override
-    public String getIndexOutOfRangeMessage() {
-        return TodoMessages.MESSAGE_INDEX_OUT_OF_RANGE_TODO;
-    }
-
-    @Override
-    public String getDuplicateMessage() {
-        return TodoMessages.MESSAGE_DUPLICATE_TODO;
+        // Update the descriptor and call super
+        editTodoDescriptor.setContacts(newContacts);
+        return super.createEditedItem(model, todoToEdit);
     }
 
     @Override
@@ -102,10 +85,8 @@ public class RemoveContactFromTodoCommand extends EditCommand<Todo> {
     }
 
     @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .add("index", targetIndex)
-                .add("contactIndicies", contactIndices)
-                .toString();
+    public int hashCode() {
+        return Objects.hash(targetIndex, contactIndices);
     }
+
 }
