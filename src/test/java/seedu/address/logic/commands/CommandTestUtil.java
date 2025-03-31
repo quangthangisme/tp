@@ -63,13 +63,13 @@ public class CommandTestUtil {
     public static final String GROUP_DESC_BOB = " " + PREFIX_CONTACT_GROUP_LONG + VALID_GROUP_BOB;
 
     // '&' not allowed in names
-    public static final String INVALID_NAME_DESC = " " + PREFIX_CONTACT_NAME_LONG + "James&";
+    public static final String INVALID_NAME_DESC = " " + PREFIX_CONTACT_NAME_LONG + "-James&";
     // missing '@' symbol
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_CONTACT_EMAIL_LONG + "bob!yahoo";
     // '*' not allowed in tags
-    public static final String INVALID_TAG_DESC = " " + PREFIX_CONTACT_TAG_LONG + "hubby*";
+    public static final String INVALID_TAG_DESC = " " + PREFIX_CONTACT_TAG_LONG + "-hubby*";
     public static final String INVALID_TAG_HUSBAND_DESC = " " + PREFIX_CONTACT_TAG_LONG
-            + "husband hubby*";
+            + "husband -hubby*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

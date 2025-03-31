@@ -27,13 +27,13 @@ public class LocationTest {
         // invalid name
         assertFalse(Location.isValid("")); // empty string
         assertFalse(Location.isValid(" ")); // spaces only
-        assertFalse(Location.isValid("^")); // only non-alphanumeric characters
-        assertFalse(Location.isValid("house*")); // contains non-alphanumeric characters
+        assertFalse(Location.isValid("-^")); // starts with a hyphen
+        assertFalse(Location.isValid("lol -house*")); // contains a word starting with a hyphen
 
         // valid name
         assertTrue(Location.isValid("nus Science")); // alphabets only
         assertTrue(Location.isValid("12345")); // numbers only
-        assertTrue(Location.isValid("SCIENCE s16")); // alphanumeric characters
+        assertTrue(Location.isValid("SCIENCE-s16"));
         assertTrue(Location.isValid("SINGAPORE SINGAPORE SINGAPORE SINGAPORE")); // long string
     }
 

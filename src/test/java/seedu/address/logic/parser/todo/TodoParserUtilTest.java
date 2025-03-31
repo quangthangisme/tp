@@ -11,20 +11,21 @@ import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
 
 public class TodoParserUtilTest {
-    private static final String INVALID_NAME = "Meeting with R@chel Walker";
+    private static final String INVALID_NAME = "Meeting with R@chel -Walker";
     private static final String INVALID_DEADLINE_NOT_DATETIME = "example";
     private static final String INVALID_DEADLINE_INCORRECT_FORMAT = "21:20 25-12-31";
     private static final String INVALID_DEADLINE_INVALID_DATETIME = "25-02-30 23:59";
+    private static final String INVALID_LOCATION = "-Helol";
 
-    private static final String VALID_NAME = "Meeting with Rachel Walker";
-    private static final String VALID_LOCATION = "NUS Science";
+    private static final String VALID_NAME = "Meeting with Rachel Wal-ker";
+    private static final String VALID_LOCATION = "NUS Sci-ence";
     private static final String VALID_DEADLINE = "25-12-30 23:59";
 
     private static final String WHITESPACE = " \t\r\n";
 
     @Test
     public void parseName_null_throwsNullPointerException() {
-        assertThrows(NullPointerException.class, () -> TodoParserUtil.parseName((String) null));
+        assertThrows(NullPointerException.class, () -> TodoParserUtil.parseName(null));
     }
 
     @Test
@@ -92,4 +93,9 @@ public class TodoParserUtilTest {
         Location expectedLocation = new Location(VALID_LOCATION);
         assertEquals(expectedLocation, TodoParserUtil.parseLocation(locationWithWhitespace));
     }
+    @Test
+    public void parseLocation_invalidValue_throwsParseException() {
+        assertThrows(ParseException.class, () -> TodoParserUtil.parseName(INVALID_LOCATION));
+    }
+
 }

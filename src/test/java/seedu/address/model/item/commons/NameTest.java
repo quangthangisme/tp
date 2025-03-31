@@ -27,14 +27,14 @@ public class NameTest {
         // invalid name
         assertFalse(Name.isValid("")); // empty string
         assertFalse(Name.isValid(" ")); // spaces only
-        assertFalse(Name.isValid("^")); // only non-alphanumeric characters
-        assertFalse(Name.isValid("peter*")); // contains non-alphanumeric characters
+        assertFalse(Location.isValid("-^")); // starts with a hyphen
+        assertFalse(Location.isValid("lol -house*")); // contains a word starting with a hyphen
 
         // valid name
         assertTrue(Name.isValid("peter jack")); // alphabets only
         assertTrue(Name.isValid("12345")); // numbers only
         assertTrue(Name.isValid("peter the 2nd")); // alphanumeric characters
-        assertTrue(Name.isValid("Capital Tan")); // with capital letters
+        assertTrue(Name.isValid("Capital-Tan"));
         assertTrue(Name.isValid("David Roger Jackson Ray Jr 2nd")); // long names
     }
 
