@@ -3,18 +3,15 @@ package seedu.address.logic.commands.update;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
-import seedu.address.logic.TodoMessages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.todo.Todo;
-import seedu.address.model.todo.TodoStatus;
 
 /**
  * Mark a todo as done.
  */
-public class MarkTodoAsDoneCommand extends EditCommand<Todo> {
+public class MarkTodoAsDoneCommand extends EditTodoCommand {
 
     public static final String COMMAND_WORD = "mark";
 
@@ -32,8 +29,8 @@ public class MarkTodoAsDoneCommand extends EditCommand<Todo> {
      *
      * @throws NullPointerException if {@code index} is {@code null}.
      */
-    public MarkTodoAsDoneCommand(Index index) {
-        super(index, Model::getTodoManagerAndList);
+    public MarkTodoAsDoneCommand(Index index, EditTodoDescriptor descriptor) {
+        super(index, descriptor);
     }
 
     @Override
@@ -41,25 +38,7 @@ public class MarkTodoAsDoneCommand extends EditCommand<Todo> {
         if (todoToEdit.getStatus().isDone()) {
             throw new CommandException(MESSAGE_TODO_ALREADY_DONE);
         }
-
-        return new Todo(
-                todoToEdit.getName(),
-                todoToEdit.getDeadline(),
-                todoToEdit.getLocation(),
-                new TodoStatus(true),
-                todoToEdit.getContacts(),
-                todoToEdit.getTags()
-        );
-    }
-
-    @Override
-    public String getIndexOutOfRangeMessage() {
-        return TodoMessages.MESSAGE_INDEX_OUT_OF_RANGE_TODO;
-    }
-
-    @Override
-    public String getDuplicateMessage() {
-        return TodoMessages.MESSAGE_DUPLICATE_TODO;
+        return super.createEditedItem(model, todoToEdit);
     }
 
     @Override
@@ -79,12 +58,5 @@ public class MarkTodoAsDoneCommand extends EditCommand<Todo> {
         }
 
         return targetIndex.equals(otherCommand.targetIndex);
-    }
-
-    @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .add("index", targetIndex)
-                .toString();
     }
 }

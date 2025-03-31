@@ -7,15 +7,19 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.logic.commands.update.EditTodoDescriptor;
 import seedu.address.logic.commands.update.MarkTodoAsNotDoneCommand;
+import seedu.address.model.todo.TodoStatus;
 
 public class MarkTodoAsNotDoneCommandParserTest {
 
-    private MarkTodoAsNotDoneCommandParser parser = new MarkTodoAsNotDoneCommandParser();
+    private final MarkTodoAsNotDoneCommandParser parser = new MarkTodoAsNotDoneCommandParser();
 
     @Test
     public void parse_validArgs_returnsDeleteCommand() {
-        assertParseSuccess(parser, "1", new MarkTodoAsNotDoneCommand(INDEX_FIRST));
+        EditTodoDescriptor editTodoDescriptor = new EditTodoDescriptor();
+        editTodoDescriptor.setStatus(new TodoStatus(false));
+        assertParseSuccess(parser, "1", new MarkTodoAsNotDoneCommand(INDEX_FIRST, editTodoDescriptor));
     }
 
     @Test
