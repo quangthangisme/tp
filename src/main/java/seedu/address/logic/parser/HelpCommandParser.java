@@ -39,6 +39,7 @@ import seedu.address.logic.commands.update.AddTagToContactCommand;
 import seedu.address.logic.commands.update.AddTagToEventCommand;
 import seedu.address.logic.commands.update.AddTagToTodoCommand;
 import seedu.address.logic.commands.update.EditContactCommand;
+import seedu.address.logic.commands.update.EditEventCommand;
 import seedu.address.logic.commands.update.EditTodoCommand;
 import seedu.address.logic.commands.update.MarkTodoAsDoneCommand;
 import seedu.address.logic.commands.update.MarkTodoAsNotDoneCommand;
@@ -103,7 +104,7 @@ public class HelpCommandParser implements Parser<HelpCommand> {
 
         // Event
         EVENT_COMMAND_USAGE_MAP.put(AddEventCommand.COMMAND_WORD, AddEventCommand.MESSAGE_USAGE);
-        // TODO: EVENT_COMMAND_USAGE_MAP.put(EditEventCommand.COMMAND_WORD, EditEventCommand.MESSAGE_USAGE);
+        EVENT_COMMAND_USAGE_MAP.put(EditEventCommand.COMMAND_WORD, EditEventCommand.MESSAGE_USAGE);
         EVENT_COMMAND_USAGE_MAP.put(DeleteEventCommand.COMMAND_WORD, DeleteEventCommand.MESSAGE_USAGE);
         EVENT_COMMAND_USAGE_MAP.put(InfoEventCommand.COMMAND_WORD, InfoEventCommand.MESSAGE_USAGE);
         EVENT_COMMAND_USAGE_MAP.put(ListEventCommand.COMMAND_WORD, ListEventCommand.MESSAGE_USAGE);
@@ -118,8 +119,6 @@ public class HelpCommandParser implements Parser<HelpCommand> {
                 AddContactToLogEventCommand.MESSAGE_USAGE);
         EVENT_COMMAND_USAGE_MAP.put(RemoveContactFromLogEventCommand.COMMAND_WORD,
                 RemoveContactFromLogEventCommand.MESSAGE_USAGE);
-
-
     }
 
     public static String getContactCommandsMessage() {
