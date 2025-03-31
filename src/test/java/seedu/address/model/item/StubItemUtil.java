@@ -1,16 +1,29 @@
 package seedu.address.model.item;
 
+/**
+ * Stubs for item-related classes.
+ */
 public class StubItemUtil {
-    public static class Stub implements Item {
-        String id;
-        String notId;
 
-        Stub(String id, String notId) {
+    /**
+     * An stub for {@code Item}.
+     */
+    public static class Stub implements Item {
+        private final String id;
+        private final String notId;
+
+        /**
+         * Constructor for the stub.
+         */
+        public Stub(String id, String notId) {
             this.id = id;
             this.notId = notId;
         }
     }
 
+    /**
+     * An stub for {@code DuplicateChecker}.
+     */
     public static class DuplicateStubChecker implements DuplicateChecker<Stub> {
         @Override
         public boolean check(Stub first, Stub second) {
@@ -18,12 +31,21 @@ public class StubItemUtil {
         }
     }
 
+    /**
+     * An stub for {@code DuplicateException}.
+     */
     public static class DuplicateStubException extends RuntimeException {
     }
 
+    /**
+     * An stub for {@code NotFoundException}.
+     */
     public static class StubNotFoundException extends RuntimeException {
     }
 
+    /**
+     * An stub for {@code UniqueItemList}.
+     */
     public static class UniqueStubList extends UniqueItemList<Stub> {
         public UniqueStubList() {
             super(new DuplicateStubChecker());
@@ -40,19 +62,12 @@ public class StubItemUtil {
         }
     }
 
+    /**
+     * An stub for {@code ItemManager}.
+     */
     public static class StubManager extends ItemManager<Stub> {
         public StubManager() {
             super(new UniqueStubList());
-        }
-    }
-
-    public static class StubManagerAndList extends ItemManagerWithFilteredList<Stub> {
-        public StubManagerAndList() {
-            super(new StubManager());
-        }
-
-        public StubManagerAndList(ItemManager<Stub> stubManager) {
-            super(stubManager);
         }
     }
 

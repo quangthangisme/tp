@@ -1,6 +1,6 @@
 package seedu.address.logic.commands.read;
 
-import static seedu.address.logic.EventMessages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_END_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_LONG;

@@ -8,7 +8,6 @@ import static seedu.address.model.item.StubItemUtil.STUB_A_DUPLICATE;
 import static seedu.address.model.item.StubItemUtil.STUB_B;
 import static seedu.address.model.item.StubItemUtil.Stub;
 import static seedu.address.model.item.StubItemUtil.StubManager;
-import static seedu.address.model.item.StubItemUtil.StubNotFoundException;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.Collections;

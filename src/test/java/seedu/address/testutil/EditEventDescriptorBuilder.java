@@ -8,11 +8,11 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.update.EditEventDescriptor;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.EventDateTime;
-import seedu.address.model.event.EventLocation;
-import seedu.address.model.event.EventName;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * A utility class to help with building EditEventDescriptor objects.
@@ -44,34 +44,34 @@ public class EditEventDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code EventName} of the {@code EditEventDescriptor} that we are building.
+     * Sets the {@code Name} of the {@code EditEventDescriptor} that we are building.
      */
-    public EditEventDescriptorBuilder withEventName(String eventName) {
-        descriptor.setName(new EventName(eventName));
+    public EditEventDescriptorBuilder withName(String eventName) {
+        descriptor.setName(new Name(eventName));
         return this;
     }
 
     /**
-     * Sets the {@code EventDateTime} of the {@code EditEventDescriptor} that we are building.
+     * Sets the {@code Datetime} of the {@code EditEventDescriptor} that we are building.
      */
     public EditEventDescriptorBuilder withEventStartTime(String eventStartTime) {
-        descriptor.setStartTime(new EventDateTime(eventStartTime));
+        descriptor.setStartTime(new Datetime(eventStartTime));
         return this;
     }
 
     /**
-     * Sets the {@code EventDateTime} of the {@code EditEventDescriptor} that we are building.
+     * Sets the {@code Datetime} of the {@code EditEventDescriptor} that we are building.
      */
     public EditEventDescriptorBuilder withEventEndTime(String eventEndTime) {
-        descriptor.setEndTime(new EventDateTime(eventEndTime));
+        descriptor.setEndTime(new Datetime(eventEndTime));
         return this;
     }
 
     /**
-     * Sets the {@code EventLocation} of the {@code EditEventDescriptor} that we are building.
+     * Sets the {@code Location} of the {@code EditEventDescriptor} that we are building.
      */
-    public EditEventDescriptorBuilder withEventLocation(String eventLocation) {
-        descriptor.setLocation(new EventLocation(eventLocation));
+    public EditEventDescriptorBuilder withLocation(String eventLocation) {
+        descriptor.setLocation(new Location(eventLocation));
         return this;
     }
 

@@ -10,10 +10,10 @@ import java.util.Set;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
-import seedu.address.model.todo.TodoDeadline;
-import seedu.address.model.todo.TodoLocation;
-import seedu.address.model.todo.TodoName;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 import seedu.address.model.todo.TodoStatus;
 
 /**
@@ -23,11 +23,11 @@ import seedu.address.model.todo.TodoStatus;
 public class EditTodoDescriptor {
 
     // Identity fields
-    private TodoName name;
+    private Name name;
 
     // Data fields
-    private TodoDeadline deadline;
-    private TodoLocation location;
+    private Datetime deadline;
+    private Location location;
     private TodoStatus status;
     private List<Contact> contacts = List.of();
     private Set<Tag> tags = new HashSet<>();
@@ -54,27 +54,27 @@ public class EditTodoDescriptor {
         return CollectionUtil.isAnyNonNull(name, deadline, location, status, contacts, tags);
     }
 
-    public Optional<TodoName> getName() {
+    public Optional<Name> getName() {
         return Optional.ofNullable(name);
     }
 
-    public void setName(TodoName name) {
+    public void setName(Name name) {
         this.name = name;
     }
 
-    public Optional<TodoDeadline> getDeadline() {
+    public Optional<Datetime> getDeadline() {
         return Optional.ofNullable(deadline);
     }
 
-    public void setDeadline(TodoDeadline deadline) {
+    public void setDeadline(Datetime deadline) {
         this.deadline = deadline;
     }
 
-    public Optional<TodoLocation> getLocation() {
+    public Optional<Location> getLocation() {
         return Optional.ofNullable(location);
     }
 
-    public void setLocation(TodoLocation location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 

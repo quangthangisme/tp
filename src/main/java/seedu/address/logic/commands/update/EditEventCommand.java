@@ -18,11 +18,11 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.EventDateTime;
-import seedu.address.model.event.EventLocation;
-import seedu.address.model.event.EventName;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * Edits the details of an existing event in the address book.
@@ -66,10 +66,10 @@ public class EditEventCommand extends EditCommand<Event> {
     public Event createEditedItem(Model model, Event eventToEdit) throws CommandException {
         assert eventToEdit != null;
 
-        EventName updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
-        EventDateTime updatedStartTime = editEventDescriptor.getStartTime().orElse(eventToEdit.getStartTime());
-        EventDateTime updatedEndTime = editEventDescriptor.getEndTime().orElse(eventToEdit.getEndTime());
-        EventLocation updatedLocation = editEventDescriptor.getLocation().orElse(eventToEdit.getLocation());
+        Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
+        Datetime updatedStartTime = editEventDescriptor.getStartTime().orElse(eventToEdit.getStartTime());
+        Datetime updatedEndTime = editEventDescriptor.getEndTime().orElse(eventToEdit.getEndTime());
+        Location updatedLocation = editEventDescriptor.getLocation().orElse(eventToEdit.getLocation());
         List<Contact> updatedContacts = editEventDescriptor.getContacts().orElse(eventToEdit.getContacts());
         List<Boolean> updatedMarkedList = editEventDescriptor.getMarkedList().orElse(eventToEdit.getMarkedList());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());

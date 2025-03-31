@@ -29,6 +29,12 @@ public class Messages {
     public static final String MESSAGE_UNRECOGNIZED_COLUMN = "Unrecognized column: '%s'.";
     public static final String MESSAGE_UNRECOGNIZED_OPERATOR = "Unrecognized operator: '%s'.";
 
+
+    public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX =
+            "The contact index provided is out of range: %1$s";
+    public static final String MESSAGE_MISSING_CONTACT_INDEX =
+            "At least one contact must be provided.";
+
     /**
      * Returns an error message indicating the duplicate prefixes.
      */

@@ -138,8 +138,8 @@ public class UniqueItemListTest {
 
     @Test
     public void setItems_nullList_throwsNullPointerException() {
-        assertThrows(NullPointerException.class,
-                () -> uniqueList.setItems((List<Stub>) null));
+        assertThrows(NullPointerException.class, ()
+                -> uniqueList.setItems((List<Stub>) null));
     }
 
     @Test

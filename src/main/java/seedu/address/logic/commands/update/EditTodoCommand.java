@@ -17,11 +17,11 @@ import seedu.address.logic.TodoMessages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 import seedu.address.model.todo.Todo;
-import seedu.address.model.todo.TodoDeadline;
-import seedu.address.model.todo.TodoLocation;
-import seedu.address.model.todo.TodoName;
 import seedu.address.model.todo.TodoStatus;
 
 /**
@@ -65,9 +65,9 @@ public class EditTodoCommand extends EditCommand<Todo> {
     public Todo createEditedItem(Model model, Todo todoToEdit) throws CommandException {
         assert todoToEdit != null;
 
-        TodoName updatedName = editTodoDescriptor.getName().orElse(todoToEdit.getName());
-        TodoDeadline updatedDeadline = editTodoDescriptor.getDeadline().orElse(todoToEdit.getDeadline());
-        TodoLocation updatedLocation = editTodoDescriptor.getLocation().orElse(todoToEdit.getLocation());
+        Name updatedName = editTodoDescriptor.getName().orElse(todoToEdit.getName());
+        Datetime updatedDeadline = editTodoDescriptor.getDeadline().orElse(todoToEdit.getDeadline());
+        Location updatedLocation = editTodoDescriptor.getLocation().orElse(todoToEdit.getLocation());
         TodoStatus updatedStatus = editTodoDescriptor.getStatus().orElse(todoToEdit.getStatus());
         List<Contact> updatedContacts = editTodoDescriptor.getContacts().orElse(todoToEdit.getContacts());
         Set<Tag> updatedTags = editTodoDescriptor.getTags().orElse(todoToEdit.getTags());

@@ -11,7 +11,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.EventMessages;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -50,7 +49,7 @@ public class AddContactToLogEventCommand extends EditEventCommand {
         // Check indices against current filtered list
         for (Index index : contactIndices) {
             if (index.getZeroBased() >= eventToEdit.getContacts().size()) {
-                throw new CommandException(String.format(EventMessages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX,
+                throw new CommandException(String.format(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX,
                         index.getOneBased()));
             }
         }

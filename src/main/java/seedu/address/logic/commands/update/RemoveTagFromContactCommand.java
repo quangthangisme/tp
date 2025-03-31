@@ -12,7 +12,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * Removes a tag from a Contact in contact.

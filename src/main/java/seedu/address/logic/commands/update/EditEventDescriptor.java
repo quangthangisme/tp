@@ -10,10 +10,10 @@ import java.util.Set;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
-import seedu.address.model.event.EventDateTime;
-import seedu.address.model.event.EventLocation;
-import seedu.address.model.event.EventName;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * Stores the details to edit the event with. Each non-empty field value will replace the
@@ -21,10 +21,10 @@ import seedu.address.model.event.EventName;
  */
 public class EditEventDescriptor {
 
-    private EventName name;
-    private EventDateTime startTime;
-    private EventDateTime endTime;
-    private EventLocation location;
+    private Name name;
+    private Datetime startTime;
+    private Datetime endTime;
+    private Location location;
     private List<Contact> contacts;
     private List<Boolean> markedList;
     private Set<Tag> tags = new HashSet<>();
@@ -52,35 +52,35 @@ public class EditEventDescriptor {
         return CollectionUtil.isAnyNonNull(name, startTime, endTime, location, contacts, markedList, tags);
     }
 
-    public Optional<EventName> getName() {
+    public Optional<Name> getName() {
         return Optional.ofNullable(name);
     }
 
-    public void setName(EventName name) {
+    public void setName(Name name) {
         this.name = name;
     }
 
-    public Optional<EventDateTime> getStartTime() {
+    public Optional<Datetime> getStartTime() {
         return Optional.ofNullable(startTime);
     }
 
-    public void setStartTime(EventDateTime startTime) {
+    public void setStartTime(Datetime startTime) {
         this.startTime = startTime;
     }
 
-    public Optional<EventDateTime> getEndTime() {
+    public Optional<Datetime> getEndTime() {
         return Optional.ofNullable(endTime);
     }
 
-    public void setEndTime(EventDateTime endTime) {
+    public void setEndTime(Datetime endTime) {
         this.endTime = endTime;
     }
 
-    public Optional<EventLocation> getLocation() {
+    public Optional<Location> getLocation() {
         return Optional.ofNullable(location);
     }
 
-    public void setLocation(EventLocation location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 

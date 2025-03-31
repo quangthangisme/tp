@@ -1,5 +1,7 @@
 package seedu.address.model.todo;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX;
+
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -8,14 +10,13 @@ import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.logic.TodoMessages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.item.predicate.LocationPredicate;
+import seedu.address.model.item.predicate.NamePredicate;
 import seedu.address.model.todo.predicate.TodoContactPredicate;
 import seedu.address.model.todo.predicate.TodoDeadlinePredicate;
-import seedu.address.model.todo.predicate.TodoLocationPredicate;
-import seedu.address.model.todo.predicate.TodoNamePredicate;
 import seedu.address.model.todo.predicate.TodoStatusPredicate;
 
 
@@ -27,9 +28,9 @@ public class TodoPredicate implements Predicate<Todo> {
     /**
      * Stores the details to filter the todo with.
      */
-    private TodoNamePredicate namePredicate;
+    private NamePredicate namePredicate;
     private TodoDeadlinePredicate deadlinePredicate;
-    private TodoLocationPredicate locationPredicate;
+    private LocationPredicate locationPredicate;
     private TodoStatusPredicate statusPredicate;
     private Operator contactOperator;
     private List<Index> contactIndices;
@@ -57,11 +58,11 @@ public class TodoPredicate implements Predicate<Todo> {
                 locationPredicate, statusPredicate, contactIndices);
     }
 
-    public Optional<TodoNamePredicate> getNamePredicate() {
+    public Optional<NamePredicate> getNamePredicate() {
         return Optional.ofNullable(namePredicate);
     }
 
-    public void setNamePredicate(TodoNamePredicate namePredicate) {
+    public void setNamePredicate(NamePredicate namePredicate) {
         this.namePredicate = namePredicate;
     }
 
@@ -73,11 +74,11 @@ public class TodoPredicate implements Predicate<Todo> {
         this.deadlinePredicate = deadlinePredicate;
     }
 
-    public Optional<TodoLocationPredicate> getLocationPredicate() {
+    public Optional<LocationPredicate> getLocationPredicate() {
         return Optional.ofNullable(locationPredicate);
     }
 
-    public void setLocationPredicate(TodoLocationPredicate locationPredicate) {
+    public void setLocationPredicate(LocationPredicate locationPredicate) {
         this.locationPredicate = locationPredicate;
     }
 
@@ -115,7 +116,7 @@ public class TodoPredicate implements Predicate<Todo> {
             for (Index index : contactIndices) {
                 if (index.getZeroBased() >= filteredContacts.size()) {
                     throw new CommandException(String.format(
-                            TodoMessages.MESSAGE_INVALID_LINKED_CONTACT_INDEX, index.getOneBased()));
+                            MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX, index.getOneBased()));
                 }
             }
 
