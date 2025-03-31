@@ -22,12 +22,12 @@ public class Datetime {
     /**
      * Constructs a {@code Datetime}.
      *
-     * @param deadline A valid deadline in the format "YY-MM-DD HH:MM".
+     * @param datetime A valid datetime in the format "YY-MM-DD HH:MM".
      */
-    public Datetime(String deadline) {
-        requireNonNull(deadline);
-        checkArgument(isValid(deadline), MESSAGE_CONSTRAINTS);
-        this.datetime = DatetimeUtil.parse(deadline);
+    public Datetime(String datetime) {
+        requireNonNull(datetime);
+        checkArgument(isValid(datetime), MESSAGE_CONSTRAINTS);
+        this.datetime = DatetimeUtil.parse(datetime);
     }
 
 
@@ -39,7 +39,7 @@ public class Datetime {
     }
 
     /**
-     * Returns true if a given string is a valid deadline.
+     * Returns true if a given string is a valid datetime.
      */
     public static boolean isValid(String test) {
         try {
