@@ -1,15 +1,16 @@
 package seedu.address.logic.commands.update;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
 import seedu.address.logic.TodoMessages;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -21,7 +22,7 @@ import seedu.address.model.todo.Todo;
 /**
  * Associate a list of contacts to a todo.
  */
-public class AddContactToTodoCommand extends EditCommand<Todo> {
+public class AddContactToTodoCommand extends EditTodoCommand {
 
     public static final String COMMAND_WORD = "link";
 
@@ -37,34 +38,30 @@ public class AddContactToTodoCommand extends EditCommand<Todo> {
             "Contact %1$s is already assigned to this todo.";
 
     private final List<Index> contactIndices;
-    private final Function<Model, ItemManagerWithFilteredList<Contact>>
-            contactManagerAndListGetter = Model::getContactManagerAndList;
 
     /**
      * Creates an AddContactToTodoCommand to add the contacts at the specified {@code contactIndices}
      * to the todo at the specified {@code index}.
      */
     public AddContactToTodoCommand(Index index, List<Index> contactIndices) {
-        super(index, Model::getTodoManagerAndList);
+        super(index, new EditTodoDescriptor());
         requireNonNull(contactIndices);
         this.contactIndices = contactIndices;
     }
 
     @Override
     public Todo createEditedItem(Model model, Todo itemToEdit) throws CommandException {
-        List<Contact> filteredContacts = contactManagerAndListGetter.apply(model)
-                .getFilteredItemsList();
-
+        // Check indices against current filtered list
+        List<Contact> filteredContacts = model.getContactManagerAndList().getFilteredItemsList();
         for (Index index : contactIndices) {
             if (index.getZeroBased() >= filteredContacts.size()) {
-                throw new CommandException(String.format(
-                        TodoMessages.MESSAGE_INVALID_LINKED_CONTACT_INDEX, index.getOneBased()));
+                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_RANGE_CONTACT, index.getOneBased()));
             }
         }
 
+        // Map to contacts and check for duplicates
         List<Contact> addedContacts = contactIndices.stream()
                 .map(index -> filteredContacts.get(index.getZeroBased())).toList();
-
         for (Contact contact : addedContacts) {
             if (itemToEdit.getContacts().contains(contact)) {
                 throw new CommandException(String.format(MESSAGE_DUPLICATE_CONTACT,
@@ -72,27 +69,11 @@ public class AddContactToTodoCommand extends EditCommand<Todo> {
             }
         }
 
+        // Update the descriptor and call super
         List<Contact> combinedContacts =
                 Stream.concat(itemToEdit.getContacts().stream(), addedContacts.stream()).toList();
-
-        return new Todo(
-                itemToEdit.getName(),
-                itemToEdit.getDeadline(),
-                itemToEdit.getLocation(),
-                itemToEdit.getStatus(),
-            combinedContacts,
-                itemToEdit.getTags()
-        );
-    }
-
-    @Override
-    public String getIndexOutOfRangeMessage() {
-        return TodoMessages.MESSAGE_INDEX_OUT_OF_RANGE_TODO;
-    }
-
-    @Override
-    public String getDuplicateMessage() {
-        return TodoMessages.MESSAGE_DUPLICATE_TODO;
+        editTodoDescriptor.setContacts(combinedContacts);
+        return super.createEditedItem(model, itemToEdit);
     }
 
     @Override
@@ -116,10 +97,7 @@ public class AddContactToTodoCommand extends EditCommand<Todo> {
     }
 
     @Override
-    public String toString() {
-        return new ToStringBuilder(this)
-                .add("index", targetIndex)
-                .add("contactIndicies", contactIndices)
-                .toString();
+    public int hashCode() {
+        return Objects.hash(targetIndex, contactIndices);
     }
 }

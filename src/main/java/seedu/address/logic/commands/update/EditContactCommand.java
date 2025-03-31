@@ -116,5 +116,4 @@ public class EditContactCommand extends EditCommand<Contact> {
                 .add("editContactDescriptor", editContactDescriptor)
                 .toString();
     }
-
 }

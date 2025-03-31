@@ -90,7 +90,8 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
             return false;
         }
 
-        return managerAndListGetter.equals(otherEditCommand.managerAndListGetter);
+        return targetIndex.equals(otherEditCommand.targetIndex)
+                && managerAndListGetter.equals(otherEditCommand.managerAndListGetter);
     }
 
     @Override
