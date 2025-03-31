@@ -59,6 +59,19 @@ public class Todo implements NamedItem, ItemWithLocation, TaggedItem {
         this.contacts = List.of();
     }
 
+    /**
+     * Every field must be present and not null.
+     */
+    public Todo(Name name, Datetime deadline, Location location, Set<Tag> tagSet) {
+        requireAllNonNull(name, deadline, location, tagSet);
+        this.name = name;
+        this.deadline = deadline;
+        this.location = location;
+        this.status = new TodoStatus(false);
+        this.contacts = List.of();
+        this.tags.addAll(tagSet);
+    }
+
     public Name getName() {
         return name;
     }

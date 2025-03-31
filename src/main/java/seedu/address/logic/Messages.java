@@ -8,6 +8,7 @@ import java.util.stream.Stream;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
+import seedu.address.model.item.TaggedItem;
 import seedu.address.model.item.commons.Tag;
 import seedu.address.model.todo.Todo;
 
@@ -21,7 +22,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_ARGUMENTS = "Arguments missing or invalid! \n%1$s";
     public static final String MESSAGE_SEARCH_OVERVIEW = "Number of results: %1$d";
     public static final String MESSAGE_DUPLICATE_FIELDS =
-                "Multiple values specified for the following single-valued field(s): ";
+            "Multiple values specified for the following single-valued field(s): ";
 
     public static final String MESSAGE_DUPLICATE_COLUMN = "Duplicate column: %s.";
     public static final String MESSAGE_NO_COLUMNS = "Specify at least one column and value.";
@@ -34,6 +35,7 @@ public class Messages {
             "The contact index provided is out of range: %1$s";
     public static final String MESSAGE_MISSING_CONTACT_INDEX =
             "At least one contact must be provided.";
+    public static final String MESSAGE_MISSING_TAG = "At least one tag must be provided.";
 
     /**
      * Returns an error message indicating the duplicate prefixes.
@@ -51,20 +53,12 @@ public class Messages {
      * Formats the {@code contact} for display to the user.
      */
     public static String format(Contact contact) {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(contact.getName())
-               .append("; ID: ")
-               .append(contact.getId())
-               .append("; Email: ")
-               .append(contact.getEmail())
-               .append("; Course: ")
-               .append(contact.getCourse())
-               .append("; Group: ")
-               .append(contact.getGroup())
-               .append("; Tags: ");
-        contact.getTags()
-              .forEach(builder::append);
-        return builder.toString();
+        return contact.getName()
+                + "; ID: " + contact.getId()
+                + "; Email: " + contact.getEmail()
+                + "; Course: " + contact.getCourse()
+                + "; Group: " + contact.getGroup()
+                + "; Tags: " + getTagListFormatted(contact);
     }
 
     /**
@@ -72,15 +66,7 @@ public class Messages {
      */
     public static String format(Todo todo) {
         String contactsFormatted = getTodoContactListFormatted(todo);
-        String tagsFormatted;
-
-        if (todo.getTags().isEmpty()) {
-            tagsFormatted = "None";
-        } else {
-            tagsFormatted = todo.getTags().stream()
-                    .map(Tag::toString)
-                    .collect(Collectors.joining(", "));
-        }
+        String tagsFormatted = getTagListFormatted(todo);
 
         return todo.getName()
                 + "; Deadline: " + todo.getDeadline()
@@ -95,7 +81,7 @@ public class Messages {
      */
     public static String format(Event event) {
         String contactListFormatted = getEventContactListFormatted(event);
-        String eventListFormatted = getEventTagListFormatted(event);
+        String eventListFormatted = getTagListFormatted(event);
         return event.getName()
                 + "; Start Time: " + event.getStartTime()
                 + "; End Time: " + event.getEndTime()
@@ -114,21 +100,11 @@ public class Messages {
                 + "; Group: " + contact.getGroup();
     }
 
-    private static String getTodoTagListFormatted(Todo todo) {
-        if (todo.getTags().isEmpty()) {
+    private static String getTagListFormatted(TaggedItem item) {
+        if (item.getTags().isEmpty()) {
             return "None";
         } else {
-            return todo.getTags().stream()
-                    .map(Tag::toString)
-                    .collect(Collectors.joining(", "));
-        }
-    }
-
-    private static String getEventTagListFormatted(Event event) {
-        if (event.getTags().isEmpty()) {
-            return "None";
-        } else {
-            return event.getTags().stream()
+            return item.getTags().stream()
                     .map(Tag::toString)
                     .collect(Collectors.joining(", "));
         }

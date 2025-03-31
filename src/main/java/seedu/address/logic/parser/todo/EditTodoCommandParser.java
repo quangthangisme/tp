@@ -7,10 +7,6 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.update.EditTodoCommand;
 import seedu.address.logic.commands.update.EditTodoDescriptor;
@@ -18,9 +14,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.contact.ContactParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.item.commons.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -45,7 +39,7 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
-                PREFIX_TODO_LOCATION_LONG);
+                PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_TAG_LONG);
 
         EditTodoDescriptor editTodoDescriptor = new EditTodoDescriptor();
 
@@ -61,15 +55,8 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
                     TodoParserUtil.parseLocation(argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_TODO_TAG_LONG).isPresent()) {
-            Collection<String> tags = argMultimap.getAllValues(PREFIX_TODO_TAG_LONG);
-            Set<Tag> tagSet;
-            // Special allowance for empty tag to remove all tags
-            if (tags.size() == 1 && tags.contains("")) {
-                tagSet = Collections.emptySet();
-            } else {
-                tagSet = ContactParserUtil.parseTags(tags);
-            }
-            editTodoDescriptor.setTags(tagSet);
+            editTodoDescriptor.setTags(
+                    ParserUtil.parseTags(argMultimap.getValue(PREFIX_TODO_TAG_LONG).get()));
         }
 
         if (!editTodoDescriptor.isAnyFieldEdited()) {

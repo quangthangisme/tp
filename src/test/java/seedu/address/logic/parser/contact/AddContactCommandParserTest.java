@@ -17,7 +17,7 @@ import static seedu.address.logic.commands.CommandTestUtil.NAME_DESC_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
 import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_HUSBAND;
+import static seedu.address.logic.commands.CommandTestUtil.TAG_DESC_FRIEND_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUP_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
@@ -30,6 +30,7 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_GROUP_LONG;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_ID_LONG;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_NAME_LONG;
+import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_LONG;
 import static seedu.address.testutil.TypicalContacts.AMY;
 import static seedu.address.testutil.TypicalContacts.BOB;
 
@@ -58,11 +59,11 @@ public class AddContactCommandParserTest {
 
 
         // multiple tags - all accepted
-        Contact expectedContactMultipleTags = new ContactBuilder(BOB).withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
+        Contact expectedContactMultipleTags = new ContactBuilder(BOB)
+                .withTags(VALID_TAG_FRIEND, VALID_TAG_HUSBAND)
                 .build();
-        assertParseSuccess(parser,
-                ID_DESC_BOB + NAME_DESC_BOB + EMAIL_DESC_BOB
-                        + COURSE_DESC_BOB + GROUP_DESC_BOB + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+        assertParseSuccess(parser, ID_DESC_BOB + NAME_DESC_BOB + EMAIL_DESC_BOB + COURSE_DESC_BOB
+                        + GROUP_DESC_BOB + TAG_DESC_FRIEND_HUSBAND,
                 new AddContactCommand(expectedContactMultipleTags));
     }
 
@@ -81,11 +82,10 @@ public class AddContactCommandParserTest {
 
         // multiple fields repeated
         assertParseFailure(parser,
-                validExpectedContactString + EMAIL_DESC_AMY + NAME_DESC_AMY
-                        + validExpectedContactString,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_ID_LONG,
-                    PREFIX_CONTACT_EMAIL_LONG,
-                    PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG));
+                validExpectedContactString + EMAIL_DESC_AMY + NAME_DESC_AMY + validExpectedContactString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_NAME_LONG,
+                        PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_COURSE_LONG,
+                        PREFIX_CONTACT_GROUP_LONG, PREFIX_CONTACT_TAG_LONG));
 
         // invalid value followed by valid value
 
@@ -137,13 +137,13 @@ public class AddContactCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, ID_DESC_BOB + INVALID_NAME_DESC
-                + EMAIL_DESC_BOB + COURSE_DESC_BOB + GROUP_DESC_BOB + TAG_DESC_HUSBAND
-                + TAG_DESC_FRIEND, Name.MESSAGE_CONSTRAINTS);
+                + EMAIL_DESC_BOB + COURSE_DESC_BOB + GROUP_DESC_BOB + TAG_DESC_FRIEND_HUSBAND,
+                Name.MESSAGE_CONSTRAINTS);
 
         // invalid email
         assertParseFailure(parser, ID_DESC_BOB + NAME_DESC_BOB
-                + INVALID_EMAIL_DESC + COURSE_DESC_BOB + GROUP_DESC_BOB + TAG_DESC_HUSBAND
-                + TAG_DESC_FRIEND, Email.MESSAGE_CONSTRAINTS);
+                + INVALID_EMAIL_DESC + COURSE_DESC_BOB + GROUP_DESC_BOB + TAG_DESC_FRIEND_HUSBAND,
+                Email.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, ID_DESC_BOB + NAME_DESC_BOB + EMAIL_DESC_BOB
@@ -158,7 +158,7 @@ public class AddContactCommandParserTest {
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + ID_DESC_BOB + NAME_DESC_BOB
                         + EMAIL_DESC_BOB + GROUP_DESC_BOB + VALID_GROUP_BOB
-                        + TAG_DESC_HUSBAND + TAG_DESC_FRIEND,
+                        + TAG_DESC_FRIEND_HUSBAND,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddContactCommand.MESSAGE_USAGE));
     }
 }

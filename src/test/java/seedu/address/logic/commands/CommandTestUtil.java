@@ -55,6 +55,8 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_CONTACT_EMAIL_LONG + VALID_EMAIL_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_CONTACT_TAG_LONG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_CONTACT_TAG_LONG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_FRIEND_HUSBAND =
+            " " + PREFIX_CONTACT_TAG_LONG + VALID_TAG_FRIEND + " " + VALID_TAG_HUSBAND;
     public static final String COURSE_DESC_AMY = " " + PREFIX_CONTACT_COURSE_LONG + VALID_COURSE_AMY;
     public static final String COURSE_DESC_BOB = " " + PREFIX_CONTACT_COURSE_LONG + VALID_COURSE_BOB;
     public static final String GROUP_DESC_AMY = " " + PREFIX_CONTACT_GROUP_LONG + VALID_GROUP_AMY;
@@ -66,6 +68,8 @@ public class CommandTestUtil {
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_CONTACT_EMAIL_LONG + "bob!yahoo";
     // '*' not allowed in tags
     public static final String INVALID_TAG_DESC = " " + PREFIX_CONTACT_TAG_LONG + "hubby*";
+    public static final String INVALID_TAG_HUSBAND_DESC = " " + PREFIX_CONTACT_TAG_LONG
+            + "husband hubby*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";

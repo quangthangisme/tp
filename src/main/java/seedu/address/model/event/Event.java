@@ -54,6 +54,19 @@ public class Event implements NamedItem, ItemWithLocation, TaggedItem {
         this.attendance = new Attendance();
     }
 
+    /**
+     * Every field must be present and not null.
+     */
+    public Event(Name name, Datetime startTime, Datetime endTime, Location location, Set<Tag> tagSet) {
+        requireAllNonNull(name, startTime, endTime, location);
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.location = location;
+        this.attendance = new Attendance();
+        this.tags.addAll(tagSet);
+    }
+
     public Name getName() {
         return this.name;
     }

@@ -9,10 +9,6 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_NAME_LONG;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_LONG;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Set;
-
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.update.EditContactCommand;
 import seedu.address.logic.commands.update.EditContactDescriptor;
@@ -21,7 +17,6 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.item.commons.Tag;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -47,7 +42,8 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_NAME_LONG,
-                PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG);
+                PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG,
+                PREFIX_CONTACT_TAG_LONG);
 
         EditContactDescriptor editContactDescriptor = new EditContactDescriptor();
 
@@ -71,15 +67,8 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
                     ContactParserUtil.parseGroup(argMultimap.getValue(PREFIX_CONTACT_GROUP_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTACT_TAG_LONG).isPresent()) {
-            Collection<String> tags = argMultimap.getAllValues(PREFIX_CONTACT_TAG_LONG);
-            Set<Tag> tagSet;
-            // Special allowance for empty tag to remove all tags
-            if (tags.size() == 1 && tags.contains("")) {
-                tagSet = Collections.emptySet();
-            } else {
-                tagSet = ContactParserUtil.parseTags(tags);
-            }
-            editContactDescriptor.setTags(tagSet);
+            editContactDescriptor.setTags(
+                    ParserUtil.parseTags(argMultimap.getValue(PREFIX_CONTACT_TAG_LONG).get()));
         }
 
         if (!editContactDescriptor.isAnyFieldEdited()) {
