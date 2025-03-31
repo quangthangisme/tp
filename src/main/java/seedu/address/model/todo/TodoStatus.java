@@ -4,7 +4,7 @@ package seedu.address.model.todo;
  * Represents a Todo's status in the address book.
  * Guarantees: immutable
  */
-public class TodoStatus {
+public class TodoStatus implements Comparable<TodoStatus> {
     private static final String DONE_LABEL = "Done";
     private static final String NOT_DONE_LABEL = "Not done";
 
@@ -24,6 +24,12 @@ public class TodoStatus {
      */
     public boolean isDone() {
         return isDone;
+    }
+
+    @Override
+    public int compareTo(TodoStatus other) {
+        // Not done (false) comes before done (true)
+        return Boolean.compare(this.isDone, other.isDone);
     }
 
     @Override

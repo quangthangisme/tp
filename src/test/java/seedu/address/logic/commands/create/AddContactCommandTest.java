@@ -11,6 +11,7 @@ import static seedu.address.testutil.TypicalContacts.ALICE;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import org.junit.jupiter.api.Test;
 
@@ -178,6 +179,11 @@ public class AddContactCommandTest {
         }
 
         @Override
+        protected Comparator<Contact> getDefaultComparator() {
+            return null;
+        }
+
+        @Override
         public boolean hasItem(Contact contact) {
             requireNonNull(contact);
             return this.contact.isSameContact(contact);
@@ -205,6 +211,11 @@ public class AddContactCommandTest {
         public void addItem(Contact contact) {
             requireNonNull(contact);
             contactsAdded.add(contact);
+        }
+
+        @Override
+        protected Comparator<Contact> getDefaultComparator() {
+            return null;
         }
 
         @Override

@@ -58,17 +58,17 @@ public class SampleDataUtil {
         return new Todo[] {
             new Todo(new Name("Grading"), new Datetime("25-03-23 17:00"),
                 new Location("NUS Science")),
-            new Todo(new Name("Lab 1"), new Datetime("27-03-23 17:00"),
+            new Todo(new Name("Lab 1"), new Datetime("25-03-23 17:00"),
                 new Location("NUS Com1")),
-            new Todo(new Name("Project Meeting"), new Datetime("28-03-23 19:00"),
+            new Todo(new Name("Project Meeting"), new Datetime("25-03-23 19:00"),
                 new Location("NUS Engineering")),
-            new Todo(new Name("CS2103 Lecture"), new Datetime("29-03-23 14:00"),
+            new Todo(new Name("CS2103 Lecture"), new Datetime("25-03-23 14:00"),
                 new Location("NUS Business")),
-            new Todo(new Name("CS2030 Tutorial"), new Datetime("30-03-23 10:00"),
+            new Todo(new Name("CS2030 Tutorial"), new Datetime("25-03-23 10:00"),
                 new Location("NUS SoC")),
-            new Todo(new Name("CS2040 Lab"), new Datetime("31-03-23 17:00"),
+            new Todo(new Name("CS2040 Lab"), new Datetime("25-03-23 17:00"),
                 new Location("NUS Com2")),
-            new Todo(new Name("CS1010S Project"), new Datetime("01-04-23 23:59"),
+            new Todo(new Name("CS1010S Project"), new Datetime("25-04-23 23:59"),
                 new Location("NUS Computing"))
         };
     }
@@ -77,14 +77,14 @@ public class SampleDataUtil {
         return new Event[] {
             new Event(new Name("Hackathon"), new Datetime("25-03-23 09:00"),
                 new Datetime("25-03-23 17:00"), new Location("NUS UTown")),
-            new Event(new Name("Workshop"), new Datetime("27-03-23 13:00"),
-                new Datetime("27-03-23 17:00"), new Location("NUS Com2")),
-            new Event(new Name("Seminar"), new Datetime("28-03-23 15:00"),
-                new Datetime("28-03-23 17:00"), new Location("NUS LT27")),
-            new Event(new Name("Meeting"), new Datetime("29-03-23 11:00"),
-                new Datetime("29-03-23 13:00"), new Location("NUS AS6")),
-            new Event(new Name("Conference"), new Datetime("30-03-23 09:00"),
-                new Datetime("30-03-23 17:00"), new Location("NUS LT19"))
+            new Event(new Name("Workshop"), new Datetime("25-03-23 13:00"),
+                new Datetime("25-03-23 17:00"), new Location("NUS Com2")),
+            new Event(new Name("Seminar"), new Datetime("25-03-24 15:00"),
+                new Datetime("25-03-24 17:00"), new Location("NUS LT27")),
+            new Event(new Name("Meeting"), new Datetime("25-03-24 11:00"),
+                new Datetime("25-03-24 13:00"), new Location("NUS AS6")),
+            new Event(new Name("Conference"), new Datetime("25-03-27 09:00"),
+                new Datetime("25-03-27 17:00"), new Location("NUS LT19"))
         };
     }
 

@@ -7,7 +7,7 @@ import static seedu.address.commons.util.AppUtil.checkArgument;
  * Represents a Contact's id in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValidId(String)}
  */
-public class Id {
+public class Id implements Comparable<Id> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "IDs should only contain alphanumeric characters and spaces, and it should not be blank";
@@ -64,4 +64,8 @@ public class Id {
         return fullId.hashCode();
     }
 
+    @Override
+    public int compareTo(Id other) {
+        return this.fullId.compareTo(other.fullId);
+    }
 }

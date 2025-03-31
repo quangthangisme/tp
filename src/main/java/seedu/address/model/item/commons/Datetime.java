@@ -12,7 +12,7 @@ import seedu.address.commons.util.DatetimeUtil;
  * Represents a datetime.
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
-public class Datetime {
+public class Datetime implements Comparable<Datetime> {
 
     public static final String MESSAGE_CONSTRAINTS =
             "Datetime should be in the format YY-MM-DD HH:MM, where HH is in 24-hour format.";
@@ -29,7 +29,6 @@ public class Datetime {
         checkArgument(isValid(datetime), MESSAGE_CONSTRAINTS);
         this.datetime = DatetimeUtil.parse(datetime);
     }
-
 
     /**
      * Check if a datetime is before another datetime.
@@ -72,5 +71,10 @@ public class Datetime {
     @Override
     public int hashCode() {
         return datetime.hashCode();
+    }
+
+    @Override
+    public int compareTo(Datetime other) {
+        return this.datetime.compareTo(other.datetime);
     }
 }

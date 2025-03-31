@@ -3,10 +3,12 @@ package seedu.address.model.item;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.Comparator;
 import java.util.function.Predicate;
 
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 
 /**
  * Manages a list of {@code Item} objects and provides a filtered list for display purposes.
@@ -29,8 +31,12 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
     public ItemManagerWithFilteredList(ItemManager<T> itemManager) {
         requireAllNonNull(itemManager);
         this.itemManager = itemManager;
-        filteredItems = new FilteredList<>(this.itemManager.getItemList());
+        SortedList<T> sortedItems = new SortedList<>(this.itemManager.getItemList());
+        sortedItems.setComparator(getDefaultComparator());
+        filteredItems = new FilteredList<>(sortedItems);
     }
+
+    protected abstract Comparator<T> getDefaultComparator();
 
     //=========== ItemManager ======================================================================
 
