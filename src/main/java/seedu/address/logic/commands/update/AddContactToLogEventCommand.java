@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKE
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
@@ -19,7 +20,7 @@ import seedu.address.model.event.Event;
 /**
  * Adds the log of given contacts via index.
  */
-public class AddContactToLogEventCommand extends EditCommand<Event> {
+public class AddContactToLogEventCommand extends EditEventCommand {
     public static final String COMMAND_WORD = "log";
 
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
@@ -39,19 +40,22 @@ public class AddContactToLogEventCommand extends EditCommand<Event> {
      * contactIndices}.
      */
     public AddContactToLogEventCommand(Index index, List<Index> contactIndices) {
-        super(index, Model::getEventManagerAndList);
+        super(index, new EditEventDescriptor());
         requireNonNull(contactIndices);
         this.contactIndices = contactIndices;
     }
 
     @Override
     public Event createEditedItem(Model model, Event eventToEdit) throws CommandException {
+        // Check indices against current filtered list
         for (Index index : contactIndices) {
             if (index.getZeroBased() >= eventToEdit.getContacts().size()) {
                 throw new CommandException(String.format(EventMessages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX,
                         index.getOneBased()));
             }
         }
+
+        // Map to contacts and check for already logged
         List<Boolean> newMarkList = new ArrayList<>(eventToEdit.getMarkedList());
         List<Index> checkContactMarked = contactIndices.stream()
                 .filter(x -> newMarkList.get(x.getZeroBased()))
@@ -67,29 +71,34 @@ public class AddContactToLogEventCommand extends EditCommand<Event> {
                 .map(Index::getZeroBased)
                 .sorted(Comparator.reverseOrder())
                 .forEach(index -> newMarkList.set(index, true));
-        return new Event(
-                eventToEdit.getName(),
-                eventToEdit.getStartTime(),
-                eventToEdit.getEndTime(),
-                eventToEdit.getLocation(),
-                eventToEdit.getContacts(),
-                List.copyOf(newMarkList),
-                eventToEdit.getTags()
-        );
-    }
 
-    @Override
-    public String getIndexOutOfRangeMessage() {
-        return EventMessages.MESSAGE_INDEX_OUT_OF_RANGE_EVENT;
-    }
-
-    @Override
-    public String getDuplicateMessage() {
-        return EventMessages.MESSAGE_DUPLICATE_EVENT;
+        // Update the descriptor and call super
+        editEventDescriptor.setMarkedList(newMarkList);
+        return super.createEditedItem(model, eventToEdit);
     }
 
     @Override
     public String getSuccessMessage(Event editedItem) {
         return String.format(MESSAGE_ADD_LOG_SUCCESS, Messages.format(editedItem));
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+
+        // instanceof handles nulls
+        if (!(other instanceof AddContactToLogEventCommand otherCommand)) {
+            return false;
+        }
+
+        return targetIndex.equals(otherCommand.targetIndex)
+                && contactIndices.equals(otherCommand.contactIndices);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(targetIndex, contactIndices);
     }
 }
