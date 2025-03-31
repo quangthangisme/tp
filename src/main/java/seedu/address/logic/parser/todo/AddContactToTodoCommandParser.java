@@ -8,7 +8,7 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_C
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.todo.AddContactToTodoCommand;
+import seedu.address.logic.commands.update.AddContactToTodoCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -31,17 +31,21 @@ public class AddContactToTodoCommandParser implements Parser<AddContactToTodoCom
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_LINKED_CONTACT_LONG);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_TODO_LINKED_CONTACT_LONG)
-                || argMultimap.getPreamble().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddContactToTodoCommand.MESSAGE_USAGE));
+        // Ensure only one prefix is present
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_LINKED_CONTACT_LONG);
+        if (!argMultimap.arePrefixesPresent(PREFIX_TODO_LINKED_CONTACT_LONG) || argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(
+                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddContactToTodoCommand.MESSAGE_USAGE));
         }
 
+        // Parse index of todo to edit
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_LINKED_CONTACT_LONG);
-        List<Index> contactIndices =
-                ParserUtil.parseIndices(argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).get());
 
+        // Parse contact indices, duplicates are handled in parseIndices
+        List<Index> contactIndices = ParserUtil.parseIndices(
+                argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).get());
+
+        // Check against empty and duplicate contact indices
         if (contactIndices.isEmpty()) {
             throw new ParseException(MESSAGE_MISSING_CONTACT_INDEX);
         }

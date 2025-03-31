@@ -36,7 +36,7 @@ import static seedu.address.testutil.TypicalContacts.BOB;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.contact.AddContactCommand;
+import seedu.address.logic.commands.create.AddContactCommand;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Name;

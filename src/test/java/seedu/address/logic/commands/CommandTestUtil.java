@@ -8,14 +8,18 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_ID_LONG;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_NAME_LONG;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.contact.EditContactCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.update.EditContactDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
@@ -27,6 +31,7 @@ import seedu.address.testutil.EditContactDescriptorBuilder;
  */
 public class CommandTestUtil {
 
+    // For contact
     public static final String VALID_ID_AMY = "B0000000001";
     public static final String VALID_ID_BOB = "B0000000002";
     public static final String VALID_NAME_AMY = "Amy Bee";
@@ -64,8 +69,8 @@ public class CommandTestUtil {
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
 
-    public static final EditContactCommand.EditContactDescriptor DESC_AMY;
-    public static final EditContactCommand.EditContactDescriptor DESC_BOB;
+    public static final EditContactDescriptor DESC_AMY;
+    public static final EditContactDescriptor DESC_BOB;
 
     static {
         DESC_AMY = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY)
@@ -77,6 +82,37 @@ public class CommandTestUtil {
                                                     .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
                                                     .build();
     }
+
+    // For Todo
+    public static final String VALID_NAME_HW = "Do homework";
+    public static final String VALID_NAME_EX = "Do exercise";
+    public static final String VALID_DATETIME_1 = "2021-01-01 23:59";
+    public static final String VALID_DATETIME_2 = "2021-02-01 00:00";
+    public static final String VALID_LOCATION_HW = "Canvas";
+    public static final String VALID_LOCATION_EX = "Prof office";
+    public static final String VALID_TAG_HW = "Important";
+    public static final String VALID_TAG_EX = "Very important";
+
+    public static final String NAME_DESC_HW = " " + PREFIX_TODO_NAME_LONG + VALID_NAME_HW;
+    public static final String NAME_DESC_EX = " " + PREFIX_TODO_NAME_LONG + VALID_NAME_EX;
+    public static final String DEADLINE_DESC_HW = " " + PREFIX_TODO_DEADLINE_LONG + VALID_DATETIME_1;
+    public static final String DEADLINE_DESC_EX = " " + PREFIX_TODO_DEADLINE_LONG + VALID_DATETIME_2;
+    public static final String LOCATION_DESC_HW = " " + PREFIX_TODO_LOCATION_LONG + VALID_LOCATION_HW;
+    public static final String LOCATION_DESC_EX = " " + PREFIX_TODO_LOCATION_LONG + VALID_LOCATION_EX;
+    public static final String TAG_DESC_HW = " " + PREFIX_TODO_TAG_LONG + VALID_TAG_HW;
+    public static final String TAG_DESC_EX = " " + PREFIX_TODO_TAG_LONG + VALID_TAG_EX;
+
+    // & not allowed
+    public static final String INVALID_NAME_TODO = " " + PREFIX_TODO_NAME_LONG + "Stuff&stuff";
+    public static final String INVALID_NOT_DATETIME = " " + PREFIX_TODO_DEADLINE_LONG + "aaaa";
+    public static final String INVALID_DATETIME_INCORRECT_FORMAT = " " + PREFIX_TODO_DEADLINE_LONG + "23:59 25-12-31";
+    // empty
+    public static final String INVALID_LOCATION_TODO = " " + PREFIX_TODO_LOCATION_LONG + "";
+    // * not allowed
+    public static final String INVALID_TAG_TODO = " " + PREFIX_TODO_TAG_LONG + "hubby*";
+
+
+
 
     /**
      * Executes the given {@code command}, confirms that <br>

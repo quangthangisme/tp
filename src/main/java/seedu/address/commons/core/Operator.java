@@ -48,6 +48,7 @@ public enum Operator {
             return !stream.allMatch(predicate);
         case NOR:
             return stream.noneMatch(predicate);
+        // Should never happen: guard clause in case of adding new operators
         default:
             throw new UnsupportedOperationException("Operator not supported: " + this);
         }
