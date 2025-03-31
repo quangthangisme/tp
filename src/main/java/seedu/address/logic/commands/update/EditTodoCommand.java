@@ -9,6 +9,7 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LON
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -33,7 +34,8 @@ public class EditTodoCommand extends EditCommand<Todo> {
     public static final String COMMAND_WORD = "edit";
 
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
-            + ": Edits the details of the todo identified by the index number used in the displayed todo list. "
+            + ": Edits the details of the todo identified by the index number used in the "
+            + "displayed todo list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_TODO_NAME_LONG + " NAME] "
@@ -45,10 +47,11 @@ public class EditTodoCommand extends EditCommand<Todo> {
 
     public static final String MESSAGE_EDIT_TODO_SUCCESS = "Edited Todo: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TODO = "This todo already exists in the address book.";
+    public static final String MESSAGE_DUPLICATE_TODO =
+            "This todo already exists in the address book.";
 
     protected final EditTodoDescriptor editTodoDescriptor;
-    private final List<Index> linkedContactIndex;
+    private final Optional<List<Index>> linkedContactIndicesOpt;
 
     /**
      * @param index              of the todo in the filtered todo list to edit
@@ -58,20 +61,20 @@ public class EditTodoCommand extends EditCommand<Todo> {
         super(index, Model::getTodoManagerAndList);
         requireNonNull(editTodoDescriptor);
         this.editTodoDescriptor = new EditTodoDescriptor(editTodoDescriptor);
-        this.linkedContactIndex = List.of();
+        this.linkedContactIndicesOpt = Optional.empty();
     }
 
     /**
-     * @param index              of the todo in the filtered todo list to edit
-     * @param editTodoDescriptor details to edit the todo with
-     * @param linkedContactIndex  indices of contacts to link with
+     * @param index                of the todo in the filtered todo list to edit
+     * @param editTodoDescriptor   details to edit the todo with
+     * @param linkedContactIndices indices of contacts to link with
      */
     public EditTodoCommand(Index index, EditTodoDescriptor editTodoDescriptor,
-                           List<Index> linkedContactIndex) {
+                           List<Index> linkedContactIndices) {
         super(index, Model::getTodoManagerAndList);
         requireNonNull(editTodoDescriptor);
         this.editTodoDescriptor = new EditTodoDescriptor(editTodoDescriptor);
-        this.linkedContactIndex = List.copyOf(linkedContactIndex);
+        this.linkedContactIndicesOpt = Optional.of(List.copyOf(linkedContactIndices));
     }
 
     /**
@@ -81,24 +84,33 @@ public class EditTodoCommand extends EditCommand<Todo> {
     public Todo createEditedItem(Model model, Todo todoToEdit) throws CommandException {
         assert todoToEdit != null;
 
-        List<Contact> filteredContacts = model.getContactManagerAndList().getFilteredItemsList();
-        for (Index index : linkedContactIndex) {
-            if (index.getZeroBased() >= filteredContacts.size()) {
-                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_RANGE_CONTACT, index.getOneBased()));
+        if (linkedContactIndicesOpt.isPresent()) {
+            List<Index> linkedContactIndices = linkedContactIndicesOpt.get();
+            List<Contact> filteredContacts =
+                    model.getContactManagerAndList().getFilteredItemsList();
+            for (Index index : linkedContactIndices) {
+                if (index.getZeroBased() >= filteredContacts.size()) {
+                    throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_RANGE_CONTACT,
+                            index.getOneBased()));
+                }
             }
+            List<Contact> contacts = linkedContactIndices.stream().map(Index::getZeroBased)
+                    .map(filteredContacts::get).toList();
+            editTodoDescriptor.setContacts(contacts);
         }
-        List<Contact> contacts = linkedContactIndex.stream().map(Index::getZeroBased)
-                .map(filteredContacts::get).toList();
-        editTodoDescriptor.setContacts(contacts);
 
         Name updatedName = editTodoDescriptor.getName().orElse(todoToEdit.getName());
-        Datetime updatedDeadline = editTodoDescriptor.getDeadline().orElse(todoToEdit.getDeadline());
-        Location updatedLocation = editTodoDescriptor.getLocation().orElse(todoToEdit.getLocation());
+        Datetime updatedDeadline =
+                editTodoDescriptor.getDeadline().orElse(todoToEdit.getDeadline());
+        Location updatedLocation =
+                editTodoDescriptor.getLocation().orElse(todoToEdit.getLocation());
         TodoStatus updatedStatus = editTodoDescriptor.getStatus().orElse(todoToEdit.getStatus());
-        List<Contact> updatedContacts = editTodoDescriptor.getContacts().orElse(todoToEdit.getContacts());
+        List<Contact> updatedContacts =
+                editTodoDescriptor.getContacts().orElse(todoToEdit.getContacts());
         Set<Tag> updatedTags = editTodoDescriptor.getTags().orElse(todoToEdit.getTags());
 
-        return new Todo(updatedName, updatedDeadline, updatedLocation, updatedStatus, updatedContacts, updatedTags);
+        return new Todo(updatedName, updatedDeadline, updatedLocation, updatedStatus,
+                updatedContacts, updatedTags);
     }
 
     @Override
