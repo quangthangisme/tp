@@ -29,11 +29,15 @@ public class RemoveTagFromContactCommand extends EditContactCommand {
     public static final String MESSAGE_REMOVE_TAG_SUCCESS = "Removed tag from contact: %1$s";
     public static final String MESSAGE_TAG_NOT_FOUND = "The tag is not assigned to this contact";
 
+    private final Set<Tag> newTags;
+
     /**
      * Creates an EditCommand to remove a tag from the specified {@code Contact}
      */
-    public RemoveTagFromContactCommand(Index index, EditContactDescriptor editContactDescriptor) {
-        super(index, editContactDescriptor);
+    public RemoveTagFromContactCommand(Index index, Set<Tag> newTags) {
+        super(index, new EditContactDescriptor());
+        requireNonNull(newTags);
+        this.newTags = newTags;
     }
 
     @Override
@@ -41,7 +45,6 @@ public class RemoveTagFromContactCommand extends EditContactCommand {
         requireNonNull(contactToEdit);
         // Every tag that is intended to be removed must already be in the contact
         Set<Tag> existingTags = contactToEdit.getTags();
-        Set<Tag> newTags = editContactDescriptor.getTags().get();
         for (Tag tag : newTags) {
             if (!existingTags.contains(tag)) {
                 throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND));

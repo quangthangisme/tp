@@ -4,6 +4,9 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_LONG;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -40,10 +43,13 @@ public class RemoveTagFromContactCommandParser implements Parser<RemoveTagFromCo
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveTagFromContactCommand.MESSAGE_USAGE), pe);
         }
 
-        Set<Tag> tags = ContactParserUtil.parseTags(argMultimap.getAllValues(PREFIX_CONTACT_TAG_LONG));
-        EditContactDescriptor editContactDescriptor = new EditContactDescriptor();
-        editContactDescriptor.setTags(tags);
+        // It is guaranteed that there is only one --tag.
+        // Get the sole value, split by whitespace
+        // convert to collection<String>, then parse to Set<Tag>
+        Collection<String> tags = argMultimap.getValue(PREFIX_CONTACT_TAG_LONG)
+                .map(s -> Arrays.asList(s.split("\\s+")))
+                .orElse(Collections.emptyList());
 
-        return new RemoveTagFromContactCommand(index, editContactDescriptor);
+        return new RemoveTagFromContactCommand(index, ContactParserUtil.parseTags(tags));
     }
 }

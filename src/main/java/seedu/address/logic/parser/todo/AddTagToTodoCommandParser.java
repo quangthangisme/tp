@@ -2,8 +2,12 @@ package seedu.address.logic.parser.todo;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -41,7 +45,13 @@ public class AddTagToTodoCommandParser implements Parser<AddTagToTodoCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagToTodoCommand.MESSAGE_USAGE), pe);
         }
 
-        Set<Tag> tags = ContactParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TODO_TAG_LONG));
-        return new AddTagToTodoCommand(index, tags);
+        // It is guaranteed that there is only one --tag.
+        // Get the sole value, split by whitespace
+        // convert to collection<String>, then parse to Set<Tag>
+        Collection<String> tags = argMultimap.getValue(PREFIX_CONTACT_TAG_LONG)
+                .map(s -> Arrays.asList(s.split("\\s+")))
+                .orElse(Collections.emptyList());
+
+        return new AddTagToTodoCommand(index, ContactParserUtil.parseTags(tags));
     }
 }

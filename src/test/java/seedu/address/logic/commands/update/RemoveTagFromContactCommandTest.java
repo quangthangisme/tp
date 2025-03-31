@@ -5,6 +5,8 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
+import java.util.Set;
+
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
@@ -14,6 +16,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
 import seedu.address.model.contact.ContactManagerWithFilteredList;
+import seedu.address.model.contact.Tag;
 import seedu.address.model.event.EventManager;
 import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.todo.TodoManager;
@@ -39,18 +42,14 @@ public class RemoveTagFromContactCommandTest {
                 .get(INDEX_FIRST.getZeroBased());
 
         String toRemove = initial.getTags().stream().findFirst().get().tagName;
+        RemoveTagFromContactCommand removeTagCommand = new RemoveTagFromContactCommand(INDEX_FIRST,
+                Set.of(new Tag(toRemove)));
+
         String[] editedTags = initial.getTags().stream()
                 .map(tag -> tag.tagName)
                 .filter(tag -> !tag.equals(toRemove))
                 .toArray(String[]::new);
-
         Contact editedContact = new ContactBuilder(initial).withTags(editedTags).build();
-
-        EditContactDescriptor descriptor = new EditContactDescriptorBuilder()
-                .withTags(toRemove)
-                .build();
-        RemoveTagFromContactCommand removeTagCommand = new RemoveTagFromContactCommand(INDEX_FIRST, descriptor);
-
         String expectedMessage = String.format(RemoveTagFromContactCommand.MESSAGE_REMOVE_TAG_SUCCESS,
                 Messages.format(editedContact));
 
@@ -79,7 +78,8 @@ public class RemoveTagFromContactCommandTest {
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder(firstContact)
                 .withTags("randomTag")
                 .build();
-        RemoveTagFromContactCommand removeTagCommand = new RemoveTagFromContactCommand(INDEX_FIRST, descriptor);
+        RemoveTagFromContactCommand removeTagCommand = new RemoveTagFromContactCommand(INDEX_FIRST,
+                Set.of(new Tag("randomTag")));
 
         assertCommandFailure(removeTagCommand, model, RemoveTagFromContactCommand.MESSAGE_TAG_NOT_FOUND);
     }
