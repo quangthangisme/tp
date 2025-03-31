@@ -1,8 +1,6 @@
 package seedu.address.logic.commands.update;
 
 import static java.util.Objects.requireNonNull;
-import static seedu.address.logic.TodoMessages.MESSAGE_DUPLICATE_TODO;
-import static seedu.address.logic.TodoMessages.MESSAGE_INDEX_OUT_OF_RANGE_TODO;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
@@ -19,7 +17,7 @@ import seedu.address.model.todo.Todo;
 /**
  * Adds a tag to a specified todo
  */
-public class AddTagToTodoCommand extends EditCommand<Todo> {
+public class AddTagToTodoCommand extends EditTodoCommand {
     public static final String COMMAND_WORD = "tag";
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Adds a tag to a specified todo.\n"
@@ -30,46 +28,36 @@ public class AddTagToTodoCommand extends EditCommand<Todo> {
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag to todo: %1$s";
     public static final String MESSAGE_DUPLICATE_TAGS = "The tag is already assigned to this todo";
 
-    private final Tag tag;
-
     /**
      * Creates a AddTagToTodoCommand to add tags to a todo at a specific index.
      */
-    public AddTagToTodoCommand(Index index, Tag tag) {
-        super(index, Model::getTodoManagerAndList);
-        requireNonNull(tag);
-        this.tag = tag;
+    public AddTagToTodoCommand(Index index, EditTodoDescriptor editTodoDescriptor) {
+        super(index, editTodoDescriptor);
     }
 
     @Override
     public Todo createEditedItem(Model model, Todo todoToEdit) throws CommandException {
-        if (todoToEdit.getTags().contains(tag)) {
-            throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS));
+        requireNonNull(todoToEdit);
+        // Every tag that is intended to be added must not already be in the contact
+        Set<Tag> existingTags = todoToEdit.getTags();
+        Set<Tag> newTags = editTodoDescriptor.getTags().get();
+        for (Tag tag : newTags) {
+            if (existingTags.contains(tag)) {
+                throw new CommandException(String.format(MESSAGE_DUPLICATE_TAGS));
+            }
         }
-        Set<Tag> newTags = new HashSet<>(todoToEdit.getTags());
-        newTags.add(this.tag);
-        return new Todo(
-                todoToEdit.getName(),
-                todoToEdit.getDeadline(),
-                todoToEdit.getLocation(),
-                todoToEdit.getStatus(),
-                todoToEdit.getContacts(),
-                Set.copyOf(newTags)
-        );
-    }
 
-    @Override
-    public String getIndexOutOfRangeMessage() {
-        return MESSAGE_INDEX_OUT_OF_RANGE_TODO;
-    }
+        // Merge tags and update
+        Set<Tag> combinedTags = new HashSet<>(existingTags);
+        combinedTags.addAll(newTags);
+        editTodoDescriptor.setTags(combinedTags);
 
-    @Override
-    public String getDuplicateMessage() {
-        return MESSAGE_DUPLICATE_TODO;
+        return super.createEditedItem(model, todoToEdit);
     }
 
     @Override
     public String getSuccessMessage(Todo editedItem) {
         return String.format(MESSAGE_ADD_TAG_SUCCESS, Messages.format(editedItem));
     }
+
 }
