@@ -9,40 +9,44 @@ import static seedu.address.logic.parser.CliSyntax.KILL_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.QUIT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.create.AddContactCommand;
-import seedu.address.logic.commands.read.InfoEventCommand;
-import seedu.address.logic.commands.update.AddTagToContactCommand;
+import seedu.address.logic.commands.create.AddEventCommand;
+import seedu.address.logic.commands.create.AddTodoCommand;
 import seedu.address.logic.commands.delete.ClearContactCommand;
+import seedu.address.logic.commands.delete.ClearEventCommand;
+import seedu.address.logic.commands.delete.ClearTodoCommand;
 import seedu.address.logic.commands.delete.DeleteContactCommand;
-import seedu.address.logic.commands.update.EditContactCommand;
+import seedu.address.logic.commands.delete.DeleteEventCommand;
+import seedu.address.logic.commands.delete.DeleteTodoCommand;
 import seedu.address.logic.commands.read.FilterContactCommand;
+import seedu.address.logic.commands.read.FilterEventCommand;
+import seedu.address.logic.commands.read.FilterTodoCommand;
 import seedu.address.logic.commands.read.InfoContactCommand;
+import seedu.address.logic.commands.read.InfoEventCommand;
+import seedu.address.logic.commands.read.InfoTodoCommand;
 import seedu.address.logic.commands.read.ListContactCommand;
-import seedu.address.logic.commands.update.RemoveTagFromContactCommand;
+import seedu.address.logic.commands.read.ListEventCommand;
+import seedu.address.logic.commands.read.ListTodoCommand;
 import seedu.address.logic.commands.update.AddContactToEventCommand;
 import seedu.address.logic.commands.update.AddContactToLogEventCommand;
-import seedu.address.logic.commands.create.AddEventCommand;
-import seedu.address.logic.commands.update.AddTagToEventCommand;
-import seedu.address.logic.commands.delete.ClearEventCommand;
-import seedu.address.logic.commands.delete.DeleteEventCommand;
-import seedu.address.logic.commands.read.FilterEventCommand;
-import seedu.address.logic.commands.read.ListEventCommand;
-import seedu.address.logic.commands.update.RemoveContactFromEventCommand;
-import seedu.address.logic.commands.update.RemoveContactFromLogEventCommand;
-import seedu.address.logic.commands.update.RemoveTagFromEventCommand;
 import seedu.address.logic.commands.update.AddContactToTodoCommand;
+import seedu.address.logic.commands.update.AddTagToContactCommand;
+import seedu.address.logic.commands.update.AddTagToEventCommand;
 import seedu.address.logic.commands.update.AddTagToTodoCommand;
-import seedu.address.logic.commands.create.AddTodoCommand;
-import seedu.address.logic.commands.delete.ClearTodoCommand;
-import seedu.address.logic.commands.delete.DeleteTodoCommand;
-import seedu.address.logic.commands.read.InfoTodoCommand;
-import seedu.address.logic.commands.read.FilterTodoCommand;
-import seedu.address.logic.commands.read.ListTodoCommand;
+import seedu.address.logic.commands.update.EditContactCommand;
+import seedu.address.logic.commands.update.EditTodoCommand;
 import seedu.address.logic.commands.update.MarkTodoAsDoneCommand;
 import seedu.address.logic.commands.update.MarkTodoAsNotDoneCommand;
+import seedu.address.logic.commands.update.RemoveContactFromEventCommand;
+import seedu.address.logic.commands.update.RemoveContactFromLogEventCommand;
 import seedu.address.logic.commands.update.RemoveContactFromTodoCommand;
+import seedu.address.logic.commands.update.RemoveTagFromContactCommand;
+import seedu.address.logic.commands.update.RemoveTagFromEventCommand;
 import seedu.address.logic.commands.update.RemoveTagFromTodoCommand;
 
 /**
@@ -61,49 +65,77 @@ import seedu.address.logic.commands.update.RemoveTagFromTodoCommand;
  * that are not supported are immediately dropped without errors.
  */
 public class HelpCommandParser implements Parser<HelpCommand> {
-
     public static final String MESSAGE_UNKNOWN_COMMAND = "Feature not recognized.\n" + HelpCommand.MESSAGE_USAGE;
-    public static final String MESSAGE_CONTACT_COMMANDS = CONTACT_COMMAND_WORD
-        + ": Manages your contacts. Supported subcommands:\n"
-        + AddContactCommand.COMMAND_WORD + ", "
-        + EditContactCommand.COMMAND_WORD + ", "
-        + DeleteContactCommand.COMMAND_WORD + ", "
-        + ClearContactCommand.COMMAND_WORD + ", "
-        + FilterContactCommand.COMMAND_WORD + ", "
-        + ListContactCommand.COMMAND_WORD + ", "
-        + InfoContactCommand.COMMAND_WORD + ", "
-        + AddTagToContactCommand.COMMAND_WORD + ", "
-        + RemoveTagFromContactCommand.COMMAND_WORD;
 
-    public static final String MESSAGE_TODO_COMMANDS = TODO_COMMAND_WORD
-        + ": Manages your todos. Supported subcommands:\n"
-        + AddTodoCommand.COMMAND_WORD + ", "
-        + DeleteTodoCommand.COMMAND_WORD + ", "
-        + InfoTodoCommand.COMMAND_WORD + ", "
-        + ListTodoCommand.COMMAND_WORD + ", "
-        + AddContactToTodoCommand.COMMAND_WORD + ", "
-        + RemoveContactFromTodoCommand.COMMAND_WORD + ", "
-        + MarkTodoAsDoneCommand.COMMAND_WORD + ", "
-        + MarkTodoAsNotDoneCommand.COMMAND_WORD + ", "
-        + AddTagToTodoCommand.COMMAND_WORD + ", "
-        + RemoveTagFromTodoCommand.COMMAND_WORD + ", "
-        + FilterTodoCommand.COMMAND_WORD + ", "
-        + ClearTodoCommand.COMMAND_WORD;
+    // Linked HashMap preserves insertion order
+    public static final Map<String, String> TODO_COMMAND_USAGE_MAP = new LinkedHashMap<>();
+    public static final Map<String, String> EVENT_COMMAND_USAGE_MAP = new LinkedHashMap<>();
+    public static final Map<String, String> CONTACT_COMMAND_USAGE_MAP = new LinkedHashMap<>();
 
-    public static final String MESSAGE_EVENT_COMMANDS = EVENT_COMMAND_WORD
-        + ": Manages your events. Supported subcommands:\n"
-        + AddEventCommand.COMMAND_WORD + ", "
-        + DeleteEventCommand.COMMAND_WORD + ", "
-        + InfoEventCommand.COMMAND_WORD + ", "
-        + ListEventCommand.COMMAND_WORD + ", "
-        + FilterEventCommand.COMMAND_WORD + ", "
-        + AddContactToEventCommand.COMMAND_WORD + ", "
-        + RemoveContactFromEventCommand.COMMAND_WORD + ", "
-        + AddTagToEventCommand.COMMAND_WORD + ", "
-        + RemoveTagFromEventCommand.COMMAND_WORD + ", "
-        + AddContactToLogEventCommand.COMMAND_WORD + ", "
-        + RemoveContactFromLogEventCommand.COMMAND_WORD + ", "
-        + ClearEventCommand.COMMAND_WORD;
+    static {
+        // Contact
+        CONTACT_COMMAND_USAGE_MAP.put(AddContactCommand.COMMAND_WORD, AddContactCommand.MESSAGE_USAGE);
+        CONTACT_COMMAND_USAGE_MAP.put(EditContactCommand.COMMAND_WORD, EditContactCommand.MESSAGE_USAGE);
+        CONTACT_COMMAND_USAGE_MAP.put(DeleteContactCommand.COMMAND_WORD, DeleteContactCommand.MESSAGE_USAGE);
+        CONTACT_COMMAND_USAGE_MAP.put(InfoContactCommand.COMMAND_WORD, InfoContactCommand.MESSAGE_USAGE);
+        CONTACT_COMMAND_USAGE_MAP.put(ListContactCommand.COMMAND_WORD, ListContactCommand.MESSAGE_USAGE);
+        CONTACT_COMMAND_USAGE_MAP.put(ClearContactCommand.COMMAND_WORD, ClearContactCommand.MESSAGE_USAGE);
+        CONTACT_COMMAND_USAGE_MAP.put(FilterContactCommand.COMMAND_WORD, FilterContactCommand.MESSAGE_USAGE);
+        CONTACT_COMMAND_USAGE_MAP.put(AddTagToContactCommand.COMMAND_WORD, AddTagToContactCommand.MESSAGE_USAGE);
+        CONTACT_COMMAND_USAGE_MAP.put(RemoveTagFromContactCommand.COMMAND_WORD,
+                RemoveTagFromContactCommand.MESSAGE_USAGE);
+
+        // Todo
+        TODO_COMMAND_USAGE_MAP.put(AddTodoCommand.COMMAND_WORD, AddTodoCommand.MESSAGE_USAGE);
+        TODO_COMMAND_USAGE_MAP.put(EditTodoCommand.COMMAND_WORD, EditTodoCommand.MESSAGE_USAGE);
+        TODO_COMMAND_USAGE_MAP.put(DeleteTodoCommand.COMMAND_WORD, DeleteTodoCommand.MESSAGE_USAGE);
+        TODO_COMMAND_USAGE_MAP.put(InfoTodoCommand.COMMAND_WORD, InfoTodoCommand.MESSAGE_USAGE);
+        TODO_COMMAND_USAGE_MAP.put(ListTodoCommand.COMMAND_WORD, ListTodoCommand.MESSAGE_USAGE);
+        TODO_COMMAND_USAGE_MAP.put(ClearTodoCommand.COMMAND_WORD, ClearTodoCommand.MESSAGE_USAGE);
+        TODO_COMMAND_USAGE_MAP.put(FilterTodoCommand.COMMAND_WORD, FilterTodoCommand.MESSAGE_USAGE);
+        TODO_COMMAND_USAGE_MAP.put(AddContactToTodoCommand.COMMAND_WORD, AddContactToTodoCommand.MESSAGE_USAGE);
+        TODO_COMMAND_USAGE_MAP.put(RemoveContactFromTodoCommand.COMMAND_WORD,
+                RemoveContactFromTodoCommand.MESSAGE_USAGE);
+        TODO_COMMAND_USAGE_MAP.put(AddTagToTodoCommand.COMMAND_WORD, AddTagToTodoCommand.MESSAGE_USAGE);
+        TODO_COMMAND_USAGE_MAP.put(RemoveTagFromTodoCommand.COMMAND_WORD, RemoveTagFromTodoCommand.MESSAGE_USAGE);
+        TODO_COMMAND_USAGE_MAP.put(MarkTodoAsDoneCommand.COMMAND_WORD, MarkTodoAsDoneCommand.MESSAGE_USAGE);
+        TODO_COMMAND_USAGE_MAP.put(MarkTodoAsNotDoneCommand.COMMAND_WORD, MarkTodoAsNotDoneCommand.MESSAGE_USAGE);
+
+        // Event
+        EVENT_COMMAND_USAGE_MAP.put(AddEventCommand.COMMAND_WORD, AddEventCommand.MESSAGE_USAGE);
+        // TODO: EVENT_COMMAND_USAGE_MAP.put(EditEventCommand.COMMAND_WORD, EditEventCommand.MESSAGE_USAGE);
+        EVENT_COMMAND_USAGE_MAP.put(DeleteEventCommand.COMMAND_WORD, DeleteEventCommand.MESSAGE_USAGE);
+        EVENT_COMMAND_USAGE_MAP.put(InfoEventCommand.COMMAND_WORD, InfoEventCommand.MESSAGE_USAGE);
+        EVENT_COMMAND_USAGE_MAP.put(ListEventCommand.COMMAND_WORD, ListEventCommand.MESSAGE_USAGE);
+        EVENT_COMMAND_USAGE_MAP.put(ClearEventCommand.COMMAND_WORD, ClearEventCommand.MESSAGE_USAGE);
+        EVENT_COMMAND_USAGE_MAP.put(FilterEventCommand.COMMAND_WORD, FilterEventCommand.MESSAGE_USAGE);
+        EVENT_COMMAND_USAGE_MAP.put(AddContactToEventCommand.COMMAND_WORD, AddContactToEventCommand.MESSAGE_USAGE);
+        EVENT_COMMAND_USAGE_MAP.put(RemoveContactFromEventCommand.COMMAND_WORD,
+                RemoveContactFromEventCommand.MESSAGE_USAGE);
+        EVENT_COMMAND_USAGE_MAP.put(AddTagToEventCommand.COMMAND_WORD, AddTagToEventCommand.MESSAGE_USAGE);
+        EVENT_COMMAND_USAGE_MAP.put(RemoveTagFromEventCommand.COMMAND_WORD, RemoveTagFromEventCommand.MESSAGE_USAGE);
+        EVENT_COMMAND_USAGE_MAP.put(AddContactToLogEventCommand.COMMAND_WORD,
+                AddContactToLogEventCommand.MESSAGE_USAGE);
+        EVENT_COMMAND_USAGE_MAP.put(RemoveContactFromLogEventCommand.COMMAND_WORD,
+                RemoveContactFromLogEventCommand.MESSAGE_USAGE);
+
+
+    }
+
+    private static String getContactCommandsMessage() {
+        return CONTACT_COMMAND_WORD + ": Manages your contacts. Supported subcommands:\n" + String.join(", ",
+                CONTACT_COMMAND_USAGE_MAP.keySet());
+    }
+
+    private static String getEventCommandsMessage() {
+        return EVENT_COMMAND_WORD + ": Manages your events. Supported subcommands:\n" + String.join(", ",
+                EVENT_COMMAND_USAGE_MAP.keySet());
+    }
+
+    private static String getTodoCommandsMessage() {
+        return TODO_COMMAND_WORD + ": Manages your todos. Supported subcommands:\n" + String.join(", ",
+                TODO_COMMAND_USAGE_MAP.keySet());
+    }
 
     /**
      * Parses the given {@code String} of arguments into a HelpCommand.
@@ -158,103 +190,37 @@ public class HelpCommandParser implements Parser<HelpCommand> {
     }
 
     private HelpCommand parseContactHelp(String subcommand) {
+        // Empty -> help contact
         if (subcommand.trim().isEmpty()) {
-            return new HelpCommand(MESSAGE_CONTACT_COMMANDS);
+            return new HelpCommand(getContactCommandsMessage());
         }
-
-        switch (subcommand) {
-        case AddContactCommand.COMMAND_WORD:
-            return new HelpCommand(AddContactCommand.MESSAGE_USAGE);
-        case EditContactCommand.COMMAND_WORD:
-            return new HelpCommand(EditContactCommand.MESSAGE_USAGE);
-        case DeleteContactCommand.COMMAND_WORD:
-            return new HelpCommand(DeleteContactCommand.MESSAGE_USAGE);
-        case ClearContactCommand.COMMAND_WORD:
-            return new HelpCommand(ClearContactCommand.MESSAGE_USAGE);
-        case FilterContactCommand.COMMAND_WORD:
-            return new HelpCommand(FilterContactCommand.MESSAGE_USAGE);
-        case ListContactCommand.COMMAND_WORD:
-            return new HelpCommand(ListContactCommand.MESSAGE_USAGE);
-        case InfoContactCommand.COMMAND_WORD:
-            return new HelpCommand(InfoContactCommand.MESSAGE_USAGE);
-        case AddTagToContactCommand.COMMAND_WORD:
-            return new HelpCommand(AddTagToContactCommand.MESSAGE_USAGE);
-        case RemoveTagFromContactCommand.COMMAND_WORD:
-            return new HelpCommand(RemoveTagFromContactCommand.MESSAGE_USAGE);
-        default:
-            return new HelpCommand("Subcommand " + subcommand + " not recognized.\n" + MESSAGE_CONTACT_COMMANDS);
-        }
+        // Non-empty -> help contact subcommand
+        String message = CONTACT_COMMAND_USAGE_MAP.getOrDefault(subcommand,
+                "Subcommand " + subcommand + " not recognized.\n" + getContactCommandsMessage());
+        return new HelpCommand(message);
     }
 
 
     private HelpCommand parseTodoHelp(String subcommand) {
+        // Empty -> help todo
         if (subcommand.trim().isEmpty()) {
-            return new HelpCommand(MESSAGE_TODO_COMMANDS);
+            return new HelpCommand(getTodoCommandsMessage());
         }
-
-        switch (subcommand) {
-        case AddTodoCommand.COMMAND_WORD:
-            return new HelpCommand(AddTodoCommand.MESSAGE_USAGE);
-        case DeleteTodoCommand.COMMAND_WORD:
-            return new HelpCommand(DeleteTodoCommand.MESSAGE_USAGE);
-        case InfoTodoCommand.COMMAND_WORD:
-            return new HelpCommand(InfoTodoCommand.MESSAGE_USAGE);
-        case ListTodoCommand.COMMAND_WORD:
-            return new HelpCommand(ListTodoCommand.MESSAGE_USAGE);
-        case AddContactToTodoCommand.COMMAND_WORD:
-            return new HelpCommand(AddContactToTodoCommand.MESSAGE_USAGE);
-        case RemoveContactFromTodoCommand.COMMAND_WORD:
-            return new HelpCommand(RemoveContactFromTodoCommand.MESSAGE_USAGE);
-        case MarkTodoAsDoneCommand.COMMAND_WORD:
-            return new HelpCommand(MarkTodoAsDoneCommand.MESSAGE_USAGE);
-        case MarkTodoAsNotDoneCommand.COMMAND_WORD:
-            return new HelpCommand(MarkTodoAsNotDoneCommand.MESSAGE_USAGE);
-        case AddTagToTodoCommand.COMMAND_WORD:
-            return new HelpCommand(AddTagToTodoCommand.MESSAGE_USAGE);
-        case RemoveTagFromTodoCommand.COMMAND_WORD:
-            return new HelpCommand(RemoveTagFromTodoCommand.MESSAGE_USAGE);
-        case ClearTodoCommand.COMMAND_WORD:
-            return new HelpCommand(ClearTodoCommand.MESSAGE_USAGE);
-        case FilterTodoCommand.COMMAND_WORD:
-            return new HelpCommand(FilterTodoCommand.MESSAGE_USAGE);
-        default:
-            return new HelpCommand("Subcommand " + subcommand + " not recognized.\n" + MESSAGE_TODO_COMMANDS);
-        }
+        // Non-empty -> help todo subcommand
+        String message = TODO_COMMAND_USAGE_MAP.getOrDefault(subcommand,
+                "Subcommand " + subcommand + " not recognized.\n" + getTodoCommandsMessage());
+        return new HelpCommand(message);
     }
 
 
     private HelpCommand parseEventHelp(String subcommand) {
+        // Empty -> help event
         if (subcommand.trim().isEmpty()) {
-            return new HelpCommand(MESSAGE_EVENT_COMMANDS);
+            return new HelpCommand(getEventCommandsMessage());
         }
-
-        switch (subcommand) {
-        case AddEventCommand.COMMAND_WORD:
-            return new HelpCommand(AddEventCommand.MESSAGE_USAGE);
-        case DeleteEventCommand.COMMAND_WORD:
-            return new HelpCommand(DeleteEventCommand.MESSAGE_USAGE);
-        case InfoEventCommand.COMMAND_WORD:
-            return new HelpCommand(InfoEventCommand.MESSAGE_USAGE);
-        case ListEventCommand.COMMAND_WORD:
-            return new HelpCommand(ListEventCommand.MESSAGE_USAGE);
-        case AddContactToEventCommand.COMMAND_WORD:
-            return new HelpCommand(AddContactToEventCommand.MESSAGE_USAGE);
-        case RemoveContactFromEventCommand.COMMAND_WORD:
-            return new HelpCommand(RemoveContactFromEventCommand.MESSAGE_USAGE);
-        case AddContactToLogEventCommand.COMMAND_WORD:
-            return new HelpCommand(AddContactToLogEventCommand.MESSAGE_USAGE);
-        case RemoveContactFromLogEventCommand.COMMAND_WORD:
-            return new HelpCommand(RemoveContactFromLogEventCommand.MESSAGE_USAGE);
-        case FilterEventCommand.COMMAND_WORD:
-            return new HelpCommand(FilterEventCommand.MESSAGE_USAGE);
-        case AddTagToEventCommand.COMMAND_WORD:
-            return new HelpCommand(AddTagToEventCommand.MESSAGE_USAGE);
-        case RemoveTagFromEventCommand.COMMAND_WORD:
-            return new HelpCommand(RemoveTagFromEventCommand.MESSAGE_USAGE);
-        case ClearEventCommand.COMMAND_WORD:
-            return new HelpCommand(ClearEventCommand.MESSAGE_USAGE);
-        default:
-            return new HelpCommand("Subcommand " + subcommand + " not recognized.\n" + MESSAGE_EVENT_COMMANDS);
-        }
+        // Non-empty -> help event subcommand
+        String message = EVENT_COMMAND_USAGE_MAP.getOrDefault(subcommand,
+                "Subcommand " + subcommand + " not recognized.\n" + getEventCommandsMessage());
+        return new HelpCommand(message);
     }
 }
