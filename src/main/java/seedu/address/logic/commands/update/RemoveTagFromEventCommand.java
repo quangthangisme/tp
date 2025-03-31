@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.EventMessages;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
@@ -16,61 +15,48 @@ import seedu.address.model.contact.Tag;
 import seedu.address.model.event.Event;
 
 /**
- * Removes a tag from a specified event.
+ * Remove a tag from a specified event
  */
-public class RemoveTagFromEventCommand extends EditCommand<Event> {
+public class RemoveTagFromEventCommand extends EditEventCommand {
     public static final String COMMAND_WORD = "untag";
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Removes a tag from a specified event.\n"
             + "Parameters: INDEX "
             + PREFIX_EVENT_TAG_LONG + " <tag>\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_EVENT_TAG_LONG + " TA ";
-
+            + PREFIX_EVENT_TAG_LONG + " important ";
     public static final String MESSAGE_REMOVE_TAG_SUCCESS = "Removed tag from event: %1$s";
-    public static final String MESSAGE_NO_TAG_PRESENT = "The tag is already removed from specified event.";
-
-    private final Tag tag;
+    public static final String MESSAGE_TAG_NOT_FOUND = "The tag is not assigned to this event";
 
     /**
-     * Creates a RemoveTagFromEventCommand to remove tags from a event at a specified index.
+     * Creates an RemoveTagFromEventCommand to remove a tag from the specified {@code Event}
      */
-    public RemoveTagFromEventCommand(Index index, Tag tag) {
-        super(index, Model::getEventManagerAndList);
-        requireNonNull(tag);
-        this.tag = tag;
+    public RemoveTagFromEventCommand(Index index, EditEventDescriptor editEventDescriptor) {
+        super(index, editEventDescriptor);
     }
 
     @Override
     public Event createEditedItem(Model model, Event eventToEdit) throws CommandException {
-        if (!eventToEdit.getTags().contains(tag)) {
-            throw new CommandException(String.format(MESSAGE_NO_TAG_PRESENT));
+        requireNonNull(eventToEdit);
+        // Every tag that is intended to be removed must already be in the event
+        Set<Tag> existingTags = eventToEdit.getTags();
+        Set<Tag> newTags = editEventDescriptor.getTags().get();
+        for (Tag tag : newTags) {
+            if (!existingTags.contains(tag)) {
+                throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND));
+            }
         }
-        Set<Tag> newTags = new HashSet<>(eventToEdit.getTags());
-        newTags.remove(this.tag);
-        return new Event(
-                eventToEdit.getName(),
-                eventToEdit.getStartTime(),
-                eventToEdit.getEndTime(),
-                eventToEdit.getLocation(),
-                eventToEdit.getContacts(),
-                eventToEdit.getMarkedList(),
-                Set.copyOf(newTags)
-        );
+
+        // Merge tags and update
+        Set<Tag> combinedTags = new HashSet<>(existingTags);
+        combinedTags.removeAll(newTags);
+        editEventDescriptor.setTags(combinedTags);
+
+        return super.createEditedItem(model, eventToEdit);
     }
 
     @Override
-    public String getIndexOutOfRangeMessage() {
-        return EventMessages.MESSAGE_INDEX_OUT_OF_RANGE_EVENT;
-    }
-
-    @Override
-    public String getDuplicateMessage() {
-        return EventMessages.MESSAGE_DUPLICATE_EVENT;
-    }
-
-    @Override
-    public String getSuccessMessage(Event editedItem) {
-        return String.format(MESSAGE_REMOVE_TAG_SUCCESS, Messages.format(editedItem));
+    public String getSuccessMessage(Event editedEvent) {
+        return String.format(MESSAGE_REMOVE_TAG_SUCCESS, Messages.format(editedEvent));
     }
 }
