@@ -1,13 +1,11 @@
 package seedu.address.testutil;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import seedu.address.logic.commands.update.EditEventDescriptor;
-import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Attendance;
 import seedu.address.model.event.Event;
 import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
@@ -39,8 +37,7 @@ public class EditEventDescriptorBuilder {
         descriptor.setEndTime(event.getEndTime());
         descriptor.setLocation(event.getLocation());
         descriptor.setTags(event.getTags());
-        descriptor.setContacts(event.getContacts());
-        descriptor.setMarkedList(event.getMarkedList());
+        descriptor.setAttendance(event.getAttendance());
     }
 
     /**
@@ -86,20 +83,10 @@ public class EditEventDescriptorBuilder {
     }
 
     /**
-     * Sets the {@code contacts} of the {@code EditEventDescriptor} that we are building.
+     * Sets the {@code attendamce} of the {@code EditEventDescriptor} that we are building.
      */
-    public EditEventDescriptorBuilder withContacts(Contact... contacts) {
-        List<Contact> contactSet = List.of(contacts);
-        descriptor.setContacts(contactSet);
-        return this;
-    }
-
-    /**
-     * Sets the {@code markedList} of the {@code EditEventDescriptor} that we are building.
-     */
-    public EditEventDescriptorBuilder withMarkedList(Boolean... markedList) {
-        List<Boolean> markedListList = Arrays.stream(markedList).collect(Collectors.toList());
-        descriptor.setMarkedList(markedListList);
+    public EditEventDescriptorBuilder withAttendance(Attendance attendance) {
+        descriptor.setAttendance(new Attendance(attendance));
         return this;
     }
 

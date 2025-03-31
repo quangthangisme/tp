@@ -46,7 +46,8 @@ public class EditContactCommandParserTest {
     @Test
     public void parse_missingParts_failure() {
         // no index specified
-        assertParseFailure(parser, VALID_NAME_AMY, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_NAME_AMY,
+                String.format(MESSAGE_INVALID_INDEX, VALID_NAME_AMY));
 
         // no field specified
         assertParseFailure(parser, "1", EditContactCommand.MESSAGE_NOT_EDITED);

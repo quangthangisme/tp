@@ -2,14 +2,13 @@ package seedu.address.logic.commands.update;
 
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.util.CollectionUtil;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Attendance;
 import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
@@ -25,23 +24,21 @@ public class EditEventDescriptor {
     private Datetime startTime;
     private Datetime endTime;
     private Location location;
-    private List<Contact> contacts;
-    private List<Boolean> markedList;
+    private Attendance attendance;
     private Set<Tag> tags = new HashSet<>();
 
     public EditEventDescriptor() {
     }
 
     /**
-     * Copy constructor. A defensive copy of {@code contacts} and {@code tags} is used internally.
+     * Copy constructor. A defensive copy of {@code attendance} and {@code tags} is used internally.
      */
     public EditEventDescriptor(EditEventDescriptor toCopy) {
         setName(toCopy.name);
         setStartTime(toCopy.startTime);
         setEndTime(toCopy.endTime);
         setLocation(toCopy.location);
-        setContacts(toCopy.contacts);
-        setMarkedList(toCopy.markedList);
+        setAttendance(toCopy.attendance);
         setTags(toCopy.tags);
     }
 
@@ -49,7 +46,7 @@ public class EditEventDescriptor {
      * Returns true if at least one field is edited.
      */
     public boolean isAnyFieldEdited() {
-        return CollectionUtil.isAnyNonNull(name, startTime, endTime, location, contacts, markedList, tags);
+        return CollectionUtil.isAnyNonNull(name, startTime, endTime, location, attendance, tags);
     }
 
     public Optional<Name> getName() {
@@ -85,35 +82,19 @@ public class EditEventDescriptor {
     }
 
     /**
-     * Returns an unmodifiable contact list, which throws {@code UnsupportedOperationException} if
-     * modification is attempted. Returns {@code Optional#empty()} if {@code contacts} is null.
+     * Returns an unmodifiable attendance object.
+     * Returns {@code Optional#empty()} if {@code attendance} is null.
      */
-    public Optional<List<Contact>> getContacts() {
-        return (contacts == null) ? Optional.empty() : Optional.of(List.copyOf(contacts));
+    public Optional<Attendance> getAttendance() {
+        return (attendance == null) ? Optional.empty() : Optional.of(new Attendance(attendance));
     }
 
     /**
      * Sets {@code contacts} to this object's {@code contacts}. A defensive copy of {@code contacts}
      * is used internally.
      */
-    public void setContacts(List<Contact> contacts) {
-        this.contacts = (contacts == null) ? null : List.copyOf(contacts);
-    }
-
-    /**
-     * Returns an unmodifiable marked list, which throws {@code UnsupportedOperationException} if
-     * modification is attempted. Returns {@code Optional#empty()} if {@code markedList} is null.
-     */
-    public Optional<List<Boolean>> getMarkedList() {
-        return (markedList == null) ? Optional.empty() : Optional.of(List.copyOf(markedList));
-    }
-
-    /**
-     * Sets {@code markedList} to this object's {@code markedList}. A defensive copy of {@code markedList}
-     * is used internally.
-     */
-    public void setMarkedList(List<Boolean> markedList) {
-        this.markedList = (markedList == null) ? null : List.copyOf(markedList);
+    public void setAttendance(Attendance attendance) {
+        this.attendance = (attendance == null) ? null : new Attendance(attendance);
     }
 
     /**
@@ -147,7 +128,7 @@ public class EditEventDescriptor {
                 && Objects.equals(startTime, otherEditEventDescriptor.startTime)
                 && Objects.equals(endTime, otherEditEventDescriptor.endTime)
                 && Objects.equals(location, otherEditEventDescriptor.location)
-                && Objects.equals(contacts, otherEditEventDescriptor.contacts)
+                && Objects.equals(attendance, otherEditEventDescriptor.attendance)
                 && Objects.equals(tags, otherEditEventDescriptor.tags);
     }
 
@@ -158,7 +139,7 @@ public class EditEventDescriptor {
                 .add("startTime", startTime)
                 .add("endTime", endTime)
                 .add("location", location)
-                .add("contacts", contacts)
+                .add("contacts", attendance)
                 .add("tags", tags)
                 .toString();
     }

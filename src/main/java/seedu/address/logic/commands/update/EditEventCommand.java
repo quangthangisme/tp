@@ -8,7 +8,6 @@ import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG_LONG;
 
-import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -17,7 +16,7 @@ import seedu.address.logic.EventMessages;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Attendance;
 import seedu.address.model.event.Event;
 import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
@@ -70,12 +69,12 @@ public class EditEventCommand extends EditCommand<Event> {
         Datetime updatedStartTime = editEventDescriptor.getStartTime().orElse(eventToEdit.getStartTime());
         Datetime updatedEndTime = editEventDescriptor.getEndTime().orElse(eventToEdit.getEndTime());
         Location updatedLocation = editEventDescriptor.getLocation().orElse(eventToEdit.getLocation());
-        List<Contact> updatedContacts = editEventDescriptor.getContacts().orElse(eventToEdit.getContacts());
-        List<Boolean> updatedMarkedList = editEventDescriptor.getMarkedList().orElse(eventToEdit.getMarkedList());
+        Attendance updatedAttendance =
+                editEventDescriptor.getAttendance().orElse(eventToEdit.getAttendance());
         Set<Tag> updatedTags = editEventDescriptor.getTags().orElse(eventToEdit.getTags());
 
-        return new Event(updatedName, updatedStartTime, updatedEndTime, updatedLocation, updatedContacts,
-                updatedMarkedList, updatedTags);
+        return new Event(updatedName, updatedStartTime, updatedEndTime, updatedLocation,
+                updatedAttendance, updatedTags);
     }
 
     @Override

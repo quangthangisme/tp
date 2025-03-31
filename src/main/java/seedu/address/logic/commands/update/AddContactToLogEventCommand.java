@@ -4,8 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_LONG;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -14,6 +12,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.event.AttendanceStatus;
 import seedu.address.model.event.Event;
 
 /**
@@ -48,31 +47,25 @@ public class AddContactToLogEventCommand extends EditEventCommand {
     public Event createEditedItem(Model model, Event eventToEdit) throws CommandException {
         // Check indices against current filtered list
         for (Index index : contactIndices) {
-            if (index.getZeroBased() >= eventToEdit.getContacts().size()) {
+            if (index.getZeroBased() >= eventToEdit.getAttendance().size()) {
                 throw new CommandException(String.format(Messages.MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX,
                         index.getOneBased()));
             }
         }
 
         // Map to contacts and check for already logged
-        List<Boolean> newMarkList = new ArrayList<>(eventToEdit.getMarkedList());
-        List<Index> checkContactMarked = contactIndices.stream()
-                .filter(x -> newMarkList.get(x.getZeroBased()))
-                .toList();
+        List<Index> checkContactMarked = eventToEdit.getAttendance().match(contactIndices,
+                new AttendanceStatus(true));
         if (!checkContactMarked.isEmpty()) {
             throw new CommandException(String.format(MESSAGE_CONTACT_ALREADY_LOGGED,
-                    checkContactMarked.stream()
-                            .map(x -> String.valueOf(x.getOneBased()))
+                    checkContactMarked.stream().map(x -> String.valueOf(x.getOneBased()))
                             .collect(Collectors.joining(", ")))
             );
         }
-        contactIndices.stream()
-                .map(Index::getZeroBased)
-                .sorted(Comparator.reverseOrder())
-                .forEach(index -> newMarkList.set(index, true));
 
         // Update the descriptor and call super
-        editEventDescriptor.setMarkedList(newMarkList);
+        editEventDescriptor.setAttendance(eventToEdit.getAttendance().log(contactIndices,
+                new AttendanceStatus(true)));
         return super.createEditedItem(model, eventToEdit);
     }
 

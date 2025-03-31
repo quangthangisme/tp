@@ -39,7 +39,8 @@ public class JsonAdaptedContact {
     public JsonAdaptedContact(
         @JsonProperty("id") String id,
         @JsonProperty("name") String name,
-        @JsonProperty("email") String email, @JsonProperty("course") String course,
+        @JsonProperty("email") String email,
+        @JsonProperty("course") String course,
         @JsonProperty("group") String group,
         @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.id = id;

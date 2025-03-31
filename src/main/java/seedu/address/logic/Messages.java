@@ -145,13 +145,13 @@ public class Messages {
     }
 
     private static String getEventContactListFormatted(Event event) {
-        if (event.getContacts().isEmpty()) {
+        if (event.getAttendance().size() == 0) {
             return "None";
         }
-        String string = "\n" + IntStream.range(0, event.getContacts().size())
+        String string = "\n" + IntStream.range(0, event.getAttendance().size())
                 .mapToObj(i -> String.format("%d.[%s] %s",
-                        i + 1, event.getMarkedList().get(i) ? "X" : " ",
-                        getSimplifiedFormat(event.getContacts().get(i))))
+                        i + 1, event.getAttendance().get(i).second().toString(),
+                        getSimplifiedFormat(event.getAttendance().get(i).first())))
                 .collect(Collectors.joining("\n"));
         return string;
     }
