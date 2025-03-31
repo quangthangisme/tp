@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.update;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_END_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION_LONG;
@@ -8,6 +9,7 @@ import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG_LONG;
 
+import java.util.List;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -16,6 +18,7 @@ import seedu.address.logic.EventMessages;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Attendance;
 import seedu.address.model.event.Event;
 import seedu.address.model.item.commons.Datetime;
@@ -47,6 +50,7 @@ public class EditEventCommand extends EditCommand<Event> {
     public static final String MESSAGE_DUPLICATE_EVENT = "This event already exists in the address book.";
 
     protected final EditEventDescriptor editEventDescriptor;
+    private final List<Index> linkedContactIndex;
 
     /**
      * @param index               of the event in the filtered event list to edit
@@ -56,6 +60,20 @@ public class EditEventCommand extends EditCommand<Event> {
         super(index, Model::getEventManagerAndList);
         requireNonNull(editEventDescriptor);
         this.editEventDescriptor = new EditEventDescriptor(editEventDescriptor);
+        this.linkedContactIndex = List.of();
+    }
+
+    /**
+     * @param index               of the event in the filtered event list to edit
+     * @param editEventDescriptor details to edit the event with
+     * @param linkedContactIndex  indices of contacts to link with
+     */
+    public EditEventCommand(Index index, EditEventDescriptor editEventDescriptor,
+                            List<Index> linkedContactIndex) {
+        super(index, Model::getEventManagerAndList);
+        requireNonNull(editEventDescriptor);
+        this.editEventDescriptor = new EditEventDescriptor(editEventDescriptor);
+        this.linkedContactIndex = List.copyOf(linkedContactIndex);
     }
 
     /**
@@ -64,6 +82,16 @@ public class EditEventCommand extends EditCommand<Event> {
      */
     public Event createEditedItem(Model model, Event eventToEdit) throws CommandException {
         assert eventToEdit != null;
+
+        List<Contact> filteredContacts = model.getContactManagerAndList().getFilteredItemsList();
+        for (Index index : linkedContactIndex) {
+            if (index.getZeroBased() >= filteredContacts.size()) {
+                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_RANGE_CONTACT, index.getOneBased()));
+            }
+        }
+        List<Contact> contacts = linkedContactIndex.stream().map(Index::getZeroBased)
+                .map(filteredContacts::get).toList();
+        editEventDescriptor.setAttendance(new Attendance().add(contacts));
 
         Name updatedName = editEventDescriptor.getName().orElse(eventToEdit.getName());
         Datetime updatedStartTime = editEventDescriptor.getStartTime().orElse(eventToEdit.getStartTime());

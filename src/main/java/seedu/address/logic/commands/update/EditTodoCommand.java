@@ -1,6 +1,7 @@
 package seedu.address.logic.commands.update;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
@@ -47,6 +48,7 @@ public class EditTodoCommand extends EditCommand<Todo> {
     public static final String MESSAGE_DUPLICATE_TODO = "This todo already exists in the address book.";
 
     protected final EditTodoDescriptor editTodoDescriptor;
+    private final List<Index> linkedContactIndex;
 
     /**
      * @param index              of the todo in the filtered todo list to edit
@@ -56,6 +58,20 @@ public class EditTodoCommand extends EditCommand<Todo> {
         super(index, Model::getTodoManagerAndList);
         requireNonNull(editTodoDescriptor);
         this.editTodoDescriptor = new EditTodoDescriptor(editTodoDescriptor);
+        this.linkedContactIndex = List.of();
+    }
+
+    /**
+     * @param index              of the todo in the filtered todo list to edit
+     * @param editTodoDescriptor details to edit the todo with
+     * @param linkedContactIndex  indices of contacts to link with
+     */
+    public EditTodoCommand(Index index, EditTodoDescriptor editTodoDescriptor,
+                           List<Index> linkedContactIndex) {
+        super(index, Model::getTodoManagerAndList);
+        requireNonNull(editTodoDescriptor);
+        this.editTodoDescriptor = new EditTodoDescriptor(editTodoDescriptor);
+        this.linkedContactIndex = List.copyOf(linkedContactIndex);
     }
 
     /**
@@ -64,6 +80,16 @@ public class EditTodoCommand extends EditCommand<Todo> {
      */
     public Todo createEditedItem(Model model, Todo todoToEdit) throws CommandException {
         assert todoToEdit != null;
+
+        List<Contact> filteredContacts = model.getContactManagerAndList().getFilteredItemsList();
+        for (Index index : linkedContactIndex) {
+            if (index.getZeroBased() >= filteredContacts.size()) {
+                throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_RANGE_CONTACT, index.getOneBased()));
+            }
+        }
+        List<Contact> contacts = linkedContactIndex.stream().map(Index::getZeroBased)
+                .map(filteredContacts::get).toList();
+        editTodoDescriptor.setContacts(contacts);
 
         Name updatedName = editTodoDescriptor.getName().orElse(todoToEdit.getName());
         Datetime updatedDeadline = editTodoDescriptor.getDeadline().orElse(todoToEdit.getDeadline());

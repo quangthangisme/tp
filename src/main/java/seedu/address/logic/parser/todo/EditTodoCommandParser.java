@@ -2,10 +2,14 @@ package seedu.address.logic.parser.todo;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
+
+import java.util.List;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.update.EditTodoCommand;
@@ -30,7 +34,8 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
     public EditTodoCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_NAME_LONG,
-                PREFIX_TODO_DEADLINE_LONG, PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_TAG_LONG);
+                PREFIX_TODO_DEADLINE_LONG, PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_TAG_LONG,
+                PREFIX_TODO_LINKED_CONTACT_LONG);
 
         if (argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -39,7 +44,7 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
-                PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_TAG_LONG);
+                PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_TAG_LONG, PREFIX_TODO_LINKED_CONTACT_LONG);
 
         EditTodoDescriptor editTodoDescriptor = new EditTodoDescriptor();
 
@@ -58,12 +63,18 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
             editTodoDescriptor.setTags(
                     ParserUtil.parseTags(argMultimap.getValue(PREFIX_TODO_TAG_LONG).get()));
         }
+        List<Index> linkedContactIndices = List.of();
+        if (argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).isPresent()) {
+            linkedContactIndices =
+                    ParserUtil.parseIndices(argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get());
+            editTodoDescriptor.setContacts(List.of());
+        }
 
         if (!editTodoDescriptor.isAnyFieldEdited()) {
             throw new ParseException(EditTodoCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditTodoCommand(index, editTodoDescriptor);
+        return new EditTodoCommand(index, editTodoDescriptor, linkedContactIndices);
     }
 
 }
