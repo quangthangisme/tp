@@ -23,7 +23,6 @@ import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.todo.TodoManager;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.testutil.ContactBuilder;
-import seedu.address.testutil.EditContactDescriptorBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditContactCommand.

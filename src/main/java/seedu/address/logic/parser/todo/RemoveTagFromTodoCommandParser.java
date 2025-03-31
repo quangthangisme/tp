@@ -8,10 +8,8 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.update.EditTodoDescriptor;
 import seedu.address.logic.commands.update.RemoveTagFromTodoCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -19,7 +17,6 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.contact.ContactParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.contact.Tag;
 
 /**
  * Parses input arguments and creates a new RemoveTagFromTodoCommand object.

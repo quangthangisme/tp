@@ -20,8 +20,8 @@ import org.junit.jupiter.api.io.TempDir;
 
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.create.AddContactCommand;
-import seedu.address.logic.commands.read.ListContactCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.read.ListContactCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
@@ -95,10 +95,11 @@ public class LogicManagerTest {
      * - no exceptions are thrown <br>
      * - the feedback message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandSuccess(String inputCommand, String expectedMessage,
-            Model expectedModel) throws CommandException, ParseException {
+                                      Model expectedModel) throws CommandException, ParseException {
         CommandResult result = logic.execute(inputCommand);
         assertEquals(expectedMessage, result.getFeedbackToUser());
         assertEquals(expectedModel, model);
@@ -106,6 +107,7 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that a ParseException is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertParseException(String inputCommand) {
@@ -114,10 +116,11 @@ public class LogicManagerTest {
 
     /**
      * Executes the command, confirms that the exception is thrown and that the result message is correct.
+     *
      * @see #assertCommandFailure(String, Class, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage) {
+                                      String expectedMessage) {
         Model expectedModel = new ModelManager(
                 new UserPrefs(),
                 model.getContactManagerAndList(),
@@ -132,10 +135,11 @@ public class LogicManagerTest {
      * - the {@code expectedException} is thrown <br>
      * - the resulting error message is equal to {@code expectedMessage} <br>
      * - the internal model manager state is the same as that in {@code expectedModel} <br>
+     *
      * @see #assertCommandSuccess(String, String, Model)
      */
     private void assertCommandFailure(String inputCommand, Class<? extends Throwable> expectedException,
-            String expectedMessage, Model expectedModel) {
+                                      String expectedMessage, Model expectedModel) {
         assertThrows(expectedException, expectedMessage, () -> logic.execute(inputCommand));
         assertEquals(expectedModel, model);
     }
@@ -143,7 +147,7 @@ public class LogicManagerTest {
     /**
      * Tests the Logic component's handling of an {@code IOException} thrown by the Storage component.
      *
-     * @param e the exception to be thrown by the Storage component
+     * @param e               the exception to be thrown by the Storage component
      * @param expectedMessage the message expected inside exception thrown by the Logic component
      */
     private void assertCommandFailureForExceptionFromStorage(IOException e, String expectedMessage) {
@@ -180,7 +184,7 @@ public class LogicManagerTest {
         // Triggers the saveAddressBook method by executing an add command
         String addCommand =
                 CONTACT_COMMAND_WORD + " " + AddContactCommand.COMMAND_WORD + ID_DESC_AMY + NAME_DESC_AMY
-                + EMAIL_DESC_AMY + COURSE_DESC_AMY + GROUP_DESC_AMY;
+                        + EMAIL_DESC_AMY + COURSE_DESC_AMY + GROUP_DESC_AMY;
         Contact expectedContact = new ContactBuilder(AMY).withTags().build();
         ModelManager expectedModel = new ModelManager();
         expectedModel.getContactManagerAndList().addItem(expectedContact);

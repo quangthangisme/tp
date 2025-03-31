@@ -29,19 +29,21 @@ public class HelpCommandParserTest {
     @Test
     public void parse_helpCommandContact_success() {
         CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.getContactCommandsMessage(), false,
-            false);
+                false);
         assertCommandSuccess(parser.parse(CONTACT_COMMAND_WORD), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void parse_helpCommandTodo_success() {
-        CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.getTodoCommandsMessage(), false, false);
+        CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.getTodoCommandsMessage(), false,
+                false);
         assertCommandSuccess(parser.parse(TODO_COMMAND_WORD), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void parse_helpCommandEvent_success() {
-        CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.getEventCommandsMessage(), false, false);
+        CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.getEventCommandsMessage(), false,
+                false);
         assertCommandSuccess(parser.parse(EVENT_COMMAND_WORD), model, expectedCommandResult, expectedModel);
     }
 
@@ -49,35 +51,35 @@ public class HelpCommandParserTest {
     public void parse_helpCommandAddContact_success() {
         CommandResult expectedCommandResult = new CommandResult(AddContactCommand.MESSAGE_USAGE, false, false);
         assertCommandSuccess(parser.parse(CONTACT_COMMAND_WORD + " " + AddContactCommand.COMMAND_WORD), model,
-            expectedCommandResult, expectedModel);
+                expectedCommandResult, expectedModel);
     }
 
     @Test
     public void parse_helpCommandAddTodo_success() {
         CommandResult expectedCommandResult = new CommandResult(AddTodoCommand.MESSAGE_USAGE, false, false);
         assertCommandSuccess(parser.parse(TODO_COMMAND_WORD + " " + AddTodoCommand.COMMAND_WORD), model,
-            expectedCommandResult, expectedModel);
+                expectedCommandResult, expectedModel);
     }
 
     @Test
     public void parse_helpCommandAddEvent_success() {
         CommandResult expectedCommandResult = new CommandResult(AddEventCommand.MESSAGE_USAGE, false, false);
         assertCommandSuccess(parser.parse(EVENT_COMMAND_WORD + " " + AddEventCommand.COMMAND_WORD), model,
-            expectedCommandResult, expectedModel);
+                expectedCommandResult, expectedModel);
     }
 
     @Test
     public void parse_helpCommandInvalidFeature_fallbackToGeneralHelp() {
         CommandResult expectedCommandResult = new CommandResult(HelpCommandParser.MESSAGE_UNKNOWN_COMMAND, false,
-            false);
+                false);
         assertCommandSuccess(parser.parse("invalid"), model, expectedCommandResult, expectedModel);
     }
 
     @Test
     public void parse_helpCommandInvalidSubcommand_fallbackToFeatureHelp() {
         CommandResult expectedCommandResult = new CommandResult(
-            "Subcommand invalid not recognized.\n" + HelpCommandParser.getContactCommandsMessage(), false, false);
+                "Subcommand invalid not recognized.\n" + HelpCommandParser.getContactCommandsMessage(), false, false);
         assertCommandSuccess(parser.parse(CONTACT_COMMAND_WORD + " invalid"), model, expectedCommandResult,
-            expectedModel);
+                expectedModel);
     }
 }
