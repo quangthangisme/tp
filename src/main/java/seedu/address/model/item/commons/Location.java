@@ -1,25 +1,23 @@
-package seedu.address.model.event;
+package seedu.address.model.item.commons;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
 
 /**
- * Represents an Event's location in the address book.
+ * Represents an Item's location in the address book.
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
-public class EventLocation {
+public class Location {
     public static final String MESSAGE_CONSTRAINTS =
             "Locations can take any values, and it should not be blank";
     // Ensures string is not empty AND does not start with whitespace
     public static final String VALIDATION_REGEX = "[^\\s].*";
-    private final String value;
+    public final String value;
 
     /**
-     * Constructs an {@code EventLocation}.
-     *
-     * @param address
+     * Constructs a {@code Location}.
      */
-    public EventLocation(String address) {
+    public Location(String address) {
         requireNonNull(address);
         checkArgument(isValid(address), MESSAGE_CONSTRAINTS);
         value = address;
@@ -42,7 +40,7 @@ public class EventLocation {
         if (this == other) {
             return true;
         }
-        if (!(other instanceof EventLocation otherLocation)) {
+        if (!(other instanceof Location otherLocation)) {
             return false;
         }
         return this.value.equals(otherLocation.value);

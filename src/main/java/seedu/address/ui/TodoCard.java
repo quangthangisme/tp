@@ -38,7 +38,7 @@ public class TodoCard extends UiPart<Region> {
         super(FXML);
         this.todo = todo;
         id.setText(displayedIndex + ". ");
-        name.setText(todo.getName().name);
+        name.setText(todo.getName().value);
         deadline.setText(todo.getDeadline().toString());
         todoLocation.setText(todo.getLocation().value);
         todo.getTags().stream()

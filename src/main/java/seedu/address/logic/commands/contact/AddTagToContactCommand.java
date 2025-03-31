@@ -13,7 +13,7 @@ import seedu.address.logic.abstractcommand.EditCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * Adds a tag to a Contact in contact.

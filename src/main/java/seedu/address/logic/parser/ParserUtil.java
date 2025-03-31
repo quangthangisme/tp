@@ -1,6 +1,6 @@
 package seedu.address.logic.parser;
 
-import static seedu.address.model.util.DatetimePredicate.DATE_PATTERN;
+import static seedu.address.model.item.predicate.DatetimePredicate.DATE_PATTERN;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,7 +14,7 @@ import seedu.address.commons.core.Pair;
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.util.DatetimePredicate;
+import seedu.address.model.item.predicate.DatetimePredicate;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.

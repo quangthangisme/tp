@@ -13,7 +13,7 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Name;
+import seedu.address.model.item.commons.Name;
 import seedu.address.storage.contact.JsonAdaptedContact;
 import seedu.address.storage.contact.JsonAdaptedTag;
 

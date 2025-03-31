@@ -15,8 +15,8 @@ import seedu.address.model.contact.Course;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Group;
 import seedu.address.model.contact.Id;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * Jackson-friendly version of {@link Contact}.
@@ -57,7 +57,7 @@ public class JsonAdaptedContact {
      */
     public JsonAdaptedContact(Contact source) {
         id = source.getId().fullId;
-        name = source.getName().fullName;
+        name = source.getName().value;
         email = source.getEmail().value;
         module = source.getCourse().fullModule;
         group = source.getGroup().fullGroup;
@@ -85,7 +85,7 @@ public class JsonAdaptedContact {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
+        if (!Name.isValid(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);

@@ -24,9 +24,9 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.predicate.EventContactPredicate;
 import seedu.address.model.event.predicate.EventEndTimePredicate;
-import seedu.address.model.event.predicate.EventLocationPredicate;
-import seedu.address.model.event.predicate.EventNamePredicate;
 import seedu.address.model.event.predicate.EventStartTimePredicate;
+import seedu.address.model.item.predicate.LocationPredicate;
+import seedu.address.model.item.predicate.NamePredicate;
 
 /**
  * Filters and lists all events based on specified criteria.
@@ -100,10 +100,10 @@ public class FilterEventCommand extends FilterCommand<Event> {
      * Stores the details to filter the event with.
      */
     public static class EventPredicate {
-        private EventNamePredicate namePredicate;
+        private NamePredicate namePredicate;
         private EventStartTimePredicate startTimePredicate;
         private EventEndTimePredicate endTimePredicate;
-        private EventLocationPredicate locationPredicate;
+        private LocationPredicate locationPredicate;
         private Operator contactOperator;
         private List<Index> contactIndices;
 
@@ -130,11 +130,11 @@ public class FilterEventCommand extends FilterCommand<Event> {
                     locationPredicate, contactIndices);
         }
 
-        public void setNamePredicate(EventNamePredicate namePredicate) {
+        public void setNamePredicate(NamePredicate namePredicate) {
             this.namePredicate = namePredicate;
         }
 
-        public Optional<EventNamePredicate> getNamePredicate() {
+        public Optional<NamePredicate> getNamePredicate() {
             return Optional.ofNullable(namePredicate);
         }
 
@@ -146,7 +146,7 @@ public class FilterEventCommand extends FilterCommand<Event> {
             return Optional.ofNullable(startTimePredicate);
         }
 
-        public void setLocationPredicate(EventLocationPredicate locationPredicate) {
+        public void setLocationPredicate(LocationPredicate locationPredicate) {
             this.locationPredicate = locationPredicate;
         }
 
@@ -158,7 +158,7 @@ public class FilterEventCommand extends FilterCommand<Event> {
             return Optional.ofNullable(endTimePredicate);
         }
 
-        public Optional<EventLocationPredicate> getLocationPredicate() {
+        public Optional<LocationPredicate> getLocationPredicate() {
             return Optional.ofNullable(locationPredicate);
         }
 

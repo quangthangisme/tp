@@ -7,8 +7,8 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.parser.Prefix;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
 import seedu.address.model.event.Event;
+import seedu.address.model.item.commons.Tag;
 import seedu.address.model.todo.Todo;
 
 /**

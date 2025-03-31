@@ -1,4 +1,4 @@
-package seedu.address.model.todo;
+package seedu.address.model.item.commons;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.AppUtil.checkArgument;
@@ -9,25 +9,33 @@ import java.time.LocalDateTime;
 import seedu.address.commons.util.DatetimeUtil;
 
 /**
- * Represents a Todo's deadline.
+ * Represents a datetime.
  * Guarantees: immutable; is valid as declared in {@link #isValid(String)}
  */
-public class TodoDeadline {
+public class Datetime {
 
     public static final String MESSAGE_CONSTRAINTS =
-            "Deadline should be in the format YY-MM-DD HH:MM, where HH is in 24-hour format.";
+            "Datetime should be in the format YY-MM-DD HH:MM, where HH is in 24-hour format.";
 
-    public final LocalDateTime deadline;
+    public final LocalDateTime datetime;
 
     /**
-     * Constructs a {@code TodoDeadline}.
+     * Constructs a {@code Datetime}.
      *
      * @param deadline A valid deadline in the format "YY-MM-DD HH:MM".
      */
-    public TodoDeadline(String deadline) {
+    public Datetime(String deadline) {
         requireNonNull(deadline);
         checkArgument(isValid(deadline), MESSAGE_CONSTRAINTS);
-        this.deadline = DatetimeUtil.parse(deadline);
+        this.datetime = DatetimeUtil.parse(deadline);
+    }
+
+
+    /**
+     * Check if a datetime is before another datetime.
+     */
+    public boolean isBefore(Datetime other) {
+        return this.datetime.isBefore(other.datetime);
     }
 
     /**
@@ -44,7 +52,7 @@ public class TodoDeadline {
 
     @Override
     public String toString() {
-        return deadline.format(DATE_TIME_FORMATTER);
+        return datetime.format(DATE_TIME_FORMATTER);
     }
 
     @Override
@@ -54,15 +62,15 @@ public class TodoDeadline {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof TodoDeadline otherDeadline)) {
+        if (!(other instanceof Datetime otherDeadline)) {
             return false;
         }
 
-        return deadline.equals(otherDeadline.deadline);
+        return datetime.equals(otherDeadline.datetime);
     }
 
     @Override
     public int hashCode() {
-        return deadline.hashCode();
+        return datetime.hashCode();
     }
 }

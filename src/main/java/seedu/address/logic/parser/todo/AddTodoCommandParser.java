@@ -10,10 +10,10 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
 import seedu.address.model.todo.Todo;
-import seedu.address.model.todo.TodoDeadline;
-import seedu.address.model.todo.TodoLocation;
-import seedu.address.model.todo.TodoName;
 
 /**
  * Parses input arguments and creates a new AddTodoCommand object.
@@ -37,10 +37,10 @@ public class AddTodoCommandParser implements Parser<AddTodoCommand> {
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
             PREFIX_TODO_LOCATION_LONG);
-        TodoName name = TodoParserUtil.parseName(argMultimap.getValue(PREFIX_TODO_NAME_LONG).get());
-        TodoDeadline deadline =
+        Name name = TodoParserUtil.parseName(argMultimap.getValue(PREFIX_TODO_NAME_LONG).get());
+        Datetime deadline =
                 TodoParserUtil.parseDeadline(argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).get());
-        TodoLocation location =
+        Location location =
                 TodoParserUtil.parseLocation(argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).get());
 
         Todo todo = new Todo(name, deadline, location);

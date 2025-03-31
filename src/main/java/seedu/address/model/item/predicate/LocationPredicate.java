@@ -1,4 +1,4 @@
-package seedu.address.model.event.predicate;
+package seedu.address.model.item.predicate;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -6,31 +6,31 @@ import java.util.function.Predicate;
 import seedu.address.commons.core.Operator;
 import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.event.Event;
+import seedu.address.model.item.ItemWithLocation;
 
 /**
- * Tests if an {@code Event}'s name contains the specified keywords based on the provided
- * {@code Operator}.
+ * Tests if a {@code ItemWithLocation}'s location contains the specified keywords based on the
+ * provided {@code Operator}.
  */
-public class EventNamePredicate implements Predicate<Event> {
+public class LocationPredicate implements Predicate<ItemWithLocation> {
     private final Operator operator;
     private final List<String> keywords;
 
     /**
-     * Constructs an {@code EventNamePredicate} with the given operator and list of keywords.
+     * Constructs a {@code LocationPredicate} with the given operator and list of keywords.
      *
      * @param operator The operator to apply (e.g., AND, OR) to the keyword matching logic.
-     * @param keywords The list of keywords to search for in the event's name.
+     * @param keywords The list of keywords to search for in the item's location.
      */
-    public EventNamePredicate(Operator operator, List<String> keywords) {
+    public LocationPredicate(Operator operator, List<String> keywords) {
         this.operator = operator;
         this.keywords = keywords;
     }
 
     @Override
-    public boolean test(Event event) {
+    public boolean test(ItemWithLocation item) {
         return operator.apply(keywords.stream(), keyword
-                -> StringUtil.containsWordIgnoreCase(event.getName().name, keyword));
+                -> StringUtil.containsWordIgnoreCase(item.getLocation().value, keyword));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class EventNamePredicate implements Predicate<Event> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EventNamePredicate otherPredicate)) {
+        if (!(other instanceof LocationPredicate otherPredicate)) {
             return false;
         }
 

@@ -21,9 +21,9 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.item.predicate.LocationPredicate;
+import seedu.address.model.item.predicate.NamePredicate;
 import seedu.address.model.todo.predicate.TodoDeadlinePredicate;
-import seedu.address.model.todo.predicate.TodoLocationPredicate;
-import seedu.address.model.todo.predicate.TodoNamePredicate;
 import seedu.address.model.todo.predicate.TodoStatusPredicate;
 
 /**
@@ -54,7 +54,7 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
             if (operatorStringPair.second().trim().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_NAME_LONG));
             }
-            predicate.setNamePredicate(new TodoNamePredicate(operatorStringPair.first(),
+            predicate.setNamePredicate(new NamePredicate(operatorStringPair.first(),
                 List.of(operatorStringPair.second().split("\\s+"))));
         }
         if (argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).isPresent()) {
@@ -63,7 +63,7 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
             if (operatorStringPair.second().trim().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_LOCATION_LONG));
             }
-            predicate.setLocationPredicate(new TodoLocationPredicate(operatorStringPair.first(),
+            predicate.setLocationPredicate(new LocationPredicate(operatorStringPair.first(),
                 List.of(operatorStringPair.second().split("\\s+"))));
         }
         if (argMultimap.getValue(PREFIX_TODO_STATUS_LONG).isPresent()) {

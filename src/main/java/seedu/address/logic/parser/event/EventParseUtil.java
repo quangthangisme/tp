@@ -3,56 +3,56 @@ package seedu.address.logic.parser.event;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.event.EventDateTime;
-import seedu.address.model.event.EventLocation;
-import seedu.address.model.event.EventName;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
 
 /**
  * Contains utilty methods used for parsing strings in the various classes parsing event commands.
  */
 public class EventParseUtil {
     /**
-     * Parses a {@code String name} into a {@code EventName}. Leading and trailing
+     * Parses a {@code String name} into a {@code Name}. Leading and trailing
      * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static EventName parseName(String name) throws ParseException {
+    public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!EventName.isValid(trimmedName)) {
-            throw new ParseException(EventName.MESSAGE_CONSTRAINTS);
+        if (!Name.isValid(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new EventName(trimmedName);
+        return new Name(trimmedName);
     }
 
     /**
-     * Parses a {@code String dateTime} into a {@code EventDateTime}. Leading and trailing
+     * Parses a {@code String dateTime} into a {@code Datetime}. Leading and trailing
      * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code dateTime} is invalid.
      */
-    public static EventDateTime parseDateTime(String dateTime) throws ParseException {
+    public static Datetime parseDateTime(String dateTime) throws ParseException {
         requireNonNull(dateTime);
         String trimmedDateTime = dateTime.trim();
-        if (!EventDateTime.isValid(trimmedDateTime)) {
-            throw new ParseException(EventDateTime.MESSAGE_CONSTRAINTS);
+        if (!Datetime.isValid(trimmedDateTime)) {
+            throw new ParseException(Datetime.MESSAGE_CONSTRAINTS);
         }
-        return new EventDateTime(trimmedDateTime);
+        return new Datetime(trimmedDateTime);
     }
 
     /**
-     * Parses a {@code String location} into a {@code EventLocation}. Leading and trailing
+     * Parses a {@code String location} into a {@code Location}. Leading and trailing
      * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code location} is invalid.
      */
-    public static EventLocation parseLocation(String location) throws ParseException {
+    public static Location parseLocation(String location) throws ParseException {
         requireNonNull(location);
         String trimmedLocation = location.trim();
-        if (!EventLocation.isValid(trimmedLocation)) {
-            throw new ParseException(EventLocation.MESSAGE_CONSTRAINTS);
+        if (!Location.isValid(trimmedLocation)) {
+            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
         }
-        return new EventLocation(trimmedLocation);
+        return new Location(trimmedLocation);
     }
 }

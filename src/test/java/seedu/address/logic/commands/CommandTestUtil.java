@@ -13,13 +13,14 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.contact.EditContactCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
-import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.item.predicate.NamePredicate;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 
 /**
@@ -133,9 +134,9 @@ public class CommandTestUtil {
 
         Contact contact = model.getContactManagerAndList().getFilteredItemsList()
                 .get(targetIndex.getZeroBased());
-        final String[] splitName = contact.getName().fullName.split("\\s+");
+        final String[] splitName = contact.getName().value.split("\\s+");
         model.getContactManagerAndList()
-                .updateFilteredItemsList(new NameContainsKeywordsPredicate(List.of(splitName[0])));
+                .updateFilteredItemsList(new NamePredicate(Operator.AND, List.of(splitName[0])));
 
         assertEquals(1, model.getContactManagerAndList().getFilteredItemsList().size());
     }

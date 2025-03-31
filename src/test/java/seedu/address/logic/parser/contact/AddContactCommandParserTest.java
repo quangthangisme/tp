@@ -39,8 +39,8 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.contact.AddContactCommand;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 import seedu.address.testutil.ContactBuilder;
 
 public class AddContactCommandParserTest {

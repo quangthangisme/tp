@@ -4,6 +4,8 @@ package seedu.address.logic;
  * Container for user visible messages related to events.
  */
 public class EventMessages {
+    public static final String MESSAGE_NEGATIVE_DURATION =
+            "The event end time must not be before the start time.";
     public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX =
             "The contact index provided is invalid: %1$s";
     public static final String MESSAGE_INVALID_EVENT_DISPLAYED_INDEX =

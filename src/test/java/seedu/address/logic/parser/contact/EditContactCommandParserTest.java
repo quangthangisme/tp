@@ -29,8 +29,8 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.contact.EditContactCommand;
 import seedu.address.logic.commands.contact.EditContactCommand.EditContactDescriptor;
 import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 
 public class EditContactCommandParserTest {

@@ -16,8 +16,8 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.parser.contact.ContactParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 
 public class ParserUtilTest {
     private static final String INVALID_NAME = "R@chel";

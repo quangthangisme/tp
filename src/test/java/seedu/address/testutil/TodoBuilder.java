@@ -5,11 +5,11 @@ import java.util.List;
 import java.util.Set;
 
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 import seedu.address.model.todo.Todo;
-import seedu.address.model.todo.TodoDeadline;
-import seedu.address.model.todo.TodoLocation;
-import seedu.address.model.todo.TodoName;
 import seedu.address.model.todo.TodoStatus;
 
 /**
@@ -24,9 +24,9 @@ public class TodoBuilder {
     public static final List<Contact> DEFAULT_CONTACTS = List.of();
     public static final Set<Tag> DEFAULT_TAGS = new HashSet<>();
 
-    private TodoName name;
-    private TodoDeadline deadline;
-    private TodoLocation location;
+    private Name name;
+    private Datetime deadline;
+    private Location location;
     private TodoStatus status;
     private List<Contact> contacts;
     private Set<Tag> tags;
@@ -36,9 +36,9 @@ public class TodoBuilder {
      * Creates a {@code TodoBuilder} with the default details.
      */
     public TodoBuilder() {
-        name = new TodoName(DEFAULT_NAME);
-        deadline = new TodoDeadline(DEFAULT_DEADLINE);
-        location = new TodoLocation(DEFAULT_LOCATION);
+        name = new Name(DEFAULT_NAME);
+        deadline = new Datetime(DEFAULT_DEADLINE);
+        location = new Location(DEFAULT_LOCATION);
         status = new TodoStatus(DEFAULT_STATUS);
         contacts = List.copyOf(DEFAULT_CONTACTS);
         tags = Set.copyOf(DEFAULT_TAGS);
@@ -57,26 +57,26 @@ public class TodoBuilder {
     }
 
     /**
-     * Sets the {@code TodoName} of the {@code Todo} that we are building.
+     * Sets the {@code Name} of the {@code Todo} that we are building.
      */
     public TodoBuilder withName(String name) {
-        this.name = new TodoName(name);
+        this.name = new Name(name);
         return this;
     }
 
     /**
-     * Sets the {@code TodoLocation} of the {@code Todo} that we are building.
+     * Sets the {@code Location} of the {@code Todo} that we are building.
      */
     public TodoBuilder withLocation(String location) {
-        this.location = new TodoLocation(location);
+        this.location = new Location(location);
         return this;
     }
 
     /**
-     * Sets the {@code TodoDeadline} of the {@code Todo} that we are building.
+     * Sets the {@code Datetime} of the {@code Todo} that we are building.
      */
     public TodoBuilder withDeadline(String deadline) {
-        this.deadline = new TodoDeadline(deadline);
+        this.deadline = new Datetime(deadline);
         return this;
     }
 

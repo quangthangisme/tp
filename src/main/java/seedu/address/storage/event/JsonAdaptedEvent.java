@@ -11,11 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.EventDateTime;
-import seedu.address.model.event.EventLocation;
-import seedu.address.model.event.EventName;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 import seedu.address.storage.contact.JsonAdaptedContact;
 import seedu.address.storage.contact.JsonAdaptedTag;
 
@@ -96,39 +96,39 @@ public class JsonAdaptedEvent {
 
         if (name == null) {
             throw new IllegalValueException(String.format(
-                MISSING_FIELD_MESSAGE_FORMAT, EventName.class.getSimpleName()));
+                MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!EventName.isValid(name)) {
-            throw new IllegalValueException(EventName.MESSAGE_CONSTRAINTS);
+        if (!Name.isValid(name)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final EventName eventName = new EventName(name);
+        final Name eventName = new Name(name);
 
         if (startTime == null) {
             throw new IllegalValueException(String.format(
-                MISSING_FIELD_MESSAGE_FORMAT, EventDateTime.class.getSimpleName()));
+                MISSING_FIELD_MESSAGE_FORMAT, Datetime.class.getSimpleName()));
         }
-        if (!EventDateTime.isValid(startTime)) {
-            throw new IllegalValueException(EventDateTime.MESSAGE_CONSTRAINTS);
+        if (!Datetime.isValid(startTime)) {
+            throw new IllegalValueException(Datetime.MESSAGE_CONSTRAINTS);
         }
-        final EventDateTime eventStartTime = new EventDateTime(startTime);
+        final Datetime eventStartTime = new Datetime(startTime);
 
         if (endTime == null) {
             throw new IllegalValueException(String.format(
-                MISSING_FIELD_MESSAGE_FORMAT, EventDateTime.class.getSimpleName()));
+                MISSING_FIELD_MESSAGE_FORMAT, Datetime.class.getSimpleName()));
         }
-        if (!EventDateTime.isValid(endTime)) {
-            throw new IllegalValueException(EventDateTime.MESSAGE_CONSTRAINTS);
+        if (!Datetime.isValid(endTime)) {
+            throw new IllegalValueException(Datetime.MESSAGE_CONSTRAINTS);
         }
-        final EventDateTime eventEndTime = new EventDateTime(endTime);
+        final Datetime eventEndTime = new Datetime(endTime);
 
         if (location == null) {
             throw new IllegalValueException(String.format(
-                MISSING_FIELD_MESSAGE_FORMAT, EventLocation.class.getSimpleName()));
+                MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
         }
-        if (!EventLocation.isValid(location)) {
-            throw new IllegalValueException(EventLocation.MESSAGE_CONSTRAINTS);
+        if (!Location.isValid(location)) {
+            throw new IllegalValueException(Location.MESSAGE_CONSTRAINTS);
         }
-        final EventLocation eventLocation = new EventLocation(location);
+        final Location eventLocation = new Location(location);
 
         return new Event(eventName, eventStartTime, eventEndTime, eventLocation,
             eventContactList, markedList, modelTags);

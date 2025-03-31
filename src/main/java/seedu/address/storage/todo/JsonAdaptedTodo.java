@@ -11,11 +11,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 import seedu.address.model.todo.Todo;
-import seedu.address.model.todo.TodoDeadline;
-import seedu.address.model.todo.TodoLocation;
-import seedu.address.model.todo.TodoName;
 import seedu.address.model.todo.TodoStatus;
 import seedu.address.storage.contact.JsonAdaptedContact;
 import seedu.address.storage.contact.JsonAdaptedTag;
@@ -91,30 +91,30 @@ public class JsonAdaptedTodo {
 
         if (name == null) {
             throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, TodoName.class.getSimpleName()));
+                    MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!TodoName.isValid(name)) {
-            throw new IllegalValueException(TodoName.MESSAGE_CONSTRAINTS);
+        if (!Name.isValid(name)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final TodoName todoName = new TodoName(name);
+        final Name todoName = new Name(name);
 
         if (deadline == null) {
             throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, TodoDeadline.class.getSimpleName()));
+                    MISSING_FIELD_MESSAGE_FORMAT, Datetime.class.getSimpleName()));
         }
-        if (!TodoDeadline.isValid(deadline)) {
-            throw new IllegalValueException(TodoDeadline.MESSAGE_CONSTRAINTS);
+        if (!Datetime.isValid(deadline)) {
+            throw new IllegalValueException(Datetime.MESSAGE_CONSTRAINTS);
         }
-        final TodoDeadline todoDeadline = new TodoDeadline(deadline);
+        final Datetime todoDeadline = new Datetime(deadline);
 
         if (location == null) {
             throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, TodoLocation.class.getSimpleName()));
+                    MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
         }
-        if (!TodoLocation.isValid(location)) {
-            throw new IllegalValueException(TodoLocation.MESSAGE_CONSTRAINTS);
+        if (!Location.isValid(location)) {
+            throw new IllegalValueException(Location.MESSAGE_CONSTRAINTS);
         }
-        final TodoLocation todoLocation = new TodoLocation(location);
+        final Location todoLocation = new Location(location);
 
         final TodoStatus todoStatus = new TodoStatus(status);
 

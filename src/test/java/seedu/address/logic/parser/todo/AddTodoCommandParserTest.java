@@ -26,9 +26,9 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.todo.AddTodoCommand;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Name;
 import seedu.address.model.todo.Todo;
-import seedu.address.model.todo.TodoDeadline;
-import seedu.address.model.todo.TodoName;
 
 public class AddTodoCommandParserTest {
     private final AddTodoCommandParser parser = new AddTodoCommandParser();
@@ -118,14 +118,14 @@ public class AddTodoCommandParserTest {
     public void parse_invalidValue_failure() {
         // invalid name
         assertParseFailure(parser, INVALID_TODO_NAME_DESC + DEADLINE_DESC_GRADING
-                + LOCATION_DESC_GRADING, TodoName.MESSAGE_CONSTRAINTS);
+                + LOCATION_DESC_GRADING, Name.MESSAGE_CONSTRAINTS);
 
         // invalid deadline
         assertParseFailure(parser, NAME_DESC_GRADING + INVALID_TODO_DEADLINE_DESC_INCORRECT_FORMAT
-                + LOCATION_DESC_GRADING, TodoDeadline.MESSAGE_CONSTRAINTS);
+                + LOCATION_DESC_GRADING, Datetime.MESSAGE_CONSTRAINTS);
 
         assertParseFailure(parser, NAME_DESC_GRADING + INVALID_TODO_DEADLINE_DESC_NOT_DATETIME
-                + LOCATION_DESC_GRADING, TodoDeadline.MESSAGE_CONSTRAINTS);
+                + LOCATION_DESC_GRADING, Datetime.MESSAGE_CONSTRAINTS);
 
         // non-empty preamble
         assertParseFailure(parser, PREAMBLE_NON_EMPTY + NAME_DESC_GRADING + DEADLINE_DESC_GRADING

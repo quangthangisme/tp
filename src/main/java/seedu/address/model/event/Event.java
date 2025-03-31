@@ -9,18 +9,23 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
-import seedu.address.model.item.Item;
+import seedu.address.model.item.ItemWithLocation;
+import seedu.address.model.item.NamedItem;
+import seedu.address.model.item.TaggedItem;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * Represents an Event.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Event implements Item {
-    private final EventName name;
-    private final EventDateTime startTime;
-    private final EventDateTime endTime;
-    private final EventLocation location;
+public class Event implements NamedItem, ItemWithLocation, TaggedItem {
+    private final Name name;
+    private final Datetime startTime;
+    private final Datetime endTime;
+    private final Location location;
     private final List<Contact> contacts;
     private final List<Boolean> markedList;
     private final Set<Tag> tags = new HashSet<>();
@@ -28,8 +33,8 @@ public class Event implements Item {
     /**
      * Every field must be present and not null, field values are validated, immutable.
      */
-    public Event(EventName name, EventDateTime startTime, EventDateTime endTime,
-                 EventLocation location, List<Contact> contacts, List<Boolean> markedList,
+    public Event(Name name, Datetime startTime, Datetime endTime,
+                 Location location, List<Contact> contacts, List<Boolean> markedList,
                  Set<Tag> tags) {
         requireAllNonNull(name, startTime, endTime, location, contacts, tags);
         this.name = name;
@@ -44,8 +49,8 @@ public class Event implements Item {
     /**
      * Every field must be present and not null, field values are validated, immutable.
      */
-    public Event(EventName name, EventDateTime startTime,
-            EventDateTime endTime, EventLocation location) {
+    public Event(Name name, Datetime startTime,
+            Datetime endTime, Location location) {
         requireAllNonNull(name, startTime, endTime, location);
         this.name = name;
         this.startTime = startTime;
@@ -55,19 +60,19 @@ public class Event implements Item {
         this.markedList = List.of();
     }
 
-    public EventName getName() {
+    public Name getName() {
         return this.name;
     }
 
-    public EventDateTime getStartTime() {
+    public Datetime getStartTime() {
         return this.startTime;
     }
 
-    public EventDateTime getEndTime() {
+    public Datetime getEndTime() {
         return this.endTime;
     }
 
-    public EventLocation getLocation() {
+    public Location getLocation() {
         return this.location;
     }
 

@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.logging.Logger;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -33,7 +34,9 @@ public class ListPanel extends UiPart<Region> {
      * Creates a {@code ListPanel} with the given {@code ObservableList} of contacts.
      */
     public void setContactList(ObservableList<Contact> contactList) {
-        listView.setItems((ObservableList<Object>) (Object) contactList);
+        ObservableList<Object> objectContactList = FXCollections.unmodifiableObservableList(
+                FXCollections.observableArrayList(contactList));
+        listView.setItems(objectContactList);
         listView.setCellFactory(listView -> new ListViewCell());
     }
 
@@ -41,7 +44,9 @@ public class ListPanel extends UiPart<Region> {
      * Creates a {@code ListPanel} with the given {@code ObservableList} of events.
      */
     public void setEventList(ObservableList<Event> eventList) {
-        listView.setItems((ObservableList<Object>) (Object) eventList);
+        ObservableList<Object> objectEventList = FXCollections.unmodifiableObservableList(
+                FXCollections.observableArrayList(eventList));
+        listView.setItems(objectEventList);
         listView.setCellFactory(listView -> new ListViewCell());
     }
 
@@ -49,7 +54,9 @@ public class ListPanel extends UiPart<Region> {
      * Creates a {@code ListPanel} with the given {@code ObservableList} of todos.
      */
     public void setTodoList(ObservableList<Todo> todoList) {
-        listView.setItems((ObservableList<Object>) (Object) todoList);
+        ObservableList<Object> objectTodoList = FXCollections.unmodifiableObservableList(
+                FXCollections.observableArrayList(todoList));
+        listView.setItems(objectTodoList);
         listView.setCellFactory(listView -> new ListViewCell());
     }
 

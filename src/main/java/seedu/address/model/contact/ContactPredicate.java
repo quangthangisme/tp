@@ -49,7 +49,7 @@ public class ContactPredicate implements Predicate<Contact> {
         List<String> values = new ArrayList<>();
         switch (column) {
         case NAME:
-            values.add(contact.getName().fullName.toLowerCase());
+            values.add(contact.getName().value.toLowerCase());
             break;
         case EMAIL:
             values.add(contact.getEmail().value.toLowerCase());

@@ -24,7 +24,7 @@ public class TodoUtil {
      * Returns the part of command string for the given {@code todo}'s details.
      */
     public static String getTodoDetails(Todo todo) {
-        String sb = PREFIX_TODO_NAME_LONG + todo.getName().name + " "
+        String sb = PREFIX_TODO_NAME_LONG + todo.getName().value + " "
                 + PREFIX_TODO_DEADLINE_LONG + todo.getDeadline().toString() + " "
                 + PREFIX_TODO_LOCATION_LONG + todo.getLocation().value + " ";
         return sb;

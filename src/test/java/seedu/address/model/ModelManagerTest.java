@@ -15,10 +15,11 @@ import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.GuiSettings;
+import seedu.address.commons.core.Operator;
 import seedu.address.model.contact.ContactManager;
 import seedu.address.model.contact.ContactManagerWithFilteredList;
-import seedu.address.model.contact.NameContainsKeywordsPredicate;
 import seedu.address.model.event.EventManagerWithFilteredList;
+import seedu.address.model.item.predicate.NamePredicate;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.testutil.AddressBookBuilder;
 
@@ -139,9 +140,9 @@ public class ModelManagerTest {
         )));
 
         // different filteredList -> returns false
-        String[] keywords = ALICE.getName().fullName.split("\\s+");
+        String[] keywords = ALICE.getName().value.split("\\s+");
         modelManager.getContactManagerAndList()
-                .updateFilteredItemsList(new NameContainsKeywordsPredicate(Arrays.asList(keywords)));
+                .updateFilteredItemsList(new NamePredicate(Operator.AND, Arrays.asList(keywords)));
         assertFalse(modelManager.equals(new ModelManager(
                 userPrefs,
                 new ContactManagerWithFilteredList(contactManager),

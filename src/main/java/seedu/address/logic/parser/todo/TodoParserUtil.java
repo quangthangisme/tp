@@ -3,56 +3,56 @@ package seedu.address.logic.parser.todo;
 import static java.util.Objects.requireNonNull;
 
 import seedu.address.logic.parser.exceptions.ParseException;
-import seedu.address.model.todo.TodoDeadline;
-import seedu.address.model.todo.TodoLocation;
-import seedu.address.model.todo.TodoName;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
 
 /**
  * Contains utility methods used for parsing strings in the various classes parsing todo commands.
  */
 public class TodoParserUtil {
     /**
-     * Parses a {@code String name} into a {@code TodoName}. Leading and trailing whitespaces will
+     * Parses a {@code String name} into a {@code Name}. Leading and trailing whitespaces will
      * be trimmed.
      *
      * @throws ParseException if the given {@code name} is invalid.
      */
-    public static TodoName parseName(String name) throws ParseException {
+    public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!TodoName.isValid(trimmedName)) {
-            throw new ParseException(TodoName.MESSAGE_CONSTRAINTS);
+        if (!Name.isValid(trimmedName)) {
+            throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
-        return new TodoName(trimmedName);
+        return new Name(trimmedName);
     }
 
     /**
-     * Parses a {@code String deadline} into a {@code TodoDeadline}. Leading and trailing
+     * Parses a {@code String deadline} into a {@code Datetime}. Leading and trailing
      * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code deadline} is invalid.
      */
-    public static TodoDeadline parseDeadline(String deadline) throws ParseException {
+    public static Datetime parseDeadline(String deadline) throws ParseException {
         requireNonNull(deadline);
         String trimmedDeadline = deadline.trim();
-        if (!TodoDeadline.isValid(trimmedDeadline)) {
-            throw new ParseException(TodoDeadline.MESSAGE_CONSTRAINTS);
+        if (!Datetime.isValid(trimmedDeadline)) {
+            throw new ParseException(Datetime.MESSAGE_CONSTRAINTS);
         }
-        return new TodoDeadline(trimmedDeadline);
+        return new Datetime(trimmedDeadline);
     }
 
     /**
-     * Parses a {@code String location} into an {@code TodoLocation}. Leading and trailing
+     * Parses a {@code String location} into an {@code Location}. Leading and trailing
      * whitespaces will be trimmed.
      *
      * @throws ParseException if the given {@code location} is invalid.
      */
-    public static TodoLocation parseLocation(String location) throws ParseException {
+    public static Location parseLocation(String location) throws ParseException {
         requireNonNull(location);
         String trimmedLocation = location.trim();
-        if (!TodoLocation.isValid(trimmedLocation)) {
-            throw new ParseException(TodoLocation.MESSAGE_CONSTRAINTS);
+        if (!Location.isValid(trimmedLocation)) {
+            throw new ParseException(Location.MESSAGE_CONSTRAINTS);
         }
-        return new TodoLocation(trimmedLocation);
+        return new Location(trimmedLocation);
     }
 }

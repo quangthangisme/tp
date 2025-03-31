@@ -11,8 +11,8 @@ import seedu.address.model.contact.Course;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Group;
 import seedu.address.model.contact.Id;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -43,7 +43,7 @@ public class ContactParserUtil {
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
+        if (!Name.isValid(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);

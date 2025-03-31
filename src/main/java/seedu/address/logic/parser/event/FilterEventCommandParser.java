@@ -22,9 +22,9 @@ import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.predicate.EventEndTimePredicate;
-import seedu.address.model.event.predicate.EventLocationPredicate;
-import seedu.address.model.event.predicate.EventNamePredicate;
 import seedu.address.model.event.predicate.EventStartTimePredicate;
+import seedu.address.model.item.predicate.LocationPredicate;
+import seedu.address.model.item.predicate.NamePredicate;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -54,7 +54,7 @@ public class FilterEventCommandParser implements Parser<FilterEventCommand> {
             if (operatorStringPair.second().trim().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_EVENT_NAME_LONG));
             }
-            predicate.setNamePredicate(new EventNamePredicate(operatorStringPair.first(),
+            predicate.setNamePredicate(new NamePredicate(operatorStringPair.first(),
                 List.of(operatorStringPair.second().split("\\s+"))));
         }
         if (argMultimap.getValue(PREFIX_EVENT_LOCATION_LONG).isPresent()) {
@@ -63,7 +63,7 @@ public class FilterEventCommandParser implements Parser<FilterEventCommand> {
             if (operatorStringPair.second().trim().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_EVENT_LOCATION_LONG));
             }
-            predicate.setLocationPredicate(new EventLocationPredicate(operatorStringPair.first(),
+            predicate.setLocationPredicate(new LocationPredicate(operatorStringPair.first(),
                 List.of(operatorStringPair.second().split("\\s+"))));
         }
         if (argMultimap.getValue(PREFIX_EVENT_START_LONG).isPresent()) {

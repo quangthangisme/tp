@@ -21,11 +21,11 @@ import seedu.address.logic.abstractcommand.FilterCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.item.predicate.LocationPredicate;
+import seedu.address.model.item.predicate.NamePredicate;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.predicate.TodoContactPredicate;
 import seedu.address.model.todo.predicate.TodoDeadlinePredicate;
-import seedu.address.model.todo.predicate.TodoLocationPredicate;
-import seedu.address.model.todo.predicate.TodoNamePredicate;
 import seedu.address.model.todo.predicate.TodoStatusPredicate;
 
 /**
@@ -101,9 +101,9 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
      * Stores the details to filter the todo with.
      */
     public static class TodoPredicate {
-        private TodoNamePredicate namePredicate;
+        private NamePredicate namePredicate;
         private TodoDeadlinePredicate deadlinePredicate;
-        private TodoLocationPredicate locationPredicate;
+        private LocationPredicate locationPredicate;
         private TodoStatusPredicate statusPredicate;
         private Operator contactOperator;
         private List<Index> contactIndices;
@@ -131,11 +131,11 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
                     locationPredicate, statusPredicate, contactIndices);
         }
 
-        public void setNamePredicate(TodoNamePredicate namePredicate) {
+        public void setNamePredicate(NamePredicate namePredicate) {
             this.namePredicate = namePredicate;
         }
 
-        public Optional<TodoNamePredicate> getNamePredicate() {
+        public Optional<NamePredicate> getNamePredicate() {
             return Optional.ofNullable(namePredicate);
         }
 
@@ -147,11 +147,11 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
             return Optional.ofNullable(deadlinePredicate);
         }
 
-        public void setLocationPredicate(TodoLocationPredicate locationPredicate) {
+        public void setLocationPredicate(LocationPredicate locationPredicate) {
             this.locationPredicate = locationPredicate;
         }
 
-        public Optional<TodoLocationPredicate> getLocationPredicate() {
+        public Optional<LocationPredicate> getLocationPredicate() {
             return Optional.ofNullable(locationPredicate);
         }
 
