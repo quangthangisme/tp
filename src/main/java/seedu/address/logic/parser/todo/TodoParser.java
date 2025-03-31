@@ -10,18 +10,19 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.todo.AddContactToTodoCommand;
-import seedu.address.logic.commands.todo.AddTagToTodoCommand;
-import seedu.address.logic.commands.todo.AddTodoCommand;
-import seedu.address.logic.commands.todo.ClearTodoCommand;
-import seedu.address.logic.commands.todo.DeleteTodoCommand;
-import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
-import seedu.address.logic.commands.todo.FilterTodoCommand;
-import seedu.address.logic.commands.todo.ListTodoCommand;
-import seedu.address.logic.commands.todo.MarkTodoAsDoneCommand;
-import seedu.address.logic.commands.todo.MarkTodoAsNotDoneCommand;
-import seedu.address.logic.commands.todo.RemoveContactFromTodoCommand;
-import seedu.address.logic.commands.todo.RemoveTagFromTodoCommand;
+import seedu.address.logic.commands.create.AddTodoCommand;
+import seedu.address.logic.commands.delete.ClearTodoCommand;
+import seedu.address.logic.commands.delete.DeleteTodoCommand;
+import seedu.address.logic.commands.read.FilterTodoCommand;
+import seedu.address.logic.commands.read.InfoTodoCommand;
+import seedu.address.logic.commands.read.ListTodoCommand;
+import seedu.address.logic.commands.update.AddContactToTodoCommand;
+import seedu.address.logic.commands.update.AddTagToTodoCommand;
+import seedu.address.logic.commands.update.EditTodoCommand;
+import seedu.address.logic.commands.update.MarkTodoAsDoneCommand;
+import seedu.address.logic.commands.update.MarkTodoAsNotDoneCommand;
+import seedu.address.logic.commands.update.RemoveContactFromTodoCommand;
+import seedu.address.logic.commands.update.RemoveTagFromTodoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -33,7 +34,7 @@ public class TodoParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT =
-        Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+            Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Logger logger = LogsCenter.getLogger(TodoParser.class);
 
     /**
@@ -63,14 +64,23 @@ public class TodoParser {
         case AddTodoCommand.COMMAND_WORD:
             return new AddTodoCommandParser().parse(arguments);
 
-        case DisplayTodoInformationCommand.COMMAND_WORD:
+        case EditTodoCommand.COMMAND_WORD:
+            return new EditTodoCommandParser().parse(arguments);
+
+        case DeleteTodoCommand.COMMAND_WORD:
+            return new DeleteTodoCommandParser().parse(arguments);
+
+        case InfoTodoCommand.COMMAND_WORD:
             return new DisplayTodoInfoCommandParser().parse(arguments);
 
         case ListTodoCommand.COMMAND_WORD:
             return new ListTodoCommand();
 
-        case DeleteTodoCommand.COMMAND_WORD:
-            return new DeleteTodoCommandParser().parse(arguments);
+        case ClearTodoCommand.COMMAND_WORD:
+            return new ClearTodoCommand();
+
+        case FilterTodoCommand.COMMAND_WORD:
+            return new FilterTodoCommandParser().parse(arguments);
 
         case AddContactToTodoCommand.COMMAND_WORD:
             return new AddContactToTodoCommandParser().parse(arguments);
@@ -78,23 +88,17 @@ public class TodoParser {
         case RemoveContactFromTodoCommand.COMMAND_WORD:
             return new RemoveContactFromTodoCommandParser().parse(arguments);
 
-        case MarkTodoAsDoneCommand.COMMAND_WORD:
-            return new MarkTodoAsDoneCommandParser().parse(arguments);
-
-        case MarkTodoAsNotDoneCommand.COMMAND_WORD:
-            return new MarkTodoAsNotDoneCommandParser().parse(arguments);
-
         case AddTagToTodoCommand.COMMAND_WORD:
             return new AddTagToTodoCommandParser().parse(arguments);
 
         case RemoveTagFromTodoCommand.COMMAND_WORD:
             return new RemoveTagFromTodoCommandParser().parse(arguments);
 
-        case ClearTodoCommand.COMMAND_WORD:
-            return new ClearTodoCommand();
+        case MarkTodoAsDoneCommand.COMMAND_WORD:
+            return new MarkTodoAsDoneCommandParser().parse(arguments);
 
-        case FilterTodoCommand.COMMAND_WORD:
-            return new FilterTodoCommandParser().parse(arguments);
+        case MarkTodoAsNotDoneCommand.COMMAND_WORD:
+            return new MarkTodoAsNotDoneCommandParser().parse(arguments);
 
         default:
             logger.finer("This user input caused a ParseException: " + userInput);

@@ -7,14 +7,16 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.todo.AddTodoCommand;
-import seedu.address.logic.commands.todo.DeleteTodoCommand;
-import seedu.address.logic.commands.todo.DisplayTodoInformationCommand;
-import seedu.address.logic.commands.todo.ListTodoCommand;
-import seedu.address.logic.commands.todo.MarkTodoAsDoneCommand;
-import seedu.address.logic.commands.todo.MarkTodoAsNotDoneCommand;
+import seedu.address.logic.commands.create.AddTodoCommand;
+import seedu.address.logic.commands.delete.DeleteTodoCommand;
+import seedu.address.logic.commands.read.InfoTodoCommand;
+import seedu.address.logic.commands.read.ListTodoCommand;
+import seedu.address.logic.commands.update.EditTodoDescriptor;
+import seedu.address.logic.commands.update.MarkTodoAsDoneCommand;
+import seedu.address.logic.commands.update.MarkTodoAsNotDoneCommand;
 import seedu.address.logic.parser.ParserImpl;
 import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.TodoStatus;
 import seedu.address.testutil.TodoBuilder;
 import seedu.address.testutil.TodoUtil;
 
@@ -40,10 +42,10 @@ public class TodoParserTest {
 
     @Test
     public void parseCommand_displayInfo() throws Exception {
-        DisplayTodoInformationCommand command = (DisplayTodoInformationCommand) parser.parseCommand(
-                TODO_COMMAND_WORD + " " + DisplayTodoInformationCommand.COMMAND_WORD + " "
+        InfoTodoCommand command = (InfoTodoCommand) parser.parseCommand(
+                TODO_COMMAND_WORD + " " + InfoTodoCommand.COMMAND_WORD + " "
                         + INDEX_FIRST.getOneBased());
-        assertEquals(new DisplayTodoInformationCommand(INDEX_FIRST), command);
+        assertEquals(new InfoTodoCommand(INDEX_FIRST), command);
     }
 
     @Test
@@ -51,7 +53,9 @@ public class TodoParserTest {
         MarkTodoAsDoneCommand command = (MarkTodoAsDoneCommand) parser.parseCommand(
                 TODO_COMMAND_WORD + " " + MarkTodoAsDoneCommand.COMMAND_WORD + " "
                         + INDEX_FIRST.getOneBased());
-        assertEquals(new MarkTodoAsDoneCommand(INDEX_FIRST), command);
+        EditTodoDescriptor editTodoDescriptor = new EditTodoDescriptor();
+        editTodoDescriptor.setStatus(new TodoStatus(true));
+        assertEquals(new MarkTodoAsDoneCommand(INDEX_FIRST, editTodoDescriptor), command);
     }
 
     @Test
@@ -59,7 +63,9 @@ public class TodoParserTest {
         MarkTodoAsNotDoneCommand command = (MarkTodoAsNotDoneCommand) parser.parseCommand(
                 TODO_COMMAND_WORD + " " + MarkTodoAsNotDoneCommand.COMMAND_WORD + " "
                         + INDEX_FIRST.getOneBased());
-        assertEquals(new MarkTodoAsNotDoneCommand(INDEX_FIRST), command);
+        EditTodoDescriptor editTodoDescriptor = new EditTodoDescriptor();
+        editTodoDescriptor.setStatus(new TodoStatus(false));
+        assertEquals(new MarkTodoAsNotDoneCommand(INDEX_FIRST, editTodoDescriptor), command);
     }
 
     @Test

@@ -10,7 +10,7 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 
 import java.util.Set;
 
-import seedu.address.logic.commands.contact.AddContactCommand;
+import seedu.address.logic.commands.create.AddContactCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;

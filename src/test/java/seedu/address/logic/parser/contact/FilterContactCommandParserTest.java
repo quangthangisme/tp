@@ -17,10 +17,10 @@ import java.util.Map;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.Operator;
-import seedu.address.logic.commands.contact.FilterContactCommand;
+import seedu.address.logic.commands.read.FilterContactCommand;
+import seedu.address.model.ColumnPredicate;
 import seedu.address.model.contact.ContactColumn;
 import seedu.address.model.contact.ContactPredicate;
-import seedu.address.model.contact.FilterCriteria;
 
 public class FilterContactCommandParserTest {
 
@@ -35,8 +35,8 @@ public class FilterContactCommandParserTest {
     @Test
     public void parse_validArgs_returnsFilterCommand() {
         // Single value with default AND operator
-        Map<ContactColumn, FilterCriteria> expectedPredicateMap = new HashMap<>();
-        expectedPredicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.AND,
+        Map<ContactColumn, ColumnPredicate> expectedPredicateMap = new HashMap<>();
+        expectedPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.AND,
                 Collections.singletonList("alice")));
         ContactPredicate expectedPredicate = new ContactPredicate(expectedPredicateMap);
         FilterContactCommand expectedFilterCommand = new FilterContactCommand(expectedPredicate);
@@ -45,7 +45,7 @@ public class FilterContactCommandParserTest {
 
         // Multiple values with explicit OR operator
         expectedPredicateMap.clear();
-        expectedPredicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.OR,
+        expectedPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.OR,
                 Arrays.asList("alice", "bob")));
         expectedPredicate = new ContactPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterContactCommand(expectedPredicate);
@@ -54,9 +54,9 @@ public class FilterContactCommandParserTest {
 
         // Multiple columns
         expectedPredicateMap.clear();
-        expectedPredicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.AND,
+        expectedPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.AND,
                 Collections.singletonList("alice")));
-        expectedPredicateMap.put(ContactColumn.EMAIL, new FilterCriteria(Operator.AND,
+        expectedPredicateMap.put(ContactColumn.EMAIL, new ColumnPredicate(Operator.AND,
                 Collections.singletonList("gmail")));
         expectedPredicate = new ContactPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterContactCommand(expectedPredicate);
@@ -67,8 +67,8 @@ public class FilterContactCommandParserTest {
     @Test
     public void parse_quotedValues_returnsFilterCommand() {
         // Quote-wrapped values
-        Map<ContactColumn, FilterCriteria> expectedPredicateMap = new HashMap<>();
-        expectedPredicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.AND,
+        Map<ContactColumn, ColumnPredicate> expectedPredicateMap = new HashMap<>();
+        expectedPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.AND,
                 Collections.singletonList("alice pauline")));
         ContactPredicate expectedPredicate = new ContactPredicate(expectedPredicateMap);
         FilterContactCommand expectedFilterCommand = new FilterContactCommand(expectedPredicate);
@@ -77,7 +77,7 @@ public class FilterContactCommandParserTest {
 
         // Mix of quoted and unquoted values
         expectedPredicateMap.clear();
-        expectedPredicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.OR,
+        expectedPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.OR,
                 Arrays.asList("alice pauline", "bob")));
         expectedPredicate = new ContactPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterContactCommand(expectedPredicate);
@@ -88,8 +88,8 @@ public class FilterContactCommandParserTest {
     @Test
     public void parse_allOperators_returnsFilterCommand() {
         // AND operator
-        Map<ContactColumn, FilterCriteria> expectedPredicateMap = new HashMap<>();
-        expectedPredicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.AND,
+        Map<ContactColumn, ColumnPredicate> expectedPredicateMap = new HashMap<>();
+        expectedPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.AND,
                 Arrays.asList("alice", "pauline")));
         ContactPredicate expectedPredicate = new ContactPredicate(expectedPredicateMap);
         FilterContactCommand expectedFilterCommand = new FilterContactCommand(expectedPredicate);
@@ -98,7 +98,7 @@ public class FilterContactCommandParserTest {
 
         // OR operator
         expectedPredicateMap.clear();
-        expectedPredicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.OR,
+        expectedPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.OR,
                 Arrays.asList("alice", "bob")));
         expectedPredicate = new ContactPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterContactCommand(expectedPredicate);
@@ -107,7 +107,7 @@ public class FilterContactCommandParserTest {
 
         // NAND operator
         expectedPredicateMap.clear();
-        expectedPredicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.NAND,
+        expectedPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.NAND,
                 Arrays.asList("alice", "bob")));
         expectedPredicate = new ContactPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterContactCommand(expectedPredicate);
@@ -116,7 +116,7 @@ public class FilterContactCommandParserTest {
 
         // NOR operator
         expectedPredicateMap.clear();
-        expectedPredicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.NOR,
+        expectedPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.NOR,
                 Arrays.asList("alice", "bob")));
         expectedPredicate = new ContactPredicate(expectedPredicateMap);
         expectedFilterCommand = new FilterContactCommand(expectedPredicate);
@@ -134,12 +134,12 @@ public class FilterContactCommandParserTest {
     @Test
     public void parse_multipleFilters_returnsFilterCommand() {
         // Test combining multiple filters with different operators
-        Map<ContactColumn, FilterCriteria> expectedPredicateMap = new HashMap<>();
-        expectedPredicateMap.put(ContactColumn.NAME, new FilterCriteria(Operator.AND, List.of(
+        Map<ContactColumn, ColumnPredicate> expectedPredicateMap = new HashMap<>();
+        expectedPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.AND, List.of(
                 "alice")));
-        expectedPredicateMap.put(ContactColumn.EMAIL, new FilterCriteria(Operator.OR,
+        expectedPredicateMap.put(ContactColumn.EMAIL, new ColumnPredicate(Operator.OR,
                 Arrays.asList("gmail", "yahoo")));
-        expectedPredicateMap.put(ContactColumn.TAG, new FilterCriteria(Operator.NAND, List.of(
+        expectedPredicateMap.put(ContactColumn.TAG, new ColumnPredicate(Operator.NAND, List.of(
                 "friend")));
         ContactPredicate expectedPredicate = new ContactPredicate(expectedPredicateMap);
         FilterContactCommand expectedFilterCommand = new FilterContactCommand(expectedPredicate);

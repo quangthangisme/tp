@@ -10,15 +10,15 @@ import java.util.regex.Pattern;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.commands.Command;
 import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.contact.AddContactCommand;
-import seedu.address.logic.commands.contact.AddTagToContactCommand;
-import seedu.address.logic.commands.contact.ClearContactCommand;
-import seedu.address.logic.commands.contact.DeleteContactCommand;
-import seedu.address.logic.commands.contact.EditContactCommand;
-import seedu.address.logic.commands.contact.FilterContactCommand;
-import seedu.address.logic.commands.contact.InfoContactCommand;
-import seedu.address.logic.commands.contact.ListContactCommand;
-import seedu.address.logic.commands.contact.RemoveTagFromContactCommand;
+import seedu.address.logic.commands.create.AddContactCommand;
+import seedu.address.logic.commands.delete.ClearContactCommand;
+import seedu.address.logic.commands.delete.DeleteContactCommand;
+import seedu.address.logic.commands.read.FilterContactCommand;
+import seedu.address.logic.commands.read.InfoContactCommand;
+import seedu.address.logic.commands.read.ListContactCommand;
+import seedu.address.logic.commands.update.AddTagToContactCommand;
+import seedu.address.logic.commands.update.EditContactCommand;
+import seedu.address.logic.commands.update.RemoveTagFromContactCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -30,7 +30,7 @@ public class ContactParser {
      * Used for initial separation of command word and args.
      */
     private static final Pattern BASIC_COMMAND_FORMAT =
-        Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
+            Pattern.compile("(?<commandWord>\\S+)(?<arguments>.*)");
     private static final Logger logger = LogsCenter.getLogger(ContactParser.class);
 
     /**

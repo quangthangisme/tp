@@ -7,7 +7,7 @@ import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCAT
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
 
-import seedu.address.logic.commands.event.AddEventCommand;
+import seedu.address.logic.commands.create.AddEventCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;

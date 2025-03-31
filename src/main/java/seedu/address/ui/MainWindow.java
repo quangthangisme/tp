@@ -14,10 +14,10 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
-import seedu.address.logic.commands.contact.ListContactCommand;
-import seedu.address.logic.commands.event.ListEventCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
-import seedu.address.logic.commands.todo.ListTodoCommand;
+import seedu.address.logic.commands.read.ListContactCommand;
+import seedu.address.logic.commands.read.ListEventCommand;
+import seedu.address.logic.commands.read.ListTodoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -26,45 +26,29 @@ import seedu.address.logic.parser.exceptions.ParseException;
 public class MainWindow extends UiPart<Stage> {
 
     private static final String FXML = "MainWindow.fxml";
-
-    private enum ViewMode {
-        CONTACT, EVENT, TODO
-    }
-
     private final Logger logger = LogsCenter.getLogger(getClass());
-
     private Stage primaryStage;
     private Logic logic;
-
     // Independent Ui parts residing in this Ui container
     private ListPanel listPanel;
     private ViewMode currentViewMode = ViewMode.CONTACT;
     private ResultDisplay resultDisplay;
-
     @FXML
     private StackPane commandBoxPlaceholder;
-
     @FXML
     private StackPane listPanelPlaceholder;
-
     @FXML
     private StackPane resultDisplayPlaceholder;
-
     @FXML
     private StackPane statusbarPlaceholder;
-
     @FXML
     private Button contactButton;
-
     @FXML
     private Button eventButton;
-
     @FXML
     private Button todoButton;
-
     @FXML
     private Button resetButton;
-
 
     /**
      * Creates a {@code MainWindow} with the given {@code Stage} and {@code Logic}.
@@ -258,5 +242,9 @@ public class MainWindow extends UiPart<Stage> {
         default:
             break;
         }
+    }
+
+    private enum ViewMode {
+        CONTACT, EVENT, TODO
     }
 }

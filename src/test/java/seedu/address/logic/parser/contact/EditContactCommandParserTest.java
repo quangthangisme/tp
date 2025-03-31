@@ -26,8 +26,8 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.contact.EditContactCommand;
-import seedu.address.logic.commands.contact.EditContactCommand.EditContactDescriptor;
+import seedu.address.logic.commands.update.EditContactCommand;
+import seedu.address.logic.commands.update.EditContactDescriptor;
 import seedu.address.model.contact.Email;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;

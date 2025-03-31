@@ -13,7 +13,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.todo.RemoveContactFromTodoCommand;
+import seedu.address.logic.commands.update.RemoveContactFromTodoCommand;
 
 public class RemoveContactFromTodoCommandParserTest {
 

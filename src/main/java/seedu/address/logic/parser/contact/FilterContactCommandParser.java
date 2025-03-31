@@ -21,15 +21,15 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Operator;
-import seedu.address.logic.commands.contact.FilterContactCommand;
+import seedu.address.logic.commands.read.FilterContactCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.ColumnPredicate;
 import seedu.address.model.contact.ContactColumn;
 import seedu.address.model.contact.ContactPredicate;
-import seedu.address.model.contact.FilterCriteria;
 
 /**
  * Parses input arguments and creates a new FilterContactCommand object. Handles complex filter
@@ -78,7 +78,7 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
      * @throws ParseException if there is an error parsing any prefix
      */
     private void parsePrefixes(List<Prefix> allPrefixes, ArgumentMultimap argMultimap,
-                               Map<ContactColumn, FilterCriteria> filterCriteriaMap) throws ParseException {
+                               Map<ContactColumn, ColumnPredicate> filterCriteriaMap) throws ParseException {
         for (Prefix prefix : allPrefixes) {
             List<String> rawValues = argMultimap.getAllValues(prefix);
             if (rawValues.isEmpty()) {
@@ -108,8 +108,7 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
      * @throws ParseException if there is an error parsing the values
      */
     private void parseValues(Prefix prefix, ContactColumn column, Map<ContactColumn,
-            FilterCriteria> filterCriteriaMap,
-                             List<String> rawValues) throws ParseException {
+            ColumnPredicate> filterCriteriaMap, List<String> rawValues) throws ParseException {
         if (filterCriteriaMap.containsKey(column)) {
             throw new ParseException(MESSAGE_DUPLICATE_COLUMN);
         }
@@ -147,7 +146,7 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
             );
         }
 
-        filterCriteriaMap.put(column, new FilterCriteria(operator, values));
+        filterCriteriaMap.put(column, new ColumnPredicate(operator, values));
     }
 
     /**
@@ -158,16 +157,14 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
      */
     public FilterContactCommand parse(String args) throws ParseException {
         if (args.trim().isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            FilterContactCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterContactCommand.MESSAGE_USAGE));
         }
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_NAME_LONG,
             PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG,
             PREFIX_CONTACT_TAG_LONG);
 
-        Map<ContactColumn, FilterCriteria> filterCriteriaMap = new HashMap<>();
+        Map<ContactColumn, ColumnPredicate> filterCriteriaMap = new HashMap<>();
 
         List<Prefix> allPrefixes = List.of(PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG,
             PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG, PREFIX_CONTACT_TAG_LONG);

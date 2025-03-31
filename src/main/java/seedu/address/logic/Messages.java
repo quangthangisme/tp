@@ -19,11 +19,9 @@ public class Messages {
     public static final String MESSAGE_UNKNOWN_COMMAND = "Unknown command";
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_ARGUMENTS = "Arguments missing or invalid! \n%1$s";
-    public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX = "The contact index provided is invalid";
     public static final String MESSAGE_SEARCH_OVERVIEW = "Number of results: %1$d";
     public static final String MESSAGE_DUPLICATE_FIELDS =
                 "Multiple values specified for the following single-valued field(s): ";
-    public static final String MESSAGE_DISPLAY_SPECIFIC_CONTACT_INFO = "Displaying full information of student: %s!";
 
     public static final String MESSAGE_DUPLICATE_COLUMN = "Duplicate column: %s.";
     public static final String MESSAGE_NO_COLUMNS = "Specify at least one column and value.";

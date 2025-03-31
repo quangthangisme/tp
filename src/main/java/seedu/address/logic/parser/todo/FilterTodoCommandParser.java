@@ -14,8 +14,7 @@ import java.util.List;
 import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.Pair;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.todo.FilterTodoCommand;
-import seedu.address.logic.commands.todo.FilterTodoCommand.TodoPredicate;
+import seedu.address.logic.commands.read.FilterTodoCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -23,6 +22,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.item.predicate.LocationPredicate;
 import seedu.address.model.item.predicate.NamePredicate;
+import seedu.address.model.todo.TodoPredicate;
 import seedu.address.model.todo.predicate.TodoDeadlinePredicate;
 import seedu.address.model.todo.predicate.TodoStatusPredicate;
 
@@ -40,54 +40,54 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
     public FilterTodoCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_NAME_LONG,
-            PREFIX_TODO_DEADLINE_LONG, PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG,
-            PREFIX_TODO_LINKED_CONTACT_LONG);
+                PREFIX_TODO_DEADLINE_LONG, PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG,
+                PREFIX_TODO_LINKED_CONTACT_LONG);
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
-            PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG, PREFIX_TODO_LINKED_CONTACT_LONG);
+                PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG, PREFIX_TODO_LINKED_CONTACT_LONG);
 
         TodoPredicate predicate = new TodoPredicate();
 
         if (argMultimap.getValue(PREFIX_TODO_NAME_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_NAME_LONG).get());
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_NAME_LONG).get());
             if (operatorStringPair.second().trim().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_NAME_LONG));
             }
             predicate.setNamePredicate(new NamePredicate(operatorStringPair.first(),
-                List.of(operatorStringPair.second().split("\\s+"))));
+                    List.of(operatorStringPair.second().split("\\s+"))));
         }
         if (argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).get());
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).get());
             if (operatorStringPair.second().trim().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_LOCATION_LONG));
             }
             predicate.setLocationPredicate(new LocationPredicate(operatorStringPair.first(),
-                List.of(operatorStringPair.second().split("\\s+"))));
+                    List.of(operatorStringPair.second().split("\\s+"))));
         }
         if (argMultimap.getValue(PREFIX_TODO_STATUS_LONG).isPresent()) {
             if (argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get().trim().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_STATUS_LONG));
             }
             predicate.setStatusPredicate(new TodoStatusPredicate(ParserUtil.parseBoolean(
-                argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get()
+                    argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get()
             )));
         }
         if (argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).get());
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).get());
             predicate.setDeadlinePredicate(new TodoDeadlinePredicate(operatorStringPair.first(),
-                ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
+                    ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
         }
         if (argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(
-                argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).get());
+                    argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).get());
             predicate.setContactOperator(operatorStringPair.first());
             List<Index> contactIndices = ParserUtil.parseIndices(operatorStringPair.second());
             if (contactIndices.isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES,
-                    PREFIX_TODO_LINKED_CONTACT_LONG));
+                        PREFIX_TODO_LINKED_CONTACT_LONG));
             }
             predicate.setContactIndices(ParserUtil.parseIndices(operatorStringPair.second()));
         }
