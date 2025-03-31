@@ -34,13 +34,7 @@ public class RemoveTagFromEventCommandParser implements Parser<RemoveTagFromEven
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveTagFromEventCommand.MESSAGE_USAGE));
         }
 
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveTagFromEventCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         // It is guaranteed that there is only one --tag.
         // Get the sole value, split by whitespace

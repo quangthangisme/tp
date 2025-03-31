@@ -40,14 +40,11 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
                 PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_TAG_LONG,
                 PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG);
 
-        Index index;
-
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
+        if (argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                EditContactCommand.MESSAGE_USAGE), pe);
+                    EditContactCommand.MESSAGE_USAGE));
         }
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_NAME_LONG,
                 PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG);
@@ -67,7 +64,7 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
         }
         if (argMultimap.getValue(PREFIX_CONTACT_COURSE_LONG).isPresent()) {
             editContactDescriptor.setCourse(
-                    ContactParserUtil.parseModule(argMultimap.getValue(PREFIX_CONTACT_COURSE_LONG).get()));
+                    ContactParserUtil.parseCourse(argMultimap.getValue(PREFIX_CONTACT_COURSE_LONG).get()));
         }
         if (argMultimap.getValue(PREFIX_CONTACT_GROUP_LONG).isPresent()) {
             editContactDescriptor.setGroup(

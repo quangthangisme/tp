@@ -56,7 +56,7 @@ public class ContactCard extends UiPart<Region> {
         contact.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
-        course.setText(contact.getCourse().fullModule);
+        course.setText(contact.getCourse().fullCourse);
         group.setText(contact.getGroup().fullGroup);
     }
 }

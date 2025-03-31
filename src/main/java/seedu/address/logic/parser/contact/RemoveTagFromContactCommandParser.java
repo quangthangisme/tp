@@ -32,13 +32,7 @@ public class RemoveTagFromContactCommandParser implements Parser<RemoveTagFromCo
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveTagFromContactCommand.MESSAGE_USAGE));
         }
 
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveTagFromContactCommand.MESSAGE_USAGE), pe);
-        }
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         // It is guaranteed that there is only one --tag.
         // Get the sole value, split by whitespace

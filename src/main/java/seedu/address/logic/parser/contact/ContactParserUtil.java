@@ -65,18 +65,18 @@ public class ContactParserUtil {
     }
 
     /**
-     * Parses a {@code String module} into a {@code Course}.
+     * Parses a {@code String course} into a {@code Course}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code module} is invalid.
+     * @throws ParseException if the given {@code course} is invalid.
      */
-    public static Course parseModule(String module) throws ParseException {
-        requireNonNull(module);
-        String trimmedModule = module.trim();
-        if (!Course.isValidModule(trimmedModule)) {
+    public static Course parseCourse(String course) throws ParseException {
+        requireNonNull(course);
+        String trimmedCourse = course.trim();
+        if (!Course.isValidCourse(trimmedCourse)) {
             throw new ParseException(Course.MESSAGE_CONSTRAINTS);
         }
-        return new Course(trimmedModule);
+        return new Course(trimmedCourse);
     }
 
     /**

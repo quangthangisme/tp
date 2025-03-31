@@ -46,7 +46,7 @@ public class ContactPredicate implements Predicate<Contact> {
         case ID:
             return List.of(contact.getId().fullId);
         case COURSE:
-            return List.of(contact.getCourse().fullModule);
+            return List.of(contact.getCourse().fullCourse);
         case GROUP:
             return List.of(contact.getGroup().fullGroup);
         case TAG:

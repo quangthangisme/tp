@@ -49,7 +49,7 @@ public class AddContactCommandParser implements Parser<AddContactCommand> {
         Id id = ContactParserUtil.parseId(argMultimap.getValue(PREFIX_CONTACT_ID_LONG).get());
         Name name = ContactParserUtil.parseName(argMultimap.getValue(PREFIX_CONTACT_NAME_LONG).get());
         Email email = ContactParserUtil.parseEmail(argMultimap.getValue(PREFIX_CONTACT_EMAIL_LONG).get());
-        Course course = ContactParserUtil.parseModule(argMultimap.getValue(PREFIX_CONTACT_COURSE_LONG).get());
+        Course course = ContactParserUtil.parseCourse(argMultimap.getValue(PREFIX_CONTACT_COURSE_LONG).get());
         Group group = ContactParserUtil.parseGroup(argMultimap.getValue(PREFIX_CONTACT_GROUP_LONG).get());
         Set<Tag> tagList = ContactParserUtil.parseTags(argMultimap.getAllValues(PREFIX_CONTACT_TAG_LONG));
 
