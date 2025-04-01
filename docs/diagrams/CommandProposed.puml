@@ -13,10 +13,6 @@ abstract InfoCommand<Item>
 abstract ListCommand<Item>
 abstract FilterCommand<Item>
 abstract EditCommand<Item>
-abstract AddTagCommand<Item>
-abstract RemoveTagCommand<Item>
-abstract AddLinkCommand<Item>
-abstract RemoveLinkCommand<Item>
 abstract DeleteCommand<Item>
 abstract ClearCommand<Item>
 
@@ -27,10 +23,6 @@ InfoCommand --|> ItemCommand
 ListCommand --|> ItemCommand
 FilterCommand --|> ItemCommand
 EditCommand --|> ItemCommand
-AddTagCommand --|> EditCommand
-RemoveTagCommand --|> EditCommand
-AddLinkCommand --|> EditCommand
-RemoveLinkCommand --|> EditCommand
 DeleteCommand --|> ItemCommand
 ClearCommand --|> ItemCommand
 
@@ -55,21 +47,21 @@ EditContactCommand --|> EditCommand
 EditTodoCommand --|> EditCommand
 EditEventCommand --|> EditCommand
 
-AddTagToContactCommand --|> AddTagCommand
-AddTagToEventCommand --|> AddTagCommand
-AddTagToTodoCommand --|> AddTagCommand
+AddTagToContactCommand --|> EditContactCommand
+AddTagToEventCommand --|> EditEventCommand
+AddTagToTodoCommand --|> EditTodoCommand
 
-RemoveTagFromContactCommand --|> RemoveTagCommand
-RemoveTagFromEventCommand --|> RemoveTagCommand
-RemoveTagFromTodoCommand --|> RemoveTagCommand
+RemoveTagFromContactCommand --|> EditContactCommand
+RemoveTagFromEventCommand --|> EditEventCommand
+RemoveTagFromTodoCommand --|> EditTodoCommand
 
-AddPersonToEventCommand --|> AddLinkCommand
-AddPersonToTodoCommand --|> AddLinkCommand
-RemovePersonFromEventCommand --|> RemoveLinkCommand
-RemovePersonFromTodoCommand --|> RemoveLinkCommand
+AddPersonToEventCommand --|> EditEventCommand
+AddPersonToTodoCommand --|> EditTodoCommand
+RemovePersonFromEventCommand --|> EditEventCommand
+RemovePersonFromTodoCommand --|> EditTodoCommand
 
-AddPersonToLogEventCommand --|> EditCommand
-RemovePersonFromLogEventCommand --|> EditCommand
+AddPersonToLogEventCommand --|> EditEventCommand
+RemovePersonFromLogEventCommand --|> EditEventCommand
 
 DeleteContactCommand --|> DeleteCommand
 DeleteEventCommand --|> DeleteCommand
