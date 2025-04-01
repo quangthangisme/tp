@@ -90,7 +90,7 @@ public class CommandBox extends UiPart<Region> {
     @FXML
     private void handleCommandEntered() {
         String commandText = commandTextField.getText();
-        if (commandText.isEmpty()) {
+        if (commandText.equals("")) {
             return;
         }
 
