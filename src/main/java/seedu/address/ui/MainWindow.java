@@ -62,6 +62,8 @@ public class MainWindow extends UiPart<Stage> {
 
         // Configure the UI
         setWindowDefaultSize(logic.getGuiSettings());
+
+        fillInnerParts();
     }
 
     public Stage getPrimaryStage() {
@@ -76,7 +78,6 @@ public class MainWindow extends UiPart<Stage> {
         listPanelPlaceholder.getChildren().add(listPanel.getRoot());
 
         listPanel.setContactList(logic.getFilteredContactList());
-        updateButtonStyles();
 
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
@@ -86,6 +87,10 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        commandBox.setViewSwitchHandler(this::switchView);
+
+        updateButtonStyles();
     }
 
     /**
@@ -116,13 +121,36 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
+     * Switches view based on the command prefix or buttons
+     */
+    private void switchView(String viewType) {
+        switch (viewType) {
+        case CONTACT_COMMAND_WORD:
+            currentViewMode = ViewMode.CONTACT;
+            listPanel.setContactList(logic.getFilteredContactList());
+            break;
+        case EVENT_COMMAND_WORD:
+            currentViewMode = ViewMode.EVENT;
+            listPanel.setEventList(logic.getFilteredEventList());
+            break;
+        case TODO_COMMAND_WORD:
+            currentViewMode = ViewMode.TODO;
+            listPanel.setTodoList(logic.getFilteredTodoList());
+            break;
+        default:
+            logger.warning("Invalid view type: " + viewType);
+            return;
+        }
+
+        updateButtonStyles();
+    }
+
+    /**
      * Handles switching to contact view
      */
     @FXML
     private void handleContactButton() {
-        currentViewMode = ViewMode.CONTACT;
-        listPanel.setContactList(logic.getFilteredContactList());
-        updateButtonStyles();
+        switchView(CONTACT_COMMAND_WORD);
     }
 
     /**
@@ -130,9 +158,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleEventButton() {
-        currentViewMode = ViewMode.EVENT;
-        listPanel.setEventList(logic.getFilteredEventList());
-        updateButtonStyles();
+        switchView(EVENT_COMMAND_WORD);
+
     }
 
     /**
@@ -140,9 +167,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleTodoButton() {
-        currentViewMode = ViewMode.TODO;
-        listPanel.setTodoList(logic.getFilteredTodoList());
-        updateButtonStyles();
+        switchView(TODO_COMMAND_WORD);
+
     }
 
     /**
