@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.ArrayDeque;
+import java.util.Deque;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,9 +23,8 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
 
-    private final List<String> commandHistory;
-    private int commandHistoryPointer;
-    private String currentCommandInput;
+    private final Deque<String> commandHistory;
+    private final Deque<String> forwardHistory;
 
     @FXML
     private TextField commandTextField;
@@ -37,9 +36,8 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
 
-        this.commandHistory = new ArrayList<>();
-        this.commandHistoryPointer = 0;
-        this.currentCommandInput = "";
+        this.commandHistory = new ArrayDeque<>();
+        this.forwardHistory = new ArrayDeque<>();
 
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
@@ -64,24 +62,26 @@ public class CommandBox extends UiPart<Region> {
      * @param isUp true to navigate up (older), false to navigate down (newer)
      */
     private void navigateCommandHistory(boolean isUp) {
-        // Save current input if at starting position
-        if (commandHistoryPointer == 0) {
-            currentCommandInput = commandTextField.getText();
+        if (isUp) {
+            if (!commandHistory.isEmpty()) {
+                forwardHistory.push(commandTextField.getText());
+
+                String previousCommand = commandHistory.pop();
+                commandTextField.setText(previousCommand);
+                commandTextField.positionCaret(previousCommand.length());
+            }
+        } else {
+            if (!forwardHistory.isEmpty()) {
+                if (!commandTextField.getText().isEmpty()) {
+                    commandHistory.push(commandTextField.getText());
+                }
+
+                String nextCommand = forwardHistory.pop();
+                commandTextField.setText(nextCommand);
+                commandTextField.positionCaret(nextCommand.length());
+            }
         }
 
-        if (isUp && commandHistoryPointer < commandHistory.size()) {
-            commandHistoryPointer++;
-            commandTextField.setText(commandHistory.get(commandHistory.size() - commandHistoryPointer));
-            commandTextField.positionCaret(commandTextField.getText().length());
-        } else if (!isUp && commandHistoryPointer > 0) {
-            commandHistoryPointer--;
-            if (commandHistoryPointer == 0) {
-                commandTextField.setText(currentCommandInput);
-            } else {
-                commandTextField.setText(commandHistory.get(commandHistory.size() - commandHistoryPointer));
-            }
-            commandTextField.positionCaret(commandTextField.getText().length());
-        }
     }
 
     /**
@@ -96,13 +96,12 @@ public class CommandBox extends UiPart<Region> {
 
         try {
             if (!commandText.trim().isEmpty()) {
-                commandHistory.add(commandText);
+                commandHistory.push(commandText);
             }
-            commandHistoryPointer = 0;
 
             commandExecutor.execute(commandText);
 
-            currentCommandInput = "";
+            forwardHistory.clear();
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
