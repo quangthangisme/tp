@@ -95,14 +95,14 @@ public class CommandBox extends UiPart<Region> {
         }
 
         try {
-            commandExecutor.execute(commandText);
-
             if (!commandText.trim().isEmpty()) {
                 commandHistory.add(commandText);
             }
             commandHistoryPointer = 0;
-            currentCommandInput = "";
 
+            commandExecutor.execute(commandText);
+
+            currentCommandInput = "";
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
