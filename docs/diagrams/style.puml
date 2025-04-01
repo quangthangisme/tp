@@ -40,14 +40,12 @@ skinparam Package {
 }
 
 skinparam Class {
-'    FontColor #FFFFFF
-'    FontSize 15
-'    BorderThickness 1
-'    BorderColor #FFFFFF
-'    StereotypeFontColor #FFFFFF
-'    FontName Arial
-'    AttributeFontColor #FFFFFF
-'    MethodFontColor #FFFFFF
+    FontColor #FFFFFF
+    FontSize 15
+    BorderThickness 1
+    BorderColor #FFFFFF
+    StereotypeFontColor #FFFFFF
+    FontName Arial
 }
 
 skinparam Actor {
