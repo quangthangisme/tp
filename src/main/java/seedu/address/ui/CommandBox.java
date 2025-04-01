@@ -1,17 +1,18 @@
 package seedu.address.ui;
 
+import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
+import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
+
 import java.util.function.Consumer;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.Region;
-import seedu.address.logic.commands.read.ListContactCommand;
-import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
-import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
-import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.read.ListContactCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -78,9 +79,9 @@ public class CommandBox extends UiPart<Region> {
         // ListTodoCommand.COMMAND_WORD and ListEventCommand.COMMAND_WORD assumed to be equivalent
         if (parts.length >= 2 && (ListContactCommand.COMMAND_WORD.equals(parts[1]))) {
             String prefix = parts[0];
-            if (CONTACT_COMMAND_WORD.equals(prefix) ||
-                    EVENT_COMMAND_WORD.equals(prefix) ||
-                    TODO_COMMAND_WORD.equals(prefix)) {
+            if (CONTACT_COMMAND_WORD.equals(prefix)
+                    || EVENT_COMMAND_WORD.equals(prefix)
+                    || TODO_COMMAND_WORD.equals(prefix)) {
 
                 if (viewSwitchHandler != null) {
                     viewSwitchHandler.accept(prefix);
