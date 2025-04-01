@@ -8,13 +8,16 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.item.Item;
+import seedu.address.model.item.NamedItem;
+import seedu.address.model.item.TaggedItem;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * Represents a Contact in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Contact implements Item {
+public class Contact implements NamedItem, TaggedItem {
 
     // Identity fields
     private final Id id;

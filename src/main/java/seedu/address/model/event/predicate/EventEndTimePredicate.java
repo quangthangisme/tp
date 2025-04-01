@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 import seedu.address.commons.core.Operator;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.event.Event;
-import seedu.address.model.util.DatetimePredicate;
+import seedu.address.model.item.predicate.DatetimePredicate;
 
 /**
  * Tests if an {@code Event}'s end time satisfies the given {@code DatetimePredicate}s based on the
@@ -32,7 +32,7 @@ public class EventEndTimePredicate implements Predicate<Event> {
     @Override
     public boolean test(Event event) {
         return operator.apply(predicates.stream(),
-                predicate -> predicate.test(event.getEndTime().dateTime));
+                predicate -> predicate.test(event.getEndTime().datetime));
     }
 
     @Override

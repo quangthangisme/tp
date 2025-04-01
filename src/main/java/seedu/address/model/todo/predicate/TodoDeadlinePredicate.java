@@ -5,8 +5,8 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.core.Operator;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.item.predicate.DatetimePredicate;
 import seedu.address.model.todo.Todo;
-import seedu.address.model.util.DatetimePredicate;
 
 /**
  * Tests if a {@code Todo}'s deadline satisfies the given {@code DatetimePredicate}s based on the
@@ -17,7 +17,7 @@ public class TodoDeadlinePredicate implements Predicate<Todo> {
     private final List<DatetimePredicate> predicates;
 
     /**
-     * Constructs an {@code TodoDeadlinePredicate} with the given operator and list of datetime
+     * Constructs an {@code DatetimePredicate} with the given operator and list of datetime
      * predicates.
      *
      * @param operator   The operator to apply (e.g., AND, OR) to the predicates.
@@ -32,7 +32,7 @@ public class TodoDeadlinePredicate implements Predicate<Todo> {
     @Override
     public boolean test(Todo todo) {
         return operator.apply(predicates.stream(),
-                predicate -> predicate.test(todo.getDeadline().deadline));
+                predicate -> predicate.test(todo.getDeadline().datetime));
     }
 
     @Override

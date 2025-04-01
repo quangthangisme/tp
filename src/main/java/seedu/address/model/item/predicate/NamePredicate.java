@@ -1,36 +1,35 @@
-package seedu.address.model.todo.predicate;
+package seedu.address.model.item.predicate;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Operator;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.todo.Todo;
+import seedu.address.model.item.NamedItem;
 
 /**
- * Tests if a {@code Todo}'s name contains the specified keywords based on the provided
+ * Tests if a {@code NamedItem}'s name contains the specified keywords based on the provided
  * {@code Operator}.
  */
-public class TodoNamePredicate implements Predicate<Todo> {
+public class NamePredicate implements Predicate<NamedItem> {
     private final Operator operator;
     private final List<String> keywords;
 
     /**
-     * Constructs a {@code TodoNamePredicate} with the given operator and list of keywords.
+     * Constructs a {@code NamePredicate} with the given operator and list of keywords.
      *
      * @param operator The operator to apply (e.g., AND, OR) to the keyword matching logic.
-     * @param keywords The list of keywords to search for in the todo's name.
+     * @param keywords The list of keywords to search for in the item's name.
      */
-    public TodoNamePredicate(Operator operator, List<String> keywords) {
+    public NamePredicate(Operator operator, List<String> keywords) {
         this.operator = operator;
         this.keywords = keywords;
     }
 
     @Override
-    public boolean test(Todo todo) {
-        return operator.apply(keywords.stream(), keyword
-                -> StringUtil.containsWordIgnoreCase(todo.getName().name, keyword));
+    public boolean test(NamedItem item) {
+        return operator.apply(keywords.stream(), keyword ->
+                item.getName().value.toLowerCase().contains(keyword.toLowerCase()));
     }
 
     @Override
@@ -40,7 +39,7 @@ public class TodoNamePredicate implements Predicate<Todo> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof TodoNamePredicate otherPredicate)) {
+        if (!(other instanceof NamePredicate otherPredicate)) {
             return false;
         }
 

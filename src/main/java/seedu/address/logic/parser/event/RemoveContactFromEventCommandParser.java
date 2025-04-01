@@ -2,12 +2,12 @@ package seedu.address.logic.parser.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.Messages.MESSAGE_MISSING_CONTACT_INDEX;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_LONG;
 
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.EventMessages;
 import seedu.address.logic.commands.update.RemoveContactFromEventCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -41,7 +41,7 @@ public class RemoveContactFromEventCommandParser implements Parser<RemoveContact
 
         // Check against empty and duplicate contact indices
         if (contactIndices.isEmpty()) {
-            throw new ParseException(EventMessages.MESSAGE_NOT_REMOVED);
+            throw new ParseException(MESSAGE_MISSING_CONTACT_INDEX);
         }
 
         return new RemoveContactFromEventCommand(index, contactIndices);

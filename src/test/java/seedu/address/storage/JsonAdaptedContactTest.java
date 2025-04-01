@@ -13,17 +13,17 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.contact.Email;
-import seedu.address.model.contact.Name;
+import seedu.address.model.item.commons.Name;
 import seedu.address.storage.contact.JsonAdaptedContact;
 import seedu.address.storage.contact.JsonAdaptedTag;
 
 public class JsonAdaptedContactTest {
-    private static final String INVALID_ID = "!!!A123";
-    private static final String INVALID_NAME = "R@chel";
+    private static final String INVALID_ID = "Yay -!!!A123";
+    private static final String INVALID_NAME = "Nguyen -R@chel";
     private static final String INVALID_EMAIL = "example.com";
-    private static final String INVALID_COURSE = "CS??";
-    private static final String INVALID_GROUP = "T[12]";
-    private static final String INVALID_TAG = "#friend";
+    private static final String INVALID_COURSE = "-CS??";
+    private static final String INVALID_GROUP = "lol -T[12]";
+    private static final String INVALID_TAG = "-#friend";
 
     private static final String VALID_ID = BENSON.getId().toString();
     private static final String VALID_NAME = BENSON.getName().toString();

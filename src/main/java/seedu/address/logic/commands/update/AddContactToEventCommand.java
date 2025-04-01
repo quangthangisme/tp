@@ -7,13 +7,13 @@ import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKE
 
 import java.util.List;
 import java.util.Objects;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Attendance;
 import seedu.address.model.event.Event;
 
 /**
@@ -56,23 +56,16 @@ public class AddContactToEventCommand extends EditEventCommand {
         List<Contact> addedContacts = contactIndices.stream()
                 .map(index -> filteredContacts.get(index.getZeroBased())).toList();
         for (Contact contact : addedContacts) {
-            if (itemToEdit.getContacts().contains(contact)) {
+            if (itemToEdit.getAttendance().contains(contact)) {
                 throw new CommandException(String.format(MESSAGE_DUPLICATE_CONTACT,
                         Messages.getSimplifiedFormat(contact)));
             }
         }
 
-        List<Contact> combinedContactList = Stream
-                .concat(itemToEdit.getContacts().stream(), addedContacts.stream())
-                .toList();
-        // To add a mapping of newly added contacts to a new position in markedList
-        List<Boolean> combinedMarkedList = Stream
-                .concat(itemToEdit.getMarkedList().stream(), addedContacts.stream().map(x -> false))
-                .toList();
+        Attendance newAttendance = itemToEdit.getAttendance().add(addedContacts);
 
         // Update the descriptor and call super
-        editEventDescriptor.setContacts(combinedContactList);
-        editEventDescriptor.setMarkedList(combinedMarkedList);
+        editEventDescriptor.setAttendance(newAttendance);
         return super.createEditedItem(model, itemToEdit);
     }
 

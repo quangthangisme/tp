@@ -9,21 +9,26 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
-import seedu.address.model.item.Item;
+import seedu.address.model.item.ItemWithLocation;
+import seedu.address.model.item.NamedItem;
+import seedu.address.model.item.TaggedItem;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * Represents a Todo.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Todo implements Item {
+public class Todo implements NamedItem, ItemWithLocation, TaggedItem {
 
     // Identity fields
-    private final TodoName name;
+    private final Name name;
 
     // Data fields
-    private final TodoDeadline deadline;
-    private final TodoLocation location;
+    private final Datetime deadline;
+    private final Location location;
     private final TodoStatus status;
     private final List<Contact> contacts;
     private final Set<Tag> tags = new HashSet<>();
@@ -31,7 +36,7 @@ public class Todo implements Item {
     /**
      * Every field must be present and not null.
      */
-    public Todo(TodoName name, TodoDeadline deadline, TodoLocation location, TodoStatus status,
+    public Todo(Name name, Datetime deadline, Location location, TodoStatus status,
                 List<Contact> contacts, Set<Tag> tags) {
         requireAllNonNull(name, deadline, status, location);
         this.name = name;
@@ -45,7 +50,7 @@ public class Todo implements Item {
     /**
      * Every field must be present and not null.
      */
-    public Todo(TodoName name, TodoDeadline deadline, TodoLocation location) {
+    public Todo(Name name, Datetime deadline, Location location) {
         requireAllNonNull(name, deadline, location);
         this.name = name;
         this.deadline = deadline;
@@ -54,15 +59,28 @@ public class Todo implements Item {
         this.contacts = List.of();
     }
 
-    public TodoName getName() {
+    /**
+     * Every field must be present and not null.
+     */
+    public Todo(Name name, Datetime deadline, Location location, Set<Tag> tagSet) {
+        requireAllNonNull(name, deadline, location, tagSet);
+        this.name = name;
+        this.deadline = deadline;
+        this.location = location;
+        this.status = new TodoStatus(false);
+        this.contacts = List.of();
+        this.tags.addAll(tagSet);
+    }
+
+    public Name getName() {
         return name;
     }
 
-    public TodoDeadline getDeadline() {
+    public Datetime getDeadline() {
         return deadline;
     }
 
-    public TodoLocation getLocation() {
+    public Location getLocation() {
         return location;
     }
 

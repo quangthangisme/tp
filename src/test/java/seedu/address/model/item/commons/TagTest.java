@@ -1,4 +1,4 @@
-package seedu.address.model.contact;
+package seedu.address.model.item.commons;
 
 import static seedu.address.testutil.Assert.assertThrows;
 

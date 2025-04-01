@@ -17,7 +17,7 @@ public class TodoContactPredicate implements Predicate<Todo> {
     private final List<Contact> contacts;
 
     /**
-     * Constructs a {@code TodoNamePredicate} with the given operator and list of contacts.
+     * Constructs a {@code NamePredicate} with the given operator and list of contacts.
      *
      * @param operator The operator to apply (e.g., AND, OR) to the contacts matching logic.
      * @param contacts  The list of contacts to search for in the todo's linked contacts.

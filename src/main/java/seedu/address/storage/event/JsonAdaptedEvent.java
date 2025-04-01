@@ -9,14 +9,16 @@ import java.util.stream.Collectors;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import seedu.address.commons.core.Pair;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.event.Attendance;
+import seedu.address.model.event.AttendanceStatus;
 import seedu.address.model.event.Event;
-import seedu.address.model.event.EventDateTime;
-import seedu.address.model.event.EventLocation;
-import seedu.address.model.event.EventName;
-import seedu.address.storage.contact.JsonAdaptedContact;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 import seedu.address.storage.contact.JsonAdaptedTag;
 
 /**
@@ -30,8 +32,7 @@ public class JsonAdaptedEvent {
     private final String startTime;
     private final String endTime;
     private final String location;
-    private final List<JsonAdaptedContact> contactList = new ArrayList<>();
-    private final List<Boolean> markedList = new ArrayList<>();
+    private final List<JsonAdaptedAttendancePair> attendance = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -43,18 +44,14 @@ public class JsonAdaptedEvent {
         @JsonProperty("startTime") String startTime,
         @JsonProperty("endTime") String endTime,
         @JsonProperty("location") String location,
-        @JsonProperty("contacts") List<JsonAdaptedContact> contactList,
-        @JsonProperty("markedList") List<Boolean> markedList,
+        @JsonProperty("attendance") List<JsonAdaptedAttendancePair> attendance,
         @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
-        if (contactList != null) {
-            this.contactList.addAll(contactList);
-        }
-        if (markedList != null) {
-            this.markedList.addAll(markedList);
+        if (attendance != null) {
+            this.attendance.addAll(attendance);
         }
         if (tags != null) {
             this.tags.addAll(tags);
@@ -69,10 +66,9 @@ public class JsonAdaptedEvent {
         startTime = source.getStartTime().toString();
         endTime = source.getEndTime().toString();
         location = source.getLocation().toString();
-        contactList.addAll(source.getContacts().stream()
-            .map(JsonAdaptedContact::new)
-            .collect(Collectors.toList()));
-        markedList.addAll(source.getMarkedList());
+        attendance.addAll(source.getAttendance().getList().stream()
+                .map(JsonAdaptedAttendancePair::new)
+                .collect(Collectors.toList()));
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
                 .collect(Collectors.toList()));
@@ -84,9 +80,9 @@ public class JsonAdaptedEvent {
      * @throws IllegalValueException if there were any data constraints violated in the adapted event.
      */
     public Event toModelType() throws IllegalValueException {
-        final List<Contact> eventContactList = new ArrayList<>();
-        for (JsonAdaptedContact contact : contactList) {
-            eventContactList.add(contact.toModelType());
+        final List<Pair<Contact, AttendanceStatus>> attendanceList = new ArrayList<>();
+        for (JsonAdaptedAttendancePair pair : attendance) {
+            attendanceList.add(pair.toModelType());
         }
 
         final Set<Tag> modelTags = new HashSet<>();
@@ -96,41 +92,41 @@ public class JsonAdaptedEvent {
 
         if (name == null) {
             throw new IllegalValueException(String.format(
-                MISSING_FIELD_MESSAGE_FORMAT, EventName.class.getSimpleName()));
+                MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!EventName.isValid(name)) {
-            throw new IllegalValueException(EventName.MESSAGE_CONSTRAINTS);
+        if (!Name.isValid(name)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final EventName eventName = new EventName(name);
+        final Name eventName = new Name(name);
 
         if (startTime == null) {
             throw new IllegalValueException(String.format(
-                MISSING_FIELD_MESSAGE_FORMAT, EventDateTime.class.getSimpleName()));
+                MISSING_FIELD_MESSAGE_FORMAT, Datetime.class.getSimpleName()));
         }
-        if (!EventDateTime.isValid(startTime)) {
-            throw new IllegalValueException(EventDateTime.MESSAGE_CONSTRAINTS);
+        if (!Datetime.isValid(startTime)) {
+            throw new IllegalValueException(Datetime.MESSAGE_CONSTRAINTS);
         }
-        final EventDateTime eventStartTime = new EventDateTime(startTime);
+        final Datetime eventStartTime = new Datetime(startTime);
 
         if (endTime == null) {
             throw new IllegalValueException(String.format(
-                MISSING_FIELD_MESSAGE_FORMAT, EventDateTime.class.getSimpleName()));
+                MISSING_FIELD_MESSAGE_FORMAT, Datetime.class.getSimpleName()));
         }
-        if (!EventDateTime.isValid(endTime)) {
-            throw new IllegalValueException(EventDateTime.MESSAGE_CONSTRAINTS);
+        if (!Datetime.isValid(endTime)) {
+            throw new IllegalValueException(Datetime.MESSAGE_CONSTRAINTS);
         }
-        final EventDateTime eventEndTime = new EventDateTime(endTime);
+        final Datetime eventEndTime = new Datetime(endTime);
 
         if (location == null) {
             throw new IllegalValueException(String.format(
-                MISSING_FIELD_MESSAGE_FORMAT, EventLocation.class.getSimpleName()));
+                MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
         }
-        if (!EventLocation.isValid(location)) {
-            throw new IllegalValueException(EventLocation.MESSAGE_CONSTRAINTS);
+        if (!Location.isValid(location)) {
+            throw new IllegalValueException(Location.MESSAGE_CONSTRAINTS);
         }
-        final EventLocation eventLocation = new EventLocation(location);
+        final Location eventLocation = new Location(location);
 
         return new Event(eventName, eventStartTime, eventEndTime, eventLocation,
-            eventContactList, markedList, modelTags);
+                new Attendance(attendanceList), modelTags);
     }
 }

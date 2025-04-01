@@ -5,8 +5,6 @@ import static seedu.address.logic.ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CON
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_LONG;
 
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 
@@ -14,7 +12,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 
 /**
@@ -45,28 +42,14 @@ public class RemoveContactFromEventCommand extends EditEventCommand {
 
     @Override
     public Event createEditedItem(Model model, Event eventToEdit) throws CommandException {
-        // Check indices against current todo contact list
+        // Check indices against current event contact list
         for (Index index : contactIndices) {
-            if (index.getZeroBased() >= eventToEdit.getContacts().size()) {
+            if (index.getZeroBased() >= eventToEdit.getAttendance().size()) {
                 throw new CommandException(String.format(MESSAGE_INDEX_OUT_OF_RANGE_CONTACT, index.getOneBased()));
             }
         }
 
-        // Map to contacts and remove
-        List<Contact> newContacts = new ArrayList<>(eventToEdit.getContacts());
-        List<Boolean> newMarkList = new ArrayList<>(eventToEdit.getMarkedList());
-        contactIndices.stream()
-                .map(Index::getZeroBased)
-                .sorted(Comparator.reverseOrder())
-                .forEach(index -> newContacts.remove((int) index));
-        contactIndices.stream()
-                .map(Index::getZeroBased)
-                .sorted(Comparator.reverseOrder())
-                .forEach(index -> newMarkList.remove((int) index));
-
-        // Update the descriptor and call super
-        editEventDescriptor.setContacts(newContacts);
-        editEventDescriptor.setMarkedList(newMarkList);
+        editEventDescriptor.setAttendance(eventToEdit.getAttendance().remove(contactIndices));
         return super.createEditedItem(model, eventToEdit);
     }
 

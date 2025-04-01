@@ -134,7 +134,7 @@ public class EditContactCommandTest {
     }
 
     @Test
-    public void execute_filteredList_success() {
+    public void execute_filteredAndSortedList_success() {
         showContactAtIndex(model, INDEX_FIRST);
 
         Contact contactInFilteredList = model.getContactManagerAndList().getFilteredItemsList()
@@ -160,7 +160,7 @@ public class EditContactCommandTest {
         );
         expectedModel.getContactManagerAndList().setItem(model.getContactManagerAndList()
                 .getFilteredItemsList().get(0), editedContact);
-        showContactAtIndex(expectedModel, INDEX_FIRST);
+        showContactAtIndex(expectedModel, INDEX_SECOND);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

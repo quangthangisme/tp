@@ -26,7 +26,7 @@ public class TodoCommandTestUtil {
     public static final String LOCATION_DESC_GRADING =
             " " + PREFIX_TODO_LOCATION_LONG + VALID_LOCATION_GRADING;
 
-    public static final String INVALID_TODO_NAME_DESC = " " + PREFIX_TODO_NAME_LONG + "Stuff&stuff";
+    public static final String INVALID_TODO_NAME_DESC = " " + PREFIX_TODO_NAME_LONG + "-stuff";
     public static final String INVALID_TODO_DEADLINE_DESC_NOT_DATETIME =
             " " + PREFIX_TODO_DEADLINE_LONG + "aaaa";
     public static final String INVALID_TODO_DEADLINE_DESC_INCORRECT_FORMAT =

@@ -15,8 +15,8 @@ import seedu.address.model.contact.Course;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Group;
 import seedu.address.model.contact.Id;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * Jackson-friendly version of {@link Contact}.
@@ -28,7 +28,7 @@ public class JsonAdaptedContact {
     private final String id;
     private final String name;
     private final String email;
-    private final String module;
+    private final String course;
     private final String group;
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -39,13 +39,14 @@ public class JsonAdaptedContact {
     public JsonAdaptedContact(
         @JsonProperty("id") String id,
         @JsonProperty("name") String name,
-        @JsonProperty("email") String email, @JsonProperty("course") String module,
+        @JsonProperty("email") String email,
+        @JsonProperty("course") String course,
         @JsonProperty("group") String group,
         @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.module = module;
+        this.course = course;
         this.group = group;
         if (tags != null) {
             this.tags.addAll(tags);
@@ -57,9 +58,9 @@ public class JsonAdaptedContact {
      */
     public JsonAdaptedContact(Contact source) {
         id = source.getId().fullId;
-        name = source.getName().fullName;
+        name = source.getName().value;
         email = source.getEmail().value;
-        module = source.getCourse().fullModule;
+        course = source.getCourse().fullCourse;
         group = source.getGroup().fullGroup;
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -85,7 +86,7 @@ public class JsonAdaptedContact {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
         }
-        if (!Name.isValidName(name)) {
+        if (!Name.isValid(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
         final Name modelName = new Name(name);
@@ -98,13 +99,13 @@ public class JsonAdaptedContact {
         }
         final Email modelEmail = new Email(email);
 
-        if (module == null) {
+        if (course == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Course.class.getSimpleName()));
         }
-        if (!Course.isValidModule(module)) {
+        if (!Course.isValidCourse(course)) {
             throw new IllegalValueException(Course.MESSAGE_CONSTRAINTS);
         }
-        final Course modelCourse = new Course(module);
+        final Course modelCourse = new Course(course);
 
         if (group == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Group.class.getSimpleName()));

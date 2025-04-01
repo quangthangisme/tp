@@ -13,7 +13,7 @@ import java.util.Set;
 import seedu.address.logic.commands.create.AddContactCommand;
 import seedu.address.logic.commands.update.EditContactDescriptor;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * A utility class for Contact.
@@ -33,9 +33,9 @@ public class ContactUtil {
     public static String getContactDetails(Contact contact) {
         StringBuilder sb = new StringBuilder();
         sb.append(PREFIX_CONTACT_ID_LONG).append(contact.getId().fullId).append(" ")
-                .append(PREFIX_CONTACT_NAME_LONG).append(contact.getName().fullName).append(" ")
+                .append(PREFIX_CONTACT_NAME_LONG).append(contact.getName().value).append(" ")
                 .append(PREFIX_CONTACT_EMAIL_LONG).append(contact.getEmail().value).append(" ")
-                .append(PREFIX_CONTACT_COURSE_LONG).append(contact.getCourse().fullModule).append(" ")
+                .append(PREFIX_CONTACT_COURSE_LONG).append(contact.getCourse().fullCourse).append(" ")
                 .append(PREFIX_CONTACT_GROUP_LONG).append(contact.getGroup().fullGroup).append(" ");
         contact.getTags().stream().forEach(
             s -> sb.append(PREFIX_CONTACT_TAG_LONG).append(s.tagName).append(" ")
@@ -49,9 +49,9 @@ public class ContactUtil {
     public static String getEditContactDescriptorDetails(EditContactDescriptor descriptor) {
         StringBuilder sb = new StringBuilder();
         descriptor.getId().ifPresent(id -> sb.append(PREFIX_CONTACT_ID_LONG).append(id.fullId).append(" "));
-        descriptor.getName().ifPresent(name -> sb.append(PREFIX_CONTACT_NAME_LONG).append(name.fullName).append(" "));
+        descriptor.getName().ifPresent(name -> sb.append(PREFIX_CONTACT_NAME_LONG).append(name.value).append(" "));
         descriptor.getEmail().ifPresent(email -> sb.append(PREFIX_CONTACT_EMAIL_LONG).append(email.value).append(" "));
-        descriptor.getCourse().ifPresent(course -> sb.append(PREFIX_CONTACT_COURSE_LONG).append(course.fullModule)
+        descriptor.getCourse().ifPresent(course -> sb.append(PREFIX_CONTACT_COURSE_LONG).append(course.fullCourse)
             .append(" "));
         descriptor.getGroup()
             .ifPresent(group -> sb.append(PREFIX_CONTACT_GROUP_LONG).append(group.fullGroup).append(" "));

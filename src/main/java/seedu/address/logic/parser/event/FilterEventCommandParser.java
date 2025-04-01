@@ -10,21 +10,23 @@ import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.Pair;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.read.FilterEventCommand;
-import seedu.address.logic.commands.read.FilterEventCommand.EventPredicate;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.event.predicate.EventContactPredicate;
 import seedu.address.model.event.predicate.EventEndTimePredicate;
-import seedu.address.model.event.predicate.EventLocationPredicate;
-import seedu.address.model.event.predicate.EventNamePredicate;
+import seedu.address.model.event.predicate.EventPredicate;
 import seedu.address.model.event.predicate.EventStartTimePredicate;
+import seedu.address.model.item.predicate.LocationPredicate;
+import seedu.address.model.item.predicate.NamePredicate;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -54,7 +56,7 @@ public class FilterEventCommandParser implements Parser<FilterEventCommand> {
             if (operatorStringPair.second().trim().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_EVENT_NAME_LONG));
             }
-            predicate.setNamePredicate(new EventNamePredicate(operatorStringPair.first(),
+            predicate.setNamePredicate(new NamePredicate(operatorStringPair.first(),
                 List.of(operatorStringPair.second().split("\\s+"))));
         }
         if (argMultimap.getValue(PREFIX_EVENT_LOCATION_LONG).isPresent()) {
@@ -63,7 +65,7 @@ public class FilterEventCommandParser implements Parser<FilterEventCommand> {
             if (operatorStringPair.second().trim().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_EVENT_LOCATION_LONG));
             }
-            predicate.setLocationPredicate(new EventLocationPredicate(operatorStringPair.first(),
+            predicate.setLocationPredicate(new LocationPredicate(operatorStringPair.first(),
                 List.of(operatorStringPair.second().split("\\s+"))));
         }
         if (argMultimap.getValue(PREFIX_EVENT_START_LONG).isPresent()) {
@@ -78,22 +80,23 @@ public class FilterEventCommandParser implements Parser<FilterEventCommand> {
             predicate.setEndTimePredicate(new EventEndTimePredicate(operatorStringPair.first(),
                 ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
         }
+        Optional<Pair<Operator, List<Index>>> contactFilterOpt = Optional.empty();
         if (argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(
-                argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get());
-            predicate.setContactOperator(operatorStringPair.first());
+                    argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get());
             List<Index> contactIndices = ParserUtil.parseIndices(operatorStringPair.second());
             if (contactIndices.isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES,
-                    PREFIX_EVENT_LINKED_CONTACT_LONG));
+                        PREFIX_EVENT_LINKED_CONTACT_LONG));
             }
-            predicate.setContactIndices(ParserUtil.parseIndices(operatorStringPair.second()));
+            contactFilterOpt = Optional.of(new Pair<>(operatorStringPair.first(), contactIndices));
+            predicate.setContactPredicate(new EventContactPredicate(Operator.OR, List.of()));
         }
 
         if (!predicate.isAnyFieldNonNull()) {
             throw new ParseException(MESSAGE_NO_COLUMNS);
         }
 
-        return new FilterEventCommand(predicate);
+        return new FilterEventCommand(predicate, contactFilterOpt);
     }
 }

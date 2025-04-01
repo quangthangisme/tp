@@ -1,11 +1,10 @@
 package seedu.address.logic.parser.contact;
 
-import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_COLUMN;
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_NO_COLUMNS;
 import static seedu.address.logic.Messages.MESSAGE_NO_VALUES;
 import static seedu.address.logic.Messages.MESSAGE_UNRECOGNIZED_COLUMN;
-import static seedu.address.logic.Messages.MESSAGE_UNRECOGNIZED_OPERATOR;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_COURSE_LONG;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_EMAIL_LONG;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_GROUP_LONG;
@@ -13,18 +12,17 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_NAME_LONG;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_LONG;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import seedu.address.commons.core.Operator;
+import seedu.address.commons.core.Pair;
 import seedu.address.logic.commands.read.FilterContactCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
+import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ColumnPredicate;
@@ -37,9 +35,43 @@ import seedu.address.model.contact.ContactPredicate;
  */
 public class FilterContactCommandParser implements Parser<FilterContactCommand> {
 
-    private static final Pattern OPERATOR_FORMAT = Pattern.compile("^([a-zA-Z]+):");
+    /**
+     * Parses the given {@code String} of arguments in the context of the FilterContactCommand and
+     * returns a FilterContactCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform to the expected format
+     */
+    public FilterContactCommand parse(String args) throws ParseException {
+        requireNonNull(args);
+        if (args.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FilterContactCommand.MESSAGE_USAGE));
+        }
 
-    private static final Pattern QUOTED_VALUE_PATTERN = Pattern.compile("\"([^\"]*)\"");
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_NAME_LONG,
+                PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_COURSE_LONG,
+                PREFIX_CONTACT_GROUP_LONG, PREFIX_CONTACT_TAG_LONG);
+
+        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CONTACT_NAME_LONG,
+                PREFIX_CONTACT_EMAIL_LONG,
+                PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG,
+                PREFIX_CONTACT_TAG_LONG);
+
+        Map<ContactColumn, ColumnPredicate> filterCriteriaMap = new HashMap<>();
+
+        List<Prefix> allPrefixes = List.of(PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG,
+                PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG,
+                PREFIX_CONTACT_TAG_LONG);
+
+        parsePrefixes(allPrefixes, argMultimap, filterCriteriaMap);
+
+        if (filterCriteriaMap.isEmpty()) {
+            throw new ParseException(MESSAGE_NO_COLUMNS);
+        }
+
+        return new FilterContactCommand(new ContactPredicate(filterCriteriaMap));
+    }
+
 
     /**
      * Converts a prefix to its corresponding column.
@@ -62,9 +94,7 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
         } else if (prefixStr.equals(PREFIX_CONTACT_GROUP_LONG.getPrefix())) {
             return ContactColumn.GROUP;
         } else {
-            throw new ParseException(
-                    String.format(MESSAGE_UNRECOGNIZED_COLUMN, prefixStr)
-            );
+            throw new ParseException(String.format(MESSAGE_UNRECOGNIZED_COLUMN, prefixStr));
         }
     }
 
@@ -78,140 +108,21 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
      * @throws ParseException if there is an error parsing any prefix
      */
     private void parsePrefixes(List<Prefix> allPrefixes, ArgumentMultimap argMultimap,
-                               Map<ContactColumn, ColumnPredicate> filterCriteriaMap) throws ParseException {
+                               Map<ContactColumn, ColumnPredicate> filterCriteriaMap)
+            throws ParseException {
         for (Prefix prefix : allPrefixes) {
-            List<String> rawValues = argMultimap.getAllValues(prefix);
-            if (rawValues.isEmpty()) {
+            if (argMultimap.getValue(prefix).isEmpty()) {
                 continue;
             }
-
-            try {
-                ContactColumn column = getColumnFromPrefix(prefix);
-
-                parseValues(prefix, column, filterCriteriaMap, rawValues);
-            } catch (IllegalArgumentException e) {
-                throw new ParseException(
-                        String.format(MESSAGE_UNRECOGNIZED_COLUMN, prefix.getPrefix())
-                );
+            String inputString = argMultimap.getValue(prefix).get();
+            Pair<Operator, String> operatorStringPair =
+                    ParserUtil.parseOperatorAndString(inputString);
+            if (operatorStringPair.second().trim().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, prefix));
             }
+            filterCriteriaMap.put(getColumnFromPrefix(prefix), new ColumnPredicate(
+                    operatorStringPair.first(), List.of(operatorStringPair.second().split("\\s+"))
+            ));
         }
-    }
-
-    /**
-     * Parses the values for a specific prefix and adds the corresponding filter criteria to the
-     * provided map.
-     *
-     * @param prefix            the prefix being parsed
-     * @param column            the column corresponding to the prefix
-     * @param filterCriteriaMap the map to store the parsed filter criteria
-     * @param rawValues         the list of raw values to parse
-     * @throws ParseException if there is an error parsing the values
-     */
-    private void parseValues(Prefix prefix, ContactColumn column, Map<ContactColumn,
-            ColumnPredicate> filterCriteriaMap, List<String> rawValues) throws ParseException {
-        if (filterCriteriaMap.containsKey(column)) {
-            throw new ParseException(MESSAGE_DUPLICATE_COLUMN);
-        }
-
-        String firstValue = rawValues.get(0);
-        Operator operator = Operator.AND; // Default operator
-        List<String> values = new ArrayList<>();
-
-        Matcher operatorMatcher = OPERATOR_FORMAT.matcher(firstValue);
-        if (operatorMatcher.find()) {
-            String operatorStr = operatorMatcher.group(1);
-            try {
-                operator = Operator.valueOf(operatorStr.toUpperCase());
-            } catch (IllegalArgumentException e) {
-                throw new ParseException(
-                        String.format(MESSAGE_UNRECOGNIZED_OPERATOR, operatorStr)
-                );
-            }
-
-            firstValue = firstValue.substring(operatorMatcher.end()).trim();
-            if (!firstValue.isEmpty()) {
-                values.addAll(extractValues(firstValue));
-            }
-        } else {
-            values.addAll(extractValues(firstValue));
-        }
-
-        for (int i = 1; i < rawValues.size(); i++) {
-            values.addAll(extractValues(rawValues.get(i)));
-        }
-
-        if (values.isEmpty()) {
-            throw new ParseException(
-                    String.format(MESSAGE_NO_VALUES, prefix.getPrefix())
-            );
-        }
-
-        filterCriteriaMap.put(column, new ColumnPredicate(operator, values));
-    }
-
-    /**
-     * Parses the given {@code String} of arguments in the context of the FilterContactCommand and
-     * returns a FilterContactCommand object for execution.
-     *
-     * @throws ParseException if the user input does not conform to the expected format
-     */
-    public FilterContactCommand parse(String args) throws ParseException {
-        if (args.trim().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterContactCommand.MESSAGE_USAGE));
-        }
-
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_NAME_LONG,
-            PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG,
-            PREFIX_CONTACT_TAG_LONG);
-
-        Map<ContactColumn, ColumnPredicate> filterCriteriaMap = new HashMap<>();
-
-        List<Prefix> allPrefixes = List.of(PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG,
-            PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG, PREFIX_CONTACT_TAG_LONG);
-
-        parsePrefixes(allPrefixes, argMultimap, filterCriteriaMap);
-
-        if (filterCriteriaMap.isEmpty()) {
-            throw new ParseException(MESSAGE_NO_COLUMNS);
-        }
-
-        return new FilterContactCommand(new ContactPredicate(filterCriteriaMap));
-    }
-
-    /**
-     * Extracts individual values from an input string, handling both quoted and unquoted values.
-     *
-     * @param input the input string to extract values from
-     * @return a list of extracted values
-     */
-    private List<String> extractValues(String input) {
-        List<String> values = new ArrayList<>();
-        Matcher quotedValueMatcher = QUOTED_VALUE_PATTERN.matcher(input);
-
-        int lastPosition = 0;
-
-        while (quotedValueMatcher.find()) {
-            values.add(quotedValueMatcher.group(1).trim());
-            lastPosition = quotedValueMatcher.end();
-        }
-
-        if (lastPosition > 0 && lastPosition < input.length()) {
-            String remaining = input.substring(lastPosition).trim();
-            if (!remaining.isEmpty()) {
-                for (String value : remaining.split("\\s+")) {
-                    if (!value.trim().isEmpty()) {
-                        values.add(value.trim());
-                    }
-                }
-            }
-        } else if (values.isEmpty() && !input.trim().isEmpty()) {
-            for (String value : input.trim().split("\\s+")) {
-                if (!value.trim().isEmpty()) {
-                    values.add(value.trim());
-                }
-            }
-        }
-
-        return values;
     }
 }

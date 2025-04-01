@@ -17,13 +17,14 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 
+import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.logic.commands.update.EditContactDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
-import seedu.address.model.contact.NameContainsKeywordsPredicate;
+import seedu.address.model.item.predicate.NamePredicate;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 
 /**
@@ -54,17 +55,21 @@ public class CommandTestUtil {
     public static final String EMAIL_DESC_BOB = " " + PREFIX_CONTACT_EMAIL_LONG + VALID_EMAIL_BOB;
     public static final String TAG_DESC_FRIEND = " " + PREFIX_CONTACT_TAG_LONG + VALID_TAG_FRIEND;
     public static final String TAG_DESC_HUSBAND = " " + PREFIX_CONTACT_TAG_LONG + VALID_TAG_HUSBAND;
+    public static final String TAG_DESC_FRIEND_HUSBAND =
+            " " + PREFIX_CONTACT_TAG_LONG + VALID_TAG_FRIEND + " " + VALID_TAG_HUSBAND;
     public static final String COURSE_DESC_AMY = " " + PREFIX_CONTACT_COURSE_LONG + VALID_COURSE_AMY;
     public static final String COURSE_DESC_BOB = " " + PREFIX_CONTACT_COURSE_LONG + VALID_COURSE_BOB;
     public static final String GROUP_DESC_AMY = " " + PREFIX_CONTACT_GROUP_LONG + VALID_GROUP_AMY;
     public static final String GROUP_DESC_BOB = " " + PREFIX_CONTACT_GROUP_LONG + VALID_GROUP_BOB;
 
     // '&' not allowed in names
-    public static final String INVALID_NAME_DESC = " " + PREFIX_CONTACT_NAME_LONG + "James&";
+    public static final String INVALID_NAME_DESC = " " + PREFIX_CONTACT_NAME_LONG + "-James&";
     // missing '@' symbol
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_CONTACT_EMAIL_LONG + "bob!yahoo";
     // '*' not allowed in tags
-    public static final String INVALID_TAG_DESC = " " + PREFIX_CONTACT_TAG_LONG + "hubby*";
+    public static final String INVALID_TAG_DESC = " " + PREFIX_CONTACT_TAG_LONG + "-hubby*";
+    public static final String INVALID_TAG_HUSBAND_DESC = " " + PREFIX_CONTACT_TAG_LONG
+            + "husband -hubby*";
 
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
@@ -169,9 +174,9 @@ public class CommandTestUtil {
 
         Contact contact = model.getContactManagerAndList().getFilteredItemsList()
                 .get(targetIndex.getZeroBased());
-        final String[] splitName = contact.getName().fullName.split("\\s+");
+        final String[] splitName = contact.getName().value.split("\\s+");
         model.getContactManagerAndList()
-                .updateFilteredItemsList(new NameContainsKeywordsPredicate(List.of(splitName[0])));
+                .updateFilteredItemsList(new NamePredicate(Operator.AND, List.of(splitName[0])));
 
         assertEquals(1, model.getContactManagerAndList().getFilteredItemsList().size());
     }

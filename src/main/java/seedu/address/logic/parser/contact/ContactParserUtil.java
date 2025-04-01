@@ -2,17 +2,12 @@ package seedu.address.logic.parser.contact;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Course;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Group;
 import seedu.address.model.contact.Id;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Name;
 
 /**
  * Contains utility methods used for parsing strings in the various *Parser classes.
@@ -43,7 +38,7 @@ public class ContactParserUtil {
     public static Name parseName(String name) throws ParseException {
         requireNonNull(name);
         String trimmedName = name.trim();
-        if (!Name.isValidName(trimmedName)) {
+        if (!Name.isValid(trimmedName)) {
             throw new ParseException(Name.MESSAGE_CONSTRAINTS);
         }
         return new Name(trimmedName);
@@ -65,18 +60,18 @@ public class ContactParserUtil {
     }
 
     /**
-     * Parses a {@code String module} into a {@code Course}.
+     * Parses a {@code String course} into a {@code Course}.
      * Leading and trailing whitespaces will be trimmed.
      *
-     * @throws ParseException if the given {@code module} is invalid.
+     * @throws ParseException if the given {@code course} is invalid.
      */
-    public static Course parseModule(String module) throws ParseException {
-        requireNonNull(module);
-        String trimmedModule = module.trim();
-        if (!Course.isValidModule(trimmedModule)) {
+    public static Course parseCourse(String course) throws ParseException {
+        requireNonNull(course);
+        String trimmedCourse = course.trim();
+        if (!Course.isValidCourse(trimmedCourse)) {
             throw new ParseException(Course.MESSAGE_CONSTRAINTS);
         }
-        return new Course(trimmedModule);
+        return new Course(trimmedCourse);
     }
 
     /**
@@ -92,32 +87,5 @@ public class ContactParserUtil {
             throw new ParseException(Group.MESSAGE_CONSTRAINTS);
         }
         return new Group(trimmedGroup);
-    }
-
-    /**
-     * Parses a {@code String tag} into a {@code Tag}.
-     * Leading and trailing whitespaces will be trimmed.
-     *
-     * @throws ParseException if the given {@code tag} is invalid.
-     */
-    public static Tag parseTag(String tag) throws ParseException {
-        requireNonNull(tag);
-        String trimmedTag = tag.trim();
-        if (!Tag.isValidTagName(trimmedTag)) {
-            throw new ParseException(Tag.MESSAGE_CONSTRAINTS);
-        }
-        return new Tag(trimmedTag);
-    }
-
-    /**
-     * Parses {@code Collection<String> tags} into a {@code Set<Tag>}.
-     */
-    public static Set<Tag> parseTags(Collection<String> tags) throws ParseException {
-        requireNonNull(tags);
-        final Set<Tag> tagSet = new HashSet<>();
-        for (String tagName : tags) {
-            tagSet.add(parseTag(tagName));
-        }
-        return tagSet;
     }
 }

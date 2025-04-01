@@ -1,11 +1,11 @@
-package seedu.address.model.util;
+package seedu.address.model.item.predicate;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+import seedu.address.commons.util.DatetimeUtil;
 import seedu.address.commons.util.ToStringBuilder;
 
 /**
@@ -16,8 +16,6 @@ import seedu.address.commons.util.ToStringBuilder;
 public class DatetimePredicate implements Predicate<LocalDateTime> {
     public static final String DATE_PATTERN = "\\([^)]*[^)\\s][^)]*/[^)]*[^)\\s][^)]*\\)";
 
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("yy-MM-dd "
-            + "HH:mm");
     private static final String DASH = "-";
     private static final String INVALID_FORMAT_MESSAGE =
             "Invalid format. Must be start/end, -/end, or start/-.";
@@ -81,7 +79,7 @@ public class DatetimePredicate implements Predicate<LocalDateTime> {
             return Optional.empty();
         }
         try {
-            return Optional.of(LocalDateTime.parse(value, FORMATTER));
+            return Optional.of(DatetimeUtil.parse(value));
         } catch (DateTimeParseException e) {
             throw new IllegalArgumentException(INVALID_DATE_MESSAGE + value);
         }

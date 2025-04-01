@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.contact;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import seedu.address.commons.core.index.Index;
@@ -20,13 +21,12 @@ public class InfoContactCommandParser implements Parser<InfoContactCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public InfoContactCommand parse(String args) throws ParseException {
-        try {
-            Index index = ParserUtil.parseIndex(args);
-            return new InfoContactCommand(index);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                            InfoContactCommand.MESSAGE_USAGE), pe);
+        requireNonNull(args);
+        if (args.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    InfoContactCommand.MESSAGE_USAGE));
         }
+        Index index = ParserUtil.parseIndex(args);
+        return new InfoContactCommand(index);
     }
 }

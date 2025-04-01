@@ -29,7 +29,7 @@ public class EventContactPredicate implements Predicate<Event> {
 
     @Override
     public boolean test(Event event) {
-        return operator.apply(contacts.stream(), contact -> event.getContacts().contains(contact));
+        return operator.apply(contacts.stream(), contact -> event.getAttendance().contains(contact));
     }
 
     @Override

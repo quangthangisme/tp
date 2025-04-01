@@ -1,36 +1,36 @@
-package seedu.address.model.event.predicate;
+package seedu.address.model.item.predicate;
 
 import java.util.List;
 import java.util.function.Predicate;
 
 import seedu.address.commons.core.Operator;
-import seedu.address.commons.util.StringUtil;
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.event.Event;
+import seedu.address.model.item.TaggedItem;
 
 /**
- * Tests if an {@code Event}'s location contains the specified keywords based on the provided
+ * Tests if a {@code TaggedItem} contains the specified tags based on the provided
  * {@code Operator}.
  */
-public class EventLocationPredicate implements Predicate<Event> {
+public class TagPredicate implements Predicate<TaggedItem> {
     private final Operator operator;
     private final List<String> keywords;
 
     /**
-     * Constructs an {@code EventLocationPredicate} with the given operator and list of keywords.
+     * Constructs a {@code TagPredicate} with the given operator and list of keywords.
      *
      * @param operator The operator to apply (e.g., AND, OR) to the keyword matching logic.
-     * @param keywords The list of keywords to search for in the event's location.
+     * @param keywords The list of keywords to search for in the item's tags.
      */
-    public EventLocationPredicate(Operator operator, List<String> keywords) {
+    public TagPredicate(Operator operator, List<String> keywords) {
         this.operator = operator;
         this.keywords = keywords;
     }
 
     @Override
-    public boolean test(Event event) {
-        return operator.apply(keywords.stream(), keyword
-                -> StringUtil.containsWordIgnoreCase(event.getLocation().toString(), keyword));
+    public boolean test(TaggedItem item) {
+        return operator.apply(keywords.stream(), keyword ->
+                item.getTags().stream().anyMatch(tag ->
+                        tag.tagName.toLowerCase().contains(keyword.toLowerCase())));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class EventLocationPredicate implements Predicate<Event> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EventLocationPredicate otherPredicate)) {
+        if (!(other instanceof TagPredicate otherPredicate)) {
             return false;
         }
 

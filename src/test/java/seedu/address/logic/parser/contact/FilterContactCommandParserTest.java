@@ -1,7 +1,6 @@
 package seedu.address.logic.parser.contact;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.Messages.MESSAGE_UNRECOGNIZED_OPERATOR;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_EMAIL_LONG;
@@ -64,26 +63,6 @@ public class FilterContactCommandParserTest {
         assertParseSuccess(parser, " " + PREFIX_CONTACT_NAME_LONG + " alice " + PREFIX_CONTACT_EMAIL_LONG + " gmail",
             expectedFilterCommand);
     }
-    @Test
-    public void parse_quotedValues_returnsFilterCommand() {
-        // Quote-wrapped values
-        Map<ContactColumn, ColumnPredicate> expectedPredicateMap = new HashMap<>();
-        expectedPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.AND,
-                Collections.singletonList("alice pauline")));
-        ContactPredicate expectedPredicate = new ContactPredicate(expectedPredicateMap);
-        FilterContactCommand expectedFilterCommand = new FilterContactCommand(expectedPredicate);
-
-        assertParseSuccess(parser, " " + PREFIX_CONTACT_NAME_LONG + "\"alice pauline\"", expectedFilterCommand);
-
-        // Mix of quoted and unquoted values
-        expectedPredicateMap.clear();
-        expectedPredicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.OR,
-                Arrays.asList("alice pauline", "bob")));
-        expectedPredicate = new ContactPredicate(expectedPredicateMap);
-        expectedFilterCommand = new FilterContactCommand(expectedPredicate);
-
-        assertParseSuccess(parser, " " + PREFIX_CONTACT_NAME_LONG + "or: \"alice pauline\" bob", expectedFilterCommand);
-    }
 
     @Test
     public void parse_allOperators_returnsFilterCommand() {
@@ -122,13 +101,6 @@ public class FilterContactCommandParserTest {
         expectedFilterCommand = new FilterContactCommand(expectedPredicate);
 
         assertParseSuccess(parser, " " + PREFIX_CONTACT_NAME_LONG + "nor: alice bob", expectedFilterCommand);
-    }
-
-    @Test
-    public void parse_invalidOperator_throwsParseException() {
-        assertParseFailure(parser, " " + PREFIX_CONTACT_NAME_LONG + "invalid: alice",
-                String.format(MESSAGE_UNRECOGNIZED_OPERATOR, "invalid")
-        );
     }
 
     @Test

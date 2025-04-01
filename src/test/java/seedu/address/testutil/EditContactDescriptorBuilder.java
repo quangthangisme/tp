@@ -8,8 +8,8 @@ import seedu.address.logic.commands.update.EditContactDescriptor;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Id;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * A utility class to help with building EditContactDescriptor objects.

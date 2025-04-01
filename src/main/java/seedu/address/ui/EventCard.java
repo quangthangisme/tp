@@ -40,7 +40,7 @@ public class EventCard extends UiPart<Region> {
         super(FXML);
         this.event = event;
         id.setText(displayedIndex + ". ");
-        name.setText(event.getName().name);
+        name.setText(event.getName().value);
         startTime.setText("Start time: " + event.getStartTime().toString());
         endTime.setText("End Time: " + event.getEndTime().toString());
         eventLocation.setText(event.getLocation().toString());

@@ -2,12 +2,10 @@ package seedu.address.logic.parser.todo;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_LONG;
+import static seedu.address.logic.Messages.MESSAGE_MISSING_TAG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.update.AddTagToTodoCommand;
@@ -15,8 +13,8 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
-import seedu.address.logic.parser.contact.ContactParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * Parses input arguments and creates a new AddTagToTodoCommand object
@@ -34,21 +32,12 @@ public class AddTagToTodoCommandParser implements Parser<AddTagToTodoCommand> {
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagToTodoCommand.MESSAGE_USAGE));
         }
 
-        Index index;
-        try {
-            index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagToTodoCommand.MESSAGE_USAGE), pe);
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+
+        Set<Tag> tags = ParserUtil.parseTags(argMultimap.getValue(PREFIX_TODO_TAG_LONG).get());
+        if (tags.isEmpty()) {
+            throw new ParseException(MESSAGE_MISSING_TAG);
         }
-
-        // It is guaranteed that there is only one --tag.
-        // Get the sole value, split by whitespace
-        // convert to collection<String>, then parse to Set<Tag>
-        Collection<String> tags = argMultimap.getValue(PREFIX_CONTACT_TAG_LONG)
-                .map(s -> Arrays.asList(s.split("\\s+")))
-                .orElse(Collections.emptyList());
-
-        return new AddTagToTodoCommand(index, ContactParserUtil.parseTags(tags));
+        return new AddTagToTodoCommand(index, tags);
     }
 }

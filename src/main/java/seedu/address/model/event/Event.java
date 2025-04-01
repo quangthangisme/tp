@@ -3,80 +3,88 @@ package seedu.address.model.event;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.Tag;
-import seedu.address.model.item.Item;
+import seedu.address.model.item.ItemWithLocation;
+import seedu.address.model.item.NamedItem;
+import seedu.address.model.item.TaggedItem;
+import seedu.address.model.item.commons.Datetime;
+import seedu.address.model.item.commons.Location;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 
 /**
  * Represents an Event.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Event implements Item {
-    private final EventName name;
-    private final EventDateTime startTime;
-    private final EventDateTime endTime;
-    private final EventLocation location;
-    private final List<Contact> contacts;
-    private final List<Boolean> markedList;
+public class Event implements NamedItem, ItemWithLocation, TaggedItem {
+    private final Name name;
+    private final Datetime startTime;
+    private final Datetime endTime;
+    private final Location location;
+    private final Attendance attendance;
     private final Set<Tag> tags = new HashSet<>();
 
     /**
      * Every field must be present and not null, field values are validated, immutable.
      */
-    public Event(EventName name, EventDateTime startTime, EventDateTime endTime,
-                 EventLocation location, List<Contact> contacts, List<Boolean> markedList,
-                 Set<Tag> tags) {
-        requireAllNonNull(name, startTime, endTime, location, contacts, tags);
+    public Event(Name name, Datetime startTime, Datetime endTime,
+                 Location location, Attendance attendance, Set<Tag> tags) {
+        requireAllNonNull(name, startTime, endTime, location, attendance, tags);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
-        this.contacts = contacts;
-        this.markedList = markedList;
+        this.attendance = attendance;
         this.tags.addAll(tags);
     }
 
     /**
      * Every field must be present and not null, field values are validated, immutable.
      */
-    public Event(EventName name, EventDateTime startTime,
-            EventDateTime endTime, EventLocation location) {
+    public Event(Name name, Datetime startTime,
+            Datetime endTime, Location location) {
         requireAllNonNull(name, startTime, endTime, location);
         this.name = name;
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
-        this.contacts = List.of();
-        this.markedList = List.of();
+        this.attendance = new Attendance();
     }
 
-    public EventName getName() {
+    /**
+     * Every field must be present and not null.
+     */
+    public Event(Name name, Datetime startTime, Datetime endTime, Location location, Set<Tag> tagSet) {
+        requireAllNonNull(name, startTime, endTime, location);
+        this.name = name;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.location = location;
+        this.attendance = new Attendance();
+        this.tags.addAll(tagSet);
+    }
+
+    public Name getName() {
         return this.name;
     }
 
-    public EventDateTime getStartTime() {
+    public Datetime getStartTime() {
         return this.startTime;
     }
 
-    public EventDateTime getEndTime() {
+    public Datetime getEndTime() {
         return this.endTime;
     }
 
-    public EventLocation getLocation() {
+    public Location getLocation() {
         return this.location;
     }
 
-    public List<Contact> getContacts() {
-        return this.contacts;
-    }
-
-    public List<Boolean> getMarkedList() {
-        return this.markedList;
+    public Attendance getAttendance() {
+        return this.attendance;
     }
 
     public Set<Tag> getTags() {
@@ -87,11 +95,10 @@ public class Event implements Item {
     public String toString() {
         return new ToStringBuilder(this)
                 .add("name", name)
-                .add("start_time", startTime)
-                .add("end_time", endTime)
+                .add("startTime", startTime)
+                .add("endTime", endTime)
                 .add("location", location)
-                .add("contacts", contacts)
-                .add("marked_contacts", markedList)
+                .add("attendance", attendance)
                 .add("tags", tags)
                 .toString();
     }
@@ -108,13 +115,12 @@ public class Event implements Item {
                 && this.startTime.equals(otherEvent.startTime)
                 && this.endTime.equals(otherEvent.endTime)
                 && this.location.equals(otherEvent.location)
-                && this.contacts.equals(otherEvent.contacts)
-                && this.markedList.equals(otherEvent.markedList)
+                && this.attendance.equals(otherEvent.attendance)
                 && this.tags.equals(otherEvent.tags);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, startTime, endTime, location, contacts, markedList, tags);
+        return Objects.hash(name, startTime, endTime, location, attendance, tags);
     }
 }

@@ -1,7 +1,7 @@
 package seedu.address.logic.parser.todo;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.TodoMessages.MESSAGE_MISSING_CONTACT_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_MISSING_CONTACT_INDEX;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.logic.parser.ParserUtil.MESSAGE_INVALID_INDEX;
@@ -46,7 +46,8 @@ public class AddContactToTodoCommandParserTest {
 
     @Test
     public void parse_noLinkedContacts_throwsParseException() {
-        assertParseFailure(parser, "1 " + PREFIX_TODO_LINKED_CONTACT_LONG, MESSAGE_MISSING_CONTACT_INDEX);
+        assertParseFailure(parser, "1 " + PREFIX_TODO_LINKED_CONTACT_LONG,
+                MESSAGE_MISSING_CONTACT_INDEX);
     }
 
     @Test

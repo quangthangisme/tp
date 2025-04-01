@@ -28,6 +28,7 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
      * @param duplicateChecker the {@code DuplicateChecker} used to check for duplicates.
      */
     public UniqueItemList(DuplicateChecker<T> duplicateChecker) {
+        requireNonNull(duplicateChecker);
         this.duplicateChecker = duplicateChecker;
     }
 

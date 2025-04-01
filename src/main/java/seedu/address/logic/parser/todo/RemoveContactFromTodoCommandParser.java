@@ -2,7 +2,7 @@ package seedu.address.logic.parser.todo;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.TodoMessages.MESSAGE_MISSING_CONTACT_INDEX;
+import static seedu.address.logic.Messages.MESSAGE_MISSING_CONTACT_INDEX;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
 
 import java.util.List;

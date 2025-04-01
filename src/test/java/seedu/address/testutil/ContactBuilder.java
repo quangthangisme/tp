@@ -8,8 +8,8 @@ import seedu.address.model.contact.Course;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Group;
 import seedu.address.model.contact.Id;
-import seedu.address.model.contact.Name;
-import seedu.address.model.contact.Tag;
+import seedu.address.model.item.commons.Name;
+import seedu.address.model.item.commons.Tag;
 import seedu.address.model.util.SampleDataUtil;
 
 /**
