@@ -41,7 +41,8 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
         List<T> lastShownList = managerAndList.getFilteredItemsList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(getIndexOutOfRangeMessage());
+            throw new CommandException(String.format(getIndexOutOfRangeMessage(),
+                    targetIndex.getOneBased()));
         }
 
         T itemToEdit = lastShownList.get(targetIndex.getZeroBased());
@@ -53,9 +54,6 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
         }
 
         managerAndList.setItem(itemToEdit, editedItem);
-        managerAndList.updateFilteredItemsList(
-                managerAndList.getPredicate().or(item -> item.equals(editedItem))
-        );
         return new CommandResult(getSuccessMessage(editedItem));
     }
 
