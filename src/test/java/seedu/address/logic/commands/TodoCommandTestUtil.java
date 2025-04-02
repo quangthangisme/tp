@@ -51,6 +51,6 @@ public class TodoCommandTestUtil {
     public static final String INVALID_TODO_LINKED_CONTACT_DESC =
             " " + PREFIX_TODO_LINKED_CONTACT_LONG + INVALID_TODO_LINKED_CONTACT_INDEX;
     public static final String INVALID_TODO_STATUS = "lolxd";
-    public static final String INVALID_TODO_STATUS_DESC
-            = " " + PREFIX_TODO_STATUS_LONG + INVALID_TODO_STATUS;
+    public static final String INVALID_TODO_STATUS_DESC =
+            " " + PREFIX_TODO_STATUS_LONG + INVALID_TODO_STATUS;
 }

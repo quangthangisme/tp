@@ -1,9 +1,9 @@
 package seedu.address.logic.commands.create;
 
-import static seedu.address.logic.ContactMessages.MESSAGE_DUPLICATE_CONTACT;
+import static seedu.address.logic.TodoMessages.MESSAGE_DUPLICATE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
+import static seedu.address.testutil.TypicalTodos.GRADING;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -12,19 +12,19 @@ import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
 import seedu.address.model.contact.ContactManagerWithFilteredList;
 import seedu.address.model.event.EventManager;
 import seedu.address.model.event.EventManagerWithFilteredList;
+import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManager;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
-import seedu.address.testutil.ContactBuilder;
+import seedu.address.testutil.TodoBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) for {@code AddTodoCommand}.
  */
-public class AddContactCommandIntegrationTest {
+public class AddTodoCommandIntegrationTest {
 
     private Model model;
 
@@ -32,15 +32,16 @@ public class AddContactCommandIntegrationTest {
     public void setUp() {
         model = new ModelManager(
                 new UserPrefs(),
-                new ContactManagerWithFilteredList(getTypicalAddressBook()),
+                new ContactManagerWithFilteredList(),
                 new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         );
+        model.getTodoManagerAndList().getItemManager().addItem(GRADING);
     }
 
     @Test
-    public void execute_newContact_success() {
-        Contact validContact = new ContactBuilder().build();
+    public void execute_newTodo_success() {
+        Todo validTodo = new TodoBuilder().build();
 
         Model expectedModel = new ModelManager(
                 new UserPrefs(),
@@ -54,18 +55,18 @@ public class AddContactCommandIntegrationTest {
                         new EventManager(model.getEventManagerAndList().getItemManager())
                 )
         );
-        expectedModel.getContactManagerAndList().addItem(validContact);
+        expectedModel.getTodoManagerAndList().addItem(validTodo);
 
-        assertCommandSuccess(new AddContactCommand(validContact), model,
-                String.format(AddContactCommand.MESSAGE_SUCCESS, Messages.format(validContact)),
+        assertCommandSuccess(new AddTodoCommand(validTodo), model,
+                String.format(AddTodoCommand.MESSAGE_SUCCESS, Messages.format(validTodo)),
                 expectedModel);
     }
 
     @Test
     public void execute_duplicateContact_throwsCommandException() {
-        Contact contactInList = model.getContactManagerAndList().getItemManager().getItemList().get(0);
-        assertCommandFailure(new AddContactCommand(contactInList), model,
-                MESSAGE_DUPLICATE_CONTACT);
+        Todo todoInList = model.getTodoManagerAndList().getItemManager().getItemList().get(0);
+        assertCommandFailure(new AddTodoCommand(todoInList), model,
+                MESSAGE_DUPLICATE_TODO);
     }
 
 }

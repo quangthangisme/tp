@@ -12,7 +12,7 @@ import static seedu.address.logic.commands.EventCommandTestUtil.VALID_TAG_CRYING
 import static seedu.address.logic.commands.EventCommandTestUtil.VALID_TAG_CRYING_2;
 import static seedu.address.logic.commands.EventCommandTestUtil.VALID_TAG_MEETING;
 import static seedu.address.testutil.TypicalContacts.ALICE;
-import static seedu.address.testutil.TypicalContacts.BOB;
+import static seedu.address.testutil.TypicalContacts.CARL;
 
 import seedu.address.model.event.Event;
 
@@ -47,7 +47,7 @@ public class TypicalEvents {
             .withStart(VALID_START_MEETING)
             .withEnd(VALID_END_MEETING)
             .withLocation(VALID_LOCATION_MEETING)
-            .withAttendance(ALICE, BOB)
+            .withAttendance(ALICE, CARL)
             .withTags(VALID_TAG_MEETING).build();
 
 }

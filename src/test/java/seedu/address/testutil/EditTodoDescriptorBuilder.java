@@ -9,9 +9,9 @@ import seedu.address.logic.commands.update.EditTodoDescriptor;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
-import seedu.address.model.todo.Todo;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
+import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoStatus;
 
 /**

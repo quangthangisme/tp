@@ -80,8 +80,7 @@ public class EditEventCommandParserTest {
                 String.format(MESSAGE_INVALID_INDEX, "1 some random string"));
 
         // invalid prefix being parsed as preamble
-        assertParseFailure(parser, "1 z/ string", String.format(MESSAGE_INVALID_INDEX, "1 z/ " +
-                "string"));
+        assertParseFailure(parser, "1 z/ string", String.format(MESSAGE_INVALID_INDEX, "1 z/ string"));
     }
 
     @Test

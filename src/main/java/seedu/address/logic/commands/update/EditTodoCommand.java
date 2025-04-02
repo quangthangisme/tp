@@ -2,6 +2,7 @@ package seedu.address.logic.commands.update;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT;
+import static seedu.address.logic.TodoMessages.MESSAGE_DUPLICATE_TODO;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
@@ -52,8 +53,6 @@ public class EditTodoCommand extends EditCommand<Todo> {
 
     public static final String MESSAGE_EDIT_TODO_SUCCESS = "Edited Todo: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_TODO =
-            "This todo already exists in the address book.";
 
     protected final EditTodoDescriptor editTodoDescriptor;
     private final Optional<List<Index>> linkedContactIndicesOpt;
