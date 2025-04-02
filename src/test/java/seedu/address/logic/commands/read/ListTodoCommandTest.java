@@ -2,8 +2,8 @@ package seedu.address.logic.commands.read;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.TodoCommandTestUtil.showTodoAtIndex;
-import static seedu.address.testutil.TypicalTodos.getTypicalTodoList;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
+import static seedu.address.testutil.TypicalTodos.getTypicalTodoList;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

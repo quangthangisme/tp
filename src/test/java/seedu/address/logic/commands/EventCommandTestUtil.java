@@ -12,11 +12,9 @@ import java.util.List;
 
 import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.update.EditContactDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.item.predicate.NamePredicate;
-import seedu.address.testutil.EditContactDescriptorBuilder;
 
 /**
  * Contains helper methods for testing event commands.

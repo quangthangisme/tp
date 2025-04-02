@@ -11,11 +11,9 @@ import java.util.List;
 
 import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.update.EditContactDescriptor;
 import seedu.address.model.Model;
-import seedu.address.model.todo.Todo;
 import seedu.address.model.item.predicate.NamePredicate;
-import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.model.todo.Todo;
 
 /**
  * Contains helper methods for testing todo commands.
