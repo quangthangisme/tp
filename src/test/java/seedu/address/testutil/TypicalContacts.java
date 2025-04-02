@@ -30,7 +30,7 @@ public class TypicalContacts {
             .withName("Alice Pauline")
             .withEmail("alice@example.com")
             .withCourse("CS50")
-            .withGroup("T33")
+            .withGroup("T35")
             .withTags("friends").build();
     public static final Contact BENSON = new ContactBuilder()
             .withId("A00000002")
@@ -57,7 +57,8 @@ public class TypicalContacts {
             .withName("Elle Meyer")
             .withCourse("CS60")
             .withGroup("T33")
-            .withEmail("werner@example.com").build();
+            .withEmail("werner@example.com")
+            .withTags("enemies", "owesMoney").build();
     public static final Contact FIONA = new ContactBuilder()
             .withId("A00000006")
             .withName("Fiona Kunz")
