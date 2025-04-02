@@ -3,10 +3,8 @@ package seedu.address.logic.parser.event;
 import static seedu.address.logic.EventMessages.MESSAGE_NEGATIVE_DURATION;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
-import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.stream.Stream;
 
 import seedu.address.logic.commands.create.AddEventCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
@@ -14,6 +12,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.PrefixAliasListBuilder;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
 import seedu.address.model.item.commons.Datetime;
@@ -37,13 +36,9 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         EndPrefix endPrefix = new EndPrefix();
         LocationPrefix locationPrefix = new LocationPrefix();
         TagPrefix tagPrefix = new TagPrefix();
-        Prefix[] listOfPrefixes = Stream.of(
-                namePrefix.getAll(),
-                startPrefix.getAll(),
-                endPrefix.getAll(),
-                locationPrefix.getAll(),
-                tagPrefix.getAll()
-        ).flatMap(Arrays::stream).toArray(Prefix[]::new);
+        Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
+                .add(namePrefix, startPrefix, endPrefix, locationPrefix, tagPrefix)
+                .toArray();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
 
         if (argMultimap.getValue(namePrefix).isEmpty()

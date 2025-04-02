@@ -4,10 +4,8 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_NO_COLUMNS;
 import static seedu.address.logic.Messages.MESSAGE_NO_VALUES;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Stream;
 
 import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.Pair;
@@ -18,6 +16,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.PrefixAliasListBuilder;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.predicate.EventContactPredicate;
 import seedu.address.model.event.predicate.EventEndTimePredicate;
@@ -44,13 +43,9 @@ public class FilterEventCommandParser implements Parser<FilterEventCommand> {
         EndPrefix endPrefix = new EndPrefix();
         LocationPrefix locationPrefix = new LocationPrefix();
         ContactPrefix contactPrefix = new ContactPrefix();
-        Prefix[] listOfPrefixes = Stream.of(
-                namePrefix.getAll(),
-                startPrefix.getAll(),
-                endPrefix.getAll(),
-                locationPrefix.getAll(),
-                contactPrefix.getAll()
-        ).flatMap(Arrays::stream).toArray(Prefix[]::new);
+        Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
+                .add(namePrefix, startPrefix, endPrefix, locationPrefix, contactPrefix)
+                .toArray();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
         argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
 
