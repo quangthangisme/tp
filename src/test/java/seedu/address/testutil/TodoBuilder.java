@@ -11,6 +11,7 @@ import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoStatus;
+import seedu.address.model.util.SampleDataUtil;
 
 /**
  * A utility class to help with building Todo objects.
@@ -93,6 +94,15 @@ public class TodoBuilder {
      */
     public TodoBuilder withContacts(List<Contact> contacts) {
         this.contacts = List.copyOf(contacts);
+        return this;
+    }
+
+    /**
+     * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Todo} that we are
+     * building.
+     */
+    public TodoBuilder withTags(String ... tags) {
+        this.tags = SampleDataUtil.getTagSet(tags);
         return this;
     }
 

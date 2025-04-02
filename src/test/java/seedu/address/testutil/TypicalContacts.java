@@ -1,17 +1,17 @@
 package seedu.address.testutil;
 
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_COURSE_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUP_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_GROUP_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_ID_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_COURSE_AMY;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_COURSE_BOB;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_EMAIL_BOB;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_GROUP_AMY;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_GROUP_BOB;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_ID_AMY;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_ID_BOB;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_NAME_AMY;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_TAG_FRIEND;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_TAG_HUSBAND;
 
 import java.util.ArrayList;
 import java.util.Arrays;
