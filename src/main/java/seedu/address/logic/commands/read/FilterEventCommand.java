@@ -21,6 +21,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.predicate.EventContactPredicate;
 import seedu.address.model.event.predicate.EventPredicate;
+import seedu.address.ui.ListPanelViewType;
 
 /**
  * Filters and lists all events based on specified criteria. Filter criteria are formed with
@@ -101,5 +102,10 @@ public class FilterEventCommand extends FilterCommand<Event> {
         }
 
         return eventPredicate;
+    }
+
+    @Override
+    public ListPanelViewType getListPanelViewType() {
+        return ListPanelViewType.EVENT;
     }
 }

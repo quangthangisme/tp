@@ -14,6 +14,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactPredicate;
+import seedu.address.ui.ListPanelViewType;
 
 /**
  * Filters and lists all contacts in address book based on specified criteria.
@@ -81,5 +82,10 @@ public class FilterContactCommand extends FilterCommand<Contact> {
         return new ToStringBuilder(this)
                 .add("predicate", predicate)
                 .toString();
+    }
+
+    @Override
+    public ListPanelViewType getListPanelViewType() {
+        return ListPanelViewType.CONTACT;
     }
 }

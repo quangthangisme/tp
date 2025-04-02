@@ -14,6 +14,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.ItemManagerWithFilteredList;
+import seedu.address.ui.ListPanelViewType;
 
 /**
  * Abstract command for filtering items in the model that match a given complex {@code predicate}.
@@ -38,7 +39,7 @@ public abstract class FilterCommand<T extends Item> extends ItemCommand<T> {
         ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
         managerAndList.updateFilteredItemsList(createPredicate(model));
 
-        return new CommandResult(getSuccessMessage(managerAndList.getFilteredItemsList().size()));
+        return new CommandResult(getSuccessMessage(managerAndList.getFilteredItemsList().size()), getListPanelViewType());
     }
 
     /**
@@ -54,6 +55,14 @@ public abstract class FilterCommand<T extends Item> extends ItemCommand<T> {
     public String getSuccessMessage(int numberOfResults) {
         return String.format(Messages.MESSAGE_SEARCH_OVERVIEW, numberOfResults);
     }
+
+    /**
+     * Returns the appropriate ListPanelViewType for this filter command.
+     * Must be implemented by subclasses to specify which view should be displayed.
+     *
+     * @return the ListPanelViewType to switch to
+     */
+    public abstract ListPanelViewType getListPanelViewType();
 
     @Override
     public boolean equals(Object other) {
