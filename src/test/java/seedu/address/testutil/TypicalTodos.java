@@ -9,7 +9,12 @@ import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_NAME_REPORT
 import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_TAG_REPORT;
 import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_TAG_REPORT_2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.TodoManager;
 
 /**
  * A utility class containing a list of {@code Todo} objects to be used in tests.
@@ -47,4 +52,21 @@ public class TypicalTodos {
             .withDeadline(VALID_DEADLINE_REPORT)
             .withLocation(VALID_LOCATION_REPORT)
             .withTags(VALID_TAG_REPORT).build();
+
+    private TypicalTodos() {} // prevents instantiation
+
+    /**
+     * Returns an {@code TodoList} with all the typical todos.
+     */
+    public static TodoManager getTypicalTodoList() {
+        TodoManager tl = new TodoManager();
+        for (Todo todo : getTypicalTodos()) {
+            tl.addItem(todo);
+        }
+        return tl;
+    }
+
+    public static List<Todo> getTypicalTodos() {
+        return new ArrayList<>(Arrays.asList(GRADING, REPORT));
+    }
 }
