@@ -35,13 +35,15 @@ public class EventCommandTestUtil {
     public static final String TAG_DESC_CRYING = " " + PREFIX_EVENT_TAG_LONG + VALID_TAG_CRYING;
 
     // & not allowed
-    public static final String INVALID_NAME_EVENT = " " + PREFIX_EVENT_NAME_LONG + "Stuff&stuff";
-    public static final String INVALID_NOT_DATETIME = " " + PREFIX_EVENT_START_LONG + "aaaa";
-    public static final String INVALID_DATETIME_INCORRECT_FORMAT = " " + PREFIX_EVENT_END_LONG + "23:59 25-12-31";
+    public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_EVENT_NAME_LONG + "Stuff&stuff";
+    // Not datetime
+    public static final String INVALID_EVENT_START_DESC = " " + PREFIX_EVENT_START_LONG + "aaaa";
+    // incorrect format
+    public static final String INVALID_EVENT_END_DESC = " " + PREFIX_EVENT_END_LONG + "23:59 " + "25-12-31";
     // empty
-    public static final String INVALID_LOCATION_EVENT = " " + PREFIX_EVENT_LOCATION_LONG + "";
+    public static final String INVALID_EVENT_LOCATION_DESC = " " + PREFIX_EVENT_LOCATION_LONG + "";
     // * not allowed
-    public static final String INVALID_TAG_EVENT = " " + PREFIX_EVENT_TAG_LONG + "hubby*";
+    public static final String INVALID_EVENT_TAG_DESC = " " + PREFIX_EVENT_TAG_LONG + "hubby*";
 
 
 }
