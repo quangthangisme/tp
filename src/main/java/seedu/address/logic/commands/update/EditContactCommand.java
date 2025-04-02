@@ -41,7 +41,7 @@ public class EditContactCommand extends EditCommand<Contact> {
             + "[" + PREFIX_CONTACT_EMAIL_LONG + " EMAIL] "
             + "[" + PREFIX_CONTACT_COURSE_LONG + " COURSE] "
             + "[" + PREFIX_CONTACT_GROUP_LONG + " GROUP] "
-            + "[" + PREFIX_CONTACT_TAG_LONG + " TAG]...\n"
+            + "[" + PREFIX_CONTACT_TAG_LONG + " TAG(S)]\n"
             + "Example: " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_CONTACT_EMAIL_LONG + " johndoe@example.com";
 
