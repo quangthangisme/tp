@@ -13,14 +13,6 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 
-import java.util.List;
-
-import seedu.address.commons.core.Operator;
-import seedu.address.commons.core.index.Index;
-import seedu.address.model.Model;
-import seedu.address.model.event.Event;
-import seedu.address.model.item.predicate.NamePredicate;
-
 /**
  * Contains helper methods for testing event commands.
  */
@@ -71,13 +63,8 @@ public class EventCommandTestUtil {
             " " + PREFIX_TODO_LINKED_CONTACT_LONG + INVALID_EVENT_LINKED_CONTACT_INDEX;
 
     /**
-<<<<<<< HEAD
      * Updates {@code model}'s filtered list to show only the event at the given {@code targetIndex} in the
      * {@code model}'s event list.
-=======
-     * Updates {@code model}'s filtered list to show only the event at the given {@code targetIndex}
-     * in the {@code model}'s address book.
->>>>>>> master
      */
     public static void showEventAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased()
@@ -87,7 +74,6 @@ public class EventCommandTestUtil {
                 .get(targetIndex.getZeroBased());
         model.getEventManagerAndList()
                 .updateFilteredItemsList(event::equals);
-
         assertEquals(1, model.getEventManagerAndList().getFilteredItemsList().size());
     }
 

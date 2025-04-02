@@ -9,12 +9,8 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LON
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
-import java.util.List;
-
-import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
-import seedu.address.model.item.predicate.NamePredicate;
 import seedu.address.model.todo.Todo;
 
 /**
