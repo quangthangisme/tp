@@ -3,14 +3,11 @@ package seedu.address.logic.parser.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_NO_COLUMNS;
 import static seedu.address.logic.Messages.MESSAGE_NO_VALUES;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_END_LONG;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_LONG;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION_LONG;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_LONG;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.Pair;
@@ -20,6 +17,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.predicate.EventContactPredicate;
 import seedu.address.model.event.predicate.EventEndTimePredicate;
@@ -41,53 +39,60 @@ public class FilterEventCommandParser implements Parser<FilterEventCommand> {
      */
     public FilterEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME_LONG,
-            PREFIX_EVENT_START_LONG, PREFIX_EVENT_END_LONG, PREFIX_EVENT_LOCATION_LONG,
-            PREFIX_EVENT_LINKED_CONTACT_LONG);
-
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_NAME_LONG, PREFIX_EVENT_START_LONG,
-            PREFIX_EVENT_END_LONG, PREFIX_EVENT_LOCATION_LONG, PREFIX_EVENT_LINKED_CONTACT_LONG);
+        NamePrefix namePrefix = new NamePrefix(FilterEventCommand.COMMAND_WORD);
+        StartPrefix startPrefix = new StartPrefix(FilterEventCommand.COMMAND_WORD);
+        EndPrefix endPrefix = new EndPrefix(FilterEventCommand.COMMAND_WORD);
+        LocationPrefix locationPrefix = new LocationPrefix(FilterEventCommand.COMMAND_WORD);
+        ContactPrefix contactPrefix = new ContactPrefix(FilterEventCommand.COMMAND_WORD);
+        Prefix[] listOfPrefixes = Stream.of(
+                namePrefix.getAll(),
+                startPrefix.getAll(),
+                endPrefix.getAll(),
+                locationPrefix.getAll(),
+                contactPrefix.getAll()
+        ).flatMap(Arrays::stream).toArray(Prefix[]::new);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
+        argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
 
         EventPredicate predicate = new EventPredicate();
 
-        if (argMultimap.getValue(PREFIX_EVENT_NAME_LONG).isPresent()) {
+        if (namePrefix.getValue(argMultimap).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_EVENT_NAME_LONG).get());
+                ParserUtil.parseOperatorAndString(namePrefix.getValue(argMultimap).get());
             if (operatorStringPair.second().trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_EVENT_NAME_LONG));
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, namePrefix.toString()));
             }
             predicate.setNamePredicate(new NamePredicate(operatorStringPair.first(),
                 List.of(operatorStringPair.second().split("\\s+"))));
         }
-        if (argMultimap.getValue(PREFIX_EVENT_LOCATION_LONG).isPresent()) {
+        if (locationPrefix.getValue(argMultimap).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_EVENT_LOCATION_LONG).get());
+                ParserUtil.parseOperatorAndString(locationPrefix.getValue(argMultimap).get());
             if (operatorStringPair.second().trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_EVENT_LOCATION_LONG));
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, locationPrefix.toString()));
             }
             predicate.setLocationPredicate(new LocationPredicate(operatorStringPair.first(),
                 List.of(operatorStringPair.second().split("\\s+"))));
         }
-        if (argMultimap.getValue(PREFIX_EVENT_START_LONG).isPresent()) {
+        if (startPrefix.getValue(argMultimap).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_EVENT_START_LONG).get());
+                ParserUtil.parseOperatorAndString(startPrefix.getValue(argMultimap).get());
             predicate.setStartTimePredicate(new EventStartTimePredicate(operatorStringPair.first(),
                 ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
         }
-        if (argMultimap.getValue(PREFIX_EVENT_END_LONG).isPresent()) {
+        if (endPrefix.getValue(argMultimap).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_EVENT_END_LONG).get());
+                ParserUtil.parseOperatorAndString(endPrefix.getValue(argMultimap).get());
             predicate.setEndTimePredicate(new EventEndTimePredicate(operatorStringPair.first(),
                 ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
         }
         Optional<Pair<Operator, List<Index>>> contactFilterOpt = Optional.empty();
-        if (argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).isPresent()) {
+        if (contactPrefix.getValue(argMultimap).isPresent()) {
             Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(
-                    argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get());
+                    contactPrefix.getValue(argMultimap).get());
             List<Index> contactIndices = ParserUtil.parseIndices(operatorStringPair.second());
             if (contactIndices.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES,
-                        PREFIX_EVENT_LINKED_CONTACT_LONG));
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, contactPrefix.toString()));
             }
             contactFilterOpt = Optional.of(new Pair<>(operatorStringPair.first(), contactIndices));
             predicate.setContactPredicate(new EventContactPredicate(Operator.OR, List.of()));

@@ -3,11 +3,11 @@ package seedu.address.logic.parser.event;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_MISSING_CONTACT_INDEX;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_LONG;
 
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.update.RemoveContactFromEventCommand;
 import seedu.address.logic.commands.update.RemoveContactFromLogEventCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -29,11 +29,12 @@ public class RemoveContactFromLogEventCommandParser implements Parser<RemoveCont
     @Override
     public RemoveContactFromLogEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_LINKED_CONTACT_LONG);
+        ContactPrefix contactPrefix = new ContactPrefix(RemoveContactFromEventCommand.COMMAND_WORD);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, contactPrefix.getAll());
 
         // Ensure only one prefix is present
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_LINKED_CONTACT_LONG);
-        if (!argMultimap.arePrefixesPresent(PREFIX_EVENT_LINKED_CONTACT_LONG) || argMultimap.getPreamble().isEmpty()) {
+        argMultimap.verifyNoDuplicatePrefixesFor(contactPrefix.getAll());
+        if (contactPrefix.getValue(argMultimap).isEmpty() || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveContactFromLogEventCommand.MESSAGE_USAGE));
         }
@@ -42,8 +43,7 @@ public class RemoveContactFromLogEventCommandParser implements Parser<RemoveCont
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         // Parse contact indices, duplicates are handled in parseIndices
-        List<Index> contactIndices = ParserUtil.parseIndices(
-                argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get());
+        List<Index> contactIndices = ParserUtil.parseIndices(contactPrefix.getValue(argMultimap).get());
 
         if (contactIndices.isEmpty()) {
             throw new ParseException(MESSAGE_MISSING_CONTACT_INDEX);
