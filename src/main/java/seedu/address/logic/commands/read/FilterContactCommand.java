@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 
 import java.util.function.Predicate;
 
+import seedu.address.commons.core.Operator;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
@@ -23,27 +24,42 @@ public class FilterContactCommand extends FilterCommand<Contact> {
 
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Filters contacts based on specified criteria and displays them as a list with index numbers.\n"
-            + "Parameters: <col>/ [<op>:] <value(s)> [...]\n"
-            + "- <col>/ : Column to filter on ("
+            + "Parameters: --<col> [<op>:] <value(s)> [...]\n"
+            + "- --<col> : Column to filter on ("
             + PREFIX_CONTACT_NAME_LONG + ", "
             + PREFIX_CONTACT_EMAIL_LONG + ", "
             + PREFIX_CONTACT_ID_LONG + ", "
             + PREFIX_CONTACT_COURSE_LONG + ", "
             + PREFIX_CONTACT_GROUP_LONG + ", "
             + PREFIX_CONTACT_TAG_LONG + ")\n"
-            + "- <op>: : Operator (and, or, nand, nor). Defaults to 'and' if not specified\n"
-            + "- <value(s)>: One or more values to filter by. Use quotes for values with spaces.\n"
+
+            + "- <op>: : Operator ("
+            + Operator.AND.getName() + ", "
+            + Operator.OR.getName() + ", "
+            + Operator.NAND.getName() + ", "
+            + Operator.NOR.getName() + "). If not specified, defaults to "
+            + Operator.AND.getName() + "\n"
+
+            + "- <value(s)>: One or more values to filter by.\n"
+            + "    + Use keywords separated by whitespaces.\n"
+
             + "Examples:\n"
-            + "1. " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_CONTACT_ID_LONG + " or: 12 13\n"
+            + "1. " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " "
+            + PREFIX_CONTACT_ID_LONG + " " + Operator.OR.getName() + ": 12 13\n"
             + "   Find students with ID 12 or 13.\n"
-            + "2. " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " " + PREFIX_CONTACT_NAME_LONG + "\"Darren Tan\" "
-            + PREFIX_CONTACT_COURSE_LONG + " CS1010S " + PREFIX_CONTACT_GROUP_LONG + "or: T01 T02 T03\n"
-            + "   Find contacts with \"Darren Tan\" in their name who"
-            + " enroll in course CS1010S and class T01, T02, or T03.\n"
+
+            + "2. " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " "
+            + PREFIX_CONTACT_NAME_LONG + " \"Darren Tan\" "
+            + PREFIX_CONTACT_COURSE_LONG + " CS1010S "
+            + PREFIX_CONTACT_GROUP_LONG + " " + Operator.OR.getName() + ": T01 T02 T03\n"
+            + "   Find contacts with \"Darren Tan\" in their name who enroll in course CS1010S and class T01, T02, or"
+            + " T03.\n"
+
             + "3. " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_CONTACT_NAME_LONG + "nand: \"My enemy\" Hater " + PREFIX_CONTACT_TAG_LONG + "and: handsome smart\n"
-            + "   Find contacts whose names do not contain \"My enemy\" and"
-            + " \"Hater\" and are tagged with both \"handsome\" and \"smart\".";
+            + PREFIX_CONTACT_NAME_LONG + " " + Operator.NAND.getName() + ": \"My enemy\" Hater "
+            + PREFIX_CONTACT_TAG_LONG + " " + Operator.AND.getName() + " : handsome smart\n"
+            + "   Find contacts whose names do not contain \"My enemy\" and \"Hater\" and are tagged with both "
+            + "\"handsome\" and \"smart\".";
 
     private final Predicate<Contact> predicate;
 
