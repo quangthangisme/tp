@@ -1,8 +1,10 @@
 package seedu.address.logic.commands;
 
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
 /**
@@ -18,6 +20,7 @@ public class TodoCommandTestUtil {
     public static final String VALID_LOCATION_GRADING = "Prof office";
     public static final String VALID_TAG_REPORT = "important";
     public static final String VALID_TAG_REPORT_2 = "better-than-you";
+    public static final String VALID_STATUS = "TrUe";
 
     public static final String NAME_DESC_REPORT = " " + PREFIX_TODO_NAME_LONG + VALID_NAME_REPORT;
     public static final String NAME_DESC_GRADING = " " + PREFIX_TODO_NAME_LONG + VALID_NAME_GRADING;
@@ -32,6 +35,9 @@ public class TodoCommandTestUtil {
     public static final String TAG_DESC_REPORT = " " + PREFIX_TODO_TAG_LONG + VALID_TAG_REPORT;
     public static final String TAG_DESC_REPORT_MULTIPLE =
             " " + PREFIX_TODO_TAG_LONG + VALID_TAG_REPORT + " " + VALID_TAG_REPORT_2;
+    public static final String STATUS_DESC = " " + PREFIX_TODO_STATUS_LONG + VALID_STATUS;
+    public static final String LINKED_CONTACTS_DESC =
+            " " + PREFIX_TODO_LINKED_CONTACT_LONG + "1 2";
 
     public static final String INVALID_TODO_NAME_DESC = " " + PREFIX_TODO_NAME_LONG + "-stuff";
     public static final String INVALID_TODO_DEADLINE_DESC_NOT_DATETIME =
@@ -41,4 +47,10 @@ public class TodoCommandTestUtil {
     public static final String INVALID_TODO_LOCATION_DESC =
             " " + PREFIX_TODO_LOCATION_LONG + "NUS -UTR";
     public static final String INVALID_TODO_TAG_DESC = " " + PREFIX_TODO_TAG_LONG + "-too";
+    public static final String INVALID_TODO_LINKED_CONTACT_INDEX = "yay";
+    public static final String INVALID_TODO_LINKED_CONTACT_DESC =
+            " " + PREFIX_TODO_LINKED_CONTACT_LONG + INVALID_TODO_LINKED_CONTACT_INDEX;
+    public static final String INVALID_TODO_STATUS = "lolxd";
+    public static final String INVALID_TODO_STATUS_DESC
+            = " " + PREFIX_TODO_STATUS_LONG + INVALID_TODO_STATUS;
 }

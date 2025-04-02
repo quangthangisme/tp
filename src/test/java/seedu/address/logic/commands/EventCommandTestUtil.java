@@ -5,6 +5,8 @@ import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCAT
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS_LONG;
 
 /**
  * Contains helper methods for testing event commands.
@@ -38,6 +40,8 @@ public class EventCommandTestUtil {
             " " + PREFIX_EVENT_TAG_LONG + VALID_TAG_CRYING + " " + VALID_TAG_CRYING_2;
     public static final String TAG_DESC_EMPTY =
             " " + PREFIX_EVENT_TAG_LONG;
+    public static final String LINKED_CONTACTS_DESC =
+            " " + PREFIX_TODO_LINKED_CONTACT_LONG + "1 2";
 
     public static final String INVALID_EVENT_NAME_DESC = " " + PREFIX_EVENT_NAME_LONG + "LIL -";
     // Not datetime
@@ -49,4 +53,7 @@ public class EventCommandTestUtil {
     public static final String INVALID_EVENT_TAG_DESC = " " + PREFIX_EVENT_TAG_LONG + "-hubby";
     public static final String INVALID_EVENT_TAG_DESC_MULTIPLE =
             " " + PREFIX_EVENT_TAG_LONG + "hello -hubby";
+    public static final String INVALID_EVENT_LINKED_CONTACT_INDEX = "yay";
+    public static final String INVALID_EVENT_LINKED_CONTACT_DESC =
+            " " + PREFIX_TODO_LINKED_CONTACT_LONG + INVALID_EVENT_LINKED_CONTACT_INDEX;
 }

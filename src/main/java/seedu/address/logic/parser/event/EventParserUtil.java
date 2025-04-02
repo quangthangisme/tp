@@ -10,7 +10,7 @@ import seedu.address.model.item.commons.Name;
 /**
  * Contains utilty methods used for parsing strings in the various classes parsing event commands.
  */
-public class EventParseUtil {
+public class EventParserUtil {
     /**
      * Parses a {@code String name} into a {@code Name}. Leading and trailing
      * whitespaces will be trimmed.
