@@ -57,7 +57,9 @@ public class InfoTodoCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getTodoManagerAndList()
                 .getFilteredItemsList().size() + 1);
         InfoTodoCommand infoCommand = new InfoTodoCommand(outOfBoundIndex);
-        assertCommandFailure(infoCommand, model, TodoMessages.MESSAGE_INDEX_OUT_OF_RANGE_TODO);
+        assertCommandFailure(infoCommand, model,
+                String.format(TodoMessages.MESSAGE_INDEX_OUT_OF_RANGE_TODO,
+                outOfBoundIndex.getOneBased()));
     }
 
     @Test
@@ -79,7 +81,9 @@ public class InfoTodoCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getTodoManagerAndList().getItemManager()
                 .getItemList().size());
         InfoTodoCommand infoCommand = new InfoTodoCommand(outOfBoundIndex);
-        assertCommandFailure(infoCommand, model, TodoMessages.MESSAGE_INDEX_OUT_OF_RANGE_TODO);
+        assertCommandFailure(infoCommand, model,
+                String.format(TodoMessages.MESSAGE_INDEX_OUT_OF_RANGE_TODO,
+                outOfBoundIndex.getOneBased()));
     }
 
     @Test

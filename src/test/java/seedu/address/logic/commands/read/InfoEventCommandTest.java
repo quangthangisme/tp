@@ -56,7 +56,9 @@ public class InfoEventCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getEventManagerAndList()
                 .getFilteredItemsList().size() + 1);
         InfoEventCommand infoCommand = new InfoEventCommand(outOfBoundIndex);
-        assertCommandFailure(infoCommand, model, EventMessages.MESSAGE_INDEX_OUT_OF_RANGE_EVENT);
+        assertCommandFailure(infoCommand, model,
+                String.format(EventMessages.MESSAGE_INDEX_OUT_OF_RANGE_EVENT,
+                outOfBoundIndex.getOneBased()));
     }
 
     @Test
@@ -78,7 +80,9 @@ public class InfoEventCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getEventManagerAndList().getItemManager()
                 .getItemList().size());
         InfoEventCommand infoCommand = new InfoEventCommand(outOfBoundIndex);
-        assertCommandFailure(infoCommand, model, EventMessages.MESSAGE_INDEX_OUT_OF_RANGE_EVENT);
+        assertCommandFailure(infoCommand, model,
+                String.format(EventMessages.MESSAGE_INDEX_OUT_OF_RANGE_EVENT,
+                outOfBoundIndex.getOneBased()));
     }
 
     @Test
