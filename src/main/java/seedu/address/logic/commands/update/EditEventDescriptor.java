@@ -25,7 +25,7 @@ public class EditEventDescriptor {
     private Datetime endTime;
     private Location location;
     private Attendance attendance;
-    private Set<Tag> tags = new HashSet<>();
+    private Set<Tag> tags;
 
     public EditEventDescriptor() {
     }

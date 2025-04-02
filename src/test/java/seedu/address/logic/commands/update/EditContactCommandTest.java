@@ -195,7 +195,9 @@ public class EditContactCommandTest {
         EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build();
         EditContactCommand editCommand = new EditContactCommand(outOfBoundIndex, descriptor);
 
-        assertCommandFailure(editCommand, model, ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT);
+        assertCommandFailure(editCommand, model,
+                String.format(ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT,
+                        outOfBoundIndex.getOneBased()));
     }
 
     /**
@@ -213,7 +215,9 @@ public class EditContactCommandTest {
         EditContactCommand editCommand = new EditContactCommand(outOfBoundIndex,
                 new EditContactDescriptorBuilder().withName(VALID_NAME_BOB).build());
 
-        assertCommandFailure(editCommand, model, ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT);
+        assertCommandFailure(editCommand, model,
+                String.format(ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT,
+                        outOfBoundIndex.getOneBased()));
     }
 
     @Test

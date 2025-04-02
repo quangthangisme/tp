@@ -21,8 +21,7 @@ public class Messages {
     public static final String MESSAGE_INVALID_COMMAND_FORMAT = "Invalid command format! \n%1$s";
     public static final String MESSAGE_INVALID_ARGUMENTS = "Arguments missing or invalid! \n%1$s";
     public static final String MESSAGE_SEARCH_OVERVIEW = "Number of results: %1$d";
-    public static final String MESSAGE_DUPLICATE_FIELDS =
-            "Multiple values specified for the following single-valued field(s): ";
+    public static final String MESSAGE_DUPLICATE_FIELDS = "Duplicate prefixes detected: ";
 
     public static final String MESSAGE_DUPLICATE_COLUMN = "Duplicate column: %s.";
     public static final String MESSAGE_NO_COLUMNS = "Specify at least one column and value.";

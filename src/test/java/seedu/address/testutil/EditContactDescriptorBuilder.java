@@ -6,7 +6,9 @@ import java.util.stream.Stream;
 
 import seedu.address.logic.commands.update.EditContactDescriptor;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Course;
 import seedu.address.model.contact.Email;
+import seedu.address.model.contact.Group;
 import seedu.address.model.contact.Id;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
@@ -60,6 +62,22 @@ public class EditContactDescriptorBuilder {
      */
     public EditContactDescriptorBuilder withEmail(String email) {
         descriptor.setEmail(new Email(email));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Course} of the {@code EditContactDescriptor} that we are building.
+     */
+    public EditContactDescriptorBuilder withCourse(String course) {
+        descriptor.setCourse(new Course(course));
+        return this;
+    }
+
+    /**
+     * Sets the {@code Group} of the {@code EditContactDescriptor} that we are building.
+     */
+    public EditContactDescriptorBuilder withGroup(String group) {
+        descriptor.setGroup(new Group(group));
         return this;
     }
 

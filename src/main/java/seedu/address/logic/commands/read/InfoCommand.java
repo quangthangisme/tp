@@ -42,7 +42,8 @@ public abstract class InfoCommand<T extends Item> extends ItemCommand<T> {
         List<T> lastShownList = managerAndList.getFilteredItemsList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(getIndexOutOfRangeMessage());
+            throw new CommandException(String.format(getIndexOutOfRangeMessage(),
+                    targetIndex.getOneBased()));
         }
 
         T itemToDisplay = lastShownList.get(targetIndex.getZeroBased());
