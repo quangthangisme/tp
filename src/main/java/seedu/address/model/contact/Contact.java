@@ -12,12 +12,15 @@ import seedu.address.model.item.NamedItem;
 import seedu.address.model.item.TaggedItem;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
+import seedu.address.ui.ContactCard;
+import seedu.address.ui.DisplayableItem;
+import seedu.address.ui.UiPart;
 
 /**
  * Represents a Contact in the address book.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Contact implements NamedItem, TaggedItem {
+public class Contact implements NamedItem, TaggedItem, DisplayableItem {
 
     // Identity fields
     private final Id id;
@@ -84,6 +87,11 @@ public class Contact implements NamedItem, TaggedItem {
                 && otherContact.getId().equals(getId());
     }
 
+    @Override
+    public UiPart<?> getDisplayCard(int index) {
+        return new ContactCard(this, index);
+    }
+
     /**
      * Returns true if both contacts have the same identity and data fields.
      * This defines a stronger notion of equality between two contacts.
@@ -125,5 +133,4 @@ public class Contact implements NamedItem, TaggedItem {
                 .add("tags", tags)
                 .toString();
     }
-
 }

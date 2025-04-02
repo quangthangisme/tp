@@ -14,12 +14,15 @@ import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
+import seedu.address.ui.DisplayableItem;
+import seedu.address.ui.EventCard;
+import seedu.address.ui.UiPart;
 
 /**
  * Represents an Event.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Event implements NamedItem, ItemWithLocation, TaggedItem {
+public class Event implements NamedItem, ItemWithLocation, TaggedItem, DisplayableItem {
     private final Name name;
     private final Datetime startTime;
     private final Datetime endTime;
@@ -89,6 +92,11 @@ public class Event implements NamedItem, ItemWithLocation, TaggedItem {
 
     public Set<Tag> getTags() {
         return this.tags;
+    }
+
+    @Override
+    public UiPart<?> getDisplayCard(int index) {
+        return new EventCard(this, index);
     }
 
     @Override
