@@ -118,24 +118,21 @@ How the parsing works:
 ### Model component
 **API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />
-
 
 The `Model` component,
 
-* stores the address book data i.e., all `Contact` objects (which are contained in a `UniqueContactList` object).
+* stores the data, i.e., all `Contact`, `Todo`, and `Event` objects (which are contained in separate `UniqueItemList<T extends Item>` object).
 * stores the currently 'selected' `Contact` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Contact>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-<box type="info" seamless>
+The diagram below shows how an `Item` of type `T`, where `T` can be `Contact`, `Todo`, or `Event`, is managed by the `Model`.
 
-**Note:** An alternative (arguably, a more OOP) model is given below. It has a `Tag` list in the `AddressBook`, which `Contact` references. This allows `AddressBook` to only require one `Tag` object per unique tag, instead of each `Contact` needing their own `Tag` objects.<br>
+<puml src="diagrams/ModelClassDiagram.puml" width="450" />
 
-<puml src="diagrams/BetterModelClassDiagram.puml" width="450" />
+The diagram below shows different relationship between different `Item`s managed by the `Model`.
 
-</box>
-
+<puml src="diagrams/ItemClassDiagram.puml" width="450" />
 
 ### Storage component
 
