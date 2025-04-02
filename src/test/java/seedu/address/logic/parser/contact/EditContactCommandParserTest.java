@@ -1,15 +1,24 @@
 package seedu.address.logic.parser.contact;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
+import static seedu.address.logic.commands.ContactCommandTestUtil.COURSE_DESC_AMY;
 import static seedu.address.logic.commands.ContactCommandTestUtil.EMAIL_DESC_AMY;
+import static seedu.address.logic.commands.ContactCommandTestUtil.GROUP_DESC_AMY;
+import static seedu.address.logic.commands.ContactCommandTestUtil.ID_DESC_AMY;
+import static seedu.address.logic.commands.ContactCommandTestUtil.INVALID_COURSE_DESC;
 import static seedu.address.logic.commands.ContactCommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.ContactCommandTestUtil.INVALID_GROUP_DESC;
+import static seedu.address.logic.commands.ContactCommandTestUtil.INVALID_ID_DESC;
 import static seedu.address.logic.commands.ContactCommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.ContactCommandTestUtil.INVALID_TAG_HUSBAND_DESC;
 import static seedu.address.logic.commands.ContactCommandTestUtil.NAME_DESC_AMY;
 import static seedu.address.logic.commands.ContactCommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.ContactCommandTestUtil.TAG_DESC_FRIEND_HUSBAND;
 import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_ADDRESS_AMY;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_COURSE_AMY;
 import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_EMAIL_AMY;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_GROUP_AMY;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_ID_AMY;
 import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_NAME_AMY;
 import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_TAG_HUSBAND;
@@ -29,7 +38,10 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.update.EditContactCommand;
 import seedu.address.logic.commands.update.EditContactDescriptor;
+import seedu.address.model.contact.Course;
 import seedu.address.model.contact.Email;
+import seedu.address.model.contact.Group;
+import seedu.address.model.contact.Id;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
 import seedu.address.testutil.EditContactDescriptorBuilder;
@@ -74,9 +86,12 @@ public class EditContactCommandParserTest {
 
     @Test
     public void parse_invalidValue_failure() {
-        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS); // invalid name
-        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS); // invalid email
-        assertParseFailure(parser, "1" + INVALID_TAG_HUSBAND_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_NAME_DESC, Name.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_EMAIL_DESC, Email.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_TAG_HUSBAND_DESC, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_ID_DESC, Id.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_COURSE_DESC, Course.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + INVALID_GROUP_DESC, Group.MESSAGE_CONSTRAINTS);
 
         // multiple invalid values, but only the first invalid value is captured
         assertParseFailure(parser, "1" + INVALID_NAME_DESC + INVALID_EMAIL_DESC + VALID_ADDRESS_AMY,
@@ -87,10 +102,14 @@ public class EditContactCommandParserTest {
     public void parse_allFieldsSpecified_success() {
         Index targetIndex = INDEX_SECOND;
         String userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND_HUSBAND + EMAIL_DESC_AMY
-                + NAME_DESC_AMY;
+                + NAME_DESC_AMY + COURSE_DESC_AMY + ID_DESC_AMY + GROUP_DESC_AMY;
 
-        EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withName(VALID_NAME_AMY)
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder()
+                .withName(VALID_NAME_AMY)
                 .withEmail(VALID_EMAIL_AMY)
+                .withCourse(VALID_COURSE_AMY)
+                .withGroup(VALID_GROUP_AMY)
+                .withId(VALID_ID_AMY)
                 .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND).build();
         EditContactCommand expectedCommand = new EditContactCommand(targetIndex, descriptor);
 
@@ -134,7 +153,7 @@ public class EditContactCommandParserTest {
     @Test
     public void parse_multipleRepeatedFields_failure() {
         // More extensive testing of duplicate parameter detections is done in
-        // AddCommandParserTest#parse_repeatedNonTagValue_failure()
+        // AddCommandParserTest#parse_repeatedValue_failure()
 
         Index targetIndex = INDEX_FIRST;
         String userInput = targetIndex.getOneBased() + INVALID_EMAIL_DESC + INVALID_NAME_DESC + INVALID_EMAIL_DESC

@@ -33,8 +33,7 @@ public class AddContactCommand extends AddCommand<Contact> {
             + PREFIX_CONTACT_EMAIL_LONG + " johnd@example.com "
             + PREFIX_CONTACT_COURSE_LONG + " CS50 "
             + PREFIX_CONTACT_GROUP_LONG + " T01 "
-            + PREFIX_CONTACT_TAG_LONG + " friends "
-            + PREFIX_CONTACT_TAG_LONG + " owesMoney";
+            + PREFIX_CONTACT_TAG_LONG + " friends owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New contact added: %1$s";
 

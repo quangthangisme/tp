@@ -2,8 +2,10 @@ package seedu.address.logic.commands.update;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT;
+import static seedu.address.logic.EventMessages.MESSAGE_DUPLICATE_EVENT;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_END_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
@@ -44,14 +46,14 @@ public class EditEventCommand extends EditCommand<Event> {
             + "[" + PREFIX_EVENT_END_LONG + " END_TIME] "
             + "[" + PREFIX_EVENT_LOCATION_LONG + " LOCATION] "
             + "[" + PREFIX_EVENT_TAG_LONG + " TAG(S)]\n"
+            + "[" + PREFIX_EVENT_LINKED_CONTACT_LONG + " CONTACT_INDEX/INDICES] "
+            + "[" + PREFIX_EVENT_TAG_LONG + " TAG(S)]\n"
             + "INDEX must be a positive integer.\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_EVENT_NAME_LONG + " Complete project\n";
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_EVENT =
-            "This event already exists in the address book.";
 
     protected final EditEventDescriptor editEventDescriptor;
     private final Optional<List<Index>> linkedContactIndicesOpt;
