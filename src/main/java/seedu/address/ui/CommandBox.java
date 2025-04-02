@@ -1,10 +1,14 @@
 package seedu.address.ui;
 
 import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -21,6 +25,8 @@ public class CommandBox extends UiPart<Region> {
     private final CommandExecutor commandExecutor;
 
     private Consumer<ListPanelViewType> viewSwitchHandler;
+    private final List<String> previousCommands;
+    private int currentCommandIndex
 
     @FXML
     private TextField commandTextField;
@@ -31,8 +37,56 @@ public class CommandBox extends UiPart<Region> {
     public CommandBox(CommandExecutor commandExecutor) {
         super(FXML);
         this.commandExecutor = commandExecutor;
+
+        previousCommands = new ArrayList<>();
+        currentCommandIndex = -1;
+
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
+        commandTextField.addEventFilter(KeyEvent.KEY_PRESSED, this::handleKeyPress);
+    }
+
+    /**
+     * Handles key press events for command history navigation.
+     */
+    private void handleKeyPress(KeyEvent keyEvent) {
+        if (keyEvent.getCode() == KeyCode.UP) {
+            displayPreviousCommand();
+            keyEvent.consume();
+        } else if (keyEvent.getCode() == KeyCode.DOWN) {
+            displayNextCommand();
+            keyEvent.consume();
+        }
+    }
+
+    /**
+     * Displays the previous command if it exists.
+     */
+    private void displayPreviousCommand() {
+        // Check if there is a previous command
+        if (currentCommandIndex - 1 < 0) {
+            return;
+        }
+        // Shift back and display
+        currentCommandIndex--;
+        String previousCommand = previousCommands.get(currentCommandIndex);
+        commandTextField.setText(previousCommand);
+        commandTextField.positionCaret(previousCommand.length());
+    }
+
+    /**
+     * Displays the next command if it exists.
+     */
+    private void displayNextCommand() {
+        // Check if there is a next command
+        if (currentCommandIndex + 1 >= previousCommands.size()) {
+            return;
+        }
+        // Shift forward and display
+        currentCommandIndex++;
+        String nextCommand = previousCommands.get(currentCommandIndex);
+        commandTextField.setText(nextCommand);
+        commandTextField.positionCaret(nextCommand.length());
     }
 
     /**
@@ -49,12 +103,16 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleCommandEntered() {
-        String commandText = commandTextField.getText();
-        if (commandText.equals("")) {
+        String commandText = commandTextField.getText().trim();
+        if (commandText.isEmpty()) {
             return;
         }
-
         try {
+            // Add the current command and set index to end
+            previousCommands.add(commandText);
+            currentCommandIndex = previousCommands.size() - 1;
+
+            // Execute the command and clear the command box
             commandExecutor.execute(commandText);
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {

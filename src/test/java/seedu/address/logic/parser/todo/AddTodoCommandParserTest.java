@@ -1,8 +1,8 @@
 package seedu.address.logic.parser.todo;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_NON_EMPTY;
-import static seedu.address.logic.commands.CommandTestUtil.PREAMBLE_WHITESPACE;
+import static seedu.address.logic.commands.ContactCommandTestUtil.PREAMBLE_NON_EMPTY;
+import static seedu.address.logic.commands.ContactCommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.TodoCommandTestUtil.DEADLINE_DESC_GRADING;
 import static seedu.address.logic.commands.TodoCommandTestUtil.DEADLINE_DESC_REPORT;
 import static seedu.address.logic.commands.TodoCommandTestUtil.INVALID_TODO_DEADLINE_DESC_INCORRECT_FORMAT;
