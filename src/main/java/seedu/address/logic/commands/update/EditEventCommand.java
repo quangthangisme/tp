@@ -45,10 +45,10 @@ public class EditEventCommand extends EditCommand<Event> {
             + "[" + PREFIX_EVENT_START_LONG + " START_TIME] "
             + "[" + PREFIX_EVENT_END_LONG + " END_TIME] "
             + "[" + PREFIX_EVENT_LOCATION_LONG + " LOCATION] "
-            + "[" + PREFIX_EVENT_TAG_LONG + " TAG(S)]\n"
             + "[" + PREFIX_EVENT_LINKED_CONTACT_LONG + " CONTACT_INDEX/INDICES] "
             + "[" + PREFIX_EVENT_TAG_LONG + " TAG(S)]\n"
             + "INDEX must be a positive integer.\n"
+            + "CONTACT_INDEX is based on the list displayed on the right.\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_EVENT_NAME_LONG + " Complete project\n";
 

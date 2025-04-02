@@ -23,7 +23,6 @@ public class AddTodoCommand extends AddCommand<Todo> {
             + PREFIX_TODO_DEADLINE_LONG + " DEADLINE "
             + PREFIX_TODO_LOCATION_LONG + " LOCATION "
             + "[" + PREFIX_TODO_TAG_LONG + " TAG(S)]\n"
-            + "INDEX must be a positive integer.\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " "
             + PREFIX_TODO_NAME_LONG + " Grading students projects "
             + PREFIX_TODO_DEADLINE_LONG + " 25-05-23 17:00 "

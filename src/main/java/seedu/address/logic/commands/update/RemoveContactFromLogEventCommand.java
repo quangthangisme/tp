@@ -24,7 +24,7 @@ public class RemoveContactFromLogEventCommand extends EditEventCommand {
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Remove the logs for some contacts with an event.\n"
             + "Parameter: INDEX "
-            + PREFIX_EVENT_LINKED_CONTACT_LONG + " [CONTACT_INDEX/INDICES] ...\n"
+            + PREFIX_EVENT_LINKED_CONTACT_LONG + " [CONTACT_INDEX/INDICES]\n"
             + "INDEX must be a positive integer.\n"
             + "CONTACT_INDEX is based on the list displayed by the event info command.\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "

@@ -23,7 +23,7 @@ public class AddContactToLogEventCommand extends EditEventCommand {
 
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Logs some contacts with an event.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: INDEX "
             + PREFIX_EVENT_LINKED_CONTACT_LONG + " [CONTACT_INDEX/INDICES]\n"
             + "INDEX must be a positive integer.\n"
             + "CONTACT_INDEX is based on the list displayed by the event info command.\n"
