@@ -9,6 +9,7 @@ import static seedu.address.logic.commands.EventCommandTestUtil.VALID_NAME_MEETI
 import static seedu.address.logic.commands.EventCommandTestUtil.VALID_START_CRYING;
 import static seedu.address.logic.commands.EventCommandTestUtil.VALID_START_MEETING;
 import static seedu.address.logic.commands.EventCommandTestUtil.VALID_TAG_CRYING;
+import static seedu.address.logic.commands.EventCommandTestUtil.VALID_TAG_CRYING_2;
 import static seedu.address.logic.commands.EventCommandTestUtil.VALID_TAG_MEETING;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.BOB;
@@ -27,6 +28,19 @@ public class TypicalEvents {
             .withEnd(VALID_END_CRYING)
             .withLocation(VALID_LOCATION_CRYING)
             .withTags(VALID_TAG_CRYING).build();
+
+    public static final Event CRYING_NO_TAG = new EventBuilder()
+            .withName(VALID_NAME_CRYING)
+            .withStart(VALID_START_CRYING)
+            .withEnd(VALID_END_CRYING)
+            .withLocation(VALID_LOCATION_CRYING).build();
+
+    public static final Event CRYING_MULTIPLE_TAG = new EventBuilder()
+            .withName(VALID_NAME_CRYING)
+            .withStart(VALID_START_CRYING)
+            .withEnd(VALID_END_CRYING)
+            .withLocation(VALID_LOCATION_CRYING)
+            .withTags(VALID_TAG_CRYING, VALID_TAG_CRYING_2).build();
 
     public static final Event MEETING = new EventBuilder()
             .withName(VALID_NAME_MEETING)

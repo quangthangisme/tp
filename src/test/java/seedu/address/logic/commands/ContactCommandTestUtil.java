@@ -45,20 +45,23 @@ public class ContactCommandTestUtil {
     public static final String TAG_DESC_FRIEND = " " + PREFIX_CONTACT_TAG_LONG + VALID_TAG_FRIEND;
     public static final String VALID_COURSE_AMY = "CS50";
     public static final String COURSE_DESC_AMY = " " + PREFIX_CONTACT_COURSE_LONG + VALID_COURSE_AMY;
-    public static final String VALID_COURSE_BOB = "CS60";
+    public static final String VALID_COURSE_BOB = "CS-60";
     public static final String COURSE_DESC_BOB = " " + PREFIX_CONTACT_COURSE_LONG + VALID_COURSE_BOB;
-    public static final String VALID_GROUP_AMY = "T09";
+    public static final String VALID_GROUP_AMY = "T0-9";
     public static final String GROUP_DESC_AMY = " " + PREFIX_CONTACT_GROUP_LONG + VALID_GROUP_AMY;
     public static final String VALID_GROUP_BOB = "T08";
     public static final String GROUP_DESC_BOB = " " + PREFIX_CONTACT_GROUP_LONG + VALID_GROUP_BOB;
-    // '&' not allowed in names
     public static final String INVALID_NAME_DESC = " " + PREFIX_CONTACT_NAME_LONG + "-James&";
-    // missing '@' symbol
     public static final String INVALID_EMAIL_DESC = " " + PREFIX_CONTACT_EMAIL_LONG + "bob!yahoo";
-    // '*' not allowed in tags
     public static final String INVALID_TAG_DESC = " " + PREFIX_CONTACT_TAG_LONG + "-hubby*";
     public static final String INVALID_TAG_HUSBAND_DESC = " " + PREFIX_CONTACT_TAG_LONG
             + "husband -hubby*";
+    public static final String INVALID_COURSE_DESC = " " + PREFIX_CONTACT_COURSE_LONG
+            + "CS -hubby*";
+    public static final String INVALID_GROUP_DESC = " " + PREFIX_CONTACT_GROUP_LONG
+            + "-T^^";
+    public static final String INVALID_ID_DESC = " " + PREFIX_CONTACT_ID_LONG
+            + "-T ^???^";
     public static final String PREAMBLE_WHITESPACE = "\t  \r  \n";
     public static final String PREAMBLE_NON_EMPTY = "NonEmptyPreamble";
     public static final EditContactDescriptor DESC_AMY;

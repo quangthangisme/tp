@@ -1,4 +1,4 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.create;
 
 import static seedu.address.logic.ContactMessages.MESSAGE_DUPLICATE_CONTACT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.create.AddContactCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;

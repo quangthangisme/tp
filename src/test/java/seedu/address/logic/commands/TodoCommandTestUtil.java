@@ -17,6 +17,7 @@ public class TodoCommandTestUtil {
     public static final String VALID_LOCATION_REPORT = "Canvas";
     public static final String VALID_LOCATION_GRADING = "Prof office";
     public static final String VALID_TAG_REPORT = "important";
+    public static final String VALID_TAG_REPORT_2 = "better-than-you";
 
     public static final String NAME_DESC_REPORT = " " + PREFIX_TODO_NAME_LONG + VALID_NAME_REPORT;
     public static final String NAME_DESC_GRADING = " " + PREFIX_TODO_NAME_LONG + VALID_NAME_GRADING;
@@ -29,14 +30,15 @@ public class TodoCommandTestUtil {
     public static final String LOCATION_DESC_GRADING =
             " " + PREFIX_TODO_LOCATION_LONG + VALID_LOCATION_GRADING;
     public static final String TAG_DESC_REPORT = " " + PREFIX_TODO_TAG_LONG + VALID_TAG_REPORT;
+    public static final String TAG_DESC_REPORT_MULTIPLE =
+            " " + PREFIX_TODO_TAG_LONG + VALID_TAG_REPORT + " " + VALID_TAG_REPORT_2;
 
     public static final String INVALID_TODO_NAME_DESC = " " + PREFIX_TODO_NAME_LONG + "-stuff";
     public static final String INVALID_TODO_DEADLINE_DESC_NOT_DATETIME =
             " " + PREFIX_TODO_DEADLINE_LONG + "aaaa";
     public static final String INVALID_TODO_DEADLINE_DESC_INCORRECT_FORMAT =
             " " + PREFIX_TODO_DEADLINE_LONG + "23:59 25-12-31";
-    // empty
-    public static final String INVALID_TODO_LOCATION_DESC = " " + PREFIX_TODO_LOCATION_LONG + "";
-    // * not allowed
-    public static final String INVALID_TAG_TODO = " " + PREFIX_TODO_TAG_LONG + "too*";
+    public static final String INVALID_TODO_LOCATION_DESC =
+            " " + PREFIX_TODO_LOCATION_LONG + "NUS -UTR";
+    public static final String INVALID_TODO_TAG_DESC = " " + PREFIX_TODO_TAG_LONG + "-too";
 }
