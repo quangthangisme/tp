@@ -39,7 +39,8 @@ public abstract class FilterCommand<T extends Item> extends ItemCommand<T> {
         ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
         managerAndList.updateFilteredItemsList(createPredicate(model));
 
-        return new CommandResult(getSuccessMessage(managerAndList.getFilteredItemsList().size()), getListPanelViewType());
+        return new CommandResult(getSuccessMessage(managerAndList.getFilteredItemsList().size()),
+                getListPanelViewType());
     }
 
     /**

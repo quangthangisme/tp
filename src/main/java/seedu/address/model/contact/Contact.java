@@ -12,9 +12,9 @@ import seedu.address.model.item.NamedItem;
 import seedu.address.model.item.TaggedItem;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
+import seedu.address.ui.UiPart;
 import seedu.address.ui.card.ContactCard;
 import seedu.address.ui.util.DisplayableItem;
-import seedu.address.ui.UiPart;
 
 /**
  * Represents a Contact in the address book.

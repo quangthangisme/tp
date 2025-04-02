@@ -276,6 +276,8 @@ public class MainWindow extends UiPart<Stage> {
         case TODO:
             switchView(ListPanelViewType.TODO);
             break;
+        default:
+            break;
         }
     }
 

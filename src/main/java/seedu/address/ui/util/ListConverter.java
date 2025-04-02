@@ -1,5 +1,7 @@
 package seedu.address.ui.util;
 
+import java.util.stream.Collectors;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
@@ -8,8 +10,6 @@ import seedu.address.model.todo.Todo;
 import seedu.address.ui.card.ContactCardFactory;
 import seedu.address.ui.card.EventCardFactory;
 import seedu.address.ui.card.TodoCardFactory;
-
-import java.util.stream.Collectors;
 
 /**
  * Utility class to convert between different list types.
