@@ -5,6 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.Objects;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.ui.ListPanelViewType;
 
 /**
  * Represents the result of a command execution.
@@ -19,13 +20,17 @@ public class CommandResult {
     /** The application should exit. */
     private final boolean exit;
 
+    /** View type information for populating ListPanel */
+    private final ListPanelViewType viewType;
+
     /**
      * Constructs a {@code CommandResult} with the specified fields.
      */
-    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit, ListPanelViewType viewType) {
         this.feedbackToUser = requireNonNull(feedbackToUser);
         this.showHelp = showHelp;
         this.exit = exit;
+        this.viewType = viewType;
     }
 
     /**
@@ -33,8 +38,23 @@ public class CommandResult {
      * and other fields set to their default value.
      */
     public CommandResult(String feedbackToUser) {
-        this(feedbackToUser, false, false);
+        this(feedbackToUser, false, false, ListPanelViewType.NONE);
     }
+
+    /**
+     * Constructs a {@code CommandResult} with view switching.
+     */
+    public CommandResult(String feedbackToUser, boolean showHelp, boolean exit) {
+        this(feedbackToUser, false, false, ListPanelViewType.NONE);
+    }
+
+    /**
+     * Constructs a {@code CommandResult} with view switching.
+     */
+    public CommandResult(String feedbackToUser, ListPanelViewType viewType) {
+        this(feedbackToUser, false, false, viewType);
+    }
+
 
     public String getFeedbackToUser() {
         return feedbackToUser;
@@ -46,6 +66,14 @@ public class CommandResult {
 
     public boolean isExit() {
         return exit;
+    }
+
+    public ListPanelViewType getViewType() {
+        return viewType;
+    }
+
+    public boolean isViewSwitchNeeded() {
+        return viewType != ListPanelViewType.NONE;
     }
 
     @Override
@@ -62,12 +90,13 @@ public class CommandResult {
         CommandResult otherCommandResult = (CommandResult) other;
         return feedbackToUser.equals(otherCommandResult.feedbackToUser)
                 && showHelp == otherCommandResult.showHelp
-                && exit == otherCommandResult.exit;
+                && exit == otherCommandResult.exit
+                && viewType == otherCommandResult.viewType;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(feedbackToUser, showHelp, exit);
+        return Objects.hash(feedbackToUser, showHelp, exit, viewType);
     }
 
     @Override
@@ -78,5 +107,4 @@ public class CommandResult {
                 .add("exit", exit)
                 .toString();
     }
-
 }

@@ -35,7 +35,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
     // Independent Ui parts residing in this Ui container
     private ListPanel listPanel;
-    private ViewMode currentViewMode = ViewMode.CONTACT;
+    private ListPanelViewType currentViewMode = ListPanelViewType.CONTACT;
     private ResultDisplay resultDisplay;
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -126,19 +126,19 @@ public class MainWindow extends UiPart<Stage> {
             ObservableList<Contact> contactList = logic.getFilteredContactList();
             ObservableList<DisplayableItem> displayableContacts = ListConverter.toDisplayableContactList(contactList);
             listPanel = new ListPanel(displayableContacts);
-            currentViewMode = ViewMode.CONTACT;
+            currentViewMode = ListPanelViewType.CONTACT;
             break;
         case EVENT_COMMAND_WORD:
             ObservableList<Event> eventList = logic.getFilteredEventList();
             ObservableList<DisplayableItem> displayableEvents = ListConverter.toDisplayableEventList(eventList);
             listPanel = new ListPanel(displayableEvents);
-            currentViewMode = ViewMode.EVENT;
+            currentViewMode = ListPanelViewType.EVENT;
             break;
         case TODO_COMMAND_WORD:
             ObservableList<Todo> todoList = logic.getFilteredTodoList();
             ObservableList<DisplayableItem> displayableTodos = ListConverter.toDisplayableTodoList(todoList);
             listPanel = new ListPanel(displayableTodos);
-            currentViewMode = ViewMode.TODO;
+            currentViewMode = ListPanelViewType.TODO;
             break;
         default:
             logger.warning("Invalid view type: " + viewType);
@@ -244,17 +244,36 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            if (commandResult.isViewSwitchNeeded()) {
+                handleViewSwitching(commandResult.getViewType());
+            }
+
             if (commandResult.isExit()) {
                 handleExit();
             }
-
-            refreshCurrentView();
 
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
             resultDisplay.setFeedbackToUser(e.getMessage());
             throw e;
+        }
+    }
+
+    /**
+     * Handles view switching based on the ViewType from CommandResult
+     */
+    private void handleViewSwitching(ListPanelViewType viewType) {
+        switch (viewType) {
+        case CONTACT:
+            switchView("contact");
+            break;
+        case EVENT:
+            switchView("event");
+            break;
+        case TODO:
+            switchView("todo");
+            break;
         }
     }
 
@@ -275,12 +294,5 @@ public class MainWindow extends UiPart<Stage> {
         default:
             break;
         }
-    }
-
-    /**
-     * Enumeration representing the different view modes for ListPanel.
-     */
-    private enum ViewMode {
-        CONTACT, EVENT, TODO
     }
 }
