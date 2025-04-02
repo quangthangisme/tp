@@ -14,7 +14,12 @@ import static seedu.address.logic.commands.EventCommandTestUtil.VALID_TAG_MEETIN
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.CARL;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.model.event.Event;
+
 /**
  * A utility class containing a list of {@code Contact} objects to be used in tests.
  */
@@ -61,4 +66,14 @@ public class TypicalEvents {
             .withAttendance(ALICE, CARL)
             .withTags(VALID_TAG_MEETING).build();
 
+
+    private TypicalEvents() {} // prevents instantiation
+
+    /**
+     * Returns an {@code EventList} with all the typical events.
+     */
+    public static List<Event> getTypicalEvents() {
+        return new ArrayList<>(
+                Arrays.asList(STUFF_EVENT, STUFF_EVENT_2, CRYING, CRYING_NO_TAG, CRYING_MULTIPLE_TAG, MEETING));
+    }
 }

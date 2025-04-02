@@ -9,6 +9,10 @@ import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_NAME_REPORT
 import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_TAG_REPORT;
 import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_TAG_REPORT_2;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import seedu.address.model.todo.Todo;
 
 /**
@@ -47,4 +51,14 @@ public class TypicalTodos {
             .withDeadline(VALID_DEADLINE_REPORT)
             .withLocation(VALID_LOCATION_REPORT)
             .withTags(VALID_TAG_REPORT).build();
+
+    private TypicalTodos() {} // prevents instantiation
+
+    /**
+     * Returns an {@code AddressBook} with all the typical todos.
+     */
+    public static List<Todo> getTypicalTodos() {
+        return new ArrayList<>(
+                Arrays.asList(STUFF, STUFF_2, GRADING, REPORT_WITH_TAG, REPORT_WITH_MULTIPLE_TAGS, REPORT));
+    }
 }
