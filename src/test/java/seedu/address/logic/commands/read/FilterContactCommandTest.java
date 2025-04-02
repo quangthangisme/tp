@@ -5,8 +5,12 @@ import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.Messages.MESSAGE_SEARCH_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.testutil.TypicalContacts.ALICE;
+import static seedu.address.testutil.TypicalContacts.BENSON;
 import static seedu.address.testutil.TypicalContacts.CARL;
 import static seedu.address.testutil.TypicalContacts.DANIEL;
+import static seedu.address.testutil.TypicalContacts.ELLE;
+import static seedu.address.testutil.TypicalContacts.FIONA;
+import static seedu.address.testutil.TypicalContacts.GEORGE;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import java.util.Arrays;
@@ -78,10 +82,10 @@ public class FilterContactCommandTest {
     }
 
     @Test
-    public void execute_nameFilter_multipleContactsFound() {
-        Map<ContactColumn, ColumnPredicate> predicateMap = new HashMap<>();
-        predicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.OR, Arrays.asList("Carl",
-                "Daniel")));
+    public void execute_idFilterOr_multipleContactsFound() {
+        Map<ContactColumn, ColumnPredicate> predicateMap = Map.of(
+                ContactColumn.ID, new ColumnPredicate(Operator.OR, Arrays.asList("A00000001", "A00000003"))
+        );
 
         ContactPredicate predicate = new ContactPredicate(predicateMap);
         FilterContactCommand command = new FilterContactCommand(predicate);
@@ -90,24 +94,77 @@ public class FilterContactCommandTest {
         String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, 2);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Arrays.asList(CARL, DANIEL),
+        assertEquals(Arrays.asList(ALICE, CARL),
                 model.getContactManagerAndList().getFilteredItemsList());
     }
 
     @Test
-    public void execute_multipleFilters_matchingContactFound() {
-        Map<ContactColumn, ColumnPredicate> predicateMap = new HashMap<>();
-        predicateMap.put(ContactColumn.NAME, new ColumnPredicate(Operator.AND, List.of("alice")));
-        predicateMap.put(ContactColumn.TAG, new ColumnPredicate(Operator.AND, List.of("friends")));
+    public void execute_idFilterAnd_noContactsFound() {
+        Map<ContactColumn, ColumnPredicate> predicateMap = Map.of(
+                ContactColumn.ID, new ColumnPredicate(Operator.AND, Arrays.asList("A00000001", "A00000003"))
+        );
 
         ContactPredicate predicate = new ContactPredicate(predicateMap);
         FilterContactCommand command = new FilterContactCommand(predicate);
 
         expectedModel.getContactManagerAndList().updateFilteredItemsList(predicate);
-        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, 1);
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, 0);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
-        assertEquals(Collections.singletonList(ALICE),
+        assertEquals(Collections.emptyList(),
                 model.getContactManagerAndList().getFilteredItemsList());
     }
+
+    @Test
+    public void execute_idFilterNand_excludesMatchingContacts() {
+        Map<ContactColumn, ColumnPredicate> predicateMap = Map.of(
+                ContactColumn.ID, new ColumnPredicate(Operator.NAND, Arrays.asList("A00000001", "A00000003"))
+        );
+
+        ContactPredicate predicate = new ContactPredicate(predicateMap);
+        FilterContactCommand command = new FilterContactCommand(predicate);
+
+        expectedModel.getContactManagerAndList().updateFilteredItemsList(predicate);
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, 7);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE),
+                model.getContactManagerAndList().getFilteredItemsList());
+    }
+
+    @Test
+    public void execute_idFilterNor_contactsRemaining() {
+        Map<ContactColumn, ColumnPredicate> predicateMap = Map.of(
+                ContactColumn.ID, new ColumnPredicate(Operator.NOR, Arrays.asList("A00000001", "A00000003"))
+        );
+
+        ContactPredicate predicate = new ContactPredicate(predicateMap);
+        FilterContactCommand command = new FilterContactCommand(predicate);
+
+        expectedModel.getContactManagerAndList().updateFilteredItemsList(predicate);
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, 5);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(Arrays.asList(BENSON, DANIEL, ELLE, FIONA, GEORGE),
+                model.getContactManagerAndList().getFilteredItemsList());
+    }
+
+    @Test
+    public void execute_idpartialMatch_multipleContactsFound() {
+        Map<ContactColumn, ColumnPredicate> predicateMap = Map.of(
+                ContactColumn.ID, new ColumnPredicate(Operator.OR, List.of("A0"))
+        );
+
+        ContactPredicate predicate = new ContactPredicate(predicateMap);
+        FilterContactCommand command = new FilterContactCommand(predicate);
+
+        expectedModel.getContactManagerAndList().updateFilteredItemsList(predicate);
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, 7);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(List.of(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE),
+                model.getContactManagerAndList().getFilteredItemsList());
+    }
+
+
 }
