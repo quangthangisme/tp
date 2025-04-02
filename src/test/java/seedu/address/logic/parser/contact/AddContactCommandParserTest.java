@@ -9,7 +9,10 @@ import static seedu.address.logic.commands.ContactCommandTestUtil.GROUP_DESC_AMY
 import static seedu.address.logic.commands.ContactCommandTestUtil.GROUP_DESC_BOB;
 import static seedu.address.logic.commands.ContactCommandTestUtil.ID_DESC_AMY;
 import static seedu.address.logic.commands.ContactCommandTestUtil.ID_DESC_BOB;
+import static seedu.address.logic.commands.ContactCommandTestUtil.INVALID_COURSE_DESC;
 import static seedu.address.logic.commands.ContactCommandTestUtil.INVALID_EMAIL_DESC;
+import static seedu.address.logic.commands.ContactCommandTestUtil.INVALID_GROUP_DESC;
+import static seedu.address.logic.commands.ContactCommandTestUtil.INVALID_ID_DESC;
 import static seedu.address.logic.commands.ContactCommandTestUtil.INVALID_NAME_DESC;
 import static seedu.address.logic.commands.ContactCommandTestUtil.INVALID_TAG_DESC;
 import static seedu.address.logic.commands.ContactCommandTestUtil.NAME_DESC_AMY;
@@ -18,8 +21,10 @@ import static seedu.address.logic.commands.ContactCommandTestUtil.PREAMBLE_NON_E
 import static seedu.address.logic.commands.ContactCommandTestUtil.PREAMBLE_WHITESPACE;
 import static seedu.address.logic.commands.ContactCommandTestUtil.TAG_DESC_FRIEND;
 import static seedu.address.logic.commands.ContactCommandTestUtil.TAG_DESC_FRIEND_HUSBAND;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_COURSE_BOB;
 import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_EMAIL_BOB;
 import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_GROUP_BOB;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_ID_BOB;
 import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_TAG_HUSBAND;
@@ -39,7 +44,10 @@ import org.junit.jupiter.api.Test;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.create.AddContactCommand;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Course;
 import seedu.address.model.contact.Email;
+import seedu.address.model.contact.Group;
+import seedu.address.model.contact.Id;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
 import seedu.address.testutil.ContactBuilder;
@@ -68,7 +76,7 @@ public class AddContactCommandParserTest {
     }
 
     @Test
-    public void parse_repeatedNonTagValue_failure() {
+    public void parse_repeatedValue_failure() {
         String validExpectedContactString = ID_DESC_BOB + NAME_DESC_BOB
                 + EMAIL_DESC_BOB + COURSE_DESC_BOB + GROUP_DESC_BOB + TAG_DESC_FRIEND;
 
@@ -79,6 +87,22 @@ public class AddContactCommandParserTest {
         // multiple emails
         assertParseFailure(parser, EMAIL_DESC_AMY + validExpectedContactString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_EMAIL_LONG));
+
+        // multiple courses
+        assertParseFailure(parser, COURSE_DESC_AMY + validExpectedContactString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_COURSE_LONG));
+
+        // multiple groups
+        assertParseFailure(parser, GROUP_DESC_AMY + validExpectedContactString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_GROUP_LONG));
+
+        // multiple ids
+        assertParseFailure(parser, ID_DESC_BOB + validExpectedContactString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_ID_LONG));
+
+        // multiple tags
+        assertParseFailure(parser, TAG_DESC_FRIEND + validExpectedContactString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_TAG_LONG));
 
         // multiple fields repeated
         assertParseFailure(parser,
@@ -97,6 +121,24 @@ public class AddContactCommandParserTest {
         assertParseFailure(parser, INVALID_EMAIL_DESC + validExpectedContactString,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_EMAIL_LONG));
 
+        // invalid course
+        assertParseFailure(parser, INVALID_COURSE_DESC + validExpectedContactString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_COURSE_LONG));
+
+        // invalid group
+        assertParseFailure(parser, INVALID_GROUP_DESC + validExpectedContactString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_GROUP_LONG));
+
+        // invalid id
+        assertParseFailure(parser, INVALID_ID_DESC + validExpectedContactString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_ID_LONG));
+
+        // invalid tag
+        assertParseFailure(parser, INVALID_TAG_DESC + validExpectedContactString,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_TAG_LONG));
+
+        // valid value followed by invalid value
+
         // invalid name
         assertParseFailure(parser, validExpectedContactString + INVALID_NAME_DESC,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_NAME_LONG));
@@ -105,6 +147,21 @@ public class AddContactCommandParserTest {
         assertParseFailure(parser, validExpectedContactString + INVALID_EMAIL_DESC,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_EMAIL_LONG));
 
+        // invalid course
+        assertParseFailure(parser, validExpectedContactString + INVALID_COURSE_DESC,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_COURSE_LONG));
+
+        // invalid group
+        assertParseFailure(parser, validExpectedContactString + INVALID_GROUP_DESC,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_GROUP_LONG));
+
+        // invalid id
+        assertParseFailure(parser, validExpectedContactString + INVALID_ID_DESC,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_ID_LONG));
+
+        // invalid tag
+        assertParseFailure(parser, validExpectedContactString + INVALID_TAG_DESC,
+                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_CONTACT_TAG_LONG));
     }
 
     @Test
@@ -121,16 +178,28 @@ public class AddContactCommandParserTest {
         String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddContactCommand.MESSAGE_USAGE);
 
         // missing name prefix
-        assertParseFailure(parser, VALID_NAME_BOB + EMAIL_DESC_BOB,
-                expectedMessage);
+        assertParseFailure(parser, VALID_NAME_BOB + EMAIL_DESC_BOB + COURSE_DESC_BOB + GROUP_DESC_BOB
+                + ID_DESC_BOB, expectedMessage);
 
         // missing email prefix
-        assertParseFailure(parser, NAME_DESC_BOB + VALID_EMAIL_BOB,
-                expectedMessage);
+        assertParseFailure(parser, NAME_DESC_BOB + VALID_EMAIL_BOB + COURSE_DESC_BOB + GROUP_DESC_BOB
+                + ID_DESC_BOB, expectedMessage);
+
+        // missing id prefix
+        assertParseFailure(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + COURSE_DESC_BOB + GROUP_DESC_BOB
+                + VALID_ID_BOB, expectedMessage);
+
+        // missing course prefix
+        assertParseFailure(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + VALID_COURSE_BOB + GROUP_DESC_BOB
+                + ID_DESC_BOB, expectedMessage);
+
+        // missing group prefix
+        assertParseFailure(parser, NAME_DESC_BOB + EMAIL_DESC_BOB + COURSE_DESC_BOB + VALID_GROUP_BOB
+                + ID_DESC_BOB, expectedMessage);
 
         // all prefixes missing
-        assertParseFailure(parser, VALID_NAME_BOB + VALID_EMAIL_BOB,
-                expectedMessage);
+        assertParseFailure(parser, VALID_NAME_BOB + VALID_EMAIL_BOB + VALID_COURSE_BOB + VALID_GROUP_BOB
+                + VALID_ID_BOB, expectedMessage);
     }
 
     @Test
@@ -144,6 +213,21 @@ public class AddContactCommandParserTest {
         assertParseFailure(parser, ID_DESC_BOB + NAME_DESC_BOB
                 + INVALID_EMAIL_DESC + COURSE_DESC_BOB + GROUP_DESC_BOB + TAG_DESC_FRIEND_HUSBAND,
                 Email.MESSAGE_CONSTRAINTS);
+
+        // invalid course
+        assertParseFailure(parser, ID_DESC_BOB + NAME_DESC_BOB
+                        + EMAIL_DESC_BOB + INVALID_COURSE_DESC + GROUP_DESC_BOB + TAG_DESC_FRIEND_HUSBAND,
+                Course.MESSAGE_CONSTRAINTS);
+
+        // invalid group
+        assertParseFailure(parser, ID_DESC_BOB + NAME_DESC_BOB
+                        + EMAIL_DESC_BOB + COURSE_DESC_BOB + INVALID_GROUP_DESC + TAG_DESC_FRIEND_HUSBAND,
+                Group.MESSAGE_CONSTRAINTS);
+
+        // invalid id
+        assertParseFailure(parser, INVALID_ID_DESC + NAME_DESC_BOB
+                        + EMAIL_DESC_BOB + COURSE_DESC_BOB + GROUP_DESC_BOB + TAG_DESC_FRIEND_HUSBAND,
+                Id.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, ID_DESC_BOB + NAME_DESC_BOB + EMAIL_DESC_BOB

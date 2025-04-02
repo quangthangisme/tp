@@ -66,6 +66,7 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
      * Deletes the given item. The item must exist in the manager.
      */
     public void deleteItem(T target) {
+        requireNonNull(target);
         itemManager.removeItem(target);
     }
 
@@ -73,8 +74,9 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
      * Adds the given item. {@code item} must not already exist in the manager.
      */
     public void addItem(T item) {
+        requireNonNull(item);
         itemManager.addItem(item);
-        showAllItems();
+        updateFilteredItemsList(getPredicate().or(itemInList -> itemInList.equals(item)));
     }
 
     /**
@@ -84,8 +86,8 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
      */
     public void setItem(T target, T editedItem) {
         requireAllNonNull(target, editedItem);
-
         itemManager.setItem(target, editedItem);
+        updateFilteredItemsList(getPredicate().or(itemInList -> itemInList.equals(editedItem)));
     }
 
     /**
@@ -108,7 +110,7 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
      * Returns the predicate currently applied to the filtered list.
      * If the predicate is null, it returns the predefined predicateShowAll.
      */
-    public Predicate<? super T> getPredicate() {
+    private Predicate<? super T> getPredicate() {
         Predicate<? super T> predicate = filteredItems.getPredicate();
         return predicate != null ? predicate : predicateShowAll;
     }
