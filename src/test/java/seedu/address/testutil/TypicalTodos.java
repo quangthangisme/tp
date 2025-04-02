@@ -14,6 +14,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.TodoManager;
 
 /**
  * A utility class containing a list of {@code Todo} objects to be used in tests.
@@ -54,8 +55,20 @@ public class TypicalTodos {
 
     private TypicalTodos() {} // prevents instantiation
 
+
     /**
-     * Returns an {@code AddressBook} with all the typical todos.
+     * Returns an {@code TodoManager} with all the typical todos.
+     */
+    public static TodoManager getTypicalTodoList() {
+        TodoManager tl = new TodoManager();
+        for (Todo todo : getTypicalTodos()) {
+            tl.addItem(todo);
+        }
+        return tl;
+    }
+
+    /**
+     * Returns a list of {@code Todo} objects to be used in tests.
      */
     public static List<Todo> getTypicalTodos() {
         return new ArrayList<>(

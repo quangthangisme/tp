@@ -60,9 +60,11 @@ public class TodoCommandTestUtil {
     public static final String INVALID_TODO_STATUS_DESC =
             " " + PREFIX_TODO_STATUS_LONG + INVALID_TODO_STATUS;
 
+
+
     /**
-     * Updates {@code model}'s filtered list to show only the todo at the given {@code targetIndex}
-     * in the {@code model}'s address book.
+     * Updates {@code model}'s filtered list to show only the todo at the given {@code targetIndex} in the
+     * {@code model}'s todo list.
      */
     public static void showTodoAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased()
@@ -71,7 +73,6 @@ public class TodoCommandTestUtil {
         Todo todo = model.getTodoManagerAndList().getFilteredItemsList()
                 .get(targetIndex.getZeroBased());
         model.getTodoManagerAndList().updateFilteredItemsList(todo::equals);
-
         assertEquals(1, model.getTodoManagerAndList().getFilteredItemsList().size());
     }
 

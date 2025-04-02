@@ -19,12 +19,14 @@ import java.util.Arrays;
 import java.util.List;
 
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventManager;
+
 
 /**
  * A utility class containing a list of {@code Contact} objects to be used in tests.
  */
 public class TypicalEvents {
-    // Examples. You should add mmore on your own.
+    // Examples. You should add more on your own.
 
     public static final Event STUFF_EVENT = new EventBuilder()
             .withName("stuff")
@@ -66,11 +68,22 @@ public class TypicalEvents {
             .withAttendance(ALICE, CARL)
             .withTags(VALID_TAG_MEETING).build();
 
-
-    private TypicalEvents() {} // prevents instantiation
+    private TypicalEvents() {
+    } // prevents instantiation
 
     /**
-     * Returns an {@code EventList} with all the typical events.
+     * Returns an {@code EventManager} with all the typical events.
+     */
+    public static EventManager getTypicalEventList() {
+        EventManager el = new EventManager();
+        for (Event event : getTypicalEvents()) {
+            el.addItem(event);
+        }
+        return el;
+    }
+
+    /**
+     * Returns a list of {@code Event} objects to be used in tests.
      */
     public static List<Event> getTypicalEvents() {
         return new ArrayList<>(

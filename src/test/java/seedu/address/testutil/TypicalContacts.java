@@ -107,7 +107,7 @@ public class TypicalContacts {
     private TypicalContacts() {} // prevents instantiation
 
     /**
-     * Returns an {@code AddressBook} with all the typical contacts.
+     * Returns an {@code ContactManager} with all the typical contacts.
      */
     public static ContactManager getTypicalAddressBook() {
         ContactManager ab = new ContactManager();
@@ -117,6 +117,9 @@ public class TypicalContacts {
         return ab;
     }
 
+    /**
+     * Returns a list of {@code Contact} objects to be used in tests.
+     */
     public static List<Contact> getTypicalContacts() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL, ELLE, FIONA, GEORGE));
     }
