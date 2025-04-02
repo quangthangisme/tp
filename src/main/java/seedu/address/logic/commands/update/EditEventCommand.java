@@ -40,13 +40,15 @@ public class EditEventCommand extends EditCommand<Event> {
             + ": Edits the details of the event identified by the index number used in the "
             + "displayed event list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: INDEX "
             + "[" + PREFIX_EVENT_NAME_LONG + " NAME] "
             + "[" + PREFIX_EVENT_START_LONG + " START_TIME] "
             + "[" + PREFIX_EVENT_END_LONG + " END_TIME] "
             + "[" + PREFIX_EVENT_LOCATION_LONG + " LOCATION] "
             + "[" + PREFIX_EVENT_LINKED_CONTACT_LONG + " CONTACT_INDEX/INDICES] "
             + "[" + PREFIX_EVENT_TAG_LONG + " TAG(S)]\n"
+            + "INDEX must be a positive integer.\n"
+            + "CONTACT_INDEX is based on the list displayed on the right.\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_EVENT_NAME_LONG + " Complete project\n";
 
