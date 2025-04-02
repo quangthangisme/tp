@@ -44,7 +44,7 @@ public class EventCard extends UiPart<Region> {
         name.setText(event.getName().value);
         startTime.setText("Start time: " + event.getStartTime().toString());
         endTime.setText("End Time: " + event.getEndTime().toString());
-        eventLocation.setText(event.getLocation().toString());
+        eventLocation.setText("Location: " + event.getLocation().toString());
         event.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

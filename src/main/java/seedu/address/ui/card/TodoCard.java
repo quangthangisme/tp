@@ -30,6 +30,8 @@ public class TodoCard extends UiPart<Region> {
     @FXML
     private Label todoLocation;
     @FXML
+    private Label todoStatus;
+    @FXML
     private FlowPane tags;
 
     /**
@@ -40,8 +42,9 @@ public class TodoCard extends UiPart<Region> {
         this.todo = todo;
         id.setText(displayedIndex + ". ");
         name.setText(todo.getName().value);
-        deadline.setText(todo.getDeadline().toString());
-        todoLocation.setText(todo.getLocation().value);
+        todoStatus.setText("Status: " + todo.getStatus().toString());
+        todoLocation.setText("Location: " + todo.getLocation().value);
+        deadline.setText("Deadline: " + todo.getDeadline().toString());
         todo.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
