@@ -1,5 +1,15 @@
 package seedu.address.testutil;
 
+import static seedu.address.logic.commands.EventCommandTestUtil.VALID_END_CRYING;
+import static seedu.address.logic.commands.EventCommandTestUtil.VALID_END_MEETING;
+import static seedu.address.logic.commands.EventCommandTestUtil.VALID_LOCATION_CRYING;
+import static seedu.address.logic.commands.EventCommandTestUtil.VALID_LOCATION_MEETING;
+import static seedu.address.logic.commands.EventCommandTestUtil.VALID_NAME_CRYING;
+import static seedu.address.logic.commands.EventCommandTestUtil.VALID_NAME_MEETING;
+import static seedu.address.logic.commands.EventCommandTestUtil.VALID_START_CRYING;
+import static seedu.address.logic.commands.EventCommandTestUtil.VALID_START_MEETING;
+import static seedu.address.logic.commands.EventCommandTestUtil.VALID_TAG_CRYING;
+import static seedu.address.logic.commands.EventCommandTestUtil.VALID_TAG_MEETING;
 import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.BOB;
 
@@ -10,11 +20,20 @@ import seedu.address.model.event.Event;
  */
 public class TypicalEvents {
     // Examples. You should add mmore on your own.
+
+    public static final Event CRYING = new EventBuilder()
+            .withName(VALID_NAME_CRYING)
+            .withStart(VALID_START_CRYING)
+            .withEnd(VALID_END_CRYING)
+            .withLocation(VALID_LOCATION_CRYING)
+            .withTags(VALID_TAG_CRYING).build();
+
     public static final Event MEETING = new EventBuilder()
-            .withName("meeting")
-            .withStart("24-12-31 23:59")
-            .withEnd("25-01-01 23:59")
-            .withLocation("bedroom home")
+            .withName(VALID_NAME_MEETING)
+            .withStart(VALID_START_MEETING)
+            .withEnd(VALID_END_MEETING)
+            .withLocation(VALID_LOCATION_MEETING)
             .withAttendance(ALICE, BOB)
-            .withTags("good", "boring").build();
+            .withTags(VALID_TAG_MEETING).build();
+
 }
