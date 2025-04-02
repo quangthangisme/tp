@@ -909,7 +909,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 1. User requests to load database from a directory.
 2. TC loads the data of an entry and populates the database.
-   
+
    Step 2 is repeated until all entries are loaded.
 3. TC displays the populated data.
 
