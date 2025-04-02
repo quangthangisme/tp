@@ -45,9 +45,6 @@ public abstract class PrefixAlias {
                 )
             );
         }
-        if (!map.arePrefixesPresent(getLong()) && !map.arePrefixesPresent(getShort())) {
-            throw new ParseException("Missing required field: " + commandName);
-        }
         return isLong ? map.getValue(getLong()) : map.getValue(getShort());
     }
 }
