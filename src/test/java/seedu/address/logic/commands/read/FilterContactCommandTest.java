@@ -527,4 +527,27 @@ public class FilterContactCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(Arrays.asList(ALICE, BENSON, DANIEL), model.getContactManagerAndList().getFilteredItemsList());
     }
+
+    /* Joining multiple columns is via and */
+
+    public void execute_multipleColumns() {
+        Map<ContactColumn, ColumnPredicate> predicateMap = Map.of(
+                ContactColumn.ID, new ColumnPredicate(Operator.AND, List.of("A00000001")),
+                ContactColumn.NAME, new ColumnPredicate(Operator.AND, List.of("Alice Pauline")),
+                ContactColumn.EMAIL, new ColumnPredicate(Operator.AND, List.of("alice@example.com")),
+                ContactColumn.COURSE, new ColumnPredicate(Operator.AND, List.of("CS50")),
+                ContactColumn.GROUP, new ColumnPredicate(Operator.AND, List.of("T35")),
+                ContactColumn.TAG, new ColumnPredicate(Operator.AND, List.of("friends"))
+        );
+
+        ContactPredicate predicate = new ContactPredicate(predicateMap);
+        FilterContactCommand command = new FilterContactCommand(predicate);
+
+        expectedModel.getContactManagerAndList().updateFilteredItemsList(predicate);
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, 1);
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(List.of(ALICE), model.getContactManagerAndList().getFilteredItemsList());
+    }
+
 }
