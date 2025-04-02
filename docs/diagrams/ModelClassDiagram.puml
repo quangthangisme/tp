@@ -10,6 +10,7 @@ Class "{abstract}\nItemManagerWithFilteredList" as ManagerAndList<T extends Item
 Class "{abstract}\nItemManager" as Manager<T extends Item>
 Class FilteredList<T extends Item>
 Class "{abstract}\nUniqueItemList" as List<T extends Item>
+Class "<<interface>>\nDuplicateChecker" as Checker<T extends Item>
 Class TManagerWithFilteredList
 Class TManager
 Class UniqueTList
@@ -18,6 +19,7 @@ Class "<<interface>>\nReadOnlyUserPrefs" as ReadOnlyUserPrefs
 Class "<<interface>>\nModel" as Model
 Class ModelManager
 Class UserPrefs
+class TDuplicateChecker
 }
 
 Cloud HiddenOutside
@@ -27,18 +29,20 @@ ModelManager .up.|> Model
 Model .right.> ReadOnlyUserPrefs
 Model .right.> ManagerAndList
 TManagerWithFilteredList .right.|> ManagerAndList
-ModelManager -left-> "1" ManagerAndList
-ModelManager .left.> TManagerWithFilteredList
+ModelManager -down-> ManagerAndList
+ModelManager .down.> TManagerWithFilteredList
 ModelManager -right-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
-ManagerAndList -down-> "1" Manager
 ManagerAndList -down-> "1" FilteredList
+ManagerAndList -down-> "1" Manager
 TManager .right.|> Manager
 TManagerWithFilteredList .down.> TManager
 Manager -down-> "1" List
 UniqueTList .right.|> List
+TDuplicateChecker .right.|> Checker
+UniqueTList .down.> TDuplicateChecker
 TManager .down.> UniqueTList
-List -down-> "*" T
+List -down-> "1" Checker
+List -right-> "*" T
 FilteredList -down-> "filtered *" T
-UniqueTList .down.> T
 @enduml

@@ -45,13 +45,13 @@ Todo .up.|> TaggedItem
 Event .up.|> ItemWithLocation
 Todo .up.|> ItemWithLocation
 Todo -right-> "*" Contact: "involves"
-Todo --> "1" Name: "identified by"
-Event --> "1" Name: "identified by"
-Contact --> "1" Id: "identified by"
+Todo --> "1" Name: "is uniquely identified by"
+Event --> "1" Name: "is uniquely identified by"
+Contact --> "1" Id: "is uniquely identified by"
 
 Class Pair<Contact, AttendanceStatus>
 Contact - AttendanceStatus
 (AttendanceStatus, Contact) .. Pair
-Attendance --> "*" Pair: "tracks"
+Attendance *--> "*" Pair
 Event --> "1" Attendance: "tracks"
 @enduml
