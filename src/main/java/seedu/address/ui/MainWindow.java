@@ -87,7 +87,7 @@ public class MainWindow extends UiPart<Stage> {
 
         commandBox.setViewSwitchHandler(this::switchView);
 
-        switchView(CONTACT_COMMAND_WORD);
+        switchView(ListPanelViewType.CONTACT);
     }
 
     /**
@@ -120,25 +120,23 @@ public class MainWindow extends UiPart<Stage> {
     /**
      * Switches view based on the command prefix or buttons
      */
-    private void switchView(String viewType) {
+    private void switchView(ListPanelViewType viewType) {
+        currentViewMode = viewType;
         switch (viewType) {
-        case CONTACT_COMMAND_WORD:
+        case CONTACT:
             ObservableList<Contact> contactList = logic.getFilteredContactList();
             ObservableList<DisplayableItem> displayableContacts = ListConverter.toDisplayableContactList(contactList);
             listPanel = new ListPanel(displayableContacts);
-            currentViewMode = ListPanelViewType.CONTACT;
             break;
-        case EVENT_COMMAND_WORD:
+        case EVENT:
             ObservableList<Event> eventList = logic.getFilteredEventList();
             ObservableList<DisplayableItem> displayableEvents = ListConverter.toDisplayableEventList(eventList);
             listPanel = new ListPanel(displayableEvents);
-            currentViewMode = ListPanelViewType.EVENT;
             break;
-        case TODO_COMMAND_WORD:
+        case TODO:
             ObservableList<Todo> todoList = logic.getFilteredTodoList();
             ObservableList<DisplayableItem> displayableTodos = ListConverter.toDisplayableTodoList(todoList);
             listPanel = new ListPanel(displayableTodos);
-            currentViewMode = ListPanelViewType.TODO;
             break;
         default:
             logger.warning("Invalid view type: " + viewType);
@@ -156,7 +154,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleContactButton() {
-        switchView(CONTACT_COMMAND_WORD);
+        switchView(ListPanelViewType.CONTACT);
     }
 
     /**
@@ -164,7 +162,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleEventButton() {
-        switchView(EVENT_COMMAND_WORD);
+        switchView(ListPanelViewType.EVENT);
 
     }
 
@@ -173,7 +171,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleTodoButton() {
-        switchView(TODO_COMMAND_WORD);
+        switchView(ListPanelViewType.TODO);
 
     }
 
@@ -252,6 +250,8 @@ public class MainWindow extends UiPart<Stage> {
                 handleExit();
             }
 
+            refreshCurrentView();
+
             return commandResult;
         } catch (CommandException | ParseException e) {
             logger.info("An error occurred while executing command: " + commandText);
@@ -266,13 +266,13 @@ public class MainWindow extends UiPart<Stage> {
     private void handleViewSwitching(ListPanelViewType viewType) {
         switch (viewType) {
         case CONTACT:
-            switchView("contact");
+            switchView(ListPanelViewType.CONTACT);
             break;
         case EVENT:
-            switchView("event");
+            switchView(ListPanelViewType.EVENT);
             break;
         case TODO:
-            switchView("todo");
+            switchView(ListPanelViewType.TODO);
             break;
         }
     }
@@ -283,13 +283,13 @@ public class MainWindow extends UiPart<Stage> {
     private void refreshCurrentView() {
         switch (currentViewMode) {
         case CONTACT:
-            switchView(CONTACT_COMMAND_WORD);
+            switchView(ListPanelViewType.CONTACT);
             break;
         case EVENT:
-            switchView(EVENT_COMMAND_WORD);
+            switchView(ListPanelViewType.EVENT);
             break;
         case TODO:
-            switchView(TODO_COMMAND_WORD);
+            switchView(ListPanelViewType.TODO);
             break;
         default:
             break;

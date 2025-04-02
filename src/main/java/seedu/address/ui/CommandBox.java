@@ -20,7 +20,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
 
-    private Consumer<String> viewSwitchHandler;
+    private Consumer<ListPanelViewType> viewSwitchHandler;
 
     @FXML
     private TextField commandTextField;
@@ -40,7 +40,7 @@ public class CommandBox extends UiPart<Region> {
      *
      * @param handler callback to handle view switching
      */
-    public void setViewSwitchHandler(Consumer<String> handler) {
+    public void setViewSwitchHandler(Consumer<ListPanelViewType> handler) {
         this.viewSwitchHandler = handler;
     }
 
