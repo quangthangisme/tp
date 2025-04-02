@@ -45,7 +45,9 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
             + Operator.NOR.getName() + "). If not specified, defaults to "
             + Operator.AND.getName() + "Cannot be applied to status criterion.\n"
 
-            + "    + For name and location, use keywords separated by whitespaces.\n"
+            + "- <value(s)>: One or more values to filter by.\n"
+            + "    + For name and location, use keywords separated by whitespaces. These keywords are not "
+            + "case-sensitive, and partial matches are supported.\n"
             + "    + For start and end time, use closed intervals separated by whitespaces. "
             + "Each interval is in the format \"[<INTERVAL_START>/<INTERVAL_END>]\"."
             + " For both start and end time, the interval must either be in the format YY-MM-DD HH:MM"

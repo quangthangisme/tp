@@ -41,7 +41,8 @@ public class FilterContactCommand extends FilterCommand<Contact> {
             + Operator.AND.getName() + "\n"
 
             + "- <value(s)>: One or more values to filter by.\n"
-            + "    + Use keywords separated by whitespaces.\n"
+            + "    + Enter keywords separated by spaces. These keywords are not case-sensitive, and partial matches "
+            + "are supported.\n"
 
             + "Examples:\n"
             + "1. " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " "
@@ -52,8 +53,8 @@ public class FilterContactCommand extends FilterCommand<Contact> {
             + PREFIX_CONTACT_NAME_LONG + " \"Darren Tan\" "
             + PREFIX_CONTACT_COURSE_LONG + " CS1010S "
             + PREFIX_CONTACT_GROUP_LONG + " " + Operator.OR.getName() + ": T01 T02 T03\n"
-            + "   Find contacts with \"Darren Tan\" in their name who enroll in course CS1010S and class T01, T02, or"
-            + " T03.\n"
+            + "   Find contacts with \"Darren\" and \"Tan\" in their name who enroll in course CS1010S and class T01, "
+            + "T02, or T03.\n"
 
             + "3. " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " "
             + PREFIX_CONTACT_NAME_LONG + " " + Operator.NAND.getName() + ": \"My enemy\" Hater "
