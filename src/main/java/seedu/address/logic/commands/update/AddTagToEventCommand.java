@@ -22,10 +22,10 @@ public class AddTagToEventCommand extends EditEventCommand {
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Adds a tag to a specified event.\n"
             + "Parameters: INDEX "
-            + PREFIX_EVENT_TAG_LONG + " TAG(S)\n"
+            + PREFIX_EVENT_TAG_LONG + "TAG(S)\n"
             + "INDEX must be a positive integer.\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_EVENT_TAG_LONG + " TA Important";
+            + PREFIX_EVENT_TAG_LONG + "TA Important";
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag to event: %1$s";
     public static final String MESSAGE_DUPLICATE_TAGS = "The tag is already assigned to this event";
 
