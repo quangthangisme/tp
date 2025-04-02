@@ -33,6 +33,8 @@ public class TodoCard extends UiPart<Region> {
     private Label todoStatus;
     @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane contacts;
 
     /**
      * Creates a {@code TodoCard} with the given {@code todo} and index to display.
@@ -48,5 +50,9 @@ public class TodoCard extends UiPart<Region> {
         todo.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        todo.getContacts().stream()
+                .sorted(Comparator.comparing(contact -> contact.getName().value))
+                .forEach(contact -> contacts.getChildren().add(new Label(contact.getName().value)));
+
     }
 }

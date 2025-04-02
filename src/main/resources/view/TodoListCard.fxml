@@ -27,6 +27,7 @@
                 <Label fx:id="name" text="\$first" styleClass="cell_big_label" />
             </HBox>
             <FlowPane fx:id="tags" />
+            <FlowPane fx:id="contacts" />
             <Label fx:id="todoStatus" styleClass="cell_small_label" text="\$todoStatus" />
             <Label fx:id="todoLocation" styleClass="cell_small_label" text="\$todoLocation" />
             <Label fx:id="deadline" styleClass="cell_small_label" text="\$deadline" />
