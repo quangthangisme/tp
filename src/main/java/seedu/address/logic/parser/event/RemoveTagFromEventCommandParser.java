@@ -22,16 +22,16 @@ public class RemoveTagFromEventCommandParser implements Parser<RemoveTagFromEven
     @Override
     public RemoveTagFromEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        TagPrefix tagPrefix = new TagPrefix(RemoveTagFromEventCommand.COMMAND_WORD);
+        TagPrefix tagPrefix = new TagPrefix();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, tagPrefix.getAll());
         // Ensure only one prefix is present
         argMultimap.verifyNoDuplicatePrefixesFor(tagPrefix.getAll());
-        if (tagPrefix.getValue(argMultimap).isEmpty() || argMultimap.getPreamble().isEmpty()) {
+        if (argMultimap.getValue(tagPrefix).isEmpty() || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveTagFromEventCommand.MESSAGE_USAGE));
         }
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-        Set<Tag> tags = ParserUtil.parseTags(tagPrefix.getValue(argMultimap).get());
+        Set<Tag> tags = ParserUtil.parseTags(argMultimap.getValue(tagPrefix).get());
         if (tags.isEmpty()) {
             throw new ParseException(MESSAGE_MISSING_TAG);
         }

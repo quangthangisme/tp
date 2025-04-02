@@ -44,6 +44,21 @@ public class ArgumentMultimap {
     }
 
     /**
+     * Gets the values of the value of either the long or short {@code prefix}.
+    */
+    public Optional<String> getValue(PrefixAlias prefixAlias) throws ParseException {
+        boolean isLong = arePrefixesPresent(prefixAlias.getLong());
+        boolean isShort = arePrefixesPresent(prefixAlias.getShort());
+        if (isLong && isShort) {
+            throw new ParseException(String.format("Cannot use both flags %s and %s",
+                    prefixAlias.getLong(), prefixAlias.getShort()
+                )
+            );
+        }
+        return isLong ? getValue(prefixAlias.getLong()) : getValue(prefixAlias.getShort());
+    }
+
+    /**
      * Returns all values of {@code prefix}.
      * If the prefix does not exist or has no values, this will return an empty list.
      * Modifying the returned list will not affect the underlying data structure of the ArgumentMultimap.
@@ -76,11 +91,14 @@ public class ArgumentMultimap {
         }
     }
 
-
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values.
      */
     public boolean arePrefixesPresent(Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> getValue(prefix).isPresent());
+    }
+
+    public boolean arePrefixAliasPresent(PrefixAlias prefixAlias) throws ParseException {
+        return getValue(prefixAlias).isPresent();
     }
 }

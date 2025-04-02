@@ -26,11 +26,8 @@ public class EventCliSyntax {
 }
 
 class NamePrefix extends PrefixAlias {
-    public NamePrefix(String commandWord) {
-        super(commandWord,
-                EventCliSyntax.PREFIX_EVENT_NAME_LONG,
-                EventCliSyntax.PREFIX_EVENT_NAME_SHORT
-        );
+    public NamePrefix() {
+        super(EventCliSyntax.PREFIX_EVENT_NAME_LONG, EventCliSyntax.PREFIX_EVENT_NAME_SHORT);
     }
 
     @Override
@@ -40,11 +37,8 @@ class NamePrefix extends PrefixAlias {
 }
 
 class StartPrefix extends PrefixAlias {
-    public StartPrefix(String commandWord) {
-        super(commandWord,
-                EventCliSyntax.PREFIX_EVENT_START_LONG,
-                EventCliSyntax.PREFIX_EVENT_START_SHORT
-        );
+    public StartPrefix() {
+        super(EventCliSyntax.PREFIX_EVENT_START_LONG, EventCliSyntax.PREFIX_EVENT_START_SHORT);
     }
 
     @Override
@@ -54,12 +48,10 @@ class StartPrefix extends PrefixAlias {
 }
 
 class EndPrefix extends PrefixAlias {
-    public EndPrefix(String commandWord) {
-        super(commandWord,
-                EventCliSyntax.PREFIX_EVENT_END_LONG,
-                EventCliSyntax.PREFIX_EVENT_END_SHORT
-        );
+    public EndPrefix() {
+        super(EventCliSyntax.PREFIX_EVENT_END_LONG, EventCliSyntax.PREFIX_EVENT_END_SHORT);
     }
+
     @Override
     public String toString() {
         return String.format("%s / %s", getLong(), getShort());
@@ -67,11 +59,8 @@ class EndPrefix extends PrefixAlias {
 }
 
 class LocationPrefix extends PrefixAlias {
-    public LocationPrefix(String commandWord) {
-        super(commandWord,
-                EventCliSyntax.PREFIX_EVENT_LOCATION_LONG,
-                EventCliSyntax.PREFIX_EVENT_LOCATION_SHORT
-        );
+    public LocationPrefix() {
+        super(EventCliSyntax.PREFIX_EVENT_LOCATION_LONG, EventCliSyntax.PREFIX_EVENT_LOCATION_SHORT);
     }
     @Override
     public String toString() {
@@ -80,11 +69,8 @@ class LocationPrefix extends PrefixAlias {
 }
 
 class TagPrefix extends PrefixAlias {
-    public TagPrefix(String commandWord) {
-        super(commandWord,
-                EventCliSyntax.PREFIX_EVENT_TAG_LONG,
-                EventCliSyntax.PREFIX_EVENT_TAG_SHORT
-        );
+    public TagPrefix() {
+        super(EventCliSyntax.PREFIX_EVENT_TAG_LONG, EventCliSyntax.PREFIX_EVENT_TAG_SHORT);
     }
     @Override
     public String toString() {
@@ -93,12 +79,10 @@ class TagPrefix extends PrefixAlias {
 }
 
 class ContactPrefix extends PrefixAlias {
-    public ContactPrefix(String commandWord) {
-        super(commandWord,
-                EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_LONG,
-                EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_SHORT
-        );
+    public ContactPrefix() {
+        super(EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_LONG, EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_SHORT);
     }
+
     @Override
     public String toString() {
         return String.format("%s / %s", getLong(), getShort());

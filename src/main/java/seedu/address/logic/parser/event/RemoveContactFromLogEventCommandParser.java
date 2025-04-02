@@ -7,7 +7,6 @@ import static seedu.address.logic.Messages.MESSAGE_MISSING_CONTACT_INDEX;
 import java.util.List;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.update.RemoveContactFromEventCommand;
 import seedu.address.logic.commands.update.RemoveContactFromLogEventCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
@@ -29,12 +28,12 @@ public class RemoveContactFromLogEventCommandParser implements Parser<RemoveCont
     @Override
     public RemoveContactFromLogEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ContactPrefix contactPrefix = new ContactPrefix(RemoveContactFromEventCommand.COMMAND_WORD);
+        ContactPrefix contactPrefix = new ContactPrefix();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, contactPrefix.getAll());
 
         // Ensure only one prefix is present
         argMultimap.verifyNoDuplicatePrefixesFor(contactPrefix.getAll());
-        if (contactPrefix.getValue(argMultimap).isEmpty() || argMultimap.getPreamble().isEmpty()) {
+        if (argMultimap.getValue(contactPrefix).isEmpty() || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveContactFromLogEventCommand.MESSAGE_USAGE));
         }
@@ -43,7 +42,7 @@ public class RemoveContactFromLogEventCommandParser implements Parser<RemoveCont
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         // Parse contact indices, duplicates are handled in parseIndices
-        List<Index> contactIndices = ParserUtil.parseIndices(contactPrefix.getValue(argMultimap).get());
+        List<Index> contactIndices = ParserUtil.parseIndices(argMultimap.getValue(contactPrefix).get());
 
         if (contactIndices.isEmpty()) {
             throw new ParseException(MESSAGE_MISSING_CONTACT_INDEX);

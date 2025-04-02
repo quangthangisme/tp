@@ -2,7 +2,6 @@ package seedu.address.logic.parser.event;
 
 import static seedu.address.logic.EventMessages.MESSAGE_NEGATIVE_DURATION;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG_LONG;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -33,11 +32,11 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
      * @throws ParseException if the user input does not conform the expected format.
      */
     public AddEventCommand parse(String args) throws ParseException {
-        NamePrefix namePrefix = new NamePrefix(AddEventCommand.COMMAND_WORD);
-        StartPrefix startPrefix = new StartPrefix(AddEventCommand.COMMAND_WORD);
-        EndPrefix endPrefix = new EndPrefix(AddEventCommand.COMMAND_WORD);
-        LocationPrefix locationPrefix = new LocationPrefix(AddEventCommand.COMMAND_WORD);
-        TagPrefix tagPrefix = new TagPrefix(AddEventCommand.COMMAND_WORD);
+        NamePrefix namePrefix = new NamePrefix();
+        StartPrefix startPrefix = new StartPrefix();
+        EndPrefix endPrefix = new EndPrefix();
+        LocationPrefix locationPrefix = new LocationPrefix();
+        TagPrefix tagPrefix = new TagPrefix();
         Prefix[] listOfPrefixes = Stream.of(
                 namePrefix.getAll(),
                 startPrefix.getAll(),
@@ -47,28 +46,27 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         ).flatMap(Arrays::stream).toArray(Prefix[]::new);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
 
-        if (namePrefix.getValue(argMultimap).isEmpty()
-                || startPrefix.getValue(argMultimap).isEmpty()
-                || endPrefix.getValue(argMultimap).isEmpty()
-                || locationPrefix.getValue(argMultimap).isEmpty()
+        if (argMultimap.getValue(namePrefix).isEmpty()
+                || argMultimap.getValue(startPrefix).isEmpty()
+                || argMultimap.getValue(endPrefix).isEmpty()
+                || argMultimap.getValue(locationPrefix).isEmpty()
                 || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddEventCommand.MESSAGE_USAGE));
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
-        Name name = EventParseUtil.parseName(namePrefix.getValue(argMultimap).get());
-        Datetime startTime = EventParseUtil.parseDateTime(startPrefix.getValue(argMultimap).get());
-        Datetime endTime = EventParseUtil.parseDateTime(endPrefix.getValue(argMultimap).get());
-        Location location = EventParseUtil.parseLocation(locationPrefix.getValue(argMultimap).get());
+        Name name = EventParseUtil.parseName(argMultimap.getValue(namePrefix).get());
+        Datetime startTime = EventParseUtil.parseDateTime(argMultimap.getValue(startPrefix).get());
+        Datetime endTime = EventParseUtil.parseDateTime(argMultimap.getValue(endPrefix).get());
+        Location location = EventParseUtil.parseLocation(argMultimap.getValue(locationPrefix).get());
         if (!startTime.isBefore(endTime)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MESSAGE_NEGATIVE_DURATION));
         }
         Set<Tag> tagSet = new HashSet<>();
-        if (argMultimap.arePrefixesPresent(tagPrefix.getLong())
-            || argMultimap.arePrefixesPresent(tagPrefix.getShort())) {
-            tagSet = ParserUtil.parseTags(argMultimap.getValue(PREFIX_EVENT_TAG_LONG).get());
+        if (argMultimap.arePrefixAliasPresent(tagPrefix)) {
+            tagSet = ParserUtil.parseTags(argMultimap.getValue(tagPrefix).get());
         }
 
         Event event = new Event(name, startTime, endTime, location, tagSet);

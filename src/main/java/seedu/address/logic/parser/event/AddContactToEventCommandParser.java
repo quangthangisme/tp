@@ -29,11 +29,11 @@ public class AddContactToEventCommandParser implements Parser<AddContactToEventC
     @Override
     public AddContactToEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ContactPrefix contactPrefix = new ContactPrefix(AddContactToEventCommand.COMMAND_WORD);
+        ContactPrefix contactPrefix = new ContactPrefix();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, contactPrefix.getAll());
 
         // Ensure only one prefix is present
-        if (contactPrefix.getValue(argMultimap).isEmpty() || argMultimap.getPreamble().isEmpty()) {
+        if (argMultimap.getValue(contactPrefix).isEmpty() || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddContactToEventCommand.MESSAGE_USAGE));
         }
@@ -41,7 +41,7 @@ public class AddContactToEventCommandParser implements Parser<AddContactToEventC
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         // Parse contact indices, duplicates are handled in parseIndices
-        String contactRaw = contactPrefix.getValue(argMultimap)
+        String contactRaw = argMultimap.getValue(contactPrefix)
                 .orElseThrow(() -> new ParseException(MESSAGE_MISSING_CONTACT_INDEX));
         List<Index> contactIndices = ParserUtil.parseIndices(contactRaw);
         if (contactIndices.isEmpty()) {

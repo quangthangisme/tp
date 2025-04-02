@@ -31,12 +31,12 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
      */
     public EditEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        NamePrefix namePrefix = new NamePrefix(EditEventCommand.COMMAND_WORD);
-        StartPrefix startPrefix = new StartPrefix(EditEventCommand.COMMAND_WORD);
-        EndPrefix endPrefix = new EndPrefix(EditEventCommand.COMMAND_WORD);
-        LocationPrefix locationPrefix = new LocationPrefix(EditEventCommand.COMMAND_WORD);
-        TagPrefix tagPrefix = new TagPrefix(EditEventCommand.COMMAND_WORD);
-        ContactPrefix contactPrefix = new ContactPrefix(EditEventCommand.COMMAND_WORD);
+        NamePrefix namePrefix = new NamePrefix();
+        StartPrefix startPrefix = new StartPrefix();
+        EndPrefix endPrefix = new EndPrefix();
+        LocationPrefix locationPrefix = new LocationPrefix();
+        TagPrefix tagPrefix = new TagPrefix();
+        ContactPrefix contactPrefix = new ContactPrefix();
         Prefix[] listOfPrefixes = Stream.of(
                 namePrefix.getAll(),
                 startPrefix.getAll(),
@@ -56,30 +56,30 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
 
         EditEventDescriptor editEventDescriptor = new EditEventDescriptor();
 
-        if (namePrefix.getValue(argMultimap).isPresent()) {
+        if (argMultimap.getValue(namePrefix).isPresent()) {
             editEventDescriptor.setName(
-                    EventParseUtil.parseName(namePrefix.getValue(argMultimap).get()));
+                    EventParseUtil.parseName(argMultimap.getValue(namePrefix).get()));
         }
-        if (startPrefix.getValue(argMultimap).isPresent()) {
+        if (argMultimap.getValue(startPrefix).isPresent()) {
             editEventDescriptor.setStartTime(
-                    EventParseUtil.parseDateTime(startPrefix.getValue(argMultimap).get()));
+                    EventParseUtil.parseDateTime(argMultimap.getValue(startPrefix).get()));
         }
-        if (endPrefix.getValue(argMultimap).isPresent()) {
+        if (argMultimap.getValue(endPrefix).isPresent()) {
             editEventDescriptor.setEndTime(
-                    EventParseUtil.parseDateTime(endPrefix.getValue(argMultimap).get()));
+                    EventParseUtil.parseDateTime(argMultimap.getValue(endPrefix).get()));
         }
-        if (locationPrefix.getValue(argMultimap).isPresent()) {
+        if (argMultimap.getValue(locationPrefix).isPresent()) {
             editEventDescriptor.setLocation(
-                    EventParseUtil.parseLocation(locationPrefix.getValue(argMultimap).get()));
+                    EventParseUtil.parseLocation(argMultimap.getValue(locationPrefix).get()));
         }
-        if (tagPrefix.getValue(argMultimap).isPresent()) {
+        if (argMultimap.getValue(tagPrefix).isPresent()) {
             editEventDescriptor.setTags(
-                    ParserUtil.parseTags(tagPrefix.getValue(argMultimap).get()));
+                    ParserUtil.parseTags(argMultimap.getValue(tagPrefix).get()));
         }
         List<Index> linkedContactIndices = List.of();
-        if (contactPrefix.getValue(argMultimap).isPresent()) {
+        if (argMultimap.getValue(contactPrefix).isPresent()) {
             linkedContactIndices =
-                    ParserUtil.parseIndices(contactPrefix.getValue(argMultimap).get());
+                    ParserUtil.parseIndices(argMultimap.getValue(contactPrefix).get());
             editEventDescriptor.setAttendance(new Attendance());
         }
 

@@ -22,12 +22,12 @@ public class RemoveContactFromEventCommandParser implements Parser<RemoveContact
     @Override
     public RemoveContactFromEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ContactPrefix contactPrefix = new ContactPrefix(RemoveContactFromEventCommand.COMMAND_WORD);
+        ContactPrefix contactPrefix = new ContactPrefix();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, contactPrefix.getAll());
 
         // Ensure only one prefix is present
         argMultimap.verifyNoDuplicatePrefixesFor(contactPrefix.getAll());
-        if (contactPrefix.getValue(argMultimap).isEmpty() || argMultimap.getPreamble().isEmpty()) {
+        if (argMultimap.getValue(contactPrefix).isEmpty() || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, RemoveContactFromEventCommand.MESSAGE_USAGE));
         }
@@ -36,7 +36,7 @@ public class RemoveContactFromEventCommandParser implements Parser<RemoveContact
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         // Parse contact indices, duplicates are handled in parseIndices
-        List<Index> contactIndices = ParserUtil.parseIndices(contactPrefix.getValue(argMultimap).get());
+        List<Index> contactIndices = ParserUtil.parseIndices(argMultimap.getValue(contactPrefix).get());
 
         // Check against empty and duplicate contact indices
         if (contactIndices.isEmpty()) {
