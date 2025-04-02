@@ -40,7 +40,7 @@ public abstract class PrefixAlias {
         boolean isShort = map.arePrefixesPresent(getShort());
         if (isLong && isShort) {
             throw new ParseException(String.format(
-                    "Cannot use both flags %s and %s for the flag: '%s'",
+                    "Cannot use both flags %s and %s for the command: '%s'",
                     getLong(), getShort(), commandName
                 )
             );
