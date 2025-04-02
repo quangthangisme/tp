@@ -1,10 +1,22 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_END_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG_LONG;
+
+import java.util.List;
+
+import seedu.address.commons.core.Operator;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.update.EditContactDescriptor;
+import seedu.address.model.Model;
+import seedu.address.model.event.Event;
+import seedu.address.model.item.predicate.NamePredicate;
+import seedu.address.testutil.EditContactDescriptorBuilder;
 
 /**
  * Contains helper methods for testing event commands.
@@ -45,5 +57,20 @@ public class EventCommandTestUtil {
     // * not allowed
     public static final String INVALID_EVENT_TAG_DESC = " " + PREFIX_EVENT_TAG_LONG + "hubby*";
 
+    /**
+     * Updates {@code model}'s filtered list to show only the event at the given {@code targetIndex} in the
+     * {@code model}'s event list.
+     */
+    public static void showEventAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased()
+                < model.getEventManagerAndList().getFilteredItemsList().size());
 
+        Event event = model.getEventManagerAndList().getFilteredItemsList()
+                .get(targetIndex.getZeroBased());
+        final String[] splitName = event.getName().value.split("\\s+");
+        model.getEventManagerAndList()
+                .updateFilteredItemsList(new NamePredicate(Operator.AND, List.of(splitName[0])));
+
+        assertEquals(1, model.getEventManagerAndList().getFilteredItemsList().size());
+    }
 }

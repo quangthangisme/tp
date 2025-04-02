@@ -1,9 +1,21 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
+
+import java.util.List;
+
+import seedu.address.commons.core.Operator;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.update.EditContactDescriptor;
+import seedu.address.model.Model;
+import seedu.address.model.todo.Todo;
+import seedu.address.model.item.predicate.NamePredicate;
+import seedu.address.testutil.EditContactDescriptorBuilder;
 
 /**
  * Contains helper methods for testing todo commands.
@@ -39,4 +51,23 @@ public class TodoCommandTestUtil {
     public static final String INVALID_TODO_LOCATION_DESC = " " + PREFIX_TODO_LOCATION_LONG + "";
     // * not allowed
     public static final String INVALID_TAG_TODO = " " + PREFIX_TODO_TAG_LONG + "too*";
+
+
+
+    /**
+     * Updates {@code model}'s filtered list to show only the todo at the given {@code targetIndex} in the
+     * {@code model}'s todo list.
+     */
+    public static void showTodoAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased()
+                < model.getTodoManagerAndList().getFilteredItemsList().size());
+
+        Todo todo = model.getTodoManagerAndList().getFilteredItemsList()
+                .get(targetIndex.getZeroBased());
+        final String[] splitName = todo.getName().value.split("\\s+");
+        model.getTodoManagerAndList()
+                .updateFilteredItemsList(new NamePredicate(Operator.AND, List.of(splitName[0])));
+
+        assertEquals(1, model.getTodoManagerAndList().getFilteredItemsList().size());
+    }
 }
