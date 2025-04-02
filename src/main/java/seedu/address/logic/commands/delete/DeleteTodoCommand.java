@@ -15,7 +15,8 @@ public class DeleteTodoCommand extends DeleteCommand<Todo> {
 
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Deletes the todo identified by the index number used in the displayed todo list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX\n"
+            + "INDEX must be a positive integer.\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_DELETE_TODO_SUCCESS = "Deleted todo: %1$s";

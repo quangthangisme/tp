@@ -26,7 +26,8 @@ public class AddContactToTodoCommand extends EditTodoCommand {
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Associate a todo with some contacts.\n"
             + "Parameters: INDEX "
-            + PREFIX_TODO_LINKED_CONTACT_LONG + " [CONTACT_INDEX]...\n"
+            + PREFIX_TODO_LINKED_CONTACT_LONG + " [CONTACT_INDEX/INDICES]\n"
+            + "INDEX must be a positive integer.\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_TODO_LINKED_CONTACT_LONG + " 1 3 4";
 

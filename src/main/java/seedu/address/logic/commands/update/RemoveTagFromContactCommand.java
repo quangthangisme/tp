@@ -22,9 +22,10 @@ public class RemoveTagFromContactCommand extends EditContactCommand {
 
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Removes a tag from a specified contact.\n"
-            + "Parameters: INDEX " + PREFIX_CONTACT_TAG_LONG + " <tag>\n"
+            + "Parameters: INDEX " + PREFIX_CONTACT_TAG_LONG + " TAG(S)\n"
+            + "INDEX must be a positive integer.\n"
             + "Example: " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_CONTACT_TAG_LONG + " TA";
+            + PREFIX_CONTACT_TAG_LONG + " TA driver";
 
     public static final String MESSAGE_REMOVE_TAG_SUCCESS = "Removed tag from contact: %1$s";
     public static final String MESSAGE_TAG_NOT_FOUND = "The tag is not assigned to this contact";

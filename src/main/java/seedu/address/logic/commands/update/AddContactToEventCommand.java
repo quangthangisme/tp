@@ -24,7 +24,8 @@ public class AddContactToEventCommand extends EditEventCommand {
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Associate an event with some contacts.\n"
             + "Parameters: INDEX "
-            + PREFIX_EVENT_LINKED_CONTACT_LONG + " [CONTACT_INDEX]...\n"
+            + PREFIX_EVENT_LINKED_CONTACT_LONG + " [CONTACT_INDEX/INDICES]\n"
+            + "INDEX must be a positive integer.\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_EVENT_LINKED_CONTACT_LONG + " 1 3 4";
     public static final String MESSAGE_ADD_CONTACT_SUCCESS = "Added contacts to event: %1$s";
