@@ -1,6 +1,7 @@
-package seedu.address.ui;
+package seedu.address.ui.card;
 
 import seedu.address.model.todo.Todo;
+import seedu.address.ui.UiPart;
 
 public class TodoCardFactory implements CardFactory<Todo> {
     @Override

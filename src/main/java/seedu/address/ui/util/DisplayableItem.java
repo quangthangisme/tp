@@ -1,4 +1,6 @@
-package seedu.address.ui;
+package seedu.address.ui.util;
+
+import seedu.address.ui.UiPart;
 
 /**
  * Represents an item that can be displayed in the UI list.

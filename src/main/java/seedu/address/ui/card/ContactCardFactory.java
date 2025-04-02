@@ -1,6 +1,7 @@
-package seedu.address.ui;
+package seedu.address.ui.card;
 
 import seedu.address.model.contact.Contact;
+import seedu.address.ui.UiPart;
 
 public class ContactCardFactory implements CardFactory<Contact> {
     @Override

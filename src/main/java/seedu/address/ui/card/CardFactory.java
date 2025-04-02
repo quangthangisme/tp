@@ -1,4 +1,6 @@
-package seedu.address.ui;
+package seedu.address.ui.card;
+
+import seedu.address.ui.UiPart;
 
 /**
  * Factory for creating display cards for different entity types.

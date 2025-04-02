@@ -23,6 +23,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.todo.Todo;
+import seedu.address.ui.util.DisplayableItem;
+import seedu.address.ui.util.ListConverter;
 
 /**
  * The Main Window. Provides the basic application layout.

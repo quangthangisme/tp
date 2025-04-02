@@ -1,6 +1,8 @@
-package seedu.address.ui;
+package seedu.address.ui.util;
 
 import seedu.address.model.todo.Todo;
+import seedu.address.ui.UiPart;
+import seedu.address.ui.card.CardFactory;
 
 public class TodoAdapter implements DisplayableItem {
     private final Todo todo;

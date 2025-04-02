@@ -1,10 +1,13 @@
-package seedu.address.ui;
+package seedu.address.ui.util;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.todo.Todo;
+import seedu.address.ui.card.ContactCardFactory;
+import seedu.address.ui.card.EventCardFactory;
+import seedu.address.ui.card.TodoCardFactory;
 
 import java.util.stream.Collectors;
 

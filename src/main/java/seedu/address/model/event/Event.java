@@ -14,8 +14,8 @@ import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
-import seedu.address.ui.DisplayableItem;
-import seedu.address.ui.EventCard;
+import seedu.address.ui.util.DisplayableItem;
+import seedu.address.ui.card.EventCard;
 import seedu.address.ui.UiPart;
 
 /**

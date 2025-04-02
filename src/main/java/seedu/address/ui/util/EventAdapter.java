@@ -1,6 +1,8 @@
-package seedu.address.ui;
+package seedu.address.ui.util;
 
 import seedu.address.model.event.Event;
+import seedu.address.ui.UiPart;
+import seedu.address.ui.card.CardFactory;
 
 /**
  * Adapter for Event objects to implement DisplayableItem interface.

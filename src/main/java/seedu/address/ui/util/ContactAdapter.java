@@ -1,6 +1,8 @@
-package seedu.address.ui;
+package seedu.address.ui.util;
 
 import seedu.address.model.contact.Contact;
+import seedu.address.ui.UiPart;
+import seedu.address.ui.card.CardFactory;
 
 /**
  * Adapter for Contact objects to implement DisplayableItem interface.
