@@ -1,7 +1,7 @@
 package seedu.address.ui;
 
-import java.util.ArrayDeque;
-import java.util.Deque;
+import java.util.ArrayList;
+import java.util.List;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,8 +23,8 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
 
-    private final Deque<String> commandHistory;
-    private final Deque<String> forwardHistory;
+    private final List<String> previousCommands;
+    private int currentCommandIndex;
 
     @FXML
     private TextField commandTextField;
@@ -36,8 +36,8 @@ public class CommandBox extends UiPart<Region> {
         super(FXML);
         this.commandExecutor = commandExecutor;
 
-        this.commandHistory = new ArrayDeque<>();
-        this.forwardHistory = new ArrayDeque<>();
+        previousCommands = new ArrayList<>();
+        currentCommandIndex = -1;
 
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
@@ -49,39 +49,42 @@ public class CommandBox extends UiPart<Region> {
      */
     private void handleKeyPress(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.UP) {
-            navigateCommandHistory(true);
+            displayPreviousCommand();
             keyEvent.consume();
         } else if (keyEvent.getCode() == KeyCode.DOWN) {
-            navigateCommandHistory(false);
+            displayNextCommand();
             keyEvent.consume();
         }
     }
 
     /**
-     * Navigates through command history.
-     * @param isUp true to navigate up (older), false to navigate down (newer)
+     * Displays the previous command if it exists.
      */
-    private void navigateCommandHistory(boolean isUp) {
-        if (isUp) {
-            if (!commandHistory.isEmpty()) {
-                forwardHistory.push(commandTextField.getText());
-
-                String previousCommand = commandHistory.pop();
-                commandTextField.setText(previousCommand);
-                commandTextField.positionCaret(previousCommand.length());
-            }
-        } else {
-            if (!forwardHistory.isEmpty()) {
-                if (!commandTextField.getText().isEmpty()) {
-                    commandHistory.push(commandTextField.getText());
-                }
-
-                String nextCommand = forwardHistory.pop();
-                commandTextField.setText(nextCommand);
-                commandTextField.positionCaret(nextCommand.length());
-            }
+    private void displayPreviousCommand() {
+        // Check if there is a previous command
+        if (currentCommandIndex - 1 < 0) {
+            return;
         }
+        // Shift back and display
+        currentCommandIndex--;
+        String previousCommand = previousCommands.get(currentCommandIndex);
+        commandTextField.setText(previousCommand);
+        commandTextField.positionCaret(previousCommand.length());
+    }
 
+    /**
+     * Displays the next command if it exists.
+     */
+    private void displayNextCommand() {
+        // Check if there is a next command
+        if (currentCommandIndex + 1 >= previousCommands.size()) {
+            return;
+        }
+        // Shift forward and display
+        currentCommandIndex++;
+        String nextCommand = previousCommands.get(currentCommandIndex);
+        commandTextField.setText(nextCommand);
+        commandTextField.positionCaret(nextCommand.length());
     }
 
     /**
@@ -89,19 +92,17 @@ public class CommandBox extends UiPart<Region> {
      */
     @FXML
     private void handleCommandEntered() {
-        String commandText = commandTextField.getText();
-        if (commandText.equals("")) {
+        String commandText = commandTextField.getText().trim();
+        if (commandText.isEmpty()) {
             return;
         }
-
         try {
-            if (!commandText.trim().isEmpty()) {
-                commandHistory.push(commandText);
-            }
+            // Add the current command and set index to end
+            previousCommands.add(commandText);
+            currentCommandIndex = previousCommands.size() - 1;
 
+            // Execute the command and clear the command box
             commandExecutor.execute(commandText);
-
-            forwardHistory.clear();
             commandTextField.setText("");
         } catch (CommandException | ParseException e) {
             setStyleToIndicateCommandFailure();
