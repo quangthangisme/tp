@@ -18,6 +18,7 @@ public class MarkTodoAsNotDoneCommand extends EditTodoCommand {
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Mark a todo as not done.\n"
             + "Parameters: INDEX\n"
+            + "INDEX must be a positive integer.\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 ";
 
     public static final String MESSAGE_TODO_ALREADY_NOT_DONE =

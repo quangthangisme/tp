@@ -48,6 +48,8 @@ public class EditTodoCommand extends EditCommand<Todo> {
             + "[" + PREFIX_TODO_LINKED_CONTACT_LONG + " CONTACT_INDEX/INDICES] "
             + "[" + PREFIX_TODO_LOCATION_LONG + " LOCATION] "
             + "[" + PREFIX_TODO_TAG_LONG + " TAG(S)]\n"
+            + "INDEX must be a positive integer.\n"
+            + "CONTACT_INDEX is based on the list displayed on the right.\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
             + PREFIX_TODO_NAME_LONG + " Complete project\n";
 

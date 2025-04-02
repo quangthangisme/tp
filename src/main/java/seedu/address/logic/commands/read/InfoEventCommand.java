@@ -16,7 +16,8 @@ public class InfoEventCommand extends InfoCommand<Event> {
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Displays the complete information belonging to the event"
             + " identified by the index number used in the displayed event list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX\n"
+            + "INDEX must be a positive integer.\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1";
 
     public static final String MESSAGE_INFO_EVENT_SUCCESS = "Displaying full information of event!\n%1$s";
