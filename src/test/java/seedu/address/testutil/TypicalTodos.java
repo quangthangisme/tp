@@ -5,6 +5,7 @@ import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_LOCATION_GR
 import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_LOCATION_REPORT;
 import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_NAME_GRADING;
 import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_NAME_REPORT;
+import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_TAG_REPORT;
 
 import seedu.address.model.todo.Todo;
 
@@ -19,5 +20,6 @@ public class TypicalTodos {
     public static final Todo REPORT = new TodoBuilder()
             .withName(VALID_NAME_REPORT)
             .withDeadline(VALID_DEADLINE_GRADING)
-            .withLocation(VALID_LOCATION_REPORT).build();
+            .withLocation(VALID_LOCATION_REPORT)
+            .withTags(VALID_TAG_REPORT).build();
 }

@@ -1,7 +1,7 @@
 package seedu.address.logic.commands.read;
 
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
+import static seedu.address.logic.commands.ContactCommandTestUtil.showContactAtIndex;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 

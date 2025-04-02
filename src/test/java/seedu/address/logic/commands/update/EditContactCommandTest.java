@@ -3,13 +3,13 @@ package seedu.address.logic.commands.update;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_AMY;
-import static seedu.address.logic.commands.CommandTestUtil.DESC_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_NAME_BOB;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.CommandTestUtil.showContactAtIndex;
+import static seedu.address.logic.commands.ContactCommandTestUtil.DESC_AMY;
+import static seedu.address.logic.commands.ContactCommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_NAME_BOB;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_TAG_HUSBAND;
+import static seedu.address.logic.commands.ContactCommandTestUtil.showContactAtIndex;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND;
@@ -68,7 +68,7 @@ public class EditContactCommandTest {
         );
         expectedModel.getContactManagerAndList()
                 .setItem(model.getContactManagerAndList().getFilteredItemsList().get(0),
-                    editedContact);
+                        editedContact);
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }
