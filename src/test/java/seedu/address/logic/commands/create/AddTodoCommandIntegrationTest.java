@@ -3,6 +3,7 @@ package seedu.address.logic.commands.create;
 import static seedu.address.logic.TodoMessages.MESSAGE_DUPLICATE_TODO;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.TodoCommandTestUtil.showTodo;
 import static seedu.address.testutil.TypicalTodos.GRADING;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -67,6 +68,30 @@ public class AddTodoCommandIntegrationTest {
         Todo todoInList = model.getTodoManagerAndList().getItemManager().getItemList().get(0);
         assertCommandFailure(new AddTodoCommand(todoInList), model,
                 MESSAGE_DUPLICATE_TODO);
+    }
+
+    @Test
+    public void execute_filteredList_success() {
+        Todo validTodo = new TodoBuilder().build();
+        model.getTodoManagerAndList().updateFilteredItemsList(unused -> false);
+
+        Model expectedModel = new ModelManager(
+                new UserPrefs(),
+                new ContactManagerWithFilteredList(
+                        new ContactManager(model.getContactManagerAndList().getItemManager())
+                ),
+                new TodoManagerWithFilteredList(
+                        new TodoManager(model.getTodoManagerAndList().getItemManager())
+                ),
+                new EventManagerWithFilteredList(
+                        new EventManager(model.getEventManagerAndList().getItemManager())
+                )
+        );
+        expectedModel.getTodoManagerAndList().addItem(validTodo);
+        showTodo(expectedModel, validTodo);
+        assertCommandSuccess(new AddTodoCommand(validTodo), model,
+                String.format(AddTodoCommand.MESSAGE_SUCCESS, Messages.format(validTodo)),
+                expectedModel);
     }
 
 }

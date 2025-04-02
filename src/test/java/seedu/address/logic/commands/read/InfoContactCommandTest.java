@@ -57,7 +57,9 @@ public class InfoContactCommandTest {
         Index outOfBoundIndex = Index.fromOneBased(model.getContactManagerAndList()
                 .getFilteredItemsList().size() + 1);
         InfoContactCommand infoCommand = new InfoContactCommand(outOfBoundIndex);
-        assertCommandFailure(infoCommand, model, ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT);
+        assertCommandFailure(infoCommand, model,
+                String.format(ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT,
+                        outOfBoundIndex.getOneBased()));
     }
 
     @Test
@@ -79,7 +81,9 @@ public class InfoContactCommandTest {
         assertTrue(outOfBoundIndex.getZeroBased() < model.getContactManagerAndList().getItemManager()
                 .getItemList().size());
         InfoContactCommand infoCommand = new InfoContactCommand(outOfBoundIndex);
-        assertCommandFailure(infoCommand, model, ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT);
+        assertCommandFailure(infoCommand, model,
+                String.format(ContactMessages.MESSAGE_INDEX_OUT_OF_RANGE_CONTACT,
+                        outOfBoundIndex.getOneBased()));
     }
 
     @Test

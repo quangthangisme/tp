@@ -1,11 +1,17 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_END_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.Model;
+import seedu.address.model.event.Event;
 
 /**
  * Contains helper methods for testing event commands.
@@ -55,4 +61,29 @@ public class EventCommandTestUtil {
     public static final String INVALID_EVENT_LINKED_CONTACT_INDEX = "yay";
     public static final String INVALID_EVENT_LINKED_CONTACT_DESC =
             " " + PREFIX_TODO_LINKED_CONTACT_LONG + INVALID_EVENT_LINKED_CONTACT_INDEX;
+
+    /**
+     * Updates {@code model}'s filtered list to show only the event at the given {@code targetIndex}
+     * in the {@code model}'s address book.
+     */
+    public static void showEventAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased()
+                < model.getEventManagerAndList().getFilteredItemsList().size());
+
+        Event event = model.getEventManagerAndList().getFilteredItemsList()
+                .get(targetIndex.getZeroBased());
+
+        model.getEventManagerAndList()
+                .updateFilteredItemsList(event::equals);
+
+        assertEquals(1, model.getEventManagerAndList().getFilteredItemsList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the event.
+     */
+    public static void showEvent(Model model, Event event) {
+        model.getEventManagerAndList().updateFilteredItemsList(event::equals);
+        assertEquals(1, model.getEventManagerAndList().getFilteredItemsList().size());
+    }
 }

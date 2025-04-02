@@ -98,6 +98,14 @@ public class TodoBuilder {
     }
 
     /**
+     * Sets the {@code List<Contact>} of the {@code Todo} that we are building.
+     */
+    public TodoBuilder withContacts(Contact... contacts) {
+        this.contacts = List.of(contacts);
+        return this;
+    }
+
+    /**
      * Parses the {@code tags} into a {@code Set<Tag>} and set it to the {@code Todo} that we are
      * building.
      */

@@ -3,6 +3,7 @@ package seedu.address.logic.commands.create;
 import static seedu.address.logic.EventMessages.MESSAGE_DUPLICATE_EVENT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.EventCommandTestUtil.showEvent;
 import static seedu.address.testutil.TypicalEvents.CRYING;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -67,6 +68,30 @@ public class AddEventCommandIntegrationTest {
         Event eventInList = model.getEventManagerAndList().getItemManager().getItemList().get(0);
         assertCommandFailure(new AddEventCommand(eventInList), model,
                 MESSAGE_DUPLICATE_EVENT);
+    }
+
+    @Test
+    public void execute_filteredList_success() {
+        Event validEvent = new EventBuilder().build();
+        model.getEventManagerAndList().updateFilteredItemsList(unused -> false);
+
+        Model expectedModel = new ModelManager(
+                new UserPrefs(),
+                new ContactManagerWithFilteredList(
+                        new ContactManager(model.getContactManagerAndList().getItemManager())
+                ),
+                new TodoManagerWithFilteredList(
+                        new TodoManager(model.getTodoManagerAndList().getItemManager())
+                ),
+                new EventManagerWithFilteredList(
+                        new EventManager(model.getEventManagerAndList().getItemManager())
+                )
+        );
+        expectedModel.getEventManagerAndList().addItem(validEvent);
+        showEvent(expectedModel, validEvent);
+        assertCommandSuccess(new AddEventCommand(validEvent), model,
+                String.format(AddEventCommand.MESSAGE_SUCCESS, Messages.format(validEvent)),
+                expectedModel);
     }
 
 }

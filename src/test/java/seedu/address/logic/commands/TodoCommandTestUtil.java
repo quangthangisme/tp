@@ -1,11 +1,17 @@
 package seedu.address.logic.commands;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.model.Model;
+import seedu.address.model.todo.Todo;
 
 /**
  * Contains helper methods for testing todo commands.
@@ -53,4 +59,27 @@ public class TodoCommandTestUtil {
     public static final String INVALID_TODO_STATUS = "lolxd";
     public static final String INVALID_TODO_STATUS_DESC =
             " " + PREFIX_TODO_STATUS_LONG + INVALID_TODO_STATUS;
+
+    /**
+     * Updates {@code model}'s filtered list to show only the todo at the given {@code targetIndex}
+     * in the {@code model}'s address book.
+     */
+    public static void showTodoAtIndex(Model model, Index targetIndex) {
+        assertTrue(targetIndex.getZeroBased()
+                < model.getTodoManagerAndList().getFilteredItemsList().size());
+
+        Todo todo = model.getTodoManagerAndList().getFilteredItemsList()
+                .get(targetIndex.getZeroBased());
+        model.getTodoManagerAndList().updateFilteredItemsList(todo::equals);
+
+        assertEquals(1, model.getTodoManagerAndList().getFilteredItemsList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the todo.
+     */
+    public static void showTodo(Model model, Todo todo) {
+        model.getTodoManagerAndList().updateFilteredItemsList(todo::equals);
+        assertEquals(1, model.getTodoManagerAndList().getFilteredItemsList().size());
+    }
 }

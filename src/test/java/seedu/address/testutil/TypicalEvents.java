@@ -15,12 +15,23 @@ import static seedu.address.testutil.TypicalContacts.ALICE;
 import static seedu.address.testutil.TypicalContacts.CARL;
 
 import seedu.address.model.event.Event;
-
 /**
  * A utility class containing a list of {@code Contact} objects to be used in tests.
  */
 public class TypicalEvents {
     // Examples. You should add mmore on your own.
+
+    public static final Event STUFF_EVENT = new EventBuilder()
+            .withName("stuff")
+            .withStart("28-02-28 23:29")
+            .withEnd("28-02-29 23:29")
+            .withLocation("NUS").build();
+
+    public static final Event STUFF_EVENT_2 = new EventBuilder()
+            .withName("stuff2")
+            .withStart("28-02-28 23:29")
+            .withEnd("28-02-29 23:29")
+            .withLocation("NUS").build();
 
     public static final Event CRYING = new EventBuilder()
             .withName(VALID_NAME_CRYING)

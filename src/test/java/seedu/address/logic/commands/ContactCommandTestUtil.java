@@ -9,14 +9,10 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_NAME_LONG;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_LONG;
 
-import java.util.List;
-
-import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.update.EditContactDescriptor;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.item.predicate.NamePredicate;
 import seedu.address.testutil.EditContactDescriptorBuilder;
 
 /**
@@ -88,10 +84,16 @@ public class ContactCommandTestUtil {
 
         Contact contact = model.getContactManagerAndList().getFilteredItemsList()
                 .get(targetIndex.getZeroBased());
-        final String[] splitName = contact.getName().value.split("\\s+");
-        model.getContactManagerAndList()
-                .updateFilteredItemsList(new NamePredicate(Operator.AND, List.of(splitName[0])));
+        model.getContactManagerAndList().updateFilteredItemsList(contact::equals);
 
+        assertEquals(1, model.getContactManagerAndList().getFilteredItemsList().size());
+    }
+
+    /**
+     * Updates {@code model}'s filtered list to show only the contact.
+     */
+    public static void showContact(Model model, Contact contact) {
+        model.getContactManagerAndList().updateFilteredItemsList(contact::equals);
         assertEquals(1, model.getContactManagerAndList().getFilteredItemsList().size());
     }
 }

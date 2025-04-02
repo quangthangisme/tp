@@ -15,6 +15,16 @@ import seedu.address.model.todo.Todo;
  * A utility class containing a list of {@code Todo} objects to be used in tests.
  */
 public class TypicalTodos {
+    public static final Todo STUFF = new TodoBuilder()
+            .withName("stuff")
+            .withDeadline("28-02-29 23:29")
+            .withLocation("NUS").build();
+
+    public static final Todo STUFF_2 = new TodoBuilder()
+            .withName("stuff2")
+            .withDeadline("28-02-29 23:29")
+            .withLocation("NUS").build();
+
     public static final Todo GRADING = new TodoBuilder()
             .withName(VALID_NAME_GRADING)
             .withDeadline(VALID_DEADLINE_GRADING)
