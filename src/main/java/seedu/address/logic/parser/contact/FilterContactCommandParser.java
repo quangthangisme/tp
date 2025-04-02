@@ -83,7 +83,9 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
     private ContactColumn getColumnFromPrefix(Prefix prefix) throws ParseException {
         String prefixStr = prefix.getPrefix();
 
-        if (prefixStr.equals(PREFIX_CONTACT_NAME_LONG.getPrefix())) {
+        if (prefixStr.equals(PREFIX_CONTACT_ID_LONG.getPrefix())) {
+            return ContactColumn.ID;
+        } else if (prefixStr.equals(PREFIX_CONTACT_NAME_LONG.getPrefix())) {
             return ContactColumn.NAME;
         } else if (prefixStr.equals(PREFIX_CONTACT_EMAIL_LONG.getPrefix())) {
             return ContactColumn.EMAIL;
