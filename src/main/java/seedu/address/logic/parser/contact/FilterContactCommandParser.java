@@ -7,10 +7,13 @@ import static seedu.address.logic.Messages.MESSAGE_NO_VALUES;
 import static seedu.address.logic.Messages.MESSAGE_UNRECOGNIZED_COLUMN;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_COURSE_LONG;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_EMAIL_LONG;
+import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_EMAIL_SHORT;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_GROUP_LONG;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_ID_LONG;
+import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_GROUP_SHORT;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_NAME_LONG;
+import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_NAME_SHORT;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_LONG;
+import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_SHORT;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,6 +27,8 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.PrefixAlias;
+import seedu.address.logic.parser.PrefixAliasListBuilder;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.ColumnPredicate;
 import seedu.address.model.contact.ContactColumn;
@@ -47,21 +52,22 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     FilterContactCommand.MESSAGE_USAGE));
         }
+        PrefixAlias namePrefix = ContactCliAlias.CONTACT_NAME_PREFIX_ALIAS;
+        PrefixAlias emailPrefix = ContactCliAlias.CONTACT_EMAIL_PREFIX_ALIAS;
+        PrefixAlias idPrefix = ContactCliAlias.CONTACT_ID_PREFIX_ALIAS;
+        PrefixAlias coursePrefix = ContactCliAlias.CONTACT_COURSE_PREFIX_ALIAS;
+        PrefixAlias groupPrefix = ContactCliAlias.CONTACT_GROUP_PREFIX_ALIAS;
+        PrefixAlias tagPrefix = ContactCliAlias.CONTACT_TAG_PREFIX_ALIAS;
+        Prefix[] listOPrefixes = new PrefixAliasListBuilder()
+                .add(namePrefix, emailPrefix, idPrefix, coursePrefix, groupPrefix, tagPrefix)
+                .toArray();
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOPrefixes);
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_NAME_LONG,
-                PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_COURSE_LONG,
-                PREFIX_CONTACT_GROUP_LONG, PREFIX_CONTACT_TAG_LONG);
-
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CONTACT_NAME_LONG,
-                PREFIX_CONTACT_EMAIL_LONG,
-                PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG,
-                PREFIX_CONTACT_TAG_LONG);
+        argMultimap.verifyNoDuplicatePrefixesFor(listOPrefixes);
 
         Map<ContactColumn, ColumnPredicate> filterCriteriaMap = new HashMap<>();
 
-        List<Prefix> allPrefixes = List.of(PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG,
-                PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG,
-                PREFIX_CONTACT_TAG_LONG);
+        List<Prefix> allPrefixes = List.of(listOPrefixes);
 
         parsePrefixes(allPrefixes, argMultimap, filterCriteriaMap);
 
@@ -83,15 +89,20 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
     private ContactColumn getColumnFromPrefix(Prefix prefix) throws ParseException {
         String prefixStr = prefix.getPrefix();
 
-        if (prefixStr.equals(PREFIX_CONTACT_NAME_LONG.getPrefix())) {
+        if (prefixStr.equals(PREFIX_CONTACT_NAME_LONG.getPrefix())
+                || prefixStr.equals(PREFIX_CONTACT_NAME_SHORT.getPrefix())) {
             return ContactColumn.NAME;
-        } else if (prefixStr.equals(PREFIX_CONTACT_EMAIL_LONG.getPrefix())) {
+        } else if (prefixStr.equals(PREFIX_CONTACT_EMAIL_LONG.getPrefix())
+                || prefixStr.equals(PREFIX_CONTACT_EMAIL_SHORT.getPrefix())) {
             return ContactColumn.EMAIL;
-        } else if (prefixStr.equals(PREFIX_CONTACT_TAG_LONG.getPrefix())) {
+        } else if (prefixStr.equals(PREFIX_CONTACT_TAG_LONG.getPrefix())
+                || prefixStr.equals(PREFIX_CONTACT_TAG_SHORT.getPrefix())) {
             return ContactColumn.TAG;
-        } else if (prefixStr.equals(PREFIX_CONTACT_COURSE_LONG.getPrefix())) {
+        } else if (prefixStr.equals(PREFIX_CONTACT_COURSE_LONG.getPrefix())
+                || prefixStr.equals(PREFIX_CONTACT_COURSE_LONG.getPrefix())) {
             return ContactColumn.COURSE;
-        } else if (prefixStr.equals(PREFIX_CONTACT_GROUP_LONG.getPrefix())) {
+        } else if (prefixStr.equals(PREFIX_CONTACT_GROUP_LONG.getPrefix())
+                || prefixStr.equals(PREFIX_CONTACT_GROUP_SHORT.getPrefix())) {
             return ContactColumn.GROUP;
         } else {
             throw new ParseException(String.format(MESSAGE_UNRECOGNIZED_COLUMN, prefixStr));

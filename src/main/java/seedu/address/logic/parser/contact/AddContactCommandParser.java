@@ -1,12 +1,6 @@
 package seedu.address.logic.parser.contact;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_COURSE_LONG;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_EMAIL_LONG;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_GROUP_LONG;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_ID_LONG;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_NAME_LONG;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_LONG;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -16,6 +10,9 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.PrefixAlias;
+import seedu.address.logic.parser.PrefixAliasListBuilder;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Course;
@@ -37,28 +34,37 @@ public class AddContactCommandParser implements Parser<AddContactCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddContactCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_ID_LONG,
-                PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_TAG_LONG,
-                PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG);
+        PrefixAlias idPrefix = ContactCliAlias.CONTACT_ID_PREFIX_ALIAS;
+        PrefixAlias namePrefix = ContactCliAlias.CONTACT_NAME_PREFIX_ALIAS;
+        PrefixAlias emailPrefix = ContactCliAlias.CONTACT_EMAIL_PREFIX_ALIAS;
+        PrefixAlias tagPrefix = ContactCliAlias.CONTACT_TAG_PREFIX_ALIAS;
+        PrefixAlias coursePrefix = ContactCliAlias.CONTACT_COURSE_PREFIX_ALIAS;
+        PrefixAlias groupPrefix = ContactCliAlias.CONTACT_GROUP_PREFIX_ALIAS;
+        Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
+                .add(idPrefix, namePrefix, emailPrefix, tagPrefix, coursePrefix, groupPrefix)
+                .toArray();
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_NAME_LONG,
-                PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG)
+        if (!argMultimap.arePrefixAliasPresent(idPrefix)
+                || !argMultimap.arePrefixAliasPresent(namePrefix)
+                || !argMultimap.arePrefixAliasPresent(emailPrefix)
+                || !argMultimap.arePrefixAliasPresent(coursePrefix)
+                || !argMultimap.arePrefixAliasPresent(groupPrefix)
                 || !argMultimap.getPreamble().isEmpty()) {
+
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddContactCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_NAME_LONG,
-                PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG,
-                PREFIX_CONTACT_TAG_LONG);
-        Id id = ContactParserUtil.parseId(argMultimap.getValue(PREFIX_CONTACT_ID_LONG).get());
-        Name name = ContactParserUtil.parseName(argMultimap.getValue(PREFIX_CONTACT_NAME_LONG).get());
-        Email email = ContactParserUtil.parseEmail(argMultimap.getValue(PREFIX_CONTACT_EMAIL_LONG).get());
-        Course course = ContactParserUtil.parseCourse(argMultimap.getValue(PREFIX_CONTACT_COURSE_LONG).get());
-        Group group = ContactParserUtil.parseGroup(argMultimap.getValue(PREFIX_CONTACT_GROUP_LONG).get());
+        argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
+        Id id = ContactParserUtil.parseId(argMultimap.getValue(idPrefix).get());
+        Name name = ContactParserUtil.parseName(argMultimap.getValue(namePrefix).get());
+        Email email = ContactParserUtil.parseEmail(argMultimap.getValue(emailPrefix).get());
+        Course course = ContactParserUtil.parseCourse(argMultimap.getValue(coursePrefix).get());
+        Group group = ContactParserUtil.parseGroup(argMultimap.getValue(groupPrefix).get());
         Set<Tag> tagSet = new HashSet<>();
-        if (argMultimap.arePrefixesPresent(PREFIX_CONTACT_TAG_LONG)) {
-            tagSet = ParserUtil.parseTags(argMultimap.getValue(PREFIX_CONTACT_TAG_LONG).get());
+        if (argMultimap.arePrefixAliasPresent(tagPrefix)) {
+            tagSet = ParserUtil.parseTags(argMultimap.getValue(tagPrefix).get());
         }
 
         Contact contact = new Contact(id, name, email, course, group, tagSet);

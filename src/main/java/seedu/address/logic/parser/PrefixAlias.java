@@ -4,9 +4,9 @@ package seedu.address.logic.parser;
 import seedu.address.commons.core.Pair;
 
 /**
- * A wrapper class to handle the short and long flags for {@code Parser}
+ * A class to handle the short and long flags for {@code Parser}
  */
-public abstract class PrefixAlias {
+public class PrefixAlias {
     private final Pair<Prefix, Prefix> prefixPair;
 
     /**
@@ -26,5 +26,10 @@ public abstract class PrefixAlias {
 
     public Prefix[] getAll() {
         return new Prefix[]{getLong(), getShort()};
+    }
+
+    @Override
+    public String toString() {
+        return String.format("%s / %s", prefixPair.first(), prefixPair.second());
     }
 }

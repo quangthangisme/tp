@@ -3,7 +3,6 @@ package seedu.address.logic.parser.todo;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_MISSING_TAG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
 import java.util.Set;
 
@@ -13,6 +12,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.PrefixAlias;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.item.commons.Tag;
 
@@ -23,18 +23,19 @@ public class AddTagToTodoCommandParser implements Parser<AddTagToTodoCommand> {
     @Override
     public AddTagToTodoCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_TAG_LONG);
+        PrefixAlias tagPrefix = TodoCliAlias.TODO_TAG_PREFIX_ALIAS;
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, tagPrefix.getAll());
 
         // Ensure only one prefix is present
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_TAG_LONG);
-        if (!argMultimap.arePrefixesPresent(PREFIX_TODO_TAG_LONG) || argMultimap.getPreamble().isEmpty()) {
+        argMultimap.verifyNoDuplicatePrefixesFor(tagPrefix.getAll());
+        if (argMultimap.getValue(tagPrefix).isEmpty() || argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagToTodoCommand.MESSAGE_USAGE));
         }
 
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
-        Set<Tag> tags = ParserUtil.parseTags(argMultimap.getValue(PREFIX_TODO_TAG_LONG).get());
+        Set<Tag> tags = ParserUtil.parseTags(argMultimap.getValue(tagPrefix).get());
         if (tags.isEmpty()) {
             throw new ParseException(MESSAGE_MISSING_TAG);
         }

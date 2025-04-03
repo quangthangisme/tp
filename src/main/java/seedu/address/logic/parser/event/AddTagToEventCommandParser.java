@@ -12,6 +12,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.PrefixAlias;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.item.commons.Tag;
 
@@ -22,7 +23,7 @@ public class AddTagToEventCommandParser implements Parser<AddTagToEventCommand> 
     @Override
     public AddTagToEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        TagPrefix tagPrefix = new TagPrefix();
+        PrefixAlias tagPrefix = EventCliAlias.EVENT_TAG_PREFIX_ALIAS;
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, tagPrefix.getAll());
         // Ensure only one prefix is present
         argMultimap.verifyNoDuplicatePrefixesFor(tagPrefix.getAll());

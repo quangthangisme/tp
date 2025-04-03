@@ -12,6 +12,7 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.PrefixAlias;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
@@ -29,7 +30,7 @@ public class AddContactToEventCommandParser implements Parser<AddContactToEventC
     @Override
     public AddContactToEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ContactPrefix contactPrefix = new ContactPrefix();
+        PrefixAlias contactPrefix = EventCliAlias.EVENT_LINKED_CONTACT_PREFIX_ALIAS;
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, contactPrefix.getAll());
 
         // Ensure only one prefix is present

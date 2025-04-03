@@ -12,6 +12,7 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.PrefixAlias;
 import seedu.address.logic.parser.PrefixAliasListBuilder;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Event;
@@ -31,11 +32,11 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
      * @throws ParseException if the user input does not conform the expected format.
      */
     public AddEventCommand parse(String args) throws ParseException {
-        NamePrefix namePrefix = new NamePrefix();
-        StartPrefix startPrefix = new StartPrefix();
-        EndPrefix endPrefix = new EndPrefix();
-        LocationPrefix locationPrefix = new LocationPrefix();
-        TagPrefix tagPrefix = new TagPrefix();
+        PrefixAlias namePrefix = EventCliAlias.EVENT_NAME_PREFIX_ALIAS;
+        PrefixAlias startPrefix = EventCliAlias.EVENT_START_PREFIX_ALIAS;
+        PrefixAlias endPrefix = EventCliAlias.EVENT_END_PREFIX_ALIAS;
+        PrefixAlias locationPrefix = EventCliAlias.EVENT_LOCATION_PREFIX_ALIAS;
+        PrefixAlias tagPrefix = EventCliAlias.EVENT_TAG_PREFIX_ALIAS;
         Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
                 .add(namePrefix, startPrefix, endPrefix, locationPrefix, tagPrefix)
                 .toArray();
