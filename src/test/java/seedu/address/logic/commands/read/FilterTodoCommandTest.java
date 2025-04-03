@@ -25,7 +25,9 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.ContactManagerWithFilteredList;
 import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.item.predicate.DatetimePredicate;
+import seedu.address.model.item.predicate.LocationPredicate;
 import seedu.address.model.item.predicate.NamePredicate;
+import seedu.address.model.item.predicate.TagPredicate;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.model.todo.predicate.TodoDeadlinePredicate;
@@ -205,4 +207,75 @@ public class FilterTodoCommandTest {
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
         assertEquals(expectedList, model.getTodoManagerAndList().getFilteredItemsList());
     }
+
+    @Test
+    public void execute_locationFilterAnd() {
+        TodoPredicate predicate = new TodoPredicate();
+        predicate.setLocationPredicate(new LocationPredicate(Operator.AND, Arrays.asList("can", "vas")));
+        FilterTodoCommand command = new FilterTodoCommand(predicate, Optional.empty());
+
+        expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
+        List<Todo> expectedList = List.of(REPORT, REPORT_WITH_TAG, REPORT_WITH_MULTIPLE_TAGS);
+
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, expectedList.size());
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(expectedList, model.getTodoManagerAndList().getFilteredItemsList());
+    }
+
+    @Test
+    public void execute_locationFilterOr() {
+        TodoPredicate predicate = new TodoPredicate();
+        predicate.setLocationPredicate(new LocationPredicate(Operator.OR, Arrays.asList("can", "nus")));
+        FilterTodoCommand command = new FilterTodoCommand(predicate, Optional.empty());
+
+        expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
+        List<Todo> expectedList = List.of(REPORT, REPORT_WITH_TAG, REPORT_WITH_MULTIPLE_TAGS, STUFF, STUFF_2);
+
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, expectedList.size());
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(expectedList, model.getTodoManagerAndList().getFilteredItemsList());
+    }
+
+    @Test
+    public void execute_tagFilterAnd() {
+        TodoPredicate predicate = new TodoPredicate();
+        predicate.setTagPredicate(new TagPredicate(Operator.AND, Arrays.asList("better", "important")));
+        FilterTodoCommand command = new FilterTodoCommand(predicate, Optional.empty());
+
+        expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
+        List<Todo> expectedList = List.of(REPORT_WITH_MULTIPLE_TAGS);
+
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, expectedList.size());
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(expectedList, model.getTodoManagerAndList().getFilteredItemsList());
+    }
+
+    @Test
+    public void execute_tagFilterOr() {
+        TodoPredicate predicate = new TodoPredicate();
+        predicate.setTagPredicate(new TagPredicate(Operator.OR, Arrays.asList("better", "important")));
+        FilterTodoCommand command = new FilterTodoCommand(predicate, Optional.empty());
+
+        expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
+        List<Todo> expectedList = List.of(REPORT_WITH_TAG, REPORT_WITH_MULTIPLE_TAGS);
+
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, expectedList.size());
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(expectedList, model.getTodoManagerAndList().getFilteredItemsList());
+    }
+
+    @Test
+    public void execute_tagFilterPartialMatch() {
+        TodoPredicate predicate = new TodoPredicate();
+        predicate.setTagPredicate(new TagPredicate(Operator.OR, Arrays.asList("bet")));
+        FilterTodoCommand command = new FilterTodoCommand(predicate, Optional.empty());
+
+        expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
+        List<Todo> expectedList = List.of(REPORT_WITH_MULTIPLE_TAGS);
+
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, expectedList.size());
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(expectedList, model.getTodoManagerAndList().getFilteredItemsList());
+    }
+
 }
