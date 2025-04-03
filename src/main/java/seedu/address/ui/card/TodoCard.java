@@ -13,7 +13,7 @@ import seedu.address.ui.UiPart;
 /**
  * An UI component that displays information of a {@code Todo}.
  */
-public class TodoCard extends UiPart<Region> {
+public class TodoCard extends UiPart<Region> implements Card<Todo> {
 
     private static final String FXML = "TodoListCard.fxml";
 
@@ -53,6 +53,15 @@ public class TodoCard extends UiPart<Region> {
         todo.getContacts().stream()
                 .sorted(Comparator.comparing(contact -> contact.getName().value))
                 .forEach(contact -> contacts.getChildren().add(new Label(contact.getName().value)));
+    }
 
+    @Override
+    public Todo getEntity() {
+        return todo;
+    }
+
+    @Override
+    public UiPart<Region> getUiPart() {
+        return this;
     }
 }

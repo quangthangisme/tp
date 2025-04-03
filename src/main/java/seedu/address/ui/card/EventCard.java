@@ -13,7 +13,7 @@ import seedu.address.ui.UiPart;
 /**
  * An UI component that displays information of a {@code Event}.
  */
-public class EventCard extends UiPart<Region> {
+public class EventCard extends UiPart<Region> implements Card<Event> {
 
     private static final String FXML = "EventListCard.fxml";
 
@@ -48,5 +48,15 @@ public class EventCard extends UiPart<Region> {
         event.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+    }
+
+    @Override
+    public Event getEntity() {
+        return event;
+    }
+
+    @Override
+    public UiPart<Region> getUiPart() {
+        return this;
     }
 }

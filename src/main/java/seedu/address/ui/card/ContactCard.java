@@ -16,7 +16,7 @@ import seedu.address.ui.UiPart;
 /**
  * An UI component that displays information of a {@code Contact}.
  */
-public class ContactCard extends UiPart<Region> {
+public class ContactCard extends UiPart<Region> implements Card<Contact> {
 
     private static final String FXML = "ContactListCard.fxml";
 
@@ -89,5 +89,15 @@ public class ContactCard extends UiPart<Region> {
         emailIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(EMAIL_ICON))));
         courseIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(COURSE_ICON))));
         groupIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(GROUP_ICON))));
+    }
+
+    @Override
+    public Contact getEntity() {
+        return contact;
+    }
+
+    @Override
+    public UiPart<Region> getUiPart() {
+        return this;
     }
 }
