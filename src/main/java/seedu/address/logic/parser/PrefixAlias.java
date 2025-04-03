@@ -32,4 +32,20 @@ public class PrefixAlias {
     public String toString() {
         return String.format("%s / %s", prefixPair.first(), prefixPair.second());
     }
+
+    @Override
+    public boolean equals(Object other) {
+        if (other == this) {
+            return true;
+        }
+        if (!(other instanceof PrefixAlias otherPrefixAlias)) {
+            return false;
+        }
+        return prefixPair.equals(otherPrefixAlias.prefixPair);
+    }
+
+    @Override
+    public int hashCode() {
+        return prefixPair.hashCode();
+    }
 }

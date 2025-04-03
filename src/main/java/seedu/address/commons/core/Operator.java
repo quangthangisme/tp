@@ -13,6 +13,7 @@ public enum Operator {
     NAND("nand"),
     NOR("nor");
 
+    public static final String OPERATOR_NOT_SUPPORTED = "Operator not supported: %s";
     private final String name;
 
     /**
@@ -50,7 +51,7 @@ public enum Operator {
             return stream.noneMatch(predicate);
         // Should never happen: guard clause in case of adding new operators
         default:
-            throw new UnsupportedOperationException("Operator not supported: " + this);
+            throw new UnsupportedOperationException(String.format(OPERATOR_NOT_SUPPORTED, name));
         }
     }
 }

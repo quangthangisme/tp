@@ -19,6 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class ArgumentMultimap {
 
+    public static final String PREFIX_BOTH_FLAGS_USED = "Cannot use both flags %s and %s";
     /** Prefixes mapped to their respective arguments**/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
 
@@ -50,7 +51,7 @@ public class ArgumentMultimap {
         boolean isLong = arePrefixesPresent(prefixAlias.getLong());
         boolean isShort = arePrefixesPresent(prefixAlias.getShort());
         if (isLong && isShort) {
-            throw new ParseException(String.format("Cannot use both flags %s and %s",
+            throw new ParseException(String.format(PREFIX_BOTH_FLAGS_USED,
                     prefixAlias.getLong(), prefixAlias.getShort()
                 )
             );

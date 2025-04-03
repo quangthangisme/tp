@@ -29,16 +29,14 @@ public class PrefixAliasListBuilder {
      * Adds multiple prefixes at once and returns itself for continuous building.
      */
     public PrefixAliasListBuilder add(PrefixAlias... prefixArray) {
-        for (PrefixAlias prefix : prefixArray) {
-            prefixes.add(prefix);
-        }
+        prefixes.addAll(List.of(prefixArray));
         return this;
     }
 
     /**
      * Returns the final built list.
      */
-    public List<Prefix> getList() {
+    public List<Prefix> getFullPrefixList() {
         List<Prefix> allPrefixes = new ArrayList<>();
         for (PrefixAlias alias : prefixes) {
             allPrefixes.add(alias.getLong());
@@ -51,6 +49,6 @@ public class PrefixAliasListBuilder {
      * Get the final array of {@code prefix}
      */
     public Prefix[] toArray() {
-        return getList().toArray(new Prefix[0]);
+        return getFullPrefixList().toArray(new Prefix[0]);
     }
 }
