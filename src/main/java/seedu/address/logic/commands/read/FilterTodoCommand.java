@@ -21,6 +21,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.predicate.TodoContactPredicate;
 import seedu.address.model.todo.predicate.TodoPredicate;
+import seedu.address.ui.ListPanelViewType;
 
 /**
  * Filters and lists all events based on specified criteria.
@@ -105,4 +106,8 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
         return todoPredicate;
     }
 
+    @Override
+    public ListPanelViewType getListPanelViewType() {
+        return ListPanelViewType.TODO;
+    }
 }

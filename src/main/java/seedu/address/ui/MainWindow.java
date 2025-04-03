@@ -6,6 +6,8 @@ import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -19,6 +21,11 @@ import seedu.address.logic.commands.read.ListContactCommand;
 import seedu.address.logic.commands.read.ListEventCommand;
 import seedu.address.logic.commands.read.ListTodoCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.event.Event;
+import seedu.address.model.todo.Todo;
+import seedu.address.ui.util.DisplayableItem;
+import seedu.address.ui.util.ListConverter;
 
 /**
  * The Main Window. Provides the basic application layout.
@@ -31,7 +38,7 @@ public class MainWindow extends UiPart<Stage> {
     private Logic logic;
     // Independent Ui parts residing in this Ui container
     private ListPanel listPanel;
-    private ViewMode currentViewMode = ViewMode.CONTACT;
+    private ListPanelViewType currentViewMode = ListPanelViewType.CONTACT;
     private ResultDisplay resultDisplay;
     @FXML
     private StackPane commandBoxPlaceholder;
@@ -72,12 +79,6 @@ public class MainWindow extends UiPart<Stage> {
      * Fills up all the placeholders of this window.
      */
     void fillInnerParts() {
-        listPanel = new ListPanel();
-        listPanelPlaceholder.getChildren().add(listPanel.getRoot());
-
-        listPanel.setContactList(logic.getFilteredContactList());
-        updateButtonStyles();
-
         resultDisplay = new ResultDisplay();
         resultDisplayPlaceholder.getChildren().add(resultDisplay.getRoot());
 
@@ -86,6 +87,10 @@ public class MainWindow extends UiPart<Stage> {
 
         CommandBox commandBox = new CommandBox(this::executeCommand);
         commandBoxPlaceholder.getChildren().add(commandBox.getRoot());
+
+        commandBox.setViewSwitchHandler(this::switchView);
+
+        switchView(ListPanelViewType.CONTACT);
     }
 
     /**
@@ -113,6 +118,40 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         primaryStage.hide();
+
+        Platform.exit();
+    }
+
+    /**
+     * Switches view based on the command prefix or buttons
+     */
+    private void switchView(ListPanelViewType viewType) {
+        currentViewMode = viewType;
+        switch (viewType) {
+        case CONTACT:
+            ObservableList<Contact> contactList = logic.getFilteredContactList();
+            ObservableList<DisplayableItem> displayableContacts = ListConverter.toDisplayableContactList(contactList);
+            listPanel = new ListPanel(displayableContacts);
+            break;
+        case EVENT:
+            ObservableList<Event> eventList = logic.getFilteredEventList();
+            ObservableList<DisplayableItem> displayableEvents = ListConverter.toDisplayableEventList(eventList);
+            listPanel = new ListPanel(displayableEvents);
+            break;
+        case TODO:
+            ObservableList<Todo> todoList = logic.getFilteredTodoList();
+            ObservableList<DisplayableItem> displayableTodos = ListConverter.toDisplayableTodoList(todoList);
+            listPanel = new ListPanel(displayableTodos);
+            break;
+        default:
+            logger.warning("Invalid view type: " + viewType);
+            return;
+        }
+
+        listPanelPlaceholder.getChildren().clear();
+        listPanelPlaceholder.getChildren().add(listPanel.getRoot());
+
+        updateButtonStyles();
     }
 
     /**
@@ -120,9 +159,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleContactButton() {
-        currentViewMode = ViewMode.CONTACT;
-        listPanel.setContactList(logic.getFilteredContactList());
-        updateButtonStyles();
+        switchView(ListPanelViewType.CONTACT);
     }
 
     /**
@@ -130,9 +167,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleEventButton() {
-        currentViewMode = ViewMode.EVENT;
-        listPanel.setEventList(logic.getFilteredEventList());
-        updateButtonStyles();
+        switchView(ListPanelViewType.EVENT);
+
     }
 
     /**
@@ -140,9 +176,8 @@ public class MainWindow extends UiPart<Stage> {
      */
     @FXML
     private void handleTodoButton() {
-        currentViewMode = ViewMode.TODO;
-        listPanel.setTodoList(logic.getFilteredTodoList());
-        updateButtonStyles();
+        switchView(ListPanelViewType.TODO);
+
     }
 
     /**
@@ -166,6 +201,7 @@ public class MainWindow extends UiPart<Stage> {
             default:
                 return;
             }
+            refreshCurrentView();
 
             logger.info("Reset successful");
 
@@ -211,6 +247,10 @@ public class MainWindow extends UiPart<Stage> {
             logger.info("Result: " + commandResult.getFeedbackToUser());
             resultDisplay.setFeedbackToUser(commandResult.getFeedbackToUser());
 
+            if (commandResult.isViewSwitchNeeded()) {
+                handleViewSwitching(commandResult.getViewType());
+            }
+
             if (commandResult.isExit()) {
                 handleExit();
             }
@@ -226,25 +266,40 @@ public class MainWindow extends UiPart<Stage> {
     }
 
     /**
-     * Refreshes the current view to reflect any changes in data
+     * Handles view switching based on the ViewType from CommandResult
      */
-    private void refreshCurrentView() {
-        switch (currentViewMode) {
+    private void handleViewSwitching(ListPanelViewType viewType) {
+        switch (viewType) {
         case CONTACT:
-            listPanel.setContactList(logic.getFilteredContactList());
+            switchView(ListPanelViewType.CONTACT);
             break;
         case EVENT:
-            listPanel.setEventList(logic.getFilteredEventList());
+            switchView(ListPanelViewType.EVENT);
             break;
         case TODO:
-            listPanel.setTodoList(logic.getFilteredTodoList());
+            switchView(ListPanelViewType.TODO);
             break;
         default:
             break;
         }
     }
 
-    private enum ViewMode {
-        CONTACT, EVENT, TODO
+    /**
+     * Refreshes the current view to reflect any changes in data
+     */
+    private void refreshCurrentView() {
+        switch (currentViewMode) {
+        case CONTACT:
+            switchView(ListPanelViewType.CONTACT);
+            break;
+        case EVENT:
+            switchView(ListPanelViewType.EVENT);
+            break;
+        case TODO:
+            switchView(ListPanelViewType.TODO);
+            break;
+        default:
+            break;
+        }
     }
 }
