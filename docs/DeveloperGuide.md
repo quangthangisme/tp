@@ -122,13 +122,25 @@ How the parsing works:
 The `Model` component,
 
 * stores the data, i.e., all `Contact`, `Todo`, and `Event` objects (which are contained in separate `UniqueItemList<T extends Item>` object).
-* stores the currently 'selected' `Contact` objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Contact>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
+* stores the currently 'selected' objects (e.g., results of a search query) as a separate _filtered_ list which is exposed to outsiders as an unmodifiable `ObservableList<Contact>` that can be 'observed' e.g. the UI can be bound to this list so that the UI automatically updates when the data in the list change.
 * stores a `UserPref` object that represents the user’s preferences. This is exposed to the outside as a `ReadOnlyUserPref` objects.
 * does not depend on any of the other three components (as the `Model` represents data entities of the domain, they should make sense on their own without depending on other components)
 
-The diagram below shows how an `Item` of type `T`, where `T` can be `Contact`, `Todo`, or `Event`, is managed by the `Model`.
+The diagram below shows how the APIs of the `Model` component are exposed.
 
-<puml src="diagrams/ModelClassDiagram.puml" width="450" />
+<puml src="diagrams/ModelInterfaces.puml" width="450" />
+
+Storing `Contact`, `Todo`, and `Event` share many similarities, so we extract common methods into abstract classes.
+
+<puml src="diagrams/ManagerClassDiagram.puml" width="1000" />
+
+The diagram below shows how a `Contact` is managed by the `Model`.
+
+<puml src="diagrams/ContactManagerClassesDiagram.puml" width="450" />
+
+The diagram below shows how a `Todo` is managed by the `Model`. An `Event` is managed in a similar way.
+
+<puml src="diagrams/TodoManagerClassesDiagram.puml" width="450" />
 
 The diagram below shows different relationship between different `Item`s managed by the `Model`.
 
