@@ -71,12 +71,18 @@ public class FilterEventCommandParser implements Parser<FilterEventCommand> {
         if (argMultimap.getValue(PREFIX_EVENT_START_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair =
                 ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_EVENT_START_LONG).get());
+            if (operatorStringPair.second().trim().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_EVENT_START_LONG));
+            }
             predicate.setStartTimePredicate(new EventStartTimePredicate(operatorStringPair.first(),
                 ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
         }
         if (argMultimap.getValue(PREFIX_EVENT_END_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair =
                 ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_EVENT_END_LONG).get());
+            if (operatorStringPair.second().trim().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_EVENT_END_LONG));
+            }
             predicate.setEndTimePredicate(new EventEndTimePredicate(operatorStringPair.first(),
                 ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
         }
@@ -84,6 +90,10 @@ public class FilterEventCommandParser implements Parser<FilterEventCommand> {
         if (argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(
                     argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get());
+            if (operatorStringPair.second().trim().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_NO_VALUES,
+                        PREFIX_EVENT_LINKED_CONTACT_LONG));
+            }
             List<Index> contactIndices = ParserUtil.parseIndices(operatorStringPair.second());
             if (contactIndices.isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES,

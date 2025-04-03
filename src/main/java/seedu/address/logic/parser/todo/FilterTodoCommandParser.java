@@ -69,16 +69,18 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
                     List.of(operatorStringPair.second().split("\\s+"))));
         }
         if (argMultimap.getValue(PREFIX_TODO_STATUS_LONG).isPresent()) {
-            if (argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get().trim().isEmpty()) {
+            String statusString = argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get().trim();
+            if (statusString.isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_STATUS_LONG));
             }
-            predicate.setStatusPredicate(new TodoStatusPredicate(ParserUtil.parseBoolean(
-                    argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get()
-            )));
+            predicate.setStatusPredicate(new TodoStatusPredicate(ParserUtil.parseBoolean(statusString)));
         }
         if (argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair =
                     ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).get());
+            if (operatorStringPair.second().trim().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_DEADLINE_LONG));
+            }
             predicate.setDeadlinePredicate(new TodoDeadlinePredicate(operatorStringPair.first(),
                     ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
         }
@@ -86,7 +88,11 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
         if (argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).isPresent()) {
             Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(
                     argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).get());
-            List<Index> contactIndices = ParserUtil.parseIndices(operatorStringPair.second());
+            String contactString = operatorStringPair.second().trim();
+            if (contactString.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_LINKED_CONTACT_LONG));
+            }
+            List<Index> contactIndices = ParserUtil.parseIndices(contactString);
             if (contactIndices.isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES,
                         PREFIX_TODO_LINKED_CONTACT_LONG));
