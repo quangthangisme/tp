@@ -16,10 +16,10 @@ public class TodoCliSyntax {
     public static final Prefix PREFIX_TODO_LINKED_CONTACT_LONG = new Prefix("--contact ");
 
     /* Short prefix definitions */
-    public static final Prefix PREFIX_TODO_NAME_SHORT = new Prefix("-n");
-    public static final Prefix PREFIX_TODO_DEADLINE_SHORT = new Prefix("-d");
-    public static final Prefix PREFIX_TODO_LOCATION_SHORT = new Prefix("-l");
-    public static final Prefix PREFIX_TODO_TAG_SHORT = new Prefix("-t");
-    public static final Prefix PREFIX_TODO_STATUS_SHORT = new Prefix("-s");
-    public static final Prefix PREFIX_TODO_LINKED_CONTACT_SHORT = new Prefix("-c");
+    public static final Prefix PREFIX_TODO_NAME_SHORT = new Prefix("-n ");
+    public static final Prefix PREFIX_TODO_DEADLINE_SHORT = new Prefix("-d ");
+    public static final Prefix PREFIX_TODO_LOCATION_SHORT = new Prefix("-l ");
+    public static final Prefix PREFIX_TODO_TAG_SHORT = new Prefix("-t ");
+    public static final Prefix PREFIX_TODO_STATUS_SHORT = new Prefix("-s ");
+    public static final Prefix PREFIX_TODO_LINKED_CONTACT_SHORT = new Prefix("-c ");
 }

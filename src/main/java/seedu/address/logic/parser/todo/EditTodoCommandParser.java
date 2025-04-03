@@ -34,7 +34,7 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
         requireNonNull(args);
         PrefixAlias namePrefix = TodoCliAlias.TODO_NAME_PREFIX_ALIAS;
         PrefixAlias deadlinePrefix = TodoCliAlias.TODO_DEADLINE_PREFIX_ALIAS;
-        PrefixAlias locationPrefix = TodoCliAlias.TODO_LOCATION_ALIAS;
+        PrefixAlias locationPrefix = TodoCliAlias.TODO_LOCATION_PREFIX_ALIAS;
         PrefixAlias tagPrefix = TodoCliAlias.TODO_TAG_PREFIX_ALIAS;
         PrefixAlias contactPrefix = TodoCliAlias.TODO_LINKED_CONTACT_PREFIX_ALIAS;
         PrefixAlias statusPrefix = TodoCliAlias.TODO_STATUS_ALIAS;

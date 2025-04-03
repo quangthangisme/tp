@@ -33,7 +33,7 @@ public class AddTodoCommandParser implements Parser<AddTodoCommand> {
     public AddTodoCommand parse(String args) throws ParseException {
         PrefixAlias namePrefix = TodoCliAlias.TODO_NAME_PREFIX_ALIAS;
         PrefixAlias deadlinePrefix = TodoCliAlias.TODO_DEADLINE_PREFIX_ALIAS;
-        PrefixAlias locationPrefix = TodoCliAlias.TODO_LOCATION_ALIAS;
+        PrefixAlias locationPrefix = TodoCliAlias.TODO_LOCATION_PREFIX_ALIAS;
         PrefixAlias tagPrefix = TodoCliAlias.TODO_TAG_PREFIX_ALIAS;
         Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
                 .add(namePrefix, deadlinePrefix, locationPrefix, tagPrefix)

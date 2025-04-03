@@ -41,7 +41,7 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
         requireNonNull(args);
         PrefixAlias namePrefix = TodoCliAlias.TODO_NAME_PREFIX_ALIAS;
         PrefixAlias deadlinePrefix = TodoCliAlias.TODO_DEADLINE_PREFIX_ALIAS;
-        PrefixAlias locationPrefix = TodoCliAlias.TODO_LOCATION_ALIAS;
+        PrefixAlias locationPrefix = TodoCliAlias.TODO_LOCATION_PREFIX_ALIAS;
         PrefixAlias statusPrefix = TodoCliAlias.TODO_STATUS_ALIAS;
         PrefixAlias contactPrefix = TodoCliAlias.TODO_LINKED_CONTACT_PREFIX_ALIAS;
         Prefix[] listOfPrefixes = new PrefixAliasListBuilder()

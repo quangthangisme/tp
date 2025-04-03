@@ -23,7 +23,7 @@ public class TodoCliAlias {
             PREFIX_TODO_DEADLINE_LONG, PREFIX_TODO_DEADLINE_SHORT);
     public static final PrefixAlias TODO_LINKED_CONTACT_PREFIX_ALIAS = new PrefixAlias(
             PREFIX_TODO_LINKED_CONTACT_LONG, PREFIX_TODO_LINKED_CONTACT_SHORT);
-    public static final PrefixAlias TODO_LOCATION_ALIAS = new PrefixAlias(
+    public static final PrefixAlias TODO_LOCATION_PREFIX_ALIAS = new PrefixAlias(
             PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_LOCATION_SHORT);
     public static final PrefixAlias TODO_NAME_PREFIX_ALIAS = new PrefixAlias(
             PREFIX_TODO_NAME_LONG, PREFIX_TODO_NAME_SHORT);
