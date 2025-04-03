@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventManagerAndList;
+import seedu.address.ui.ListPanelViewType;
 
 /**
  * Lists all events to the user.
@@ -24,5 +25,10 @@ public class ListEventCommand extends ListCommand<EventManagerAndList, Event> {
     @Override
     public String getSuccessMessage() {
         return MESSAGE_SUCCESS;
+    }
+
+    @Override
+    public ListPanelViewType getListPanelViewType() {
+        return ListPanelViewType.EVENT;
     }
 }

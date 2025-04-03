@@ -25,6 +25,7 @@ import seedu.address.model.event.EventManager;
 import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.todo.TodoManager;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
+import seedu.address.testutil.EventBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for
@@ -61,6 +62,31 @@ public class DeleteContactCommandTest {
                 )
         );
         expectedModel.getContactManagerAndList().deleteItem(contactToDelete);
+
+        assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_linkedEvent_success() {
+        Contact contactToDelete = model.getContactManagerAndList().getFilteredItemsList()
+                .get(INDEX_FIRST.getZeroBased());
+        model.getEventManagerAndList().addItem(new EventBuilder()
+                .withAttendance(contactToDelete).build());
+        DeleteContactCommand deleteCommand = new DeleteContactCommand(INDEX_FIRST);
+
+        String expectedMessage = String.format(DeleteContactCommand.MESSAGE_DELETE_CONTACT_SUCCESS,
+                Messages.format(contactToDelete));
+
+        Model expectedModel = new ModelManager(
+                new UserPrefs(),
+                new ContactManagerWithFilteredList(
+                        new ContactManager(model.getContactManagerAndList().getItemManager())
+                ),
+                new TodoManagerWithFilteredList(),
+                new EventManagerWithFilteredList()
+        );
+        expectedModel.getContactManagerAndList().deleteItem(contactToDelete);
+        expectedModel.getEventManagerAndList().addItem(new EventBuilder().build());
 
         assertCommandSuccess(deleteCommand, model, expectedMessage, expectedModel);
     }

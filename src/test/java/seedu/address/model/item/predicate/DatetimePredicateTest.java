@@ -49,7 +49,7 @@ class DatetimePredicateTest {
 
     @Test
     void constructor_validString_success() {
-        DatetimePredicate predicate = new DatetimePredicate("(24-07-25 10:00/24-08-25 10:00)");
+        DatetimePredicate predicate = new DatetimePredicate("[24-07-25 10:00/24-08-25 10:00]");
         assertTrue(predicate.test(DatetimeUtil.parse("24-07-25 10:00")));
         assertTrue(predicate.test(DatetimeUtil.parse("24-08-25 10:00")));
         assertFalse(predicate.test(DatetimeUtil.parse("24-06-26 10:00")));
@@ -63,20 +63,20 @@ class DatetimePredicateTest {
     @Test
     void constructor_invalidDate_throwsException() {
         assertThrows(IllegalArgumentException.class, () ->
-                new DatetimePredicate("(24-07-25 10:00/invalid-date)"));
+                new DatetimePredicate("[24-07-25 10:00/invalid-date]"));
     }
 
     @Test
     void isValid_validCases_returnsTrue() {
-        assertTrue(DatetimePredicate.isValid("(24-07-25 10:00/24-08-25 10:00)"));
-        assertTrue(DatetimePredicate.isValid("(-/24-08-25 10:00)"));
-        assertTrue(DatetimePredicate.isValid("(24-07-25 10:00/-)"));
+        assertTrue(DatetimePredicate.isValid("[24-07-25 10:00/24-08-25 10:00]"));
+        assertTrue(DatetimePredicate.isValid("[-/24-08-25 10:00]"));
+        assertTrue(DatetimePredicate.isValid("[24-07-25 10:00/-]"));
     }
 
     @Test
     void isValid_invalidCases_returnsFalse() {
         assertFalse(DatetimePredicate.isValid("invalid_format"));
-        assertFalse(DatetimePredicate.isValid("(24-07-25 10:00/invalid-date)"));
-        assertFalse(DatetimePredicate.isValid("(-/-)"));
+        assertFalse(DatetimePredicate.isValid("[24-07-25 10:00/invalid-date]"));
+        assertFalse(DatetimePredicate.isValid("[-/-]"));
     }
 }

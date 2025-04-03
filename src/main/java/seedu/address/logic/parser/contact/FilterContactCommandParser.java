@@ -19,6 +19,7 @@ import java.util.Map;
 import seedu.address.commons.core.Operator;
 import seedu.address.commons.core.Pair;
 import seedu.address.logic.commands.read.FilterContactCommand;
+import seedu.address.logic.commands.read.FilterTodoCommand;
 import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
@@ -44,25 +45,21 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
     public FilterContactCommand parse(String args) throws ParseException {
         requireNonNull(args);
         if (args.trim().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FilterContactCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterContactCommand.MESSAGE_USAGE));
         }
 
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_NAME_LONG,
-                PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_COURSE_LONG,
-                PREFIX_CONTACT_GROUP_LONG, PREFIX_CONTACT_TAG_LONG);
+        List<Prefix> allPrefixes = List.of(PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_ID_LONG,
+                PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG, PREFIX_CONTACT_TAG_LONG);
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CONTACT_NAME_LONG,
-                PREFIX_CONTACT_EMAIL_LONG,
-                PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG,
-                PREFIX_CONTACT_TAG_LONG);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, allPrefixes.toArray(new Prefix[0]));
+        argMultimap.verifyNoDuplicatePrefixesFor(allPrefixes.toArray(new Prefix[0]));
+
+        // Ensure that args starts with any of the prefixes
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterTodoCommand.MESSAGE_USAGE));
+        }
 
         Map<ContactColumn, ColumnPredicate> filterCriteriaMap = new HashMap<>();
-
-        List<Prefix> allPrefixes = List.of(PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG,
-                PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG,
-                PREFIX_CONTACT_TAG_LONG);
-
         parsePrefixes(allPrefixes, argMultimap, filterCriteriaMap);
 
         if (filterCriteriaMap.isEmpty()) {
@@ -83,7 +80,9 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
     private ContactColumn getColumnFromPrefix(Prefix prefix) throws ParseException {
         String prefixStr = prefix.getPrefix();
 
-        if (prefixStr.equals(PREFIX_CONTACT_NAME_LONG.getPrefix())) {
+        if (prefixStr.equals(PREFIX_CONTACT_ID_LONG.getPrefix())) {
+            return ContactColumn.ID;
+        } else if (prefixStr.equals(PREFIX_CONTACT_NAME_LONG.getPrefix())) {
             return ContactColumn.NAME;
         } else if (prefixStr.equals(PREFIX_CONTACT_EMAIL_LONG.getPrefix())) {
             return ContactColumn.EMAIL;
@@ -108,21 +107,24 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
      * @throws ParseException if there is an error parsing any prefix
      */
     private void parsePrefixes(List<Prefix> allPrefixes, ArgumentMultimap argMultimap,
-                               Map<ContactColumn, ColumnPredicate> filterCriteriaMap)
-            throws ParseException {
+                               Map<ContactColumn, ColumnPredicate> filterCriteriaMap) throws ParseException {
         for (Prefix prefix : allPrefixes) {
             if (argMultimap.getValue(prefix).isEmpty()) {
                 continue;
             }
             String inputString = argMultimap.getValue(prefix).get();
-            Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(inputString);
+            Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(inputString);
+
+            // Please forgive me. Basically, to throw exception if tags are duplicate
+            if (prefix == PREFIX_CONTACT_TAG_LONG) {
+                ParserUtil.parseTags(operatorStringPair.second());
+            }
+
             if (operatorStringPair.second().trim().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES, prefix));
             }
-            filterCriteriaMap.put(getColumnFromPrefix(prefix), new ColumnPredicate(
-                    operatorStringPair.first(), List.of(operatorStringPair.second().split("\\s+"))
-            ));
+            filterCriteriaMap.put(getColumnFromPrefix(prefix), new ColumnPredicate(operatorStringPair.first(),
+                    List.of(operatorStringPair.second().split("\\s+"))));
         }
     }
 }
