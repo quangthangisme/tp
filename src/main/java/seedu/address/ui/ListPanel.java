@@ -29,6 +29,12 @@ public class ListPanel extends UiPart<Region> {
         super(FXML);
         listView.setItems(itemList);
         listView.setCellFactory(listView -> new DisplayableListViewCell(onItemClickHandler));
+
+        listView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.intValue() >= 0) {
+                onItemClickHandler.accept(newValue.intValue() + 1);
+            }
+        });
     }
 
     /**
