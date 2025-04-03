@@ -125,12 +125,12 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getContactListFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setContactListFilePath(Path contactListFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 

@@ -46,7 +46,7 @@ import seedu.address.ui.UiManager;
  */
 public class MainApp extends Application {
 
-    public static final Version VERSION = new Version(1, 3, 0, true);
+    public static final Version VERSION = new Version(1, 5, 0, true);
 
     private static final Logger logger = LogsCenter.getLogger(MainApp.class);
 
@@ -67,7 +67,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        JsonContactStorage contactStorage = new JsonContactStorage(userPrefs.getAddressBookFilePath());
+        JsonContactStorage contactStorage = new JsonContactStorage(userPrefs.getContactListFilePath());
         JsonTodoStorage todoStorage = new JsonTodoStorage(userPrefs.getTodoListFilePath());
         JsonEventStorage eventStorage = new JsonEventStorage(userPrefs.getEventListFilePath());
         storage = new StorageManager(contactStorage, todoStorage, eventStorage, userPrefsStorage);
@@ -104,7 +104,7 @@ public class MainApp extends Application {
         Optional<ItemInvolvingContactManager<Todo>> todoListOptional;
         ItemInvolvingContactManager<Todo> initialTodoData;
         try {
-            todoListOptional = storage.readTodoList();
+            todoListOptional = storage.readTodoList(initialContactData);
             if (!todoListOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getTodoListFilePath()
                         + " populated with a sample Todo list.");
@@ -119,7 +119,7 @@ public class MainApp extends Application {
         Optional<ItemInvolvingContactManager<Event>> eventListOptional;
         ItemInvolvingContactManager<Event> initialEventData;
         try {
-            eventListOptional = storage.readEventList();
+            eventListOptional = storage.readEventList(initialContactData);
             if (!eventListOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getEventListFilePath()
                         + " populated with a sample Event list.");

@@ -48,6 +48,18 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
     }
 
     /**
+     * Returns an updated version of item.
+     */
+    public T getUpdatedItem(T item) throws IllegalArgumentException {
+        requireNonNull(item);
+        if (!contains(item)) {
+            throw new IllegalArgumentException("Item is not in list.");
+        }
+        return internalList.stream().filter(elem -> duplicateChecker.check(elem, item))
+                .findFirst().get();
+    }
+
+    /**
      * Adds an item to the list. The item must not already exist in the list.
      */
     public void add(T toAdd) {

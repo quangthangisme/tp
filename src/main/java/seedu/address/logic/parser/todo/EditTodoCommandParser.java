@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS_L
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.update.EditTodoCommand;
@@ -70,10 +71,10 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
             editTodoDescriptor.setStatus(new TodoStatus(
                     ParserUtil.parseBoolean(argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get())));
         }
-        List<Index> linkedContactIndices = List.of();
+        Optional<List<Index>> linkedContactIndices = Optional.empty();
         if (argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).isPresent()) {
-            linkedContactIndices =
-                    ParserUtil.parseIndices(argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get());
+            linkedContactIndices = Optional.of(ParserUtil.parseIndices(argMultimap
+                    .getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get()));
             editTodoDescriptor.setContacts(List.of());
         }
 

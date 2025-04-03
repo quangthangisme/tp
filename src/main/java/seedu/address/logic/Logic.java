@@ -60,7 +60,7 @@ public interface Logic {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getContactListFilePath();
 
     /**
      * Returns the user prefs' todo list file path.

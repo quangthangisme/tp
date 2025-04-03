@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.item.commons.Tag;
 
 /**
@@ -45,4 +46,9 @@ public class JsonAdaptedTag {
         return new Tag(tagName);
     }
 
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("tagName", tagName).toString();
+    }
 }

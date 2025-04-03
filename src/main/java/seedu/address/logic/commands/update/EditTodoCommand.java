@@ -84,6 +84,19 @@ public class EditTodoCommand extends EditCommand<TodoManagerAndList, Todo> {
         this.linkedContactIndicesOpt = Optional.of(List.copyOf(linkedContactIndices));
     }
 
+    /**
+     * @param index                of the todo in the filtered todo list to edit
+     * @param editTodoDescriptor   details to edit the todo with
+     * @param linkedContactIndices indices of contacts to link with
+     */
+    public EditTodoCommand(Index index, EditTodoDescriptor editTodoDescriptor,
+                           Optional<List<Index>> linkedContactIndices) {
+        super(index, Model::getTodoManagerAndList);
+        requireNonNull(editTodoDescriptor);
+        this.editTodoDescriptor = new EditTodoDescriptor(editTodoDescriptor);
+        this.linkedContactIndicesOpt = linkedContactIndices;
+    }
+
     @Override
     public void cascade(Model model, Todo itemToEdit, Todo editedItem) {
     }

@@ -25,26 +25,23 @@
       <VBox>
 
         <HBox VBox.vgrow="ALWAYS">
-          <VBox HBox.hgrow="ALWAYS" prefWidth="300">
+          <VBox HBox.hgrow="ALWAYS" prefWidth="500">
             <StackPane fx:id="commandBoxPlaceholder" VBox.vgrow="NEVER" styleClass="pane-with-border">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
             </StackPane>
 
-            <StackPane fx:id="resultDisplayPlaceholder" VBox.vgrow="ALWAYS" styleClass="pane-with-border">
+            <StackPane fx:id="resultDisplayPlaceholder" prefHeight="400" VBox.vgrow="NEVER" styleClass="pane-with-border">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
             </StackPane>
-          </VBox>
 
-          <VBox HBox.hgrow="ALWAYS" prefWidth="500">
             <HBox alignment="CENTER" spacing="10" styleClass="pane-with-border">
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>
-              <Button fx:id="contactButton" text="Contact" onAction="#handleContactButton" styleClass="toggle-button" />
               <Button fx:id="eventButton" text="Event" onAction="#handleEventButton" styleClass="toggle-button" />
               <Button fx:id="todoButton" text="Todo" onAction="#handleTodoButton" styleClass="toggle-button" />
               <Button fx:id="resetButton" onAction="#handleResetButton" styleClass="toggle-button">
@@ -62,9 +59,15 @@
               </padding>
             </StackPane>
           </VBox>
-        </HBox>
 
-        <StackPane fx:id="statusbarPlaceholder" VBox.vgrow="NEVER" />
+          <VBox HBox.hgrow="ALWAYS" prefWidth="500">
+            <StackPane fx:id="contactListPanelPlaceholder" VBox.vgrow="ALWAYS" styleClass="pane-with-border">
+              <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+            </StackPane>
+          </VBox>
+        </HBox>
       </VBox>
     </Scene>
   </scene>
