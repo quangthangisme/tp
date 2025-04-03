@@ -16,12 +16,15 @@ import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
+import seedu.address.ui.UiPart;
+import seedu.address.ui.card.TodoCard;
+import seedu.address.ui.util.DisplayableItem;
 
 /**
  * Represents a Todo.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Todo implements NamedItem, ItemWithLocation, TaggedItem {
+public class Todo implements NamedItem, ItemWithLocation, TaggedItem, DisplayableItem {
 
     // Identity fields
     private final Name name;
@@ -96,6 +99,10 @@ public class Todo implements NamedItem, ItemWithLocation, TaggedItem {
         return this.tags;
     }
 
+    @Override
+    public UiPart<?> getDisplayCard(int index) {
+        return new TodoCard(this, index);
+    }
 
     /**
      * Returns true if both todos have the same identity and data fields.

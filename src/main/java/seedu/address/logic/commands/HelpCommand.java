@@ -33,6 +33,6 @@ public class HelpCommand extends Command {
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        return new CommandResult(helpMessage, false, false);
+        return new CommandResult(helpMessage, false);
     }
 }

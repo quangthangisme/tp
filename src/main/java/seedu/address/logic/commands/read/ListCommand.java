@@ -10,6 +10,7 @@ import seedu.address.logic.commands.ItemCommand;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.ItemManagerWithFilteredList;
+import seedu.address.ui.ListPanelViewType;
 
 /**
  * Abstract command for listing all {@code T} items in the model.
@@ -32,13 +33,21 @@ public abstract class ListCommand<T extends Item> extends ItemCommand<T> {
         requireNonNull(model);
         ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
         managerAndList.showAllItems();
-        return new CommandResult(getSuccessMessage());
+        return new CommandResult(getSuccessMessage(), getListPanelViewType());
     }
 
     /**
      * Returns a success message to be displayed when the command executes successfully.
      */
     public abstract String getSuccessMessage();
+
+    /**
+     * Returns the appropriate ListPanelViewType for this list command.
+     * Must be implemented by subclasses to specify which view should be displayed.
+     *
+     * @return the ListPanelViewType to switch to
+     */
+    public abstract ListPanelViewType getListPanelViewType();
 
     @Override
     public boolean equals(Object other) {
