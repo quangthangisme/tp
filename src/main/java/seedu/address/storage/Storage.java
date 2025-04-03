@@ -43,13 +43,15 @@ public interface Storage extends ContactStorage, TodoStorage, EventStorage, User
     void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook) throws IOException;
 
     @Override
-    Optional<ItemInvolvingContactManager<Todo>> readTodoList() throws DataLoadingException;
+    Optional<ItemInvolvingContactManager<Todo>> readTodoList(
+            ItemNotInvolvingContactManager<Contact> contactManager) throws DataLoadingException;
 
     @Override
     void saveTodoList(ItemInvolvingContactManager<Todo> addressBook) throws IOException;
 
     @Override
-    Optional<ItemInvolvingContactManager<Event>> readEventList() throws DataLoadingException;
+    Optional<ItemInvolvingContactManager<Event>> readEventList(
+            ItemNotInvolvingContactManager<Contact> contactManager) throws DataLoadingException;
 
     @Override
     void saveEventList(ItemInvolvingContactManager<Event> eventManager) throws IOException;

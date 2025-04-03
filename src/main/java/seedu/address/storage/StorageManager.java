@@ -99,14 +99,18 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ItemInvolvingContactManager<Todo>> readTodoList() throws DataLoadingException {
-        return readTodoList(todoStorage.getTodoListFilePath());
+    public Optional<ItemInvolvingContactManager<Todo>> readTodoList(
+            ItemNotInvolvingContactManager<Contact> contactManager
+    ) throws DataLoadingException {
+        return readTodoList(todoStorage.getTodoListFilePath(), contactManager);
     }
 
     @Override
-    public Optional<ItemInvolvingContactManager<Todo>> readTodoList(Path filePath) throws DataLoadingException {
+    public Optional<ItemInvolvingContactManager<Todo>> readTodoList(
+            Path filePath, ItemNotInvolvingContactManager<Contact> contactManager
+    ) throws DataLoadingException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return todoStorage.readTodoList(filePath);
+        return todoStorage.readTodoList(filePath, contactManager);
     }
 
     @Override
@@ -128,14 +132,17 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ItemInvolvingContactManager<Event>> readEventList() throws DataLoadingException {
-        return readEventList(eventStorage.getEventListFilePath());
+    public Optional<ItemInvolvingContactManager<Event>> readEventList(
+            ItemNotInvolvingContactManager<Contact> contactManager) throws DataLoadingException {
+        return readEventList(eventStorage.getEventListFilePath(), contactManager);
     }
 
     @Override
-    public Optional<ItemInvolvingContactManager<Event>> readEventList(Path filePath) throws DataLoadingException {
+    public Optional<ItemInvolvingContactManager<Event>> readEventList(
+            Path filePath, ItemNotInvolvingContactManager<Contact> contactManager
+    ) throws DataLoadingException {
         logger.fine("Attempting to read data from file: " + filePath);
-        return eventStorage.readEventList(filePath);
+        return eventStorage.readEventList(filePath, contactManager);
     }
 
     @Override

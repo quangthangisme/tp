@@ -77,6 +77,13 @@ public abstract class ItemManager<T extends Item, U extends UniqueItemList<T>> {
     }
 
     /**
+     * Gets the updated item in the list of a possibly outdated item.
+     */
+    public T getUpdateItem(T item) {
+        return items.getUpdatedItem(item);
+    }
+
+    /**
      * Returns an unmodifiable view of the item list.
      * This list will not contain any duplicate items.
      */
