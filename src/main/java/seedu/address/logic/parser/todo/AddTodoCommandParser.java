@@ -1,10 +1,6 @@
 package seedu.address.logic.parser.todo;
 
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -14,6 +10,9 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.PrefixAlias;
+import seedu.address.logic.parser.PrefixAliasListBuilder;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
@@ -32,25 +31,30 @@ public class AddTodoCommandParser implements Parser<AddTodoCommand> {
      * @throws ParseException if the user input does not conform the expected format.
      */
     public AddTodoCommand parse(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_NAME_LONG,
-                PREFIX_TODO_DEADLINE_LONG, PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_TAG_LONG);
+        PrefixAlias namePrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_NAME;
+        PrefixAlias deadlinePrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_DEADLINE;
+        PrefixAlias locationPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_LOCATION;
+        PrefixAlias tagPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_TAG;
+        Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
+                .add(namePrefix, deadlinePrefix, locationPrefix, tagPrefix)
+                .toArray();
 
-        if (!argMultimap.arePrefixesPresent(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
-                PREFIX_TODO_LOCATION_LONG) || !argMultimap.getPreamble().isEmpty()) {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
+        if (argMultimap.getValue(namePrefix).isEmpty()
+                || argMultimap.getValue(deadlinePrefix).isEmpty()
+                || argMultimap.getValue(locationPrefix).isEmpty()
+                || !argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     AddTodoCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
-                PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_TAG_LONG);
-        Name name = TodoParserUtil.parseName(argMultimap.getValue(PREFIX_TODO_NAME_LONG).get());
-        Datetime deadline =
-                TodoParserUtil.parseDeadline(argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).get());
-        Location location =
-                TodoParserUtil.parseLocation(argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).get());
+        argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
+        Name name = TodoParserUtil.parseName(argMultimap.getValue(namePrefix).get());
+        Datetime deadline = TodoParserUtil.parseDeadline(argMultimap.getValue(deadlinePrefix).get());
+        Location location = TodoParserUtil.parseLocation(argMultimap.getValue(locationPrefix).get());
         Set<Tag> tagSet = new HashSet<>();
-        if (argMultimap.arePrefixesPresent(PREFIX_TODO_TAG_LONG)) {
-            tagSet = ParserUtil.parseTags(argMultimap.getValue(PREFIX_TODO_TAG_LONG).get());
+        if (argMultimap.arePrefixAliasPresent(tagPrefix)) {
+            tagSet = ParserUtil.parseTags(argMultimap.getValue(tagPrefix).get());
         }
 
         Todo todo = new Todo(name, deadline, location, tagSet);

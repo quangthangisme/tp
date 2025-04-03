@@ -2,12 +2,6 @@ package seedu.address.logic.parser.event;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_END_LONG;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_LONG;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION_LONG;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_LONG;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG_LONG;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +13,9 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.PrefixAlias;
+import seedu.address.logic.parser.PrefixAliasListBuilder;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.event.Attendance;
 
@@ -35,46 +32,50 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
      */
     public EditEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME_LONG,
-                PREFIX_EVENT_START_LONG, PREFIX_EVENT_END_LONG, PREFIX_EVENT_LOCATION_LONG,
-                PREFIX_EVENT_TAG_LONG, PREFIX_EVENT_LINKED_CONTACT_LONG);
+        PrefixAlias namePrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_NAME;
+        PrefixAlias startPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_START;
+        PrefixAlias endPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_END;
+        PrefixAlias locationPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_LOCATION;
+        PrefixAlias tagPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_TAG;
+        PrefixAlias contactPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_LINKED_CONTACT;
+        Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
+                .add(namePrefix, startPrefix, endPrefix, locationPrefix, tagPrefix, contactPrefix)
+                .toArray();
 
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
         if (argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditEventCommand.MESSAGE_USAGE));
         }
         Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
-
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_NAME_LONG, PREFIX_EVENT_START_LONG,
-                PREFIX_EVENT_END_LONG, PREFIX_EVENT_LOCATION_LONG, PREFIX_EVENT_TAG_LONG,
-                PREFIX_EVENT_LINKED_CONTACT_LONG);
+        argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
 
         EditEventDescriptor editEventDescriptor = new EditEventDescriptor();
 
-        if (argMultimap.getValue(PREFIX_EVENT_NAME_LONG).isPresent()) {
+        if (argMultimap.getValue(namePrefix).isPresent()) {
             editEventDescriptor.setName(
-                    EventParserUtil.parseName(argMultimap.getValue(PREFIX_EVENT_NAME_LONG).get()));
+                    EventParserUtil.parseName(argMultimap.getValue(namePrefix).get()));
         }
-        if (argMultimap.getValue(PREFIX_EVENT_START_LONG).isPresent()) {
+        if (argMultimap.getValue(startPrefix).isPresent()) {
             editEventDescriptor.setStartTime(
-                    EventParserUtil.parseDateTime(argMultimap.getValue(PREFIX_EVENT_START_LONG).get()));
+                    EventParserUtil.parseDateTime(argMultimap.getValue(startPrefix).get()));
         }
-        if (argMultimap.getValue(PREFIX_EVENT_END_LONG).isPresent()) {
+        if (argMultimap.getValue(endPrefix).isPresent()) {
             editEventDescriptor.setEndTime(
-                    EventParserUtil.parseDateTime(argMultimap.getValue(PREFIX_EVENT_END_LONG).get()));
+                    EventParserUtil.parseDateTime(argMultimap.getValue(endPrefix).get()));
         }
-        if (argMultimap.getValue(PREFIX_EVENT_LOCATION_LONG).isPresent()) {
+        if (argMultimap.getValue(locationPrefix).isPresent()) {
             editEventDescriptor.setLocation(
-                    EventParserUtil.parseLocation(argMultimap.getValue(PREFIX_EVENT_LOCATION_LONG).get()));
+                    EventParserUtil.parseLocation(argMultimap.getValue(locationPrefix).get()));
         }
-        if (argMultimap.getValue(PREFIX_EVENT_TAG_LONG).isPresent()) {
+        if (argMultimap.getValue(tagPrefix).isPresent()) {
             editEventDescriptor.setTags(
-                    ParserUtil.parseTags(argMultimap.getValue(PREFIX_EVENT_TAG_LONG).get()));
+                    ParserUtil.parseTags(argMultimap.getValue(tagPrefix).get()));
         }
         Optional<List<Index>> linkedContactIndices = Optional.empty();
-        if (argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).isPresent()) {
+        if (argMultimap.getValue(contactPrefix).isPresent()) {
             linkedContactIndices = Optional.of(ParserUtil.parseIndices(argMultimap
-                    .getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get()));
+                    .getValue(contactPrefix).get()));
             editEventDescriptor.setAttendance(new Attendance());
         }
 
