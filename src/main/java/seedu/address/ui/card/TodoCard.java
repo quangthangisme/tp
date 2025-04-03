@@ -78,4 +78,9 @@ public class TodoCard extends UiPart<Region> implements Card<Todo> {
     public UiPart<Region> getUiPart() {
         return this;
     }
+
+    @Override
+    public void setOnMouseClicked(Runnable handler) {
+        cardPane.setOnMouseClicked(event -> handler.run());
+    }
 }

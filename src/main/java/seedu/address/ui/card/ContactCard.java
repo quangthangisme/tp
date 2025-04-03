@@ -114,4 +114,9 @@ public class ContactCard extends UiPart<Region> implements Card<Contact> {
     public UiPart<Region> getUiPart() {
         return this;
     }
+
+    @Override
+    public void setOnMouseClicked(Runnable handler) {
+        cardPane.setOnMouseClicked(event -> handler.run());
+    }
 }

@@ -4,6 +4,7 @@ import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.EVENT_COMMAND_WORD;
 import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.application.Platform;
@@ -192,20 +193,20 @@ public class MainWindow extends UiPart<Stage> {
     private void updateView() {
         ObservableList<Contact> contactList = logic.getFilteredContactList();
         ObservableList<DisplayableItem> displayableContacts = ListConverter.toDisplayableContactList(contactList);
-        contactListPanel = new ListPanel(displayableContacts);
+        contactListPanel = new ListPanel(displayableContacts, createItemClickHandler());
         contactListPanelPlaceholder.getChildren().setAll(contactListPanel.getRoot());
 
         switch (currentViewMode) {
         case EVENT:
             ObservableList<Event> eventList = logic.getFilteredEventList();
             ObservableList<DisplayableItem> displayableEvents = ListConverter.toDisplayableEventList(eventList);
-            listPanel = new ListPanel(displayableEvents);
+            listPanel = new ListPanel(displayableEvents, createItemClickHandler());
             listPanelPlaceholder.getChildren().setAll(listPanel.getRoot());
             break;
         case TODO:
             ObservableList<Todo> todoList = logic.getFilteredTodoList();
             ObservableList<DisplayableItem> displayableTodos = ListConverter.toDisplayableTodoList(todoList);
-            listPanel = new ListPanel(displayableTodos);
+            listPanel = new ListPanel(displayableTodos, createItemClickHandler());
             listPanelPlaceholder.getChildren().setAll(listPanel.getRoot());
             break;
         default:
@@ -238,6 +239,37 @@ public class MainWindow extends UiPart<Stage> {
         default:
             break;
         }
+    }
+
+    /**
+     * Creates a click handler for items in the list panel based on current view.
+     * @return A consumer that takes an item index and executes the appropriate info command
+     */
+    private Consumer<Integer> createItemClickHandler() {
+        return index -> {
+            try {
+                String command = "";
+                if (contactListPanelPlaceholder.isVisible()
+                        && contactListPanelPlaceholder.getChildren().contains(contactListPanel.getRoot())
+                        && contactListPanelPlaceholder.getViewOrder() < listPanelPlaceholder.getViewOrder()) {
+                    command = "contact info " + index;
+                } else {
+                    switch (currentViewMode) {
+                    case EVENT:
+                        command = "event info " + index;
+                        break;
+                    case TODO:
+                        command = "todo info " + index;
+                        break;
+                    default:
+                        return;
+                    }
+                }
+                executeCommand(command);
+            } catch (Exception e) {
+                logger.warning("Failed to handle item click: " + e.getMessage());
+            }
+        };
     }
 
     /**

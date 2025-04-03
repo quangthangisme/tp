@@ -73,4 +73,9 @@ public class EventCard extends UiPart<Region> implements Card<Event> {
     public UiPart<Region> getUiPart() {
         return this;
     }
+
+    @Override
+    public void setOnMouseClicked(Runnable handler) {
+        cardPane.setOnMouseClicked(event -> handler.run());
+    }
 }

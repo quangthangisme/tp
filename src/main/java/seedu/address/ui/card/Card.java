@@ -22,4 +22,10 @@ public interface Card<T> {
      * @return The UiPart
      */
     UiPart<Region> getUiPart();
+
+    /**
+     * Adds a click handler to this card.
+     * @param handler The handler to invoke when this card is clicked
+     */
+    void setOnMouseClicked(Runnable handler);
 }
