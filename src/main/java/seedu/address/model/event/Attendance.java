@@ -103,6 +103,33 @@ public class Attendance {
     }
 
     /**
+     * Removes contacts from the attendance list.
+     */
+    public Attendance remove(Contact contact) {
+        assert contacts.stream().anyMatch(pair -> pair.first().equals(contact));
+
+        List<Pair<Contact, AttendanceStatus>> updatedContacts = contacts.stream()
+                .filter(pair -> !pair.first().equals(contact))
+                .collect(Collectors.toList());
+
+        return new Attendance(updatedContacts);
+    }
+
+    /**
+     * Update contacts from the attendance list.
+     */
+    public Attendance set(Contact oldContact, Contact newContact) {
+        assert contacts.stream().anyMatch(pair -> pair.first().equals(oldContact));
+
+        List<Pair<Contact, AttendanceStatus>> updatedContacts = contacts.stream()
+                .map(pair -> pair.first().equals(oldContact) ? new Pair<>(newContact,
+                        pair.second()) : pair)
+                .collect(Collectors.toList());
+
+        return new Attendance(updatedContacts);
+    }
+
+    /**
      * Matches the given indices with the specified attendance status.
      *
      * @param indices List of indices to match.

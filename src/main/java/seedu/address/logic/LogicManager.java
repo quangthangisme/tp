@@ -16,7 +16,8 @@ import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemInvolvingContactManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 import seedu.address.model.todo.Todo;
 import seedu.address.storage.Storage;
 
@@ -66,7 +67,7 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ItemManager<Contact> getAddressBook() {
+    public ItemNotInvolvingContactManager<Contact> getAddressBook() {
         return model.getContactManagerAndList().getItemManager();
     }
 
@@ -76,12 +77,12 @@ public class LogicManager implements Logic {
     }
 
     @Override
-    public ItemManager<Todo> getTodoList() {
+    public ItemInvolvingContactManager<Todo> getTodoList() {
         return model.getTodoManagerAndList().getItemManager();
     }
 
     @Override
-    public ItemManager<Event> getEventList() {
+    public ItemInvolvingContactManager<Event> getEventList() {
         return model.getEventManagerAndList().getItemManager();
     }
 

@@ -14,6 +14,7 @@ import seedu.address.commons.core.Operator;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactManagerAndList;
 import seedu.address.model.contact.ContactPredicate;
 import seedu.address.ui.ListPanelViewType;
 
@@ -21,7 +22,7 @@ import seedu.address.ui.ListPanelViewType;
  * Filters and lists all contacts in address book based on specified criteria.
  * Filter criteria are formed with columns, operators, and values.
  */
-public class FilterContactCommand extends FilterCommand<Contact> {
+public class FilterContactCommand extends FilterCommand<ContactManagerAndList, Contact> {
 
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Filters contacts based on specified criteria and displays them as a list with index numbers.\n"

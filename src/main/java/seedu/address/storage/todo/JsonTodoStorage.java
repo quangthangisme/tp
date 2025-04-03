@@ -12,7 +12,7 @@ import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemInvolvingContactManager;
 import seedu.address.model.todo.Todo;
 
 /**
@@ -34,7 +34,7 @@ public class JsonTodoStorage implements TodoStorage {
     }
 
     @Override
-    public Optional<ItemManager<Todo>> readTodoList() throws DataLoadingException {
+    public Optional<ItemInvolvingContactManager<Todo>> readTodoList() throws DataLoadingException {
         return readTodoList(filePath);
     }
 
@@ -45,7 +45,7 @@ public class JsonTodoStorage implements TodoStorage {
      * @throws DataLoadingException if loading the data from storage failed.
      */
     @Override
-    public Optional<ItemManager<Todo>> readTodoList(Path filePath) throws DataLoadingException {
+    public Optional<ItemInvolvingContactManager<Todo>> readTodoList(Path filePath) throws DataLoadingException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableTodoManager> jsonTodoManager = JsonUtil.readJsonFile(
@@ -63,17 +63,17 @@ public class JsonTodoStorage implements TodoStorage {
     }
 
     @Override
-    public void saveTodoList(ItemManager<Todo> todoManager) throws IOException {
+    public void saveTodoList(ItemInvolvingContactManager<Todo> todoManager) throws IOException {
         saveTodoList(todoManager, filePath);
     }
 
     /**
-     * Similar to {@link #saveTodoList(ItemManager)}.
+     * Similar to {@link #saveTodoList(ItemInvolvingContactManager)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
     @Override
-    public void saveTodoList(ItemManager<Todo> todoManager, Path filePath) throws IOException {
+    public void saveTodoList(ItemInvolvingContactManager<Todo> todoManager, Path filePath) throws IOException {
         requireNonNull(todoManager);
         requireNonNull(filePath);
 

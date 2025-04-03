@@ -16,9 +16,10 @@ import javafx.collections.transformation.SortedList;
  *
  * @param <T> the type of {@code Item} being managed, which must extend {@link Item}.
  */
-public abstract class ItemManagerWithFilteredList<T extends Item> {
+public abstract class ItemManagerWithFilteredList<T extends Item,
+        U extends ItemManager<T, V>, V extends UniqueItemList<T>> {
+    protected final U itemManager;
     private final Predicate<T> predicateShowAll = unused -> true;
-    private final ItemManager<T> itemManager;
     private final FilteredList<T> filteredItems;
 
     /**
@@ -28,7 +29,7 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
      *
      * @throws NullPointerException if {@code itemManager} is {@code null}.
      */
-    public ItemManagerWithFilteredList(ItemManager<T> itemManager) {
+    public ItemManagerWithFilteredList(U itemManager) {
         requireAllNonNull(itemManager);
         this.itemManager = itemManager;
         SortedList<T> sortedItems = new SortedList<>(this.itemManager.getItemList());
@@ -36,21 +37,21 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
         filteredItems = new FilteredList<>(sortedItems);
     }
 
-    protected abstract Comparator<T> getDefaultComparator();
+    public abstract Comparator<T> getDefaultComparator();
 
     //=========== ItemManager ======================================================================
 
     /**
      * Replaces the {@code ItemManager} data with the data in {@code itemManager}.
      */
-    public void setItemManager(ItemManager<T> itemManager) {
+    public void setItemManager(U itemManager) {
         this.itemManager.resetData(itemManager);
     }
 
     /**
      * Returns the {@code ItemManager}
      */
-    public ItemManager<T> getItemManager() {
+    public U getItemManager() {
         return itemManager;
     }
 
@@ -138,7 +139,7 @@ public abstract class ItemManagerWithFilteredList<T extends Item> {
             return true;
         }
 
-        if (!(other instanceof ItemManagerWithFilteredList<?> otherManagerAndList)) {
+        if (!(other instanceof ItemManagerWithFilteredList<?, ?, ?> otherManagerAndList)) {
             return false;
         }
 

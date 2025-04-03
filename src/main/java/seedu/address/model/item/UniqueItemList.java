@@ -17,7 +17,7 @@ import javafx.collections.ObservableList;
  */
 public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
 
-    private final ObservableList<T> internalList = FXCollections.observableArrayList();
+    protected final ObservableList<T> internalList = FXCollections.observableArrayList();
     private final ObservableList<T> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
     private final DuplicateChecker<T> duplicateChecker;

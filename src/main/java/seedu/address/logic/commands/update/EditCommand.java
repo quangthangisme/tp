@@ -14,21 +14,22 @@ import seedu.address.logic.commands.ItemCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;
-import seedu.address.model.item.ItemManagerWithFilteredList;
+import seedu.address.model.item.ManagerAndList;
 
 /**
  * Abstract command for editing an {@code Item} in the model at a specified index.
  *
  * @param <T> the type of {@code Item} being edited, which must extend {@link Item}.
  */
-public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
+public abstract class EditCommand<T extends ManagerAndList<U>, U extends Item>
+        extends ItemCommand<T, U> {
     public static final String COMMAND_WORD = "edit";
     protected final Index targetIndex;
 
     /**
      * Creates an {@code EditCommand} to edit an item at the specified {@code targetIndex}.
      */
-    public EditCommand(Index targetIndex, Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
+    public EditCommand(Index targetIndex, Function<Model, T> managerAndListGetter) {
         super(managerAndListGetter);
         requireAllNonNull(targetIndex);
         this.targetIndex = targetIndex;
@@ -37,16 +38,16 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
-        List<T> lastShownList = managerAndList.getFilteredItemsList();
+        T managerAndList = managerAndListGetter.apply(model);
+        List<U> lastShownList = managerAndList.getFilteredItemsList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(getIndexOutOfRangeMessage(),
                     targetIndex.getOneBased()));
         }
 
-        T itemToEdit = lastShownList.get(targetIndex.getZeroBased());
-        T editedItem = createEditedItem(model, itemToEdit);
+        U itemToEdit = lastShownList.get(targetIndex.getZeroBased());
+        U editedItem = createEditedItem(model, itemToEdit);
 
         if (!managerAndList.getDuplicateChecker().check(itemToEdit, editedItem)
                 && managerAndList.hasItem(editedItem)) {
@@ -54,13 +55,19 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
         }
 
         managerAndList.setItem(itemToEdit, editedItem);
+        cascade(model, itemToEdit, editedItem);
         return new CommandResult(getSuccessMessage(editedItem));
     }
 
     /**
+     * Propagate the result of the edit.
+     */
+    public abstract void cascade(Model model, U itemToEdit, U editedItem);
+
+    /**
      * Creates an edited version of the given item to be applied to the list.
      */
-    public abstract T createEditedItem(Model model, T itemToEdit) throws CommandException;
+    public abstract U createEditedItem(Model model, U itemToEdit) throws CommandException;
 
     /**
      * Returns the message to be displayed when the provided {@code targetIndex} is out of range.
@@ -75,7 +82,7 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Returns the success message to be displayed when an {@code Item} is successfully edited.
      */
-    public abstract String getSuccessMessage(T editedItem);
+    public abstract String getSuccessMessage(U editedItem);
 
     @Override
     public boolean equals(Object other) {
@@ -84,7 +91,7 @@ public abstract class EditCommand<T extends Item> extends ItemCommand<T> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof EditCommand<? extends Item> otherEditCommand)) {
+        if (!(other instanceof EditCommand<?, ?> otherEditCommand)) {
             return false;
         }
 

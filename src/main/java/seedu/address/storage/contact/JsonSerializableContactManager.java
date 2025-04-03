@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -35,7 +35,7 @@ public class JsonSerializableContactManager {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableContactManager(ItemManager<Contact> source) {
+    public JsonSerializableContactManager(ItemNotInvolvingContactManager<Contact> source) {
         contacts.addAll(source.getItemList().stream().map(JsonAdaptedContact::new).toList());
     }
 

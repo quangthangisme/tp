@@ -8,12 +8,11 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
-import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactManagerAndList;
 import seedu.address.model.contact.ContactManagerWithFilteredList;
-import seedu.address.model.event.Event;
+import seedu.address.model.event.EventManagerAndList;
 import seedu.address.model.event.EventManagerWithFilteredList;
-import seedu.address.model.item.ItemManagerWithFilteredList;
-import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.TodoManagerAndList;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 
 /**
@@ -24,17 +23,17 @@ public class ModelManager implements Model {
 
     private final UserPrefs userPrefs;
 
-    private final ItemManagerWithFilteredList<Contact> contactManagerAndList;
-    private final ItemManagerWithFilteredList<Todo> todoManagerAndList;
-    private final ItemManagerWithFilteredList<Event> eventManagerAndList;
+    private final ContactManagerAndList contactManagerAndList;
+    private final TodoManagerAndList todoManagerAndList;
+    private final EventManagerAndList eventManagerAndList;
 
     /**
      * Initializes a ModelManager with the given managers with lists and userPrefs.
      */
     public ModelManager(ReadOnlyUserPrefs userPrefs,
-                        ItemManagerWithFilteredList<Contact> contactManagerAndList,
-                        ItemManagerWithFilteredList<Todo> todoManagerAndList,
-                        ItemManagerWithFilteredList<Event> eventManagerAndList) {
+                        ContactManagerAndList contactManagerAndList,
+                        TodoManagerAndList todoManagerAndList,
+                        EventManagerAndList eventManagerAndList) {
         requireAllNonNull(userPrefs, contactManagerAndList, todoManagerAndList, eventManagerAndList);
 
         logger.fine("Initializing with contact manager: " + contactManagerAndList
@@ -112,17 +111,17 @@ public class ModelManager implements Model {
     }
 
     @Override
-    public ItemManagerWithFilteredList<Contact> getContactManagerAndList() {
+    public ContactManagerAndList getContactManagerAndList() {
         return contactManagerAndList;
     }
 
     @Override
-    public ItemManagerWithFilteredList<Todo> getTodoManagerAndList() {
+    public TodoManagerAndList getTodoManagerAndList() {
         return todoManagerAndList;
     }
 
     @Override
-    public ItemManagerWithFilteredList<Event> getEventManagerAndList() {
+    public EventManagerAndList getEventManagerAndList() {
         return eventManagerAndList;
     }
 

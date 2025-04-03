@@ -10,22 +10,23 @@ import seedu.address.logic.commands.ItemCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;
-import seedu.address.model.item.ItemManagerWithFilteredList;
+import seedu.address.model.item.ManagerAndList;
 
 /**
  * Abstract command to add an {@code Item} to the model.
  *
  * @param <T> the type of {@code Item} being added, which must extend {@link Item}.
  */
-public abstract class AddCommand<T extends Item> extends ItemCommand<T> {
+public abstract class AddCommand<T extends ManagerAndList<U>, U extends Item>
+        extends ItemCommand<T, U> {
 
     public static final String COMMAND_WORD = "add";
-    protected final T itemToAdd;
+    protected final U itemToAdd;
 
     /**
      * Creates an {@code AddCommand} to add the specified {@code item}
      */
-    public AddCommand(T item, Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
+    public AddCommand(U item, Function<Model, T> managerAndListGetter) {
         super(managerAndListGetter);
         requireNonNull(item);
         itemToAdd = item;
@@ -35,7 +36,7 @@ public abstract class AddCommand<T extends Item> extends ItemCommand<T> {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
+        T managerAndList = managerAndListGetter.apply(model);
         if (managerAndList.hasItem(itemToAdd)) {
             throw new CommandException(getDuplicateItemMessage());
         }
@@ -52,7 +53,7 @@ public abstract class AddCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Returns the message to be displayed when the item is successfully added to the model.
      */
-    public abstract String getSuccessMessage(T itemToAdd);
+    public abstract String getSuccessMessage(U itemToAdd);
 
     @Override
     public boolean equals(Object other) {
@@ -61,7 +62,7 @@ public abstract class AddCommand<T extends Item> extends ItemCommand<T> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof AddCommand<? extends Item> otherAddCommand)) {
+        if (!(other instanceof AddCommand<?, ?> otherAddCommand)) {
             return false;
         }
 
