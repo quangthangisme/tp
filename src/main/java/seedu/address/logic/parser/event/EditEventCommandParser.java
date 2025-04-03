@@ -32,12 +32,12 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
      */
     public EditEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias namePrefix = EventCliAlias.EVENT_NAME_PREFIX_ALIAS;
-        PrefixAlias startPrefix = EventCliAlias.EVENT_START_PREFIX_ALIAS;
-        PrefixAlias endPrefix = EventCliAlias.EVENT_END_PREFIX_ALIAS;
-        PrefixAlias locationPrefix = EventCliAlias.EVENT_LOCATION_PREFIX_ALIAS;
-        PrefixAlias tagPrefix = EventCliAlias.EVENT_TAG_PREFIX_ALIAS;
-        PrefixAlias contactPrefix = EventCliAlias.EVENT_LINKED_CONTACT_PREFIX_ALIAS;
+        PrefixAlias namePrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_NAME;
+        PrefixAlias startPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_START;
+        PrefixAlias endPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_END;
+        PrefixAlias locationPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_LOCATION;
+        PrefixAlias tagPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_TAG;
+        PrefixAlias contactPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_LINKED_CONTACT;
         Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
                 .add(namePrefix, startPrefix, endPrefix, locationPrefix, tagPrefix, contactPrefix)
                 .toArray();

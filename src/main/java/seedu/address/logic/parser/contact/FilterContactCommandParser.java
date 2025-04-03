@@ -53,12 +53,12 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
         if (args.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterContactCommand.MESSAGE_USAGE));
         }
-        PrefixAlias namePrefix = ContactCliAlias.CONTACT_NAME_PREFIX_ALIAS;
-        PrefixAlias emailPrefix = ContactCliAlias.CONTACT_EMAIL_PREFIX_ALIAS;
-        PrefixAlias idPrefix = ContactCliAlias.CONTACT_ID_PREFIX_ALIAS;
-        PrefixAlias coursePrefix = ContactCliAlias.CONTACT_COURSE_PREFIX_ALIAS;
-        PrefixAlias groupPrefix = ContactCliAlias.CONTACT_GROUP_PREFIX_ALIAS;
-        PrefixAlias tagPrefix = ContactCliAlias.CONTACT_TAG_PREFIX_ALIAS;
+        PrefixAlias namePrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_NAME;
+        PrefixAlias emailPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_EMAIL;
+        PrefixAlias idPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_ID;
+        PrefixAlias coursePrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_COURSE;
+        PrefixAlias groupPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_GROUP;
+        PrefixAlias tagPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_TAG;
         Prefix[] listOPrefixes = new PrefixAliasListBuilder()
                 .add(namePrefix, emailPrefix, idPrefix, coursePrefix, groupPrefix, tagPrefix)
                 .toArray();

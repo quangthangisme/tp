@@ -28,12 +28,12 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
      */
     public EditContactCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias idPrefix = ContactCliAlias.CONTACT_ID_PREFIX_ALIAS;
-        PrefixAlias namePrefix = ContactCliAlias.CONTACT_NAME_PREFIX_ALIAS;
-        PrefixAlias emailPrefix = ContactCliAlias.CONTACT_EMAIL_PREFIX_ALIAS;
-        PrefixAlias tagPrefix = ContactCliAlias.CONTACT_TAG_PREFIX_ALIAS;
-        PrefixAlias coursePrefix = ContactCliAlias.CONTACT_COURSE_PREFIX_ALIAS;
-        PrefixAlias groupPrefix = ContactCliAlias.CONTACT_GROUP_PREFIX_ALIAS;
+        PrefixAlias idPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_ID;
+        PrefixAlias namePrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_NAME;
+        PrefixAlias emailPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_EMAIL;
+        PrefixAlias tagPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_TAG;
+        PrefixAlias coursePrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_COURSE;
+        PrefixAlias groupPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_GROUP;
         Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
                 .add(idPrefix, namePrefix, emailPrefix, tagPrefix, coursePrefix, groupPrefix)
                 .toArray();

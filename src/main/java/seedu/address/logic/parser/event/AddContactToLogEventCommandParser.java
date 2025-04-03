@@ -29,7 +29,7 @@ public class AddContactToLogEventCommandParser implements Parser<AddContactToLog
     @Override
     public AddContactToLogEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias contactPrefix = EventCliAlias.EVENT_LINKED_CONTACT_PREFIX_ALIAS;
+        PrefixAlias contactPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_LINKED_CONTACT;
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, contactPrefix.getAll());
 
         if (argMultimap.getValue(contactPrefix).isEmpty() || argMultimap.getPreamble().isEmpty()) {

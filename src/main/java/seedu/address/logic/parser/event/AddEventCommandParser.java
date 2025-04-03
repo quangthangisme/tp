@@ -32,11 +32,11 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
      * @throws ParseException if the user input does not conform the expected format.
      */
     public AddEventCommand parse(String args) throws ParseException {
-        PrefixAlias namePrefix = EventCliAlias.EVENT_NAME_PREFIX_ALIAS;
-        PrefixAlias startPrefix = EventCliAlias.EVENT_START_PREFIX_ALIAS;
-        PrefixAlias endPrefix = EventCliAlias.EVENT_END_PREFIX_ALIAS;
-        PrefixAlias locationPrefix = EventCliAlias.EVENT_LOCATION_PREFIX_ALIAS;
-        PrefixAlias tagPrefix = EventCliAlias.EVENT_TAG_PREFIX_ALIAS;
+        PrefixAlias namePrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_NAME;
+        PrefixAlias startPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_START;
+        PrefixAlias endPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_END;
+        PrefixAlias locationPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_LOCATION;
+        PrefixAlias tagPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_TAG;
         Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
                 .add(namePrefix, startPrefix, endPrefix, locationPrefix, tagPrefix)
                 .toArray();

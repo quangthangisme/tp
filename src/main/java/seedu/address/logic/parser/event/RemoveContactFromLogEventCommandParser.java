@@ -29,7 +29,7 @@ public class RemoveContactFromLogEventCommandParser implements Parser<RemoveCont
     @Override
     public RemoveContactFromLogEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias contactPrefix = EventCliAlias.EVENT_LINKED_CONTACT_PREFIX_ALIAS;
+        PrefixAlias contactPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_LINKED_CONTACT;
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, contactPrefix.getAll());
 
         // Ensure only one prefix is present

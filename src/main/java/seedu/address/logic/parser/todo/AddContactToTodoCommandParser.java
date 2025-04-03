@@ -29,7 +29,7 @@ public class AddContactToTodoCommandParser implements Parser<AddContactToTodoCom
      */
     public AddContactToTodoCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias contactPrefix = TodoCliAlias.TODO_LINKED_CONTACT_PREFIX_ALIAS;
+        PrefixAlias contactPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_LINKED_CONTACT;
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, contactPrefix.getAll());
 
         // Ensure only one prefix is present

@@ -16,7 +16,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
 import seedu.address.logic.parser.PrefixAlias;
 import seedu.address.logic.parser.PrefixAliasListBuilder;
-import seedu.address.logic.parser.event.EventCliAlias;
+import seedu.address.logic.parser.event.EventCliSyntax;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.todo.TodoStatus;
 
@@ -33,12 +33,12 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
      */
     public EditTodoCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias namePrefix = TodoCliAlias.TODO_NAME_PREFIX_ALIAS;
-        PrefixAlias deadlinePrefix = TodoCliAlias.TODO_DEADLINE_PREFIX_ALIAS;
-        PrefixAlias locationPrefix = TodoCliAlias.TODO_LOCATION_PREFIX_ALIAS;
-        PrefixAlias tagPrefix = TodoCliAlias.TODO_TAG_PREFIX_ALIAS;
-        PrefixAlias contactPrefix = TodoCliAlias.TODO_LINKED_CONTACT_PREFIX_ALIAS;
-        PrefixAlias statusPrefix = TodoCliAlias.TODO_STATUS_ALIAS;
+        PrefixAlias namePrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_NAME;
+        PrefixAlias deadlinePrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_DEADLINE;
+        PrefixAlias locationPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_LOCATION;
+        PrefixAlias tagPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_TAG;
+        PrefixAlias contactPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_LINKED_CONTACT;
+        PrefixAlias statusPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_STATUS;
         Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
                 .add(namePrefix, deadlinePrefix, locationPrefix, tagPrefix, contactPrefix, statusPrefix)
                 .toArray();
@@ -73,7 +73,7 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
                     ParserUtil.parseBoolean(argMultimap.getValue(statusPrefix).get())));
         }
         Optional<List<Index>> linkedContactIndices = Optional.empty();
-        PrefixAlias eventContact = EventCliAlias.EVENT_LINKED_CONTACT_PREFIX_ALIAS;
+        PrefixAlias eventContact = EventCliSyntax.PREFIX_ALIAS_EVENT_LINKED_CONTACT;
         if (argMultimap.getValue(eventContact).isPresent()) {
             linkedContactIndices = Optional.of(
                     ParserUtil.parseIndices(argMultimap.getValue(eventContact).get()));

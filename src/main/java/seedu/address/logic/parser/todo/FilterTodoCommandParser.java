@@ -40,12 +40,12 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
      */
     public FilterTodoCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias namePrefix = TodoCliAlias.TODO_NAME_PREFIX_ALIAS;
-        PrefixAlias deadlinePrefix = TodoCliAlias.TODO_DEADLINE_PREFIX_ALIAS;
-        PrefixAlias locationPrefix = TodoCliAlias.TODO_LOCATION_PREFIX_ALIAS;
-        PrefixAlias statusPrefix = TodoCliAlias.TODO_STATUS_ALIAS;
-        PrefixAlias contactPrefix = TodoCliAlias.TODO_LINKED_CONTACT_PREFIX_ALIAS;
-        PrefixAlias tagPrefix = TodoCliAlias.TODO_TAG_PREFIX_ALIAS;
+        PrefixAlias namePrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_NAME;
+        PrefixAlias deadlinePrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_DEADLINE;
+        PrefixAlias locationPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_LOCATION;
+        PrefixAlias statusPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_STATUS;
+        PrefixAlias contactPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_LINKED_CONTACT;
+        PrefixAlias tagPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_TAG;
         Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
                 .add(namePrefix, deadlinePrefix, locationPrefix, statusPrefix, contactPrefix)
                 .toArray();

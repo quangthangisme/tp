@@ -23,7 +23,7 @@ public class AddTagToContactCommandParser implements Parser<AddTagToContactComma
     @Override
     public AddTagToContactCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias tagPrefix = ContactCliAlias.CONTACT_TAG_PREFIX_ALIAS;
+        PrefixAlias tagPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_TAG;
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, tagPrefix.getAll());
 
         // Ensure only one prefix is present

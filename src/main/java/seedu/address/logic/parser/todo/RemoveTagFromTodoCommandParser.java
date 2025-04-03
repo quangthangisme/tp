@@ -23,7 +23,7 @@ public class RemoveTagFromTodoCommandParser implements Parser<RemoveTagFromTodoC
     @Override
     public RemoveTagFromTodoCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias tagAlias = TodoCliAlias.TODO_TAG_PREFIX_ALIAS;
+        PrefixAlias tagAlias = TodoCliSyntax.PREFIX_ALIAS_TODO_TAG;
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, tagAlias.getAll());
 
         // Ensure only one prefix is present

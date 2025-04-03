@@ -23,7 +23,7 @@ public class AddTagToTodoCommandParser implements Parser<AddTagToTodoCommand> {
     @Override
     public AddTagToTodoCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias tagPrefix = TodoCliAlias.TODO_TAG_PREFIX_ALIAS;
+        PrefixAlias tagPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_TAG;
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, tagPrefix.getAll());
 
         // Ensure only one prefix is present

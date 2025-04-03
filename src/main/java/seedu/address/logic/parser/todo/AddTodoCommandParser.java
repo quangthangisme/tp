@@ -31,10 +31,10 @@ public class AddTodoCommandParser implements Parser<AddTodoCommand> {
      * @throws ParseException if the user input does not conform the expected format.
      */
     public AddTodoCommand parse(String args) throws ParseException {
-        PrefixAlias namePrefix = TodoCliAlias.TODO_NAME_PREFIX_ALIAS;
-        PrefixAlias deadlinePrefix = TodoCliAlias.TODO_DEADLINE_PREFIX_ALIAS;
-        PrefixAlias locationPrefix = TodoCliAlias.TODO_LOCATION_PREFIX_ALIAS;
-        PrefixAlias tagPrefix = TodoCliAlias.TODO_TAG_PREFIX_ALIAS;
+        PrefixAlias namePrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_NAME;
+        PrefixAlias deadlinePrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_DEADLINE;
+        PrefixAlias locationPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_LOCATION;
+        PrefixAlias tagPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_TAG;
         Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
                 .add(namePrefix, deadlinePrefix, locationPrefix, tagPrefix)
                 .toArray();

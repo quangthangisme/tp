@@ -23,7 +23,7 @@ public class AddTagToEventCommandParser implements Parser<AddTagToEventCommand> 
     @Override
     public AddTagToEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias tagPrefix = EventCliAlias.EVENT_TAG_PREFIX_ALIAS;
+        PrefixAlias tagPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_TAG;
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, tagPrefix.getAll());
         // Ensure only one prefix is present
         argMultimap.verifyNoDuplicatePrefixesFor(tagPrefix.getAll());

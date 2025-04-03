@@ -1,5 +1,6 @@
 package seedu.address.logic.parser.contact;
 
+import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.HashSet;
@@ -34,29 +35,28 @@ public class AddContactCommandParser implements Parser<AddContactCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public AddContactCommand parse(String args) throws ParseException {
-        PrefixAlias idPrefix = ContactCliAlias.CONTACT_ID_PREFIX_ALIAS;
-        PrefixAlias namePrefix = ContactCliAlias.CONTACT_NAME_PREFIX_ALIAS;
-        PrefixAlias emailPrefix = ContactCliAlias.CONTACT_EMAIL_PREFIX_ALIAS;
-        PrefixAlias tagPrefix = ContactCliAlias.CONTACT_TAG_PREFIX_ALIAS;
-        PrefixAlias coursePrefix = ContactCliAlias.CONTACT_COURSE_PREFIX_ALIAS;
-        PrefixAlias groupPrefix = ContactCliAlias.CONTACT_GROUP_PREFIX_ALIAS;
+        requireNonNull(args);
+        PrefixAlias idPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_ID;
+        PrefixAlias namePrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_NAME;
+        PrefixAlias emailPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_EMAIL;
+        PrefixAlias tagPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_TAG;
+        PrefixAlias coursePrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_COURSE;
+        PrefixAlias groupPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_GROUP;
         Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
                 .add(idPrefix, namePrefix, emailPrefix, tagPrefix, coursePrefix, groupPrefix)
                 .toArray();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
 
-        if (!argMultimap.arePrefixAliasPresent(idPrefix)
-                || !argMultimap.arePrefixAliasPresent(namePrefix)
-                || !argMultimap.arePrefixAliasPresent(emailPrefix)
-                || !argMultimap.arePrefixAliasPresent(coursePrefix)
-                || !argMultimap.arePrefixAliasPresent(groupPrefix)
+        // Check that all required prefixes are present
+        if (!argMultimap.areAllPrefixAliasPresent(idPrefix, namePrefix, emailPrefix, coursePrefix, groupPrefix)
                 || !argMultimap.getPreamble().isEmpty()) {
-
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    AddContactCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddContactCommand.MESSAGE_USAGE));
         }
 
+        // Check that there are no duplicate prefixes
         argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
+
+        // getValue further ensures that only short or long prefixes but not both is present
         Id id = ContactParserUtil.parseId(argMultimap.getValue(idPrefix).get());
         Name name = ContactParserUtil.parseName(argMultimap.getValue(namePrefix).get());
         Email email = ContactParserUtil.parseEmail(argMultimap.getValue(emailPrefix).get());

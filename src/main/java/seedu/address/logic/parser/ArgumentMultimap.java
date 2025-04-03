@@ -102,4 +102,16 @@ public class ArgumentMultimap {
     public boolean arePrefixAliasPresent(PrefixAlias prefixAlias) throws ParseException {
         return getValue(prefixAlias).isPresent();
     }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values.
+     */
+    public boolean areAllPrefixAliasPresent(PrefixAlias... prefixAliases) throws ParseException {
+        for (PrefixAlias prefixAlias : prefixAliases) {
+            if (!arePrefixAliasPresent(prefixAlias)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
