@@ -13,9 +13,8 @@ import seedu.address.logic.commands.ItemCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;
-import seedu.address.model.item.ItemManagerWithFilteredList;
-import seedu.address.ui.ListPanelViewType;
 import seedu.address.model.item.ManagerAndList;
+import seedu.address.ui.ListPanelViewType;
 
 /**
  * Abstract command for filtering items in the model that match a given complex {@code predicate}.
