@@ -9,10 +9,11 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataLoadingException;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.item.ItemInvolvingContactManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 import seedu.address.model.todo.Todo;
 
 /**
@@ -34,46 +35,43 @@ public class JsonTodoStorage implements TodoStorage {
     }
 
     @Override
-    public Optional<ItemManager<Todo>> readTodoList() throws DataLoadingException {
-        return readTodoList(filePath);
+    public Optional<ItemInvolvingContactManager<Todo>> readTodoList(
+            ItemNotInvolvingContactManager<Contact> contactManager
+    ) throws DataLoadingException {
+        return readTodoList(filePath, contactManager);
     }
 
     /**
-     * Similar to {@link #readTodoList()}.
+     * Similar to {@link #readTodoList}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataLoadingException if loading the data from storage failed.
      */
     @Override
-    public Optional<ItemManager<Todo>> readTodoList(Path filePath) throws DataLoadingException {
+    public Optional<ItemInvolvingContactManager<Todo>> readTodoList(
+            Path filePath, ItemNotInvolvingContactManager<Contact> contactManager
+    ) throws DataLoadingException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableTodoManager> jsonTodoManager = JsonUtil.readJsonFile(
                 filePath, JsonSerializableTodoManager.class);
-        if (jsonTodoManager.isEmpty()) {
-            return Optional.empty();
-        }
+        return jsonTodoManager.map(jsonSerializableTodoManager ->
+                jsonSerializableTodoManager.toModelType(contactManager));
 
-        try {
-            return Optional.of(jsonTodoManager.get().toModelType());
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataLoadingException(ive);
-        }
     }
 
     @Override
-    public void saveTodoList(ItemManager<Todo> todoManager) throws IOException {
+    public void saveTodoList(ItemInvolvingContactManager<Todo> todoManager) throws IOException {
         saveTodoList(todoManager, filePath);
     }
 
     /**
-     * Similar to {@link #saveTodoList(ItemManager)}.
+     * Similar to {@link #saveTodoList(ItemInvolvingContactManager)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
     @Override
-    public void saveTodoList(ItemManager<Todo> todoManager, Path filePath) throws IOException {
+    public void saveTodoList(ItemInvolvingContactManager<Todo> todoManager, Path filePath) throws IOException {
         requireNonNull(todoManager);
         requireNonNull(filePath);
 

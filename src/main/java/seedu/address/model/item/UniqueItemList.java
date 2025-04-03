@@ -17,7 +17,7 @@ import javafx.collections.ObservableList;
  */
 public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
 
-    private final ObservableList<T> internalList = FXCollections.observableArrayList();
+    protected final ObservableList<T> internalList = FXCollections.observableArrayList();
     private final ObservableList<T> internalUnmodifiableList =
             FXCollections.unmodifiableObservableList(internalList);
     private final DuplicateChecker<T> duplicateChecker;
@@ -45,6 +45,18 @@ public abstract class UniqueItemList<T extends Item> implements Iterable<T> {
     public boolean contains(T toCheck) {
         requireNonNull(toCheck);
         return internalList.stream().anyMatch(elem -> duplicateChecker.check(elem, toCheck));
+    }
+
+    /**
+     * Returns an updated version of item.
+     */
+    public T getUpdatedItem(T item) throws IllegalArgumentException {
+        requireNonNull(item);
+        if (!contains(item)) {
+            throw new IllegalArgumentException("Item is not in list.");
+        }
+        return internalList.stream().filter(elem -> duplicateChecker.check(elem, item))
+                .findFirst().get();
     }
 
     /**

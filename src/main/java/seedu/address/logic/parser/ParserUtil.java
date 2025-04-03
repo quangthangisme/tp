@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_DUPLICATE_TAGS;
 import static seedu.address.model.item.predicate.DatetimePredicate.DATE_PATTERN;
 
 import java.util.ArrayList;
@@ -168,6 +169,10 @@ public class ParserUtil {
         final Set<Tag> tagSet = new HashSet<>();
         String[] tagNames = tags.split("\\s+");
         for (String tagName : tagNames) {
+            // Throw exception if tags are duplicate
+            if (tagSet.contains(parseTag(tagName))) {
+                throw new ParseException(String.format(MESSAGE_DUPLICATE_TAGS, tagName));
+            }
             tagSet.add(parseTag(tagName));
         }
         return tagSet;

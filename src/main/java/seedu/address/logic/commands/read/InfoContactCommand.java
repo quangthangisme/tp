@@ -7,13 +7,14 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactManagerAndList;
 
 /**
  * Displays information of a contact identified using its displayed index.
  * <p>
  * This command is only available when the contact list panel is displayed.
  */
-public class InfoContactCommand extends InfoCommand<Contact> {
+public class InfoContactCommand extends InfoCommand<ContactManagerAndList, Contact> {
 
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Displays the complete information belonging to the contact"

@@ -7,6 +7,7 @@ import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.ContactCommandTestUtil.DESC_AMY;
 import static seedu.address.logic.commands.ContactCommandTestUtil.DESC_BOB;
+import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_ID_BOB;
 import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_NAME_BOB;
 import static seedu.address.logic.commands.ContactCommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.commands.ContactCommandTestUtil.showContactAtIndex;
@@ -32,6 +33,7 @@ import seedu.address.model.todo.TodoManager;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.testutil.ContactBuilder;
 import seedu.address.testutil.EditContactDescriptorBuilder;
+import seedu.address.testutil.TodoBuilder;
 
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditContactCommand.
@@ -103,6 +105,40 @@ public class EditContactCommandTest {
                 )
         );
         expectedModel.getContactManagerAndList().setItem(lastContact, editedContact);
+
+        assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
+    }
+
+    @Test
+    public void execute_linkedTodo_success() {
+        Index indexLastContact = Index.fromOneBased(model.getContactManagerAndList()
+                .getFilteredItemsList().size());
+        Contact lastContact = model.getContactManagerAndList()
+                .getFilteredItemsList().get(indexLastContact.getZeroBased());
+
+        model.getTodoManagerAndList().addItem(new TodoBuilder().withContacts(lastContact).build());
+
+        ContactBuilder contactInList = new ContactBuilder(lastContact);
+        Contact editedContact = contactInList.withId(VALID_ID_BOB).withTags(VALID_TAG_HUSBAND).build();
+
+        EditContactDescriptor descriptor = new EditContactDescriptorBuilder().withId(VALID_ID_BOB)
+                .withTags(VALID_TAG_HUSBAND).build();
+        EditContactCommand editCommand = new EditContactCommand(indexLastContact, descriptor);
+
+        String expectedMessage = String.format(EditContactCommand.MESSAGE_EDIT_CONTACT_SUCCESS,
+                Messages.format(editedContact));
+
+        Model expectedModel = new ModelManager(
+                new UserPrefs(),
+                new ContactManagerWithFilteredList(
+                        new ContactManager(model.getContactManagerAndList().getItemManager())
+                ),
+                new TodoManagerWithFilteredList(),
+                new EventManagerWithFilteredList()
+        );
+        expectedModel.getContactManagerAndList().setItem(lastContact, editedContact);
+        expectedModel.getTodoManagerAndList().addItem(
+                new TodoBuilder().withContacts(editedContact).build());
 
         assertCommandSuccess(editCommand, model, expectedMessage, expectedModel);
     }

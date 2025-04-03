@@ -14,7 +14,7 @@ import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 import seedu.address.storage.contact.JsonContactStorage;
 import seedu.address.storage.event.JsonEventStorage;
 import seedu.address.storage.todo.JsonTodoStorage;
@@ -62,7 +62,7 @@ public class StorageManagerTest {
          */
         ContactManager original = getTypicalAddressBook();
         storageManager.saveAddressBook(original);
-        ItemManager<Contact> retrieved = storageManager.readAddressBook().get();
+        ItemNotInvolvingContactManager<Contact> retrieved = storageManager.readAddressBook().get();
         assertEquals(original, new ContactManager(retrieved));
     }
 

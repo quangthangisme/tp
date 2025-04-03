@@ -33,7 +33,7 @@ import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG_LONG;
 import static seedu.address.testutil.TypicalEvents.CRYING;
 import static seedu.address.testutil.TypicalEvents.CRYING_MULTIPLE_TAG;
-import static seedu.address.testutil.TypicalEvents.CRYING_NO_TAG;
+import static seedu.address.testutil.TypicalEvents.CRYING_WITH_TAG;
 
 import org.junit.jupiter.api.Test;
 
@@ -52,19 +52,19 @@ class AddEventCommandParserTest {
     public void parse_allFieldsPresent_success() {
         assertParseSuccess(parser,
                 PREAMBLE_WHITESPACE + NAME_DESC_CRYING + START_DESC_CRYING + END_DESC_CRYING
-                        + LOCATION_DESC_CRYING, new AddEventCommand(CRYING_NO_TAG));
+                        + LOCATION_DESC_CRYING, new AddEventCommand(CRYING));
 
         assertParseSuccess(parser,
                 PREAMBLE_WHITESPACE + NAME_DESC_CRYING + START_DESC_CRYING + END_DESC_CRYING
                         + LOCATION_DESC_CRYING + TAG_DESC_EMPTY,
-                new AddEventCommand(CRYING_NO_TAG));
+                new AddEventCommand(CRYING));
 
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + NAME_DESC_CRYING + START_DESC_CRYING + END_DESC_CRYING
-                        + LOCATION_DESC_CRYING + TAG_DESC_CRYING, new AddEventCommand(CRYING));
+                PREAMBLE_WHITESPACE + NAME_DESC_CRYING + " with tag" + START_DESC_CRYING + END_DESC_CRYING
+                        + LOCATION_DESC_CRYING + TAG_DESC_CRYING, new AddEventCommand(CRYING_WITH_TAG));
 
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + NAME_DESC_CRYING + START_DESC_CRYING + END_DESC_CRYING
+                PREAMBLE_WHITESPACE + NAME_DESC_CRYING + " with multiple tags" + START_DESC_CRYING + END_DESC_CRYING
                         + LOCATION_DESC_CRYING + TAG_DESC_CRYING_MULTIPLE,
                 new AddEventCommand(CRYING_MULTIPLE_TAG));
     }
@@ -189,7 +189,7 @@ class AddEventCommandParserTest {
         // invalid location
         assertParseFailure(parser,
                 NAME_DESC_CRYING + INVALID_EVENT_LOCATION_DESC + START_DESC_CRYING
-                + END_DESC_CRYING, Location.MESSAGE_CONSTRAINTS);
+                        + END_DESC_CRYING, Location.MESSAGE_CONSTRAINTS);
 
         // invalid tag
         assertParseFailure(parser, NAME_DESC_CRYING + LOCATION_DESC_CRYING + END_DESC_CRYING

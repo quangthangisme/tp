@@ -65,7 +65,7 @@ public class StubItemUtil {
     /**
      * An stub for {@code ItemManager}.
      */
-    public static class StubManager extends ItemManager<Stub> {
+    public static class StubManager extends ItemNotInvolvingContactManager<Stub> {
         public StubManager() {
             super(new UniqueStubList());
         }
