@@ -46,20 +46,21 @@ public class FilterContactCommand extends FilterCommand<Contact> {
 
             + "Examples:\n"
             + "1. " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_CONTACT_ID_LONG + " " + Operator.OR.getName() + ": 12 13\n"
+            + PREFIX_CONTACT_ID_LONG + Operator.OR.getName() + ": 12 13\n"
             + "   Find students with ID 12 or 13.\n"
 
             + "2. " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_CONTACT_NAME_LONG + " \"Darren Tan\" "
-            + PREFIX_CONTACT_COURSE_LONG + " CS1010S "
-            + PREFIX_CONTACT_GROUP_LONG + " " + Operator.OR.getName() + ": T01 T02 T03\n"
-            + "   Find contacts with \"Darren\" and \"Tan\" in their name who enroll in course CS1010S and class T01, "
+            + PREFIX_CONTACT_NAME_LONG + "Darren Tan "
+            + PREFIX_CONTACT_COURSE_LONG + "CS1010S "
+            + PREFIX_CONTACT_GROUP_LONG + Operator.OR.getName() + ": T01 T02 T03\n"
+            + "   Find contacts with both \"Darren\" and \"Tan\" in their name who enroll in course CS1010S and class "
+            + "T01, "
             + "T02, or T03.\n"
 
             + "3. " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_CONTACT_NAME_LONG + " " + Operator.NAND.getName() + ": \"My enemy\" Hater "
-            + PREFIX_CONTACT_TAG_LONG + " " + Operator.AND.getName() + " : handsome smart\n"
-            + "   Find contacts whose names do not contain \"My enemy\" and \"Hater\" and are tagged with both "
+            + PREFIX_CONTACT_NAME_LONG + Operator.NAND.getName() + ": enemy Hater "
+            + PREFIX_CONTACT_TAG_LONG + Operator.AND.getName() + ": handsome smart\n"
+            + "   Find contacts whose names do not contain \"enemy\" and \"Hater\" and are tagged with both "
             + "\"handsome\" and \"smart\".";
 
     private final Predicate<Contact> predicate;

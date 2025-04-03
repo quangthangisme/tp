@@ -59,19 +59,19 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
             + "Examples:\n"
 
             + "1. " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_TODO_NAME_LONG + " " + Operator.OR.getName() + ": Grading REPORT\n"
+            + PREFIX_TODO_NAME_LONG + Operator.OR.getName() + ": Grading REPORT\n"
             + "   Find todos whose name contains at least one of the keywords \"grading\" or "
             + "\"report.\"\n"
 
             + "2. " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " "
             + PREFIX_TODO_NAME_LONG + "CS1010S GrAdIng "
-            + PREFIX_TODO_DEADLINE_LONG + " " + Operator.OR.getName()
+            + PREFIX_TODO_DEADLINE_LONG + Operator.OR.getName()
             + ": [25-03-13 23:59/25-03-20 23:59] [25-03-27 23:59/-]\n"
             + "   Find todos whose name contains both the keywords \"CS1010S\" and \"grading\" and whose deadline is "
             + "between 25-03-13 23:59 and 25-03-20 23:59 (inclusive) or not before 25-03-27 23:59 (inclusive).\n"
 
             + "3. " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_TODO_LOCATION_LONG + " " + Operator.NAND.getName() + ": NUS Home "
+            + PREFIX_TODO_LOCATION_LONG + Operator.NAND.getName() + ": NUS Home "
             + PREFIX_TODO_STATUS_LONG + "false\n"
             + "   Find todos whose location does not contain the keywords \"NUS\" or \"home\" and which are not done "
             + "yet.\n";

@@ -57,18 +57,18 @@ public class FilterEventCommand extends FilterCommand<Event> {
 
             + "Examples:\n"
             + "1. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_EVENT_NAME_LONG + " " + Operator.OR.getName() + ": Exam PRESENTATION\n"
+            + PREFIX_EVENT_NAME_LONG + Operator.OR.getName() + ": Exam PRESENTATION\n"
             + "   Find todos whose name contains at least one of the keywords \"exam\" or \"presentation.\"\n"
 
             + "2. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " "
             + PREFIX_EVENT_NAME_LONG + "CS1010S eXAM "
-            + PREFIX_EVENT_START_LONG + " " + Operator.OR.getName()
+            + PREFIX_EVENT_START_LONG + Operator.OR.getName()
             + ": [25-03-13 23:59/25-03-20 23:59] [25-03-27 23:59/-]\n"
             + "   Find todos whose name contains both the keywords \"CS1010S\" and \"exam\" and whose start time is "
             + "between 25-03-13 23:59 and 25-03-20 23:59 (inclusive) or after 25-03-27 23:59 (inclusive).\n"
 
             + "3. " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_EVENT_LOCATION_LONG + " " + Operator.NAND.getName() + ": NUS Home "
+            + PREFIX_EVENT_LOCATION_LONG + Operator.NAND.getName() + ": NUS Home "
             + PREFIX_EVENT_LINKED_CONTACT_LONG + "1 2 3\n"
             + "   Find todos whose location does not contain the keywords \"NUS\" or \"home\" and which are is linked"
             + " to the people currently at index 1, 2 and 3.\n";

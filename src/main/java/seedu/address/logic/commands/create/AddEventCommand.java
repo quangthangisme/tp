@@ -18,19 +18,19 @@ import seedu.address.model.event.Event;
 public class AddEventCommand extends AddCommand<Event> {
 
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
-            + ": Adds an event to the app. "
+            + ": Adds an event to the app.\n"
             + "Parameters: "
-            + PREFIX_EVENT_NAME_LONG + " NAME "
-            + PREFIX_EVENT_START_LONG + " START_DATETIME "
-            + PREFIX_EVENT_END_LONG + " END_DATETIME "
-            + PREFIX_EVENT_LOCATION_LONG + " LOCATION "
-            + "[" + PREFIX_EVENT_TAG_LONG + " TAG(S)]\n"
+            + PREFIX_EVENT_NAME_LONG + "NAME "
+            + PREFIX_EVENT_START_LONG + "START_DATETIME "
+            + PREFIX_EVENT_END_LONG + "END_DATETIME "
+            + PREFIX_EVENT_LOCATION_LONG + "LOCATION "
+            + "[" + PREFIX_EVENT_TAG_LONG + "TAG(S)]\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_EVENT_NAME_LONG + " CS2040S tutorial "
-            + PREFIX_EVENT_START_LONG + " 24-08-26 12:00 "
-            + PREFIX_EVENT_END_LONG + " 24-08-26 14:00 "
-            + PREFIX_EVENT_LOCATION_LONG + " NUS SoC COM1 "
-            + PREFIX_EVENT_TAG_LONG + " weaker ";
+            + PREFIX_EVENT_NAME_LONG + "CS2040S tutorial "
+            + PREFIX_EVENT_START_LONG + "24-08-26 12:00 "
+            + PREFIX_EVENT_END_LONG + "24-08-26 14:00 "
+            + PREFIX_EVENT_LOCATION_LONG + "NUS SoC COM1 "
+            + PREFIX_EVENT_TAG_LONG + "weaker";
 
     public static final String MESSAGE_SUCCESS = "New event added: %1$s";
 
