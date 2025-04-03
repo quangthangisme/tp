@@ -6,6 +6,7 @@ import static seedu.address.logic.parser.CliSyntax.TODO_COMMAND_WORD;
 
 import java.util.logging.Logger;
 
+import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -117,6 +118,8 @@ public class MainWindow extends UiPart<Stage> {
                 (int) primaryStage.getX(), (int) primaryStage.getY());
         logic.setGuiSettings(guiSettings);
         primaryStage.hide();
+
+        Platform.exit();
     }
 
     /**
