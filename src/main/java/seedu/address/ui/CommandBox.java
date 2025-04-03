@@ -2,7 +2,6 @@ package seedu.address.ui;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.Consumer;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -24,7 +23,6 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
 
-    private Consumer<ListPanelViewType> viewSwitchHandler;
     private final List<String> previousCommands;
     private int currentCommandIndex;
 
@@ -88,15 +86,6 @@ public class CommandBox extends UiPart<Region> {
                 : previousCommands.get(currentCommandIndex);
         commandTextField.setText(nextCommand);
         commandTextField.positionCaret(nextCommand.length());
-    }
-
-    /**
-     * Sets a handler that will be called when a view switch command is detected.
-     *
-     * @param handler callback to handle view switching
-     */
-    public void setViewSwitchHandler(Consumer<ListPanelViewType> handler) {
-        this.viewSwitchHandler = handler;
     }
 
     /**

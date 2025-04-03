@@ -1,7 +1,5 @@
 package seedu.address.ui.card;
 
-import seedu.address.ui.UiPart;
-
 /**
  * Factory for creating display cards for different entity types.
  */
@@ -11,7 +9,7 @@ public interface CardFactory<T> {
      *
      * @param item The item to display.
      * @param index The display index.
-     * @return A UiPart that can render the item.
+     * @return A Card that can render the item.
      */
-    UiPart<?> createCard(T item, int index);
+    Card<T> createCard(T item, int index);
 }
