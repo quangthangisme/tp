@@ -28,6 +28,7 @@ HiddenOutside ..> ContactManagerAndList
 ModelManager .up.|> Model
 Model .right.> ContactManagerAndList
 ContactManagerAndList .right.|> ManagerAndList
+ContactManagerAndList .down.> ItemManagerWithList
 ContactManagerWithFilteredList .up.|> ContactManagerAndList
 ContactManagerWithFilteredList .right.|> ItemManagerWithList
 ModelManager -right-> "1" ContactManagerAndList
