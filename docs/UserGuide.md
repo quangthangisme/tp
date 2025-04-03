@@ -232,7 +232,7 @@ Operators (optional):
 * `nand`: None of the values must match.
 * `nor`: Reject all values.
 
-If an operator is not provided, it defaults to `and`. If an unrecognized operator is provided, it will be treated as a value.
+If an operator is not provided, it defaults to `and`. If an unrecognized operator is provided, it will be treated as a value. If multiple valid operators are provided, the first one will be applied and the rest will be treated as values.
 
 **Value formats**:
 
