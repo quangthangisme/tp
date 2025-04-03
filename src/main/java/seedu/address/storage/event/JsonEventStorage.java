@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataLoadingException;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.contact.Contact;
@@ -55,17 +54,10 @@ public class JsonEventStorage implements EventStorage {
         requireNonNull(filePath);
 
         Optional<JsonSerializableEventManager> jsonEventManager = JsonUtil.readJsonFile(
-            filePath, JsonSerializableEventManager.class);
-        if (jsonEventManager.isEmpty()) {
-            return Optional.empty();
-        }
+                filePath, JsonSerializableEventManager.class);
+        return jsonEventManager.map(jsonSerializableEventManager ->
+                jsonSerializableEventManager.toModelType(contactManager));
 
-        try {
-            return Optional.of(jsonEventManager.get().toModelType(contactManager));
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataLoadingException(ive);
-        }
     }
 
     @Override

@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataLoadingException;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.contact.Contact;
@@ -56,16 +55,9 @@ public class JsonTodoStorage implements TodoStorage {
 
         Optional<JsonSerializableTodoManager> jsonTodoManager = JsonUtil.readJsonFile(
                 filePath, JsonSerializableTodoManager.class);
-        if (jsonTodoManager.isEmpty()) {
-            return Optional.empty();
-        }
+        return jsonTodoManager.map(jsonSerializableTodoManager ->
+                jsonSerializableTodoManager.toModelType(contactManager));
 
-        try {
-            return Optional.of(jsonTodoManager.get().toModelType(contactManager));
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataLoadingException(ive);
-        }
     }
 
     @Override

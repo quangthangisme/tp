@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Id;
 import seedu.address.model.item.ItemNotInvolvingContactManager;
@@ -23,17 +24,17 @@ import seedu.address.storage.DummyContactBuilder;
 import seedu.address.storage.contact.JsonAdaptedTag;
 
 /**
- * Jackson-friendly version of {@link Contact}.
+ * Jackson-friendly version of {@link Todo}.
  */
 public class JsonAdaptedTodo {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Contact's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Todo's %s field is missing.";
     public static final String INVALID_ID_MESSAGE = "ID %s is invalid!";
 
     private final String name;
     private final String deadline;
     private final String location;
-    private final boolean status;
+    private final String status;
     private final List<String> contactList = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
@@ -45,7 +46,7 @@ public class JsonAdaptedTodo {
             @JsonProperty("name") String name,
             @JsonProperty("deadline") String deadline,
             @JsonProperty("location") String location,
-            @JsonProperty("status") boolean status,
+            @JsonProperty("status") String status,
             @JsonProperty("contacts") List<String> contactList,
             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
@@ -67,7 +68,7 @@ public class JsonAdaptedTodo {
         name = source.getName().toString();
         deadline = source.getDeadline().toString();
         location = source.getLocation().toString();
-        status = source.getStatus().isDone();
+        status = String.valueOf(source.getStatus().isDone());
         contactList.addAll(source.getContacts().stream()
                 .map(contact -> contact.getId().toString())
                 .collect(Collectors.toList()));
@@ -77,20 +78,33 @@ public class JsonAdaptedTodo {
     }
 
     /**
-     * Converts this Jackson-friendly adapted contact object into the model's {@code Contact} object.
+     * Converts this Jackson-friendly adapted contact object into the model's {@code Contact}
+     * object.
      *
-     * @throws IllegalValueException if there were any data constraints violated in the adapted contact.
+     * @throws IllegalValueException if there were any data constraints violated in the adapted
+     *                               contact.
      */
     public Todo toModelType(ItemNotInvolvingContactManager<Contact> contactManager) throws IllegalValueException {
         final List<Contact> todoContacts = new ArrayList<>();
         for (String id : contactList) {
+            Id contactId;
             try {
-                Contact dummyContact = DummyContactBuilder.build(new Id(id));
-                Contact contact = contactManager.getUpdateItem(dummyContact);
-                todoContacts.add(contact);
+                contactId = new Id(id);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalValueException(Id.MESSAGE_CONSTRAINTS);
+            }
+            Contact contact;
+            try {
+                Contact dummyContact = DummyContactBuilder.build(contactId);
+                contact = contactManager.getUpdateItem(dummyContact);
             } catch (IllegalArgumentException e) {
                 throw new IllegalValueException(String.format(INVALID_ID_MESSAGE, id));
             }
+
+            if (todoContacts.contains(contact)) {
+                throw new IllegalValueException("Duplicate linked contacts found.");
+            }
+            todoContacts.add(contact);
         }
 
         final Set<Tag> modelTags = new HashSet<>();
@@ -125,10 +139,23 @@ public class JsonAdaptedTodo {
         }
         final Location todoLocation = new Location(location);
 
-        final TodoStatus todoStatus = new TodoStatus(status);
+        if (!"true".equals(status) && !"false".equals(status)) {
+            throw new IllegalValueException("Status is not \"true\" or \"false\"!");
+        }
+        final TodoStatus todoStatus = new TodoStatus(Boolean.parseBoolean(status));
 
         return new Todo(todoName, todoDeadline, todoLocation,
                 todoStatus, todoContacts, modelTags);
     }
 
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("name", name)
+                .add("location", location)
+                .add("deadline", deadline)
+                .add("status", status)
+                .add("contacts", contactList)
+                .add("tag", tags).toString();
+    }
 }

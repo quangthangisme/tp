@@ -52,7 +52,8 @@ public class JsonAdaptedContactTest {
     public void toModelType_nullName_throwsIllegalValueException() {
         JsonAdaptedContact contact = new JsonAdaptedContact(VALID_ID, null, VALID_EMAIL,
                 VALID_COURSE, VALID_GROUP, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Name.class.getSimpleName(), contact);
         assertThrows(IllegalValueException.class, expectedMessage, contact::toModelType);
     }
 
@@ -68,7 +69,8 @@ public class JsonAdaptedContactTest {
     public void toModelType_nullEmail_throwsIllegalValueException() {
         JsonAdaptedContact contact = new JsonAdaptedContact(VALID_ID, VALID_NAME,
                 null, VALID_COURSE, VALID_GROUP, VALID_TAGS);
-        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName());
+        String expectedMessage = String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                Email.class.getSimpleName(), contact);
         assertThrows(IllegalValueException.class, expectedMessage, contact::toModelType);
     }
 
