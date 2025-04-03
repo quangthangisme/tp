@@ -4,7 +4,7 @@ import static seedu.address.logic.EventMessages.MESSAGE_DUPLICATE_EVENT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
 import static seedu.address.logic.commands.EventCommandTestUtil.showEvent;
-import static seedu.address.testutil.TypicalEvents.CRYING;
+import static seedu.address.testutil.TypicalEvents.CRYING_WITH_TAG;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,7 +37,7 @@ public class AddEventCommandIntegrationTest {
                 new TodoManagerWithFilteredList(),
                 new EventManagerWithFilteredList()
         );
-        model.getEventManagerAndList().getItemManager().addItem(CRYING);
+        model.getEventManagerAndList().getItemManager().addItem(CRYING_WITH_TAG);
     }
 
     @Test

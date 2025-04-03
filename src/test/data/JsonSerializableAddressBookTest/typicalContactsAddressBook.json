@@ -5,7 +5,7 @@
     "name" : "Alice Pauline",
     "email" : "alice@example.com",
     "course" : "CS50",
-    "group" : "T33",
+    "group" : "T35",
     "tags" : [ "friends" ]
   }, {
     "id": "A00000002",
@@ -34,7 +34,7 @@
     "email" : "werner@example.com",
     "course" : "CS60",
     "group" : "T33",
-    "tags" : [ ]
+    "tags" : [ "enemies", "owesMoney" ]
   }, {
     "id": "A00000006",
     "name" : "Fiona Kunz",

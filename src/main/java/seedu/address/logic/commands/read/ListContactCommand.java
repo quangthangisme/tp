@@ -5,6 +5,7 @@ import static seedu.address.logic.parser.CliSyntax.CONTACT_COMMAND_WORD;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManagerAndList;
+import seedu.address.ui.ListPanelViewType;
 
 /**
  * Lists all contacts to the user.
@@ -24,5 +25,10 @@ public class ListContactCommand extends ListCommand<ContactManagerAndList, Conta
     @Override
     public String getSuccessMessage() {
         return MESSAGE_SUCCESS;
+    }
+
+    @Override
+    public ListPanelViewType getListPanelViewType() {
+        return ListPanelViewType.CONTACT;
     }
 }

@@ -18,17 +18,17 @@ import seedu.address.model.todo.TodoManagerAndList;
 public class AddTodoCommand extends AddCommand<TodoManagerAndList, Todo> {
 
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
-            + ": Adds a todo to the app. "
+            + ": Adds a todo to the app.\n"
             + "Parameters: "
-            + PREFIX_TODO_NAME_LONG + " NAME "
-            + PREFIX_TODO_DEADLINE_LONG + " DEADLINE "
-            + PREFIX_TODO_LOCATION_LONG + " LOCATION "
-            + "[" + PREFIX_TODO_TAG_LONG + " TAG(S)]\n"
+            + PREFIX_TODO_NAME_LONG + "NAME "
+            + PREFIX_TODO_DEADLINE_LONG + "DEADLINE "
+            + PREFIX_TODO_LOCATION_LONG + "LOCATION "
+            + "[" + PREFIX_TODO_TAG_LONG + "TAG(S)]\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_TODO_NAME_LONG + " Grading students projects "
-            + PREFIX_TODO_DEADLINE_LONG + " 25-05-23 17:00 "
-            + PREFIX_TODO_LOCATION_LONG + " NUS Science "
-            + PREFIX_TODO_TAG_LONG + " important ";
+            + PREFIX_TODO_NAME_LONG + "Grading students projects "
+            + PREFIX_TODO_DEADLINE_LONG + "25-05-23 17:00 "
+            + PREFIX_TODO_LOCATION_LONG + "NUS Science "
+            + PREFIX_TODO_TAG_LONG + "important";
 
     public static final String MESSAGE_SUCCESS = "New todo added: %1$s";
 

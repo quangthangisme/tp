@@ -7,9 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.read.FilterCommand;
+import seedu.address.logic.commands.read.ListCommand;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
+import seedu.address.ui.ListPanelViewType;
 
 /**
  * Contains helper methods for testing commands.
@@ -38,8 +41,20 @@ public class CommandTestUtil {
      */
     public static void assertCommandSuccess(Command command, Model actualModel, String expectedMessage,
                                             Model expectedModel) {
-        CommandResult expectedCommandResult = new CommandResult(expectedMessage);
+        ListPanelViewType viewType = ListPanelViewType.NONE;
+
+        // Check if the command has a getListPanelViewType method
+        if (command instanceof ItemCommand) {
+            if (command instanceof ListCommand) {
+                viewType = ((ListCommand<?>) command).getListPanelViewType();
+            } else if (command instanceof FilterCommand) {
+                viewType = ((FilterCommand<?>) command).getListPanelViewType();
+            }
+        }
+
+        CommandResult expectedCommandResult = new CommandResult(expectedMessage, viewType);
         assertCommandSuccess(command, actualModel, expectedCommandResult, expectedModel);
+
     }
 
     /**

@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.card;
 
 import java.util.Comparator;
 
@@ -8,6 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.todo.Todo;
+import seedu.address.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Todo}.
@@ -29,7 +30,11 @@ public class TodoCard extends UiPart<Region> {
     @FXML
     private Label todoLocation;
     @FXML
+    private Label todoStatus;
+    @FXML
     private FlowPane tags;
+    @FXML
+    private FlowPane contacts;
 
     /**
      * Creates a {@code TodoCard} with the given {@code todo} and index to display.
@@ -39,10 +44,15 @@ public class TodoCard extends UiPart<Region> {
         this.todo = todo;
         id.setText(displayedIndex + ". ");
         name.setText(todo.getName().value);
-        deadline.setText(todo.getDeadline().toString());
-        todoLocation.setText(todo.getLocation().value);
+        todoStatus.setText("Status: " + todo.getStatus().toString());
+        todoLocation.setText("Location: " + todo.getLocation().value);
+        deadline.setText("Deadline: " + todo.getDeadline().toString());
         todo.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+        todo.getContacts().stream()
+                .sorted(Comparator.comparing(contact -> contact.getName().value))
+                .forEach(contact -> contacts.getChildren().add(new Label(contact.getName().value)));
+
     }
 }

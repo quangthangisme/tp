@@ -37,15 +37,15 @@ public class EditContactCommand extends EditCommand<ContactManagerAndList, Conta
             + ": Edits the details of the contact identified by the index number used in the displayed contact list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_CONTACT_ID_LONG + " ID] "
-            + "[" + PREFIX_CONTACT_NAME_LONG + " NAME] "
-            + "[" + PREFIX_CONTACT_EMAIL_LONG + " EMAIL] "
-            + "[" + PREFIX_CONTACT_COURSE_LONG + " COURSE] "
-            + "[" + PREFIX_CONTACT_GROUP_LONG + " GROUP] "
-            + "[" + PREFIX_CONTACT_TAG_LONG + " TAG(S)]\n"
+            + "[" + PREFIX_CONTACT_ID_LONG + "ID] "
+            + "[" + PREFIX_CONTACT_NAME_LONG + "NAME] "
+            + "[" + PREFIX_CONTACT_EMAIL_LONG + "EMAIL] "
+            + "[" + PREFIX_CONTACT_COURSE_LONG + "COURSE] "
+            + "[" + PREFIX_CONTACT_GROUP_LONG + "GROUP] "
+            + "[" + PREFIX_CONTACT_TAG_LONG + "TAG(S)]\n"
             + "INDEX must be a positive integer.\n"
             + "Example: " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_CONTACT_EMAIL_LONG + " johndoe@example.com";
+            + PREFIX_CONTACT_EMAIL_LONG + "johndoe@example.com";
 
     public static final String MESSAGE_EDIT_CONTACT_SUCCESS = "Edited Contact: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

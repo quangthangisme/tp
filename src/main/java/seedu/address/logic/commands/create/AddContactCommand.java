@@ -20,20 +20,21 @@ import seedu.address.model.contact.ContactManagerAndList;
 public class AddContactCommand extends AddCommand<ContactManagerAndList, Contact> {
 
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
-            + ": Adds a contact to the address book. Parameters: "
-            + PREFIX_CONTACT_ID_LONG + " ID "
-            + PREFIX_CONTACT_NAME_LONG + " NAME "
-            + PREFIX_CONTACT_EMAIL_LONG + " EMAIL "
-            + PREFIX_CONTACT_COURSE_LONG + " COURSE "
-            + PREFIX_CONTACT_GROUP_LONG + " GROUP "
-            + "[" + PREFIX_CONTACT_TAG_LONG + " TAG(S)]\n"
+            + ": Adds a contact to the address book.\n"
+            + "Parameters: "
+            + PREFIX_CONTACT_ID_LONG + "ID "
+            + PREFIX_CONTACT_NAME_LONG + "NAME "
+            + PREFIX_CONTACT_EMAIL_LONG + "EMAIL "
+            + PREFIX_CONTACT_COURSE_LONG + "COURSE "
+            + PREFIX_CONTACT_GROUP_LONG + "GROUP "
+            + "[" + PREFIX_CONTACT_TAG_LONG + "TAG(S)]\n"
             + "Example: " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " "
-            + PREFIX_CONTACT_ID_LONG + " A1234567A "
-            + PREFIX_CONTACT_NAME_LONG + " John Doe "
-            + PREFIX_CONTACT_EMAIL_LONG + " johnd@example.com "
-            + PREFIX_CONTACT_COURSE_LONG + " CS50 "
-            + PREFIX_CONTACT_GROUP_LONG + " T01 "
-            + PREFIX_CONTACT_TAG_LONG + " friends owesMoney";
+            + PREFIX_CONTACT_ID_LONG + "A1234567A "
+            + PREFIX_CONTACT_NAME_LONG + "John Doe "
+            + PREFIX_CONTACT_EMAIL_LONG + "johnd@example.com "
+            + PREFIX_CONTACT_COURSE_LONG + "CS50 "
+            + PREFIX_CONTACT_GROUP_LONG + "T01 "
+            + PREFIX_CONTACT_TAG_LONG + "friends owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New contact added: %1$s";
 
