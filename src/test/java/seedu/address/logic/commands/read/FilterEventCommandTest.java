@@ -14,6 +14,7 @@ import static seedu.address.testutil.TypicalEvents.getTypicalEventList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -27,6 +28,7 @@ import seedu.address.model.event.EventManagerWithFilteredList;
 import seedu.address.model.event.predicate.EventEndTimePredicate;
 import seedu.address.model.event.predicate.EventPredicate;
 import seedu.address.model.event.predicate.EventStartTimePredicate;
+import seedu.address.model.item.commons.Tag;
 import seedu.address.model.item.predicate.DatetimePredicate;
 import seedu.address.model.item.predicate.LocationPredicate;
 import seedu.address.model.item.predicate.NamePredicate;
@@ -334,10 +336,9 @@ public class FilterEventCommandTest {
     @Test
     public void execute_tagFilterAnd() {
         EventPredicate predicate = new EventPredicate();
-        predicate.setTagPredicate(new TagPredicate(Operator.AND, List.of("sad", "you")));
+        predicate.setTagPredicate(new TagPredicate(Operator.AND, Set.of(new Tag("sad"), new Tag("you"))));
 
         FilterEventCommand command = new FilterEventCommand(predicate, Optional.empty());
-
         expectedModel.getEventManagerAndList().updateFilteredItemsList(predicate);
         List<Event> expectedList = List.of(CRYING_MULTIPLE_TAG);
 
@@ -350,7 +351,7 @@ public class FilterEventCommandTest {
     @Test
     public void execute_tagFilterOr() {
         EventPredicate predicate = new EventPredicate();
-        predicate.setTagPredicate(new TagPredicate(Operator.OR, List.of("sad", "you")));
+        predicate.setTagPredicate(new TagPredicate(Operator.OR, Set.of(new Tag("sad"), new Tag("you"))));
 
         FilterEventCommand command = new FilterEventCommand(predicate, Optional.empty());
 
@@ -367,7 +368,7 @@ public class FilterEventCommandTest {
     @Test
     public void execute_tagFilterNor() {
         EventPredicate predicate = new EventPredicate();
-        predicate.setTagPredicate(new TagPredicate(Operator.NOR, List.of("sad", "you")));
+        predicate.setTagPredicate(new TagPredicate(Operator.NOR, Set.of(new Tag("sad"), new Tag("you"))));
 
         FilterEventCommand command = new FilterEventCommand(predicate, Optional.empty());
 
@@ -382,7 +383,7 @@ public class FilterEventCommandTest {
 
     public void execute_tagFilterNand() {
         EventPredicate predicate = new EventPredicate();
-        predicate.setTagPredicate(new TagPredicate(Operator.AND, List.of("sad", "you")));
+        predicate.setTagPredicate(new TagPredicate(Operator.NAND, Set.of(new Tag("sad"), new Tag("you"))));
 
         FilterEventCommand command = new FilterEventCommand(predicate, Optional.empty());
 

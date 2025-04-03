@@ -8,6 +8,7 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_C
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +24,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.item.predicate.LocationPredicate;
 import seedu.address.model.item.predicate.NamePredicate;
+import seedu.address.model.item.predicate.TagPredicate;
 import seedu.address.model.todo.predicate.TodoContactPredicate;
 import seedu.address.model.todo.predicate.TodoDeadlinePredicate;
 import seedu.address.model.todo.predicate.TodoPredicate;
@@ -42,11 +44,12 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
     public FilterTodoCommand parse(String args) throws ParseException {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_NAME_LONG,
-                PREFIX_TODO_DEADLINE_LONG, PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG,
+                PREFIX_TODO_DEADLINE_LONG, PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG, PREFIX_TODO_TAG_LONG,
                 PREFIX_TODO_LINKED_CONTACT_LONG);
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
-                PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG, PREFIX_TODO_LINKED_CONTACT_LONG);
+                PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG, PREFIX_TODO_TAG_LONG,
+                PREFIX_TODO_LINKED_CONTACT_LONG);
 
         TodoPredicate predicate = new TodoPredicate();
 
@@ -83,6 +86,15 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
             }
             predicate.setDeadlinePredicate(new TodoDeadlinePredicate(operatorStringPair.first(),
                     ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
+        }
+        if (argMultimap.getValue(PREFIX_TODO_TAG_LONG).isPresent()) {
+            Pair<Operator, String> operatorStringPair =
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_TAG_LONG).get());
+            if (operatorStringPair.second().trim().isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_TAG_LONG));
+            }
+            predicate.setTagPredicate(new TagPredicate(operatorStringPair.first(),
+                    ParserUtil.parseTags(operatorStringPair.second())));
         }
         Optional<Pair<Operator, List<Index>>> contactFilterOpt = Optional.empty();
         if (argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).isPresent()) {

@@ -15,6 +15,7 @@ import static seedu.address.testutil.TypicalTodos.getTypicalTodoList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,6 +25,7 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.ContactManagerWithFilteredList;
 import seedu.address.model.event.EventManagerWithFilteredList;
+import seedu.address.model.item.commons.Tag;
 import seedu.address.model.item.predicate.DatetimePredicate;
 import seedu.address.model.item.predicate.LocationPredicate;
 import seedu.address.model.item.predicate.NamePredicate;
@@ -239,7 +241,7 @@ public class FilterTodoCommandTest {
     @Test
     public void execute_tagFilterAnd() {
         TodoPredicate predicate = new TodoPredicate();
-        predicate.setTagPredicate(new TagPredicate(Operator.AND, Arrays.asList("better", "important")));
+        predicate.setTagPredicate(new TagPredicate(Operator.AND, Set.of(new Tag("better"), new Tag("important"))));
         FilterTodoCommand command = new FilterTodoCommand(predicate, Optional.empty());
 
         expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
@@ -253,7 +255,7 @@ public class FilterTodoCommandTest {
     @Test
     public void execute_tagFilterOr() {
         TodoPredicate predicate = new TodoPredicate();
-        predicate.setTagPredicate(new TagPredicate(Operator.OR, Arrays.asList("better", "important")));
+        predicate.setTagPredicate(new TagPredicate(Operator.OR, Set.of(new Tag("better"), new Tag("important"))));
         FilterTodoCommand command = new FilterTodoCommand(predicate, Optional.empty());
 
         expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
@@ -267,7 +269,7 @@ public class FilterTodoCommandTest {
     @Test
     public void execute_tagFilterPartialMatch() {
         TodoPredicate predicate = new TodoPredicate();
-        predicate.setTagPredicate(new TagPredicate(Operator.OR, Arrays.asList("bet")));
+        predicate.setTagPredicate(new TagPredicate(Operator.OR, Set.of(new Tag("bet"))));
         FilterTodoCommand command = new FilterTodoCommand(predicate, Optional.empty());
 
         expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
