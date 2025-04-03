@@ -24,6 +24,7 @@ import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Attendance;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventManagerAndList;
 import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
@@ -32,7 +33,7 @@ import seedu.address.model.item.commons.Tag;
 /**
  * Edits the details of an existing event in the address book.
  */
-public class EditEventCommand extends EditCommand<Event> {
+public class EditEventCommand extends EditCommand<EventManagerAndList, Event> {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -80,6 +81,10 @@ public class EditEventCommand extends EditCommand<Event> {
         requireNonNull(editEventDescriptor);
         this.editEventDescriptor = new EditEventDescriptor(editEventDescriptor);
         this.linkedContactIndicesOpt = Optional.of(List.copyOf(linkedContactIndices));
+    }
+
+    @Override
+    public void cascade(Model model, Event itemToEdit, Event editedItem) {
     }
 
     /**

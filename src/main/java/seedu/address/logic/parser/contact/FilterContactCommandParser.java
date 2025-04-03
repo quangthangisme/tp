@@ -10,6 +10,8 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_EMAIL_SHORT;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_GROUP_LONG;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_GROUP_SHORT;
+import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_ID_LONG;
+import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_ID_SHORT;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_NAME_LONG;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_NAME_SHORT;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_LONG;
@@ -49,8 +51,7 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
     public FilterContactCommand parse(String args) throws ParseException {
         requireNonNull(args);
         if (args.trim().isEmpty()) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
-                    FilterContactCommand.MESSAGE_USAGE));
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterContactCommand.MESSAGE_USAGE));
         }
         PrefixAlias namePrefix = ContactCliAlias.CONTACT_NAME_PREFIX_ALIAS;
         PrefixAlias emailPrefix = ContactCliAlias.CONTACT_EMAIL_PREFIX_ALIAS;
@@ -89,7 +90,10 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
     private ContactColumn getColumnFromPrefix(Prefix prefix) throws ParseException {
         String prefixStr = prefix.getPrefix();
 
-        if (prefixStr.equals(PREFIX_CONTACT_NAME_LONG.getPrefix())
+        if (prefixStr.equals(PREFIX_CONTACT_ID_LONG.getPrefix())
+                || prefixStr.equals(PREFIX_CONTACT_ID_SHORT.getPrefix())) {
+            return ContactColumn.ID;
+        } else if (prefixStr.equals(PREFIX_CONTACT_NAME_LONG.getPrefix())
                 || prefixStr.equals(PREFIX_CONTACT_NAME_SHORT.getPrefix())) {
             return ContactColumn.NAME;
         } else if (prefixStr.equals(PREFIX_CONTACT_EMAIL_LONG.getPrefix())
@@ -119,21 +123,24 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
      * @throws ParseException if there is an error parsing any prefix
      */
     private void parsePrefixes(List<Prefix> allPrefixes, ArgumentMultimap argMultimap,
-                               Map<ContactColumn, ColumnPredicate> filterCriteriaMap)
-            throws ParseException {
+                               Map<ContactColumn, ColumnPredicate> filterCriteriaMap) throws ParseException {
         for (Prefix prefix : allPrefixes) {
             if (argMultimap.getValue(prefix).isEmpty()) {
                 continue;
             }
             String inputString = argMultimap.getValue(prefix).get();
-            Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(inputString);
+            Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(inputString);
+
+            // Please forgive me. Basically, to throw exception if tags are duplicate
+            if (prefix == PREFIX_CONTACT_TAG_LONG) {
+                ParserUtil.parseTags(operatorStringPair.second());
+            }
+
             if (operatorStringPair.second().trim().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES, prefix));
             }
-            filterCriteriaMap.put(getColumnFromPrefix(prefix), new ColumnPredicate(
-                    operatorStringPair.first(), List.of(operatorStringPair.second().split("\\s+"))
-            ));
+            filterCriteriaMap.put(getColumnFromPrefix(prefix), new ColumnPredicate(operatorStringPair.first(),
+                    List.of(operatorStringPair.second().split("\\s+"))));
         }
     }
 }

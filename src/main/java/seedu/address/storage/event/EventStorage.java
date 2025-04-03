@@ -7,6 +7,7 @@ import java.util.Optional;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventManager;
+import seedu.address.model.item.ItemInvolvingContactManager;
 import seedu.address.model.item.ItemManager;
 
 /**
@@ -25,12 +26,12 @@ public interface EventStorage {
      *
      * @throws DataLoadingException if loading the data from storage failed.
      */
-    Optional<ItemManager<Event>> readEventList() throws DataLoadingException;
+    Optional<ItemInvolvingContactManager<Event>> readEventList() throws DataLoadingException;
 
     /**
      * @see #getEventListFilePath()
      */
-    Optional<ItemManager<Event>> readEventList(Path filePath) throws DataLoadingException;
+    Optional<ItemInvolvingContactManager<Event>> readEventList(Path filePath) throws DataLoadingException;
 
     /**
      * Saves the given {@link ItemManager} to the storage.
@@ -38,11 +39,11 @@ public interface EventStorage {
      * @param eventManager cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveEventList(ItemManager<Event> eventManager) throws IOException;
+    void saveEventList(ItemInvolvingContactManager<Event> eventManager) throws IOException;
 
     /**
-     * @see #saveEventList(ItemManager)
+     * @see #saveEventList(ItemInvolvingContactManager)
      */
-    void saveEventList(ItemManager<Event> eventManager, Path filePath) throws IOException;
+    void saveEventList(ItemInvolvingContactManager<Event> eventManager, Path filePath) throws IOException;
 
 }

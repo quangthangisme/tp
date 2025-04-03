@@ -12,15 +12,16 @@ import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactManagerAndList;
 
 /**
  * Adds a {@code Contact} to the app.
  */
-public class AddContactCommand extends AddCommand<Contact> {
+public class AddContactCommand extends AddCommand<ContactManagerAndList, Contact> {
 
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Adds a contact to the address book.\n"
-            + "Prameters: "
+            + "Parameters: "
             + PREFIX_CONTACT_ID_LONG + "ID "
             + PREFIX_CONTACT_NAME_LONG + "NAME "
             + PREFIX_CONTACT_EMAIL_LONG + "EMAIL "

@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 
 /**
  * A class to access AddressBook data stored as a json file on the hard disk.
@@ -33,7 +33,7 @@ public class JsonContactStorage implements ContactStorage {
     }
 
     @Override
-    public Optional<ItemManager<Contact>> readAddressBook() throws DataLoadingException {
+    public Optional<ItemNotInvolvingContactManager<Contact>> readAddressBook() throws DataLoadingException {
         return readAddressBook(filePath);
     }
 
@@ -43,7 +43,8 @@ public class JsonContactStorage implements ContactStorage {
      * @param filePath location of the data. Cannot be null.
      * @throws DataLoadingException if loading the data from storage failed.
      */
-    public Optional<ItemManager<Contact>> readAddressBook(Path filePath) throws DataLoadingException {
+    public Optional<ItemNotInvolvingContactManager<Contact>> readAddressBook(Path filePath)
+            throws DataLoadingException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableContactManager> jsonAddressBook = JsonUtil.readJsonFile(
@@ -61,17 +62,17 @@ public class JsonContactStorage implements ContactStorage {
     }
 
     @Override
-    public void saveAddressBook(ItemManager<Contact> addressBook) throws IOException {
+    public void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook) throws IOException {
         saveAddressBook(addressBook, filePath);
     }
 
     /**
-     * Similar to {@link #saveAddressBook(ItemManager)}.
+     * Similar to {@link #saveAddressBook(ItemNotInvolvingContactManager)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
     @Override
-    public void saveAddressBook(ItemManager<Contact> addressBook, Path filePath) throws IOException {
+    public void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook, Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 

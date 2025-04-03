@@ -25,7 +25,8 @@ import seedu.address.model.contact.ContactManagerWithFilteredList;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventManager;
 import seedu.address.model.event.EventManagerWithFilteredList;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemInvolvingContactManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManager;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
@@ -85,8 +86,8 @@ public class MainApp extends Application {
     private Model initModelManager(Storage storage, ReadOnlyUserPrefs userPrefs) {
         logger.info("Using data file : " + storage.getAddressBookFilePath());
 
-        Optional<ItemManager<Contact>> addressBookOptional;
-        ItemManager<Contact> initialContactData;
+        Optional<ItemNotInvolvingContactManager<Contact>> addressBookOptional;
+        ItemNotInvolvingContactManager<Contact> initialContactData;
         try {
             addressBookOptional = storage.readAddressBook();
             if (!addressBookOptional.isPresent()) {
@@ -100,8 +101,8 @@ public class MainApp extends Application {
             initialContactData = new ContactManager();
         }
 
-        Optional<ItemManager<Todo>> todoListOptional;
-        ItemManager<Todo> initialTodoData;
+        Optional<ItemInvolvingContactManager<Todo>> todoListOptional;
+        ItemInvolvingContactManager<Todo> initialTodoData;
         try {
             todoListOptional = storage.readTodoList();
             if (!todoListOptional.isPresent()) {
@@ -115,8 +116,8 @@ public class MainApp extends Application {
             initialTodoData = new TodoManager();
         }
 
-        Optional<ItemManager<Event>> eventListOptional;
-        ItemManager<Event> initialEventData;
+        Optional<ItemInvolvingContactManager<Event>> eventListOptional;
+        ItemInvolvingContactManager<Event> initialEventData;
         try {
             eventListOptional = storage.readEventList();
             if (!eventListOptional.isPresent()) {

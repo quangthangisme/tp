@@ -7,11 +7,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventManagerAndList;
 
 /**
  * Deletes an event identified using its displayed index.
  */
-public class DeleteEventCommand extends DeleteCommand<Event> {
+public class DeleteEventCommand extends DeleteCommand<EventManagerAndList, Event> {
 
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Deletes the event identified by the index number used in the displayed event list.\n"
@@ -26,6 +27,10 @@ public class DeleteEventCommand extends DeleteCommand<Event> {
      */
     public DeleteEventCommand(Index targetIndex) {
         super(targetIndex, Model::getEventManagerAndList);
+    }
+
+    @Override
+    public void cascade(Model model, Event itemToDelete) {
     }
 
     @Override

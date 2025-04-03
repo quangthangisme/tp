@@ -46,9 +46,9 @@ public class CommandTestUtil {
         // Check if the command has a getListPanelViewType method
         if (command instanceof ItemCommand) {
             if (command instanceof ListCommand) {
-                viewType = ((ListCommand<?>) command).getListPanelViewType();
+                viewType = ((ListCommand<?, ?>) command).getListPanelViewType();
             } else if (command instanceof FilterCommand) {
-                viewType = ((FilterCommand<?>) command).getListPanelViewType();
+                viewType = ((FilterCommand<?, ?>) command).getListPanelViewType();
             }
         }
 

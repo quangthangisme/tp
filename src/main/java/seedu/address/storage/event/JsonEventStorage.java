@@ -13,7 +13,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.event.Event;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemInvolvingContactManager;
 
 /**
  * A class to access Event data stored as a JSON file on the hard disk.
@@ -34,7 +34,7 @@ public class JsonEventStorage implements EventStorage {
     }
 
     @Override
-    public Optional<ItemManager<Event>> readEventList() throws DataLoadingException {
+    public Optional<ItemInvolvingContactManager<Event>> readEventList() throws DataLoadingException {
         return readEventList(filePath);
     }
 
@@ -45,7 +45,7 @@ public class JsonEventStorage implements EventStorage {
      * @throws DataLoadingException if loading the data from storage failed.
      */
     @Override
-    public Optional<ItemManager<Event>> readEventList(Path filePath) throws DataLoadingException {
+    public Optional<ItemInvolvingContactManager<Event>> readEventList(Path filePath) throws DataLoadingException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableEventManager> jsonEventManager = JsonUtil.readJsonFile(
@@ -63,17 +63,17 @@ public class JsonEventStorage implements EventStorage {
     }
 
     @Override
-    public void saveEventList(ItemManager<Event> eventManager) throws IOException {
+    public void saveEventList(ItemInvolvingContactManager<Event> eventManager) throws IOException {
         saveEventList(eventManager, filePath);
     }
 
     /**
-     * Similar to {@link #saveEventList(ItemManager)}.
+     * Similar to {@link #saveEventList(ItemInvolvingContactManager)}.
      *
      * @param filePath location of the data. Cannot be null.
      */
     @Override
-    public void saveEventList(ItemManager<Event> eventManager, Path filePath) throws IOException {
+    public void saveEventList(ItemInvolvingContactManager<Event> eventManager, Path filePath) throws IOException {
         requireNonNull(eventManager);
         requireNonNull(filePath);
 
