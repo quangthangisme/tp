@@ -35,6 +35,20 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
      */
     public EditEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        ArgumentMultimap argMultimap = tokenizeArgs(args);
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+
+        EditEventDescriptor editEventDescriptor = buildEditEventDescriptor(argMultimap);
+        Optional<List<Index>> linkedContactIndices = parseLinkedContacts(argMultimap, editEventDescriptor);
+
+        if (!editEventDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditEventCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new EditEventCommand(index, editEventDescriptor, linkedContactIndices);
+    }
+
+    private ArgumentMultimap tokenizeArgs(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME_LONG,
                 PREFIX_EVENT_START_LONG, PREFIX_EVENT_END_LONG, PREFIX_EVENT_LOCATION_LONG,
                 PREFIX_EVENT_TAG_LONG, PREFIX_EVENT_LINKED_CONTACT_LONG);
@@ -43,12 +57,15 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditEventCommand.MESSAGE_USAGE));
         }
-        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_EVENT_NAME_LONG, PREFIX_EVENT_START_LONG,
                 PREFIX_EVENT_END_LONG, PREFIX_EVENT_LOCATION_LONG, PREFIX_EVENT_TAG_LONG,
                 PREFIX_EVENT_LINKED_CONTACT_LONG);
 
+        return argMultimap;
+    }
+
+    private EditEventDescriptor buildEditEventDescriptor(ArgumentMultimap argMultimap) throws ParseException {
         EditEventDescriptor editEventDescriptor = new EditEventDescriptor();
 
         if (argMultimap.getValue(PREFIX_EVENT_NAME_LONG).isPresent()) {
@@ -71,18 +88,20 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
             editEventDescriptor.setTags(
                     ParserUtil.parseTags(argMultimap.getValue(PREFIX_EVENT_TAG_LONG).get()));
         }
-        Optional<List<Index>> linkedContactIndices = Optional.empty();
+
+        return editEventDescriptor;
+    }
+
+    private Optional<List<Index>> parseLinkedContacts(ArgumentMultimap argMultimap,
+                                                      EditEventDescriptor editEventDescriptor)
+            throws ParseException {
         if (argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).isPresent()) {
-            linkedContactIndices = Optional.of(ParserUtil.parseIndices(argMultimap
-                    .getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get()));
+            List<Index> contactIndices = ParserUtil.parseIndices(
+                    argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get());
             editEventDescriptor.setAttendance(new Attendance());
+            return Optional.of(contactIndices);
         }
-
-        if (!editEventDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditEventCommand.MESSAGE_NOT_EDITED);
-        }
-
-        return new EditEventCommand(index, editEventDescriptor, linkedContactIndices);
+        return Optional.empty();
     }
 
 }

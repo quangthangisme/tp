@@ -84,68 +84,96 @@ public class JsonAdaptedTodo {
      * @throws IllegalValueException if there were any data constraints violated in the adapted
      *                               contact.
      */
-    public Todo toModelType(ItemNotInvolvingContactManager<Contact> contactManager) throws IllegalValueException {
+    public Todo toModelType(ItemNotInvolvingContactManager<Contact> contactManager)
+            throws IllegalValueException {
+        final List<Contact> todoContacts = parseContacts(contactManager);
+        final Set<Tag> modelTags = parseTags();
+        final Name todoName = parseName();
+        final Datetime todoDeadline = parseDeadline();
+        final Location todoLocation = parseLocation();
+        final TodoStatus todoStatus = parseStatus();
+
+        return new Todo(todoName, todoDeadline, todoLocation, todoStatus, todoContacts, modelTags);
+    }
+
+    private List<Contact> parseContacts(ItemNotInvolvingContactManager<Contact> contactManager)
+            throws IllegalValueException {
         final List<Contact> todoContacts = new ArrayList<>();
         for (String id : contactList) {
-            Id contactId;
-            try {
-                contactId = new Id(id);
-            } catch (IllegalArgumentException e) {
-                throw new IllegalValueException(Id.MESSAGE_CONSTRAINTS);
-            }
-            Contact contact;
-            try {
-                Contact dummyContact = DummyContactBuilder.build(contactId);
-                contact = contactManager.getUpdateItem(dummyContact);
-            } catch (IllegalArgumentException e) {
-                throw new IllegalValueException(String.format(INVALID_ID_MESSAGE, id));
-            }
-
+            Id contactId = parseId(id);
+            Contact contact = fetchContact(contactManager, contactId, id);
             if (todoContacts.contains(contact)) {
                 throw new IllegalValueException("Duplicate linked contacts found.");
             }
             todoContacts.add(contact);
         }
+        return todoContacts;
+    }
 
+    private Id parseId(String id) throws IllegalValueException {
+        try {
+            return new Id(id);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(Id.MESSAGE_CONSTRAINTS);
+        }
+    }
+
+    private Contact fetchContact(ItemNotInvolvingContactManager<Contact> contactManager,
+                                 Id contactId, String id) throws IllegalValueException {
+        try {
+            Contact dummyContact = DummyContactBuilder.build(contactId);
+            return contactManager.getUpdateItem(dummyContact);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(String.format(INVALID_ID_MESSAGE, id));
+        }
+    }
+
+    private Set<Tag> parseTags() throws IllegalValueException {
         final Set<Tag> modelTags = new HashSet<>();
         for (JsonAdaptedTag tag : tags) {
             modelTags.add(tag.toModelType());
         }
+        return modelTags;
+    }
 
+    private Name parseName() throws IllegalValueException {
         if (name == null) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Name.class.getSimpleName()));
         }
         if (!Name.isValid(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name todoName = new Name(name);
+        return new Name(name);
+    }
 
+    private Datetime parseDeadline() throws IllegalValueException {
         if (deadline == null) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, Datetime.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Datetime.class.getSimpleName()));
         }
         if (!Datetime.isValid(deadline)) {
             throw new IllegalValueException(Datetime.MESSAGE_CONSTRAINTS);
         }
-        final Datetime todoDeadline = new Datetime(deadline);
+        return new Datetime(deadline);
+    }
 
+    private Location parseLocation() throws IllegalValueException {
         if (location == null) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Location.class.getSimpleName()));
         }
         if (!Location.isValid(location)) {
             throw new IllegalValueException(Location.MESSAGE_CONSTRAINTS);
         }
-        final Location todoLocation = new Location(location);
+        return new Location(location);
+    }
 
+    private TodoStatus parseStatus() throws IllegalValueException {
         if (!"true".equals(status) && !"false".equals(status)) {
             throw new IllegalValueException("Status is not \"true\" or \"false\"!");
         }
-        final TodoStatus todoStatus = new TodoStatus(Boolean.parseBoolean(status));
-
-        return new Todo(todoName, todoDeadline, todoLocation,
-                todoStatus, todoContacts, modelTags);
+        return new TodoStatus(Boolean.parseBoolean(status));
     }
 
     @Override

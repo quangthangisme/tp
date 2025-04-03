@@ -2,7 +2,6 @@ package seedu.address.logic.parser.todo;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKED_CONTACT_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
@@ -36,6 +35,20 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
      */
     public EditTodoCommand parse(String args) throws ParseException {
         requireNonNull(args);
+        ArgumentMultimap argMultimap = tokenizeArgs(args);
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+
+        EditTodoDescriptor editTodoDescriptor = buildEditTodoDescriptor(argMultimap);
+        Optional<List<Index>> linkedContactIndices = parseLinkedContacts(argMultimap, editTodoDescriptor);
+
+        if (!editTodoDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditTodoCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new EditTodoCommand(index, editTodoDescriptor, linkedContactIndices);
+    }
+
+    private ArgumentMultimap tokenizeArgs(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_NAME_LONG,
                 PREFIX_TODO_DEADLINE_LONG, PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_TAG_LONG,
                 PREFIX_TODO_LINKED_CONTACT_LONG, PREFIX_TODO_STATUS_LONG);
@@ -44,12 +57,16 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditTodoCommand.MESSAGE_USAGE));
         }
-        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
                 PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_TAG_LONG, PREFIX_TODO_LINKED_CONTACT_LONG,
                 PREFIX_TODO_STATUS_LONG);
 
+        return argMultimap;
+    }
+
+    private EditTodoDescriptor buildEditTodoDescriptor(ArgumentMultimap argMultimap)
+            throws ParseException {
         EditTodoDescriptor editTodoDescriptor = new EditTodoDescriptor();
 
         if (argMultimap.getValue(PREFIX_TODO_NAME_LONG).isPresent()) {
@@ -71,18 +88,20 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
             editTodoDescriptor.setStatus(new TodoStatus(
                     ParserUtil.parseBoolean(argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get())));
         }
-        Optional<List<Index>> linkedContactIndices = Optional.empty();
-        if (argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).isPresent()) {
-            linkedContactIndices = Optional.of(ParserUtil.parseIndices(argMultimap
-                    .getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get()));
+
+        return editTodoDescriptor;
+    }
+
+    private Optional<List<Index>> parseLinkedContacts(ArgumentMultimap argMultimap,
+                                                      EditTodoDescriptor editTodoDescriptor)
+            throws ParseException {
+        if (argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).isPresent()) {
+            List<Index> contactIndices = ParserUtil.parseIndices(
+                    argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).get());
             editTodoDescriptor.setContacts(List.of());
+            return Optional.of(contactIndices);
         }
-
-        if (!editTodoDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditTodoCommand.MESSAGE_NOT_EDITED);
-        }
-
-        return new EditTodoCommand(index, editTodoDescriptor, linkedContactIndices);
+        return Optional.empty();
     }
 
 }

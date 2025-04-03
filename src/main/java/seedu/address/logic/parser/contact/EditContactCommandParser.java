@@ -31,20 +31,37 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
      */
     public EditContactCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_CONTACT_ID_LONG,
-                PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_TAG_LONG,
-                PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG);
+        ArgumentMultimap argMultimap = tokenizeArgs(args);
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+
+        EditContactDescriptor editContactDescriptor = buildEditContactDescriptor(argMultimap);
+
+        if (!editContactDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditContactCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new EditContactCommand(index, editContactDescriptor);
+    }
+
+    private ArgumentMultimap tokenizeArgs(String args) throws ParseException {
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
+                PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_NAME_LONG, PREFIX_CONTACT_EMAIL_LONG,
+                PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG, PREFIX_CONTACT_TAG_LONG);
 
         if (argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditContactCommand.MESSAGE_USAGE));
         }
-        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_CONTACT_ID_LONG, PREFIX_CONTACT_NAME_LONG,
                 PREFIX_CONTACT_EMAIL_LONG, PREFIX_CONTACT_COURSE_LONG, PREFIX_CONTACT_GROUP_LONG,
                 PREFIX_CONTACT_TAG_LONG);
 
+        return argMultimap;
+    }
+
+    private EditContactDescriptor buildEditContactDescriptor(ArgumentMultimap argMultimap)
+            throws ParseException {
         EditContactDescriptor editContactDescriptor = new EditContactDescriptor();
 
         if (argMultimap.getValue(PREFIX_CONTACT_ID_LONG).isPresent()) {
@@ -71,11 +88,7 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
                     ParserUtil.parseTags(argMultimap.getValue(PREFIX_CONTACT_TAG_LONG).get()));
         }
 
-        if (!editContactDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditContactCommand.MESSAGE_NOT_EDITED);
-        }
-
-        return new EditContactCommand(index, editContactDescriptor);
+        return editContactDescriptor;
     }
 
 }
