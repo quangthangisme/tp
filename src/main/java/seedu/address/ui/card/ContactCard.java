@@ -28,8 +28,6 @@ public class ContactCard extends UiPart<Region> implements Card<Contact> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
-    private static final String UID_ICON = "/images/contact-card/uid.png";
-    private static final String EMAIL_ICON = "/images/contact-card/email.png";
     private static final String COURSE_ICON = "/images/contact-card/course.png";
     private static final String GROUP_ICON = "/images/contact-card/group.png";
     private static final int MAX_TAG_LENGTH = 75;
@@ -70,9 +68,7 @@ public class ContactCard extends UiPart<Region> implements Card<Contact> {
         super(FXML);
         this.contact = contact;
         id.setText(displayedIndex + ". ");
-        uid.setText(contact.getId().toString());
         name.setText(contact.getName().value);
-        email.setText(contact.getEmail().value);
         contact.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(createTagLabel(tag.tagName)));
@@ -86,8 +82,6 @@ public class ContactCard extends UiPart<Region> implements Card<Contact> {
      * Sets the icons for each field.
      */
     private void setIcons() {
-        uidIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(UID_ICON))));
-        emailIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(EMAIL_ICON))));
         courseIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(COURSE_ICON))));
         groupIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(GROUP_ICON))));
     }

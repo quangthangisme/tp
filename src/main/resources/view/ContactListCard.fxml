@@ -29,18 +29,8 @@
       </HBox>
       <FlowPane fx:id="tags" prefWrapLength="450" />
       <HBox spacing="4" alignment="CENTER_LEFT">
-        <ImageView fx:id="uidIcon" fitHeight="16" fitWidth="16" preserveRatio="true" />
-        <Label fx:id="uid" styleClass="cell_small_label" text="\$uid" wrapText="true" maxWidth="450" />
-      </HBox>
-      <HBox spacing="4" alignment="CENTER_LEFT">
-        <ImageView fx:id="emailIcon" fitHeight="16" fitWidth="16" preserveRatio="true" />
-        <Label fx:id="email" styleClass="cell_small_label" text="\$email" wrapText="true" maxWidth="450" />
-      </HBox>
-      <HBox spacing="4" alignment="CENTER_LEFT">
         <ImageView fx:id="courseIcon" fitHeight="16" fitWidth="16" preserveRatio="true" />
-        <Label fx:id="course" styleClass="cell_small_label" text="\$course" wrapText="true" maxWidth="450" />
-      </HBox>
-      <HBox spacing="4" alignment="CENTER_LEFT">
+        <Label fx:id="course" styleClass="cell_small_label" text="\$course" wrapText="true" minWidth="75" maxWidth="450" />
         <ImageView fx:id="groupIcon" fitHeight="16" fitWidth="16" preserveRatio="true" />
         <Label fx:id="group" styleClass="cell_small_label" text="\$group" wrapText="true" maxWidth="450" />
       </HBox>

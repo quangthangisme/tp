@@ -50,7 +50,7 @@ public class TodoCard extends UiPart<Region> implements Card<Todo> {
         todoLocation.setText("");
         todoLocation.setGraphic(createBoldLabel("Location: ", todo.getLocation().value));
         deadline.setText("");
-        deadline.setGraphic(createBoldLabel("Deadline: ", todo.getDeadline().toString()));
+        deadline.setGraphic(createBoldLabel("Due at: ", todo.getDeadline().toString()));
         todo.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));

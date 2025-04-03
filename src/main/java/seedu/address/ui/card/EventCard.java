@@ -44,9 +44,9 @@ public class EventCard extends UiPart<Region> implements Card<Event> {
         id.setText(displayedIndex + ". ");
         name.setText(event.getName().value);
         startTime.setText("");
-        startTime.setGraphic(createBoldLabel("Start time: ", event.getStartTime().toString()));
+        startTime.setGraphic(createBoldLabel("Starts at: ", event.getStartTime().toString()));
         endTime.setText("");
-        endTime.setGraphic(createBoldLabel("End Time: ", event.getEndTime().toString()));
+        endTime.setGraphic(createBoldLabel("Ends at: ", event.getEndTime().toString()));
         eventLocation.setText("");
         eventLocation.setGraphic(createBoldLabel("Location: ", event.getLocation().toString()));
         event.getTags().stream()
