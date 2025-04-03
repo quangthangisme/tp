@@ -130,7 +130,7 @@ The diagram below shows how the APIs of the `Model` component are exposed.
 
 <puml src="diagrams/ModelInterfaces.puml" width="450" />
 
-Storing `Contact`, `Todo`, and `Event` share many similarities, so we extract common methods into abstract classes.
+Storing `Contact`, `Todo`, and `Event` share many similarities, so we extract common methods into abstract classes. Yes, we know that we are geniuses at naming things.
 
 <puml src="diagrams/ManagerClassDiagram.puml" width="1000" />
 
