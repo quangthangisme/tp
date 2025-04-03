@@ -1,7 +1,7 @@
 ---
   layout: default.md
-  title: "User Guide"
-  pageNav: 3
+    title: "User Guide"
+    pageNav: 3
 ---
 
 # TutorConnect User Guide
@@ -257,6 +257,32 @@ Examples:
 
 * `todo filter --location nand: NUS Science --contact 1 2 3`
     * Find todos whose location does not contain the keywords "NUS" or "Science" and which are linked to the people currently at index 1, 2 and 3.
+
+## Miscellaneous
+
+### Listing all subcommands of a feature: `help`
+
+Lists all subcommands of a feature.
+
+Format: `help FEATURE`
+
+Examples:
+* `help contact` shows all subcommands of contact feature.
+* `help todo` shows all subcommands of todo feature.
+* `help event` shows all subcommands of event feature.
+
+### Listing help message of a subcommand of a feature: `help`
+
+Lists help message of a subcommand of a feature.
+
+Format: `help FEATURE SUBCOMMAND`
+
+Examples:
+* `help contact add` shows help message of `contact add` command.
+* `help todo mark` shows help message of `todo mark` command.
+* `help event log` show help message of `event log` command.
+
+### Exiting the program : `exit`/`quit`/`kill`/`bye`
 
 --------------------------------------------------------------------------------------------------------------------
 
