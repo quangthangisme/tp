@@ -114,6 +114,12 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
             }
             String inputString = argMultimap.getValue(prefix).get();
             Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(inputString);
+
+            // Please forgive me. Basically, to throw exception if tags are duplicate
+            if (prefix == PREFIX_CONTACT_TAG_LONG) {
+                ParserUtil.parseTags(operatorStringPair.second());
+            }
+
             if (operatorStringPair.second().trim().isEmpty()) {
                 throw new ParseException(String.format(MESSAGE_NO_VALUES, prefix));
             }
