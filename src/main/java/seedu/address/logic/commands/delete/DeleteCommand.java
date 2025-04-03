@@ -13,14 +13,15 @@ import seedu.address.logic.commands.ItemCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;
-import seedu.address.model.item.ItemManagerWithFilteredList;
+import seedu.address.model.item.ManagerAndList;
 
 /**
  * Abstract command to delete an {@code Item} from the model based on a given {@code targetIndex}.
  *
  * @param <T> the type of {@code Item} being deleted, which must extend {@link Item}.
  */
-public abstract class DeleteCommand<T extends Item> extends ItemCommand<T> {
+public abstract class DeleteCommand<T extends ManagerAndList<U>, U extends Item>
+        extends ItemCommand<T, U> {
 
     public static final String COMMAND_WORD = "delete";
     protected final Index targetIndex;
@@ -28,7 +29,7 @@ public abstract class DeleteCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Creates a {@code DeleteCommand} to delete the item at the specified {@code targetIndex}.
      */
-    public DeleteCommand(Index targetIndex, Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
+    public DeleteCommand(Index targetIndex, Function<Model, T> managerAndListGetter) {
         super(managerAndListGetter);
         requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
@@ -37,17 +38,23 @@ public abstract class DeleteCommand<T extends Item> extends ItemCommand<T> {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
-        List<T> lastShownList = managerAndList.getFilteredItemsList();
+        T managerAndList = managerAndListGetter.apply(model);
+        List<U> lastShownList = managerAndList.getFilteredItemsList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(getIndexOutOfRangeMessage(), targetIndex.getOneBased()));
         }
 
-        T itemToDelete = lastShownList.get(targetIndex.getZeroBased());
+        U itemToDelete = lastShownList.get(targetIndex.getZeroBased());
         managerAndList.deleteItem(itemToDelete);
+        cascade(model, itemToDelete);
         return new CommandResult(getSuccessMessage(itemToDelete));
     }
+
+    /**
+     * Propagate the result of the deletion.
+     */
+    public abstract void cascade(Model model, U itemToDelete);
 
     /**
      * Returns the message to be displayed when the provided {@code targetIndex} is out of range.
@@ -57,7 +64,7 @@ public abstract class DeleteCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Returns the success message to be displayed when an {@code Item} is successfully deleted.
      */
-    public abstract String getSuccessMessage(T item);
+    public abstract String getSuccessMessage(U item);
 
 
     @Override
@@ -67,7 +74,7 @@ public abstract class DeleteCommand<T extends Item> extends ItemCommand<T> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof DeleteCommand<? extends Item> otherDeleteCommand)) {
+        if (!(other instanceof DeleteCommand<?, ?> otherDeleteCommand)) {
             return false;
         }
 

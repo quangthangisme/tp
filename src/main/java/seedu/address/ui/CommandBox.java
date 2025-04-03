@@ -2,6 +2,7 @@ package seedu.address.ui;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Consumer;
 
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,6 +24,7 @@ public class CommandBox extends UiPart<Region> {
 
     private final CommandExecutor commandExecutor;
 
+    private Consumer<ListPanelViewType> viewSwitchHandler;
     private final List<String> previousCommands;
     private int currentCommandIndex;
 
@@ -37,7 +39,7 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
 
         previousCommands = new ArrayList<>();
-        currentCommandIndex = -1;
+        currentCommandIndex = 0;
 
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
@@ -77,14 +79,24 @@ public class CommandBox extends UiPart<Region> {
      */
     private void displayNextCommand() {
         // Check if there is a next command
-        if (currentCommandIndex + 1 >= previousCommands.size()) {
+        if (currentCommandIndex == previousCommands.size()) {
             return;
         }
         // Shift forward and display
         currentCommandIndex++;
-        String nextCommand = previousCommands.get(currentCommandIndex);
+        String nextCommand = currentCommandIndex == previousCommands.size() ? ""
+                : previousCommands.get(currentCommandIndex);
         commandTextField.setText(nextCommand);
         commandTextField.positionCaret(nextCommand.length());
+    }
+
+    /**
+     * Sets a handler that will be called when a view switch command is detected.
+     *
+     * @param handler callback to handle view switching
+     */
+    public void setViewSwitchHandler(Consumer<ListPanelViewType> handler) {
+        this.viewSwitchHandler = handler;
     }
 
     /**
@@ -97,9 +109,9 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
         try {
-            // Add the current command and set index to end
+            // Add the current command and set index to after the last command
             previousCommands.add(commandText);
-            currentCommandIndex = previousCommands.size() - 1;
+            currentCommandIndex = previousCommands.size();
 
             // Execute the command and clear the command box
             commandExecutor.execute(commandText);
@@ -141,5 +153,4 @@ public class CommandBox extends UiPart<Region> {
          */
         CommandResult execute(String commandText) throws CommandException, ParseException;
     }
-
 }

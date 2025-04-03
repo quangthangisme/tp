@@ -7,11 +7,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.TodoManagerAndList;
 
 /**
  * Displays information of a todo identified using its displayed index.
  */
-public class InfoTodoCommand extends InfoCommand<Todo> {
+public class InfoTodoCommand extends InfoCommand<TodoManagerAndList, Todo> {
 
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Displays the complete information belonging to the todo"

@@ -13,7 +13,7 @@ import seedu.address.logic.commands.ItemCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;
-import seedu.address.model.item.ItemManagerWithFilteredList;
+import seedu.address.model.item.ManagerAndList;
 
 /**
  * Abstract command to display information of an {@code Item} from the model based on a given
@@ -21,7 +21,8 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
  *
  * @param <T> the type of {@code Item} being displayed, which must extend {@link Item}.
  */
-public abstract class InfoCommand<T extends Item> extends ItemCommand<T> {
+public abstract class InfoCommand<T extends ManagerAndList<U>, U extends Item>
+        extends ItemCommand<T, U> {
 
     public static final String COMMAND_WORD = "info";
     protected final Index targetIndex;
@@ -29,7 +30,7 @@ public abstract class InfoCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Creates an {@code InfoCommand} to display information of the item at the specified {@code targetIndex}.
      */
-    public InfoCommand(Index targetIndex, Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
+    public InfoCommand(Index targetIndex, Function<Model, T> managerAndListGetter) {
         super(managerAndListGetter);
         requireNonNull(targetIndex);
         this.targetIndex = targetIndex;
@@ -38,15 +39,15 @@ public abstract class InfoCommand<T extends Item> extends ItemCommand<T> {
     @Override
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
-        ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
-        List<T> lastShownList = managerAndList.getFilteredItemsList();
+        T managerAndList = managerAndListGetter.apply(model);
+        List<U> lastShownList = managerAndList.getFilteredItemsList();
 
         if (targetIndex.getZeroBased() >= lastShownList.size()) {
             throw new CommandException(String.format(getIndexOutOfRangeMessage(),
                     targetIndex.getOneBased()));
         }
 
-        T itemToDisplay = lastShownList.get(targetIndex.getZeroBased());
+        U itemToDisplay = lastShownList.get(targetIndex.getZeroBased());
         return new CommandResult(getSuccessMessage(itemToDisplay));
     }
 
@@ -58,7 +59,7 @@ public abstract class InfoCommand<T extends Item> extends ItemCommand<T> {
     /**
      * Returns the information message to be displayed for the given {@code item}.
      */
-    public abstract String getSuccessMessage(T itemToDisplay);
+    public abstract String getSuccessMessage(U itemToDisplay);
 
 
     @Override
@@ -68,7 +69,7 @@ public abstract class InfoCommand<T extends Item> extends ItemCommand<T> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof InfoCommand<? extends Item> otherInfoCommand)) {
+        if (!(other instanceof InfoCommand<?, ?> otherInfoCommand)) {
             return false;
         }
 

@@ -9,36 +9,46 @@ import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ItemCommand;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;
-import seedu.address.model.item.ItemManagerWithFilteredList;
+import seedu.address.model.item.ManagerAndList;
+import seedu.address.ui.ListPanelViewType;
 
 /**
  * Abstract command for listing all {@code T} items in the model.
  *
  * @param <T> the type of {@code Item} being listed, which must extend {@link Item}.
  */
-public abstract class ListCommand<T extends Item> extends ItemCommand<T> {
+public abstract class ListCommand<T extends ManagerAndList<U>, U extends Item>
+        extends ItemCommand<T, U> {
 
     public static final String COMMAND_WORD = "list";
 
     /**
      * Creates a {@code ListCommand}.
      */
-    public ListCommand(Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
+    public ListCommand(Function<Model, T> managerAndListGetter) {
         super(managerAndListGetter);
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
+        T managerAndList = managerAndListGetter.apply(model);
         managerAndList.showAllItems();
-        return new CommandResult(getSuccessMessage());
+        return new CommandResult(getSuccessMessage(), getListPanelViewType());
     }
 
     /**
      * Returns a success message to be displayed when the command executes successfully.
      */
     public abstract String getSuccessMessage();
+
+    /**
+     * Returns the appropriate ListPanelViewType for this list command.
+     * Must be implemented by subclasses to specify which view should be displayed.
+     *
+     * @return the ListPanelViewType to switch to
+     */
+    public abstract ListPanelViewType getListPanelViewType();
 
     @Override
     public boolean equals(Object other) {
@@ -47,7 +57,7 @@ public abstract class ListCommand<T extends Item> extends ItemCommand<T> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ListCommand<? extends Item> otherListCommand)) {
+        if (!(other instanceof ListCommand<?, ?> otherListCommand)) {
             return false;
         }
 

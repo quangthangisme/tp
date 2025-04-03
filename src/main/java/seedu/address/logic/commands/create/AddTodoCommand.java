@@ -10,11 +10,12 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.TodoManagerAndList;
 
 /**
  * Adds a {@code Todo} to the app.
  */
-public class AddTodoCommand extends AddCommand<Todo> {
+public class AddTodoCommand extends AddCommand<TodoManagerAndList, Todo> {
 
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Adds a todo to the app.\n"

@@ -2,6 +2,7 @@ package seedu.address.model.todo;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.item.ItemInvolvingContact;
 import seedu.address.model.item.ItemWithLocation;
 import seedu.address.model.item.NamedItem;
 import seedu.address.model.item.TaggedItem;
@@ -16,12 +18,16 @@ import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
+import seedu.address.ui.UiPart;
+import seedu.address.ui.card.TodoCard;
+import seedu.address.ui.util.DisplayableItem;
 
 /**
  * Represents a Todo.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Todo implements NamedItem, ItemWithLocation, TaggedItem {
+public class Todo implements NamedItem, ItemWithLocation, TaggedItem, ItemInvolvingContact<Todo>,
+        DisplayableItem {
 
     // Identity fields
     private final Name name;
@@ -96,6 +102,10 @@ public class Todo implements NamedItem, ItemWithLocation, TaggedItem {
         return this.tags;
     }
 
+    @Override
+    public UiPart<?> getDisplayCard(int index) {
+        return new TodoCard(this, index);
+    }
 
     /**
      * Returns true if both todos have the same identity and data fields.
@@ -136,5 +146,33 @@ public class Todo implements NamedItem, ItemWithLocation, TaggedItem {
                 .add("contacts", contacts)
                 .add("tags", tags)
                 .toString();
+    }
+
+    @Override
+    public boolean involves(Contact contact) {
+        return contacts.contains(contact);
+    }
+
+    @Override
+    public Todo setContact(Contact oldContact, Contact newContact) {
+        assert contacts.contains(oldContact);
+
+        List<Contact> newContacts = new ArrayList<>(contacts);
+        newContacts.set(contacts.indexOf(oldContact), newContact);
+        return new Todo(name, deadline, location, status, List.copyOf(newContacts), tags);
+    }
+
+    @Override
+    public Todo removeContact(Contact contact) {
+        assert contacts.contains(contact);
+
+        List<Contact> newContacts = new ArrayList<>(contacts);
+        newContacts.remove(contact);
+        return new Todo(name, deadline, location, status, List.copyOf(newContacts), tags);
+    }
+
+    @Override
+    public Todo removeAllContacts() {
+        return new Todo(name, deadline, location, status, List.of(), tags);
     }
 }

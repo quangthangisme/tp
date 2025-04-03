@@ -19,7 +19,7 @@ import org.junit.jupiter.api.io.TempDir;
 import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 import seedu.address.storage.contact.JsonContactStorage;
 
 public class JsonContactManagerStorageTest {
@@ -33,7 +33,7 @@ public class JsonContactManagerStorageTest {
         assertThrows(NullPointerException.class, () -> readAddressBook(null));
     }
 
-    private Optional<ItemManager<Contact>> readAddressBook(String filePath) throws Exception {
+    private Optional<ItemNotInvolvingContactManager<Contact>> readAddressBook(String filePath) throws Exception {
         return new JsonContactStorage(Paths.get(filePath)).readAddressBook(addToTestDataPathIfNotNull(filePath));
     }
 
@@ -71,7 +71,7 @@ public class JsonContactManagerStorageTest {
 
         // Save in new file and read back
         jsonAddressBookStorage.saveAddressBook(original, filePath);
-        ItemManager<Contact> readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
+        ItemNotInvolvingContactManager<Contact> readBack = jsonAddressBookStorage.readAddressBook(filePath).get();
         assertEquals(original, new ContactManager(readBack));
 
         // Modify data, overwrite exiting file, and read back
@@ -97,7 +97,7 @@ public class JsonContactManagerStorageTest {
     /**
      * Saves {@code addressBook} at the specified {@code filePath}.
      */
-    private void saveAddressBook(ItemManager<Contact> addressBook, String filePath) {
+    private void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook, String filePath) {
         try {
             new JsonContactStorage(Paths.get(filePath))
                     .saveAddressBook(addressBook, addToTestDataPathIfNotNull(filePath));

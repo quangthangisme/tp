@@ -11,7 +11,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemInvolvingContactManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 import seedu.address.model.todo.Todo;
 import seedu.address.storage.contact.ContactStorage;
 import seedu.address.storage.event.EventStorage;
@@ -67,23 +68,24 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ItemManager<Contact>> readAddressBook() throws DataLoadingException {
+    public Optional<ItemNotInvolvingContactManager<Contact>> readAddressBook() throws DataLoadingException {
         return readAddressBook(addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public Optional<ItemManager<Contact>> readAddressBook(Path filePath) throws DataLoadingException {
+    public Optional<ItemNotInvolvingContactManager<Contact>> readAddressBook(Path filePath)
+            throws DataLoadingException {
         logger.fine("Attempting to read data from file: " + filePath);
         return addressBookStorage.readAddressBook(filePath);
     }
 
     @Override
-    public void saveAddressBook(ItemManager<Contact> addressBook) throws IOException {
+    public void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook) throws IOException {
         saveAddressBook(addressBook, addressBookStorage.getAddressBookFilePath());
     }
 
     @Override
-    public void saveAddressBook(ItemManager<Contact> addressBook, Path filePath) throws IOException {
+    public void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         addressBookStorage.saveAddressBook(addressBook, filePath);
     }
@@ -97,23 +99,23 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ItemManager<Todo>> readTodoList() throws DataLoadingException {
+    public Optional<ItemInvolvingContactManager<Todo>> readTodoList() throws DataLoadingException {
         return readTodoList(todoStorage.getTodoListFilePath());
     }
 
     @Override
-    public Optional<ItemManager<Todo>> readTodoList(Path filePath) throws DataLoadingException {
+    public Optional<ItemInvolvingContactManager<Todo>> readTodoList(Path filePath) throws DataLoadingException {
         logger.fine("Attempting to read data from file: " + filePath);
         return todoStorage.readTodoList(filePath);
     }
 
     @Override
-    public void saveTodoList(ItemManager<Todo> addressBook) throws IOException {
+    public void saveTodoList(ItemInvolvingContactManager<Todo> addressBook) throws IOException {
         saveTodoList(addressBook, todoStorage.getTodoListFilePath());
     }
 
     @Override
-    public void saveTodoList(ItemManager<Todo> addressBook, Path filePath) throws IOException {
+    public void saveTodoList(ItemInvolvingContactManager<Todo> addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         todoStorage.saveTodoList(addressBook, filePath);
     }
@@ -126,23 +128,23 @@ public class StorageManager implements Storage {
     }
 
     @Override
-    public Optional<ItemManager<Event>> readEventList() throws DataLoadingException {
+    public Optional<ItemInvolvingContactManager<Event>> readEventList() throws DataLoadingException {
         return readEventList(eventStorage.getEventListFilePath());
     }
 
     @Override
-    public Optional<ItemManager<Event>> readEventList(Path filePath) throws DataLoadingException {
+    public Optional<ItemInvolvingContactManager<Event>> readEventList(Path filePath) throws DataLoadingException {
         logger.fine("Attempting to read data from file: " + filePath);
         return eventStorage.readEventList(filePath);
     }
 
     @Override
-    public void saveEventList(ItemManager<Event> addressBook) throws IOException {
+    public void saveEventList(ItemInvolvingContactManager<Event> addressBook) throws IOException {
         saveEventList(addressBook, eventStorage.getEventListFilePath());
     }
 
     @Override
-    public void saveEventList(ItemManager<Event> addressBook, Path filePath) throws IOException {
+    public void saveEventList(ItemInvolvingContactManager<Event> addressBook, Path filePath) throws IOException {
         logger.fine("Attempting to write to data file: " + filePath);
         eventStorage.saveEventList(addressBook, filePath);
     }

@@ -7,6 +7,8 @@ import java.util.Objects;
 import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.contact.Contact;
+import seedu.address.model.item.ItemInvolvingContact;
 import seedu.address.model.item.ItemWithLocation;
 import seedu.address.model.item.NamedItem;
 import seedu.address.model.item.TaggedItem;
@@ -14,12 +16,16 @@ import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
+import seedu.address.ui.UiPart;
+import seedu.address.ui.card.EventCard;
+import seedu.address.ui.util.DisplayableItem;
 
 /**
  * Represents an Event.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Event implements NamedItem, ItemWithLocation, TaggedItem {
+public class Event implements NamedItem, ItemWithLocation, TaggedItem, ItemInvolvingContact<Event>,
+        DisplayableItem {
     private final Name name;
     private final Datetime startTime;
     private final Datetime endTime;
@@ -92,6 +98,11 @@ public class Event implements NamedItem, ItemWithLocation, TaggedItem {
     }
 
     @Override
+    public UiPart<?> getDisplayCard(int index) {
+        return new EventCard(this, index);
+    }
+
+    @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("name", name)
@@ -122,5 +133,26 @@ public class Event implements NamedItem, ItemWithLocation, TaggedItem {
     @Override
     public int hashCode() {
         return Objects.hash(name, startTime, endTime, location, attendance, tags);
+    }
+
+    @Override
+    public boolean involves(Contact contact) {
+        return attendance.contains(contact);
+    }
+
+    @Override
+    public Event setContact(Contact oldContact, Contact newContact) {
+        return new Event(name, startTime, endTime, location, attendance.set(oldContact, newContact),
+                tags);
+    }
+
+    @Override
+    public Event removeContact(Contact contact) {
+        return new Event(name, startTime, endTime, location, attendance.remove(contact), tags);
+    }
+
+    @Override
+    public Event removeAllContacts() {
+        return new Event(name, startTime, endTime, location, new Attendance(), tags);
     }
 }

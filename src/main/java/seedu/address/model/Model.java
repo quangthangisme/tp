@@ -5,9 +5,11 @@ import java.util.function.Predicate;
 
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactManagerAndList;
 import seedu.address.model.event.Event;
-import seedu.address.model.item.ItemManagerWithFilteredList;
+import seedu.address.model.event.EventManagerAndList;
 import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.TodoManagerAndList;
 
 /**
  * The API of the Model component.
@@ -71,15 +73,15 @@ public interface Model {
     /**
      * Returns the contact manager and display list.
      */
-    ItemManagerWithFilteredList<Contact> getContactManagerAndList();
+    ContactManagerAndList getContactManagerAndList();
 
     /**
      * Returns the todo manager and display list.
      */
-    ItemManagerWithFilteredList<Todo> getTodoManagerAndList();
+    TodoManagerAndList getTodoManagerAndList();
 
     /**
      * Returns the event manager and display list
      */
-    ItemManagerWithFilteredList<Event> getEventManagerAndList();
+    EventManagerAndList getEventManagerAndList();
 }

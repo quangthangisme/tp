@@ -115,6 +115,7 @@ public class TodoPredicate implements Predicate<Todo> {
                 && (deadlinePredicate == null || deadlinePredicate.test(todo))
                 && (locationPredicate == null || locationPredicate.test(todo))
                 && (statusPredicate == null || statusPredicate.test(todo))
-                && (contactPredicate == null || contactPredicate.test(todo));
+                && (contactPredicate == null || contactPredicate.test(todo))
+                && (tagPredicate == null || tagPredicate.test(todo));
     }
 }
