@@ -3,6 +3,7 @@ package seedu.address.logic.commands.read;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.Messages.MESSAGE_SEARCH_OVERVIEW;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.TodoCommandTestUtil.VALID_DEADLINE_GRADING;
 import static seedu.address.testutil.TypicalTodos.GRADING;
 import static seedu.address.testutil.TypicalTodos.REPORT;
 import static seedu.address.testutil.TypicalTodos.REPORT_WITH_MULTIPLE_TAGS;
@@ -23,9 +24,11 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.ContactManagerWithFilteredList;
 import seedu.address.model.event.EventManagerWithFilteredList;
+import seedu.address.model.item.predicate.DatetimePredicate;
 import seedu.address.model.item.predicate.NamePredicate;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManagerWithFilteredList;
+import seedu.address.model.todo.predicate.TodoDeadlinePredicate;
 import seedu.address.model.todo.predicate.TodoPredicate;
 
 /**
@@ -105,6 +108,97 @@ public class FilterTodoCommandTest {
 
         expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
         List<Todo> expectedList = List.of(REPORT, REPORT_WITH_TAG, REPORT_WITH_MULTIPLE_TAGS);
+
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, expectedList.size());
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(expectedList, model.getTodoManagerAndList().getFilteredItemsList());
+    }
+
+    @Test
+    public void execute_deadlineAndFilter() {
+        TodoPredicate predicate = new TodoPredicate();
+        predicate.setDeadlinePredicate(new TodoDeadlinePredicate(Operator.AND,
+                Arrays.asList(new DatetimePredicate("[" + VALID_DEADLINE_GRADING + "/-]"),
+                        new DatetimePredicate("[-/28-02-29 23:28]"))));
+
+        FilterTodoCommand command = new FilterTodoCommand(predicate, Optional.empty());
+
+        expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
+        List<Todo> expectedList = List.of(GRADING, REPORT, REPORT_WITH_TAG, REPORT_WITH_MULTIPLE_TAGS);
+
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, expectedList.size());
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(expectedList, model.getTodoManagerAndList().getFilteredItemsList());
+    }
+
+    @Test
+    public void execute_deadlineOrFilter() {
+        TodoPredicate predicate = new TodoPredicate();
+        predicate.setDeadlinePredicate(new TodoDeadlinePredicate(Operator.OR,
+                Arrays.asList(new DatetimePredicate("[28-02-29 23:29/-]"),
+                        new DatetimePredicate("[-/28-02-29 23:28]"))));
+
+        FilterTodoCommand command = new FilterTodoCommand(predicate, Optional.empty());
+
+        expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
+        List<Todo> expectedList = List.of(GRADING, REPORT, REPORT_WITH_TAG, REPORT_WITH_MULTIPLE_TAGS, STUFF, STUFF_2);
+
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, expectedList.size());
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(expectedList, model.getTodoManagerAndList().getFilteredItemsList());
+    }
+
+    @Test
+    public void execute_deadlineNandFilter() {
+        TodoPredicate predicate = new TodoPredicate();
+        predicate.setDeadlinePredicate(new TodoDeadlinePredicate(Operator.NAND,
+                Arrays.asList(new DatetimePredicate("[28-02-29 23:29/-]"),
+                        new DatetimePredicate("[-/28-02-29 23:28]"))));
+
+        FilterTodoCommand command = new FilterTodoCommand(predicate, Optional.empty());
+
+        expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
+        List<Todo> expectedList = List.of(GRADING, REPORT, REPORT_WITH_TAG, REPORT_WITH_MULTIPLE_TAGS, STUFF, STUFF_2);
+
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, expectedList.size());
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(expectedList, model.getTodoManagerAndList().getFilteredItemsList());
+    }
+
+    @Test
+    public void execute_deadlineNorFilter() {
+        TodoPredicate predicate = new TodoPredicate();
+        predicate.setDeadlinePredicate(new TodoDeadlinePredicate(Operator.NOR,
+                Arrays.asList(new DatetimePredicate("[-/" + VALID_DEADLINE_GRADING + "]"),
+                        new DatetimePredicate("[28-02-29 23:29/-]"))));
+
+        FilterTodoCommand command = new FilterTodoCommand(predicate, Optional.empty());
+
+        expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
+        List<Todo> expectedList = List.of(REPORT, REPORT_WITH_TAG, REPORT_WITH_MULTIPLE_TAGS);
+
+        String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, expectedList.size());
+
+        assertCommandSuccess(command, model, expectedMessage, expectedModel);
+        assertEquals(expectedList, model.getTodoManagerAndList().getFilteredItemsList());
+    }
+
+    @Test
+    public void execute_deadlinePartialMatchFilter() {
+        TodoPredicate predicate = new TodoPredicate();
+        predicate.setDeadlinePredicate(new TodoDeadlinePredicate(Operator.OR,
+                Arrays.asList(
+                        new DatetimePredicate("[28-02-29 23:29/-]"),
+                        new DatetimePredicate("[-/28-02-29 23:28]"))));
+
+        FilterTodoCommand command = new FilterTodoCommand(predicate, Optional.empty());
+
+        expectedModel.getTodoManagerAndList().updateFilteredItemsList(predicate);
+        List<Todo> expectedList = List.of(GRADING, REPORT, REPORT_WITH_TAG, REPORT_WITH_MULTIPLE_TAGS, STUFF, STUFF_2);
 
         String expectedMessage = String.format(MESSAGE_SEARCH_OVERVIEW, expectedList.size());
 
