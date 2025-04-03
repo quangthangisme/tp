@@ -27,12 +27,13 @@ import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
 import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.TodoManagerAndList;
 import seedu.address.model.todo.TodoStatus;
 
 /**
  * Edits the details of an existing todo in the address book.
  */
-public class EditTodoCommand extends EditCommand<Todo> {
+public class EditTodoCommand extends EditCommand<TodoManagerAndList, Todo> {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -81,6 +82,10 @@ public class EditTodoCommand extends EditCommand<Todo> {
         requireNonNull(editTodoDescriptor);
         this.editTodoDescriptor = new EditTodoDescriptor(editTodoDescriptor);
         this.linkedContactIndicesOpt = Optional.of(List.copyOf(linkedContactIndices));
+    }
+
+    @Override
+    public void cascade(Model model, Todo itemToEdit, Todo editedItem) {
     }
 
     /**

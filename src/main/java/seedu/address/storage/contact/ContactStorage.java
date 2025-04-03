@@ -8,6 +8,7 @@ import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
 import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 
 /**
  * Represents a storage for {@link ContactManager}.
@@ -25,23 +26,23 @@ public interface ContactStorage {
      *
      * @throws DataLoadingException if loading the data from storage failed.
      */
-    Optional<ItemManager<Contact>> readAddressBook() throws DataLoadingException;
+    Optional<ItemNotInvolvingContactManager<Contact>> readAddressBook() throws DataLoadingException;
 
     /**
      * @see #getAddressBookFilePath()
      */
-    Optional<ItemManager<Contact>> readAddressBook(Path filePath) throws DataLoadingException;
+    Optional<ItemNotInvolvingContactManager<Contact>> readAddressBook(Path filePath) throws DataLoadingException;
 
     /**
      * Saves the given {@link ItemManager} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
-    void saveAddressBook(ItemManager<Contact> addressBook) throws IOException;
+    void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook) throws IOException;
 
     /**
      * @see #saveAddressBook(ItemManager)
      */
-    void saveAddressBook(ItemManager<Contact> addressBook, Path filePath) throws IOException;
+    void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook, Path filePath) throws IOException;
 
 }

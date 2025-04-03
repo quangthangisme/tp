@@ -1,17 +1,17 @@
 package seedu.address.model.event;
 
 import seedu.address.commons.util.ToStringBuilder;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemInvolvingContactManager;
 
 /**
  * Wraps all {@code Event}-related data. Duplicates are not allowed.
  */
-public class EventManager extends ItemManager<Event> {
+public class EventManager extends ItemInvolvingContactManager<Event> {
 
     /**
      * Creates an EventManager using the Events in the {@code copy}
      */
-    public EventManager(ItemManager<Event> copy) {
+    public EventManager(ItemInvolvingContactManager<Event> copy) {
         this();
         resetData(copy);
     }

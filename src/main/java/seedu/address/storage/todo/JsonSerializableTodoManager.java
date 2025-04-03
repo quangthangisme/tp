@@ -8,7 +8,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemInvolvingContactManager;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManager;
 
@@ -35,7 +35,7 @@ class JsonSerializableTodoManager {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableTodoManager(ItemManager<Todo> source) {
+    public JsonSerializableTodoManager(ItemInvolvingContactManager<Todo> source) {
         todos.addAll(source.getItemList().stream().map(JsonAdaptedTodo::new).toList());
     }
 

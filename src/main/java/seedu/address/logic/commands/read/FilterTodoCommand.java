@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.TodoManagerAndList;
 import seedu.address.model.todo.predicate.TodoContactPredicate;
 import seedu.address.model.todo.predicate.TodoPredicate;
 
@@ -26,7 +27,7 @@ import seedu.address.model.todo.predicate.TodoPredicate;
  * Filters and lists all events based on specified criteria.
  * Filter criteria are formed with columns, operators, and values.
  */
-public class FilterTodoCommand extends FilterCommand<Todo> {
+public class FilterTodoCommand extends FilterCommand<TodoManagerAndList, Todo> {
 
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Filters todos based on specified criteria.\n"

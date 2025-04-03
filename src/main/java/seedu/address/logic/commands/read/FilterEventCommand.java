@@ -19,6 +19,7 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventManagerAndList;
 import seedu.address.model.event.predicate.EventContactPredicate;
 import seedu.address.model.event.predicate.EventPredicate;
 
@@ -26,7 +27,7 @@ import seedu.address.model.event.predicate.EventPredicate;
  * Filters and lists all events based on specified criteria. Filter criteria are formed with
  * columns, operators, and values.
  */
-public class FilterEventCommand extends FilterCommand<Event> {
+public class FilterEventCommand extends FilterCommand<EventManagerAndList, Event> {
 
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Filters events based on specified criteria.\n"

@@ -11,11 +11,12 @@ import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG_L
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventManagerAndList;
 
 /**
  * Adds an {@code Event} to the app.
  */
-public class AddEventCommand extends AddCommand<Event> {
+public class AddEventCommand extends AddCommand<EventManagerAndList, Event> {
 
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Adds an event to the app. "

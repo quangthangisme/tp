@@ -10,7 +10,7 @@ import com.fasterxml.jackson.annotation.JsonRootName;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventManager;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemInvolvingContactManager;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -35,7 +35,7 @@ class JsonSerializableEventManager {
      *
      * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
      */
-    public JsonSerializableEventManager(ItemManager<Event> source) {
+    public JsonSerializableEventManager(ItemInvolvingContactManager<Event> source) {
         events.addAll(source.getItemList().stream().map(JsonAdaptedEvent::new).toList());
     }
 

@@ -11,11 +11,11 @@ import javafx.collections.ObservableList;
  *
  * @param <T> the type of {@code Item} being managed, which extends {@link Item}.
  */
-public abstract class ItemManager<T extends Item> {
+public abstract class ItemManager<T extends Item, U extends UniqueItemList<T>> {
 
-    private final UniqueItemList<T> items;
+    protected final U items;
 
-    public ItemManager(UniqueItemList<T> items) {
+    public ItemManager(U items) {
         this.items = items;
     }
 
@@ -32,7 +32,7 @@ public abstract class ItemManager<T extends Item> {
     /**
      * Resets the existing data of this {@code ItemManager} with {@code newData}.
      */
-    public void resetData(ItemManager<T> newData) {
+    public void resetData(ItemManager<T, U> newData) {
         requireNonNull(newData);
 
         setItems(newData.getItemList());
@@ -100,7 +100,7 @@ public abstract class ItemManager<T extends Item> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ItemManager<?> otherItemManager)) {
+        if (!(other instanceof ItemManager<?, ?> otherItemManager)) {
             return false;
         }
 

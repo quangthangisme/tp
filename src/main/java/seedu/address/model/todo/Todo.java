@@ -2,6 +2,7 @@ package seedu.address.model.todo;
 
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -9,6 +10,7 @@ import java.util.Set;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.item.ItemInvolvingContact;
 import seedu.address.model.item.ItemWithLocation;
 import seedu.address.model.item.NamedItem;
 import seedu.address.model.item.TaggedItem;
@@ -21,7 +23,7 @@ import seedu.address.model.item.commons.Tag;
  * Represents a Todo.
  * Guarantees: details are present and not null, field values are validated, immutable.
  */
-public class Todo implements NamedItem, ItemWithLocation, TaggedItem {
+public class Todo implements NamedItem, ItemWithLocation, TaggedItem, ItemInvolvingContact<Todo> {
 
     // Identity fields
     private final Name name;
@@ -136,5 +138,33 @@ public class Todo implements NamedItem, ItemWithLocation, TaggedItem {
                 .add("contacts", contacts)
                 .add("tags", tags)
                 .toString();
+    }
+
+    @Override
+    public boolean involves(Contact contact) {
+        return contacts.contains(contact);
+    }
+
+    @Override
+    public Todo setContact(Contact oldContact, Contact newContact) {
+        assert contacts.contains(oldContact);
+
+        List<Contact> newContacts = new ArrayList<>(contacts);
+        newContacts.set(contacts.indexOf(oldContact), newContact);
+        return new Todo(name, deadline, location, status, List.copyOf(newContacts), tags);
+    }
+
+    @Override
+    public Todo removeContact(Contact contact) {
+        assert contacts.contains(contact);
+
+        List<Contact> newContacts = new ArrayList<>(contacts);
+        newContacts.remove(contact);
+        return new Todo(name, deadline, location, status, List.copyOf(newContacts), tags);
+    }
+
+    @Override
+    public Todo removeAllContacts() {
+        return new Todo(name, deadline, location, status, List.of(), tags);
     }
 }

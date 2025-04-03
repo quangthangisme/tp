@@ -13,21 +13,22 @@ import seedu.address.logic.commands.ItemCommand;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;
-import seedu.address.model.item.ItemManagerWithFilteredList;
+import seedu.address.model.item.ManagerAndList;
 
 /**
  * Abstract command for filtering items in the model that match a given complex {@code predicate}.
  *
  * @param <T> the type of {@code Item} being filtered, which must extend {@link Item}.
  */
-public abstract class FilterCommand<T extends Item> extends ItemCommand<T> {
+public abstract class FilterCommand<T extends ManagerAndList<U>, U extends Item>
+        extends ItemCommand<T, U> {
 
     public static final String COMMAND_WORD = "filter";
 
     /**
      * Creates a {@code FilterCommand} to filter items that match the given {@code predicate}.
      */
-    public FilterCommand(Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
+    public FilterCommand(Function<Model, T> managerAndListGetter) {
         super(managerAndListGetter);
     }
 
@@ -35,7 +36,7 @@ public abstract class FilterCommand<T extends Item> extends ItemCommand<T> {
     public CommandResult execute(Model model) throws CommandException {
         requireNonNull(model);
 
-        ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
+        T managerAndList = managerAndListGetter.apply(model);
         managerAndList.updateFilteredItemsList(createPredicate(model));
 
         return new CommandResult(getSuccessMessage(managerAndList.getFilteredItemsList().size()));
@@ -46,7 +47,7 @@ public abstract class FilterCommand<T extends Item> extends ItemCommand<T> {
      *
      * @throws CommandException if a predicate cannot be created
      */
-    public abstract Predicate<T> createPredicate(Model model) throws CommandException;
+    public abstract Predicate<U> createPredicate(Model model) throws CommandException;
 
     /**
      * Returns a success message to be displayed when the command executes successfully.
@@ -62,7 +63,7 @@ public abstract class FilterCommand<T extends Item> extends ItemCommand<T> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof FilterCommand<? extends Item> otherFilterCommand)) {
+        if (!(other instanceof FilterCommand<?, ?> otherFilterCommand)) {
             return false;
         }
 

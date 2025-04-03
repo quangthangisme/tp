@@ -7,11 +7,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.event.Event;
+import seedu.address.model.event.EventManagerAndList;
 
 /**
  * Displays information of an event identified using its displayed index.
  */
-public class InfoEventCommand extends InfoCommand<Event> {
+public class InfoEventCommand extends InfoCommand<EventManagerAndList, Event> {
 
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Displays the complete information belonging to the event"
