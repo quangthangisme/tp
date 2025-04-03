@@ -136,7 +136,7 @@ Example:
 * `event info 1`
 
 ### Clearing todo list: `clear`
-Clears the todo list
+Clears the todo list.
 
 Format: `todo clear`
 
