@@ -37,8 +37,9 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
         PrefixAlias locationPrefix = TodoCliAlias.TODO_LOCATION_ALIAS;
         PrefixAlias tagPrefix = TodoCliAlias.TODO_TAG_PREFIX_ALIAS;
         PrefixAlias contactPrefix = TodoCliAlias.TODO_LINKED_CONTACT_PREFIX_ALIAS;
+        PrefixAlias statusPrefix = TodoCliAlias.TODO_STATUS_ALIAS;
         Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
-                .add(namePrefix, deadlinePrefix, locationPrefix, locationPrefix, tagPrefix, contactPrefix)
+                .add(namePrefix, deadlinePrefix, locationPrefix, tagPrefix, contactPrefix, statusPrefix)
                 .toArray();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
 
@@ -66,9 +67,9 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
             editTodoDescriptor.setTags(
                     ParserUtil.parseTags(argMultimap.getValue(tagPrefix).get()));
         }
-        if (argMultimap.getValue(PREFIX_TODO_STATUS_LONG).isPresent()) {
+        if (argMultimap.getValue(statusPrefix).isPresent()) {
             editTodoDescriptor.setStatus(new TodoStatus(
-                    ParserUtil.parseBoolean(argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get())));
+                    ParserUtil.parseBoolean(argMultimap.getValue(statusPrefix).get())));
         }
         List<Index> linkedContactIndices = List.of();
         PrefixAlias eventContact = EventCliAlias.EVENT_LINKED_CONTACT_PREFIX_ALIAS;

@@ -52,10 +52,10 @@ public class AddEventCommandParser implements Parser<AddEventCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
-        Name name = EventParseUtil.parseName(argMultimap.getValue(namePrefix).get());
-        Datetime startTime = EventParseUtil.parseDateTime(argMultimap.getValue(startPrefix).get());
-        Datetime endTime = EventParseUtil.parseDateTime(argMultimap.getValue(endPrefix).get());
-        Location location = EventParseUtil.parseLocation(argMultimap.getValue(locationPrefix).get());
+        Name name = EventParserUtil.parseName(argMultimap.getValue(namePrefix).get());
+        Datetime startTime = EventParserUtil.parseDateTime(argMultimap.getValue(startPrefix).get());
+        Datetime endTime = EventParserUtil.parseDateTime(argMultimap.getValue(endPrefix).get());
+        Location location = EventParserUtil.parseLocation(argMultimap.getValue(locationPrefix).get());
         if (!startTime.isBefore(endTime)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     MESSAGE_NEGATIVE_DURATION));
