@@ -19,6 +19,8 @@ import seedu.address.model.todo.Todo;
 public class TodoCommandTestUtil {
 
     public static final String VALID_NAME_REPORT = "Report";
+    public static final String VALID_NAME_REPORT_TAG = "Report tag";
+    public static final String VALID_NAME_REPORT_MULTIPLE_TAGS = "Report with multiple tags";
     public static final String VALID_NAME_GRADING = "Grading submissions";
     public static final String VALID_DEADLINE_REPORT = "25-12-31 23:59";
     public static final String VALID_DEADLINE_GRADING = "25-11-30 23:59";

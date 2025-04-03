@@ -50,12 +50,12 @@ public class AddTodoCommandParserTest {
                 new AddTodoCommand(GRADING));
 
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + NAME_DESC_REPORT + DEADLINE_DESC_REPORT
+                PREAMBLE_WHITESPACE + NAME_DESC_REPORT + " tag" + DEADLINE_DESC_REPORT
                         + LOCATION_DESC_REPORT + TAG_DESC_REPORT,
                 new AddTodoCommand(REPORT_WITH_TAG));
 
         assertParseSuccess(parser,
-                PREAMBLE_WHITESPACE + NAME_DESC_REPORT + DEADLINE_DESC_REPORT
+                PREAMBLE_WHITESPACE + NAME_DESC_REPORT + " with multiple tags" + DEADLINE_DESC_REPORT
                         + LOCATION_DESC_REPORT + TAG_DESC_REPORT_MULTIPLE,
                 new AddTodoCommand(REPORT_WITH_MULTIPLE_TAGS));
     }

@@ -28,6 +28,7 @@ public class Messages {
     public static final String MESSAGE_NO_VALUES = "No values specified for column '%s'.";
     public static final String MESSAGE_UNRECOGNIZED_COLUMN = "Unrecognized column: '%s'.";
     public static final String MESSAGE_UNRECOGNIZED_OPERATOR = "Unrecognized operator: '%s'.";
+    public static final String MESSAGE_DUPLICATE_TAGS = "Duplicate tags found for: %s";
 
 
     public static final String MESSAGE_INVALID_CONTACT_DISPLAYED_INDEX =

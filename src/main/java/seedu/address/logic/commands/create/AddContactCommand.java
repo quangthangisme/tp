@@ -20,7 +20,7 @@ public class AddContactCommand extends AddCommand<Contact> {
 
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Adds a contact to the address book.\n"
-            + "Prameters: "
+            + "Parameters: "
             + PREFIX_CONTACT_ID_LONG + "ID "
             + PREFIX_CONTACT_NAME_LONG + "NAME "
             + PREFIX_CONTACT_EMAIL_LONG + "EMAIL "
