@@ -17,6 +17,9 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.logic.Logic;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.exceptions.CommandException;
+import seedu.address.logic.commands.read.InfoContactCommand;
+import seedu.address.logic.commands.read.InfoEventCommand;
+import seedu.address.logic.commands.read.InfoTodoCommand;
 import seedu.address.logic.commands.read.ListContactCommand;
 import seedu.address.logic.commands.read.ListEventCommand;
 import seedu.address.logic.commands.read.ListTodoCommand;
@@ -246,8 +249,7 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleContactClick(int index) {
         try {
-            String command = "contact info " + index;
-            executeCommand(command);
+            executeCommand(String.format("%s %s %d", CONTACT_COMMAND_WORD, InfoContactCommand.COMMAND_WORD, index));
         } catch (Exception e) {
             logger.warning("Failed to handle contact click: " + e.getMessage());
         }
@@ -259,21 +261,18 @@ public class MainWindow extends UiPart<Stage> {
      */
     private void handleMainListClick(int index) {
         try {
-            String command;
             switch (currentViewMode) {
             case EVENT:
-                command = "event info " + index;
+                executeCommand(String.format("%s %s %d", EVENT_COMMAND_WORD, InfoEventCommand.COMMAND_WORD, index));
                 break;
             case TODO:
-                command = "todo info " + index;
+                executeCommand(String.format("%s %s %d", TODO_COMMAND_WORD, InfoTodoCommand.COMMAND_WORD, index));
                 break;
             default:
-                // No action for unknown view type
                 return;
             }
-            executeCommand(command);
         } catch (Exception e) {
-            logger.warning("Failed to handle main list click: " + e.getMessage());
+            logger.warning("Failed to handle event/todo list click: " + e.getMessage());
         }
     }
 
