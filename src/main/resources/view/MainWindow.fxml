@@ -32,7 +32,14 @@
               </padding>
             </StackPane>
 
-            <StackPane fx:id="resultDisplayPlaceholder" VBox.vgrow="ALWAYS" styleClass="pane-with-border">
+            <StackPane fx:id="resultDisplayPlaceholder" VBox.vgrow="NEVER" styleClass="pane-with-border">
+              <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+            </StackPane>
+
+            <!-- New ListPanel for Events and Todos -->
+            <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS" styleClass="pane-with-border">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
@@ -44,7 +51,6 @@
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
               </padding>
-              <Button fx:id="contactButton" text="Contact" onAction="#handleContactButton" styleClass="toggle-button" />
               <Button fx:id="eventButton" text="Event" onAction="#handleEventButton" styleClass="toggle-button" />
               <Button fx:id="todoButton" text="Todo" onAction="#handleTodoButton" styleClass="toggle-button" />
               <Button fx:id="resetButton" onAction="#handleResetButton" styleClass="toggle-button">
@@ -56,7 +62,7 @@
               </Button>
             </HBox>
 
-            <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS" styleClass="pane-with-border">
+            <StackPane fx:id="contactListPanelPlaceholder" VBox.vgrow="ALWAYS" styleClass="pane-with-border">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
               </padding>
