@@ -1,4 +1,4 @@
-package seedu.address.ui;
+package seedu.address.ui.card;
 
 import java.util.Comparator;
 
@@ -8,6 +8,7 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import seedu.address.model.event.Event;
+import seedu.address.ui.UiPart;
 
 /**
  * An UI component that displays information of a {@code Event}.
@@ -43,7 +44,7 @@ public class EventCard extends UiPart<Region> {
         name.setText(event.getName().value);
         startTime.setText("Start time: " + event.getStartTime().toString());
         endTime.setText("End Time: " + event.getEndTime().toString());
-        eventLocation.setText(event.getLocation().toString());
+        eventLocation.setText("Location: " + event.getLocation().toString());
         event.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
