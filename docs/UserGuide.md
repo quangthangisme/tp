@@ -403,3 +403,18 @@ Start & End Time:
 * Provide one or more closed intervals, each written as: `[<INTERVAL_START>/<INTERVAL_END>]`.
 * Each datetime must follow the format: `YY-MM-DD HH:MM`.
 * At least one of the two bounds must be specified.
+
+Contact:
+* Provide contact indices (as shown in the current contact list).
+
+* Matches events linked to all the specified contacts (default `and`, unless overridden).
+
+Examples:
+* `event filter --name or: Exam PRESENTATION`. 
+  * Find todos whose name contains at least one of the keywords "exam" or "presentation."
+
+* `event filter --name CS1010S eXAM --start or: [25-03-13 23:59/25-03-20 23:59] [25-03-27 23:59/-]`
+  * Find todos whose name contains both the keywords `"CS1010S"` and `"exam"` and whose start time is between `25-03-13 23:59` and `25-03-20 23:59`(inclusive) or after `25-03-27 23:59` (inclusive).
+
+* `event filter --location nand: NUS Home --contact 1 2 3`
+  * Find todos whose location does not contain the keywords "NUS" or "home" and which are is linked to the people currently at index 1, 2 and 3.
