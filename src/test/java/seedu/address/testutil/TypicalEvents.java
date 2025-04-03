@@ -28,33 +28,21 @@ import seedu.address.model.event.EventManager;
 public class TypicalEvents {
     // Examples. You should add more on your own.
 
-    public static final Event STUFF_EVENT = new EventBuilder()
-            .withName("stuff")
-            .withStart("28-02-28 23:29")
-            .withEnd("28-02-29 23:29")
-            .withLocation("NUS").build();
-
-    public static final Event STUFF_EVENT_2 = new EventBuilder()
-            .withName("stuff2")
-            .withStart("28-02-28 23:29")
-            .withEnd("28-02-29 23:29")
-            .withLocation("NUS").build();
-
     public static final Event CRYING = new EventBuilder()
-            .withName(VALID_NAME_CRYING)
-            .withStart(VALID_START_CRYING)
-            .withEnd(VALID_END_CRYING)
-            .withLocation(VALID_LOCATION_CRYING)
-            .withTags(VALID_TAG_CRYING).build();
-
-    public static final Event CRYING_NO_TAG = new EventBuilder()
             .withName(VALID_NAME_CRYING)
             .withStart(VALID_START_CRYING)
             .withEnd(VALID_END_CRYING)
             .withLocation(VALID_LOCATION_CRYING).build();
 
+    public static final Event CRYING_WITH_TAG = new EventBuilder()
+            .withName(VALID_NAME_CRYING + " with tag")
+            .withStart(VALID_START_CRYING)
+            .withEnd(VALID_END_CRYING)
+            .withLocation(VALID_LOCATION_CRYING)
+            .withTags(VALID_TAG_CRYING).build();
+
     public static final Event CRYING_MULTIPLE_TAG = new EventBuilder()
-            .withName(VALID_NAME_CRYING)
+            .withName(VALID_NAME_CRYING + " with multiple tags")
             .withStart(VALID_START_CRYING)
             .withEnd(VALID_END_CRYING)
             .withLocation(VALID_LOCATION_CRYING)
@@ -67,6 +55,18 @@ public class TypicalEvents {
             .withLocation(VALID_LOCATION_MEETING)
             .withAttendance(ALICE, CARL)
             .withTags(VALID_TAG_MEETING).build();
+
+    public static final Event STUFF_EVENT = new EventBuilder()
+            .withName("stuff")
+            .withStart("28-02-28 23:29")
+            .withEnd("28-02-29 23:29")
+            .withLocation("NUS").build();
+
+    public static final Event STUFF_EVENT_2 = new EventBuilder()
+            .withName("stuff2")
+            .withStart("28-02-28 23:29")
+            .withEnd("28-02-29 23:29")
+            .withLocation("NUS").build();
 
     private TypicalEvents() {
     } // prevents instantiation
@@ -87,6 +87,6 @@ public class TypicalEvents {
      */
     public static List<Event> getTypicalEvents() {
         return new ArrayList<>(
-                Arrays.asList(STUFF_EVENT, STUFF_EVENT_2, CRYING, CRYING_NO_TAG, CRYING_MULTIPLE_TAG, MEETING));
+                Arrays.asList(CRYING, CRYING_MULTIPLE_TAG, CRYING_WITH_TAG, MEETING, STUFF_EVENT, STUFF_EVENT_2));
     }
 }
