@@ -21,17 +21,20 @@ Class UserPrefs
 
 Cloud HiddenOutside
 HiddenOutside .down.> Model
-TodoManagerAndList .up.|> MALTodo
-EventManagerAndList .up.|> MALEvent
-ContactManagerAndList .up.|> MALContact
-MALTodo .up.> ManagerAndList
-MALEvent .up.> ManagerAndList
-MALContact .up.> ManagerAndList
-ModelManager --down-> "1" TodoManagerAndList
-ModelManager --down-> "1" ContactManagerAndList
-ModelManager --down-> "1" EventManagerAndList
+TodoManagerAndList .down.|> MALTodo
+EventManagerAndList .down.|> MALEvent
+ContactManagerAndList .down.|> MALContact
+MALTodo .down.> ManagerAndList
+MALEvent .down.> ManagerAndList
+MALContact .down.> ManagerAndList
+ModelManager -down-> "1" TodoManagerAndList
+ModelManager -down-> "1" ContactManagerAndList
+ModelManager -down-> "1" EventManagerAndList
 ModelManager .up.|> Model
 ModelManager -down-> "1" UserPrefs
 UserPrefs .up.|> ReadOnlyUserPrefs
 Model .left.> ReadOnlyUserPrefs
+Model .down.> EventManagerAndList
+Model .down.> TodoManagerAndList
+Model .down.> ContactManagerAndList
 @enduml
