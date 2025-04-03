@@ -4,57 +4,58 @@ skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
 skinparam classBackgroundColor UI_COLOR
 
-package UI <<Rectangle>>{
+package UI <<Rectangle>> {
 Class "<<interface>>\nUi" as Ui
-Class "{abstract}\nUiPart" as UiPart
+Class "{abstract}\nUiPart<T>" as UiPart
 Class UiManager
 Class MainWindow
-Class HelpWindow
 Class ResultDisplay
-Class ContactListPanel
-Class ContactCard
-Class StatusBarFooter
 Class CommandBox
+Class ListPanel
+Class DisplayableListViewCell
+
+package "card" as card {
+Class "<<interface>>\nCard<T>" as Card
+Class "<<interface>>\nCardFactory<T>" as CardFactory
+Class XCard
+}
+
+Class "<<interface>>\nDisplayableItem" as DisplayableItem
 }
 
 package Model <<Rectangle>> {
-Class HiddenModel #FFFFFF
+Class X
+Class HiddenModelInterface #FFFFFF
 }
 
 package Logic <<Rectangle>> {
 Class HiddenLogic #FFFFFF
 }
 
-Class HiddenOutside #FFFFFF
-HiddenOutside ..> Ui
-
 UiManager .left.|> Ui
 UiManager -down-> "1" MainWindow
-MainWindow *-down->  "1" CommandBox
+MainWindow *-down-> "1" CommandBox
 MainWindow *-down-> "1" ResultDisplay
-MainWindow *-down-> "1" ContactListPanel
-MainWindow *-down-> "1" StatusBarFooter
-MainWindow --> "0..1" HelpWindow
-
-ContactListPanel -down-> "*" ContactCard
+MainWindow *-down-> "1" ListPanel
 
 MainWindow -left-|> UiPart
-
 ResultDisplay --|> UiPart
 CommandBox --|> UiPart
-ContactListPanel --|> UiPart
-ContactCard --|> UiPart
-StatusBarFooter --|> UiPart
-HelpWindow --|> UiPart
+ListPanel --|> UiPart
 
-ContactCard ..> Model
+XCard -right-|> UiPart
+
+X ..|> DisplayableItem
+XCard .down.|> Card
+
+ListPanel --> "*" DisplayableItem : displays >
+DisplayableListViewCell -> DisplayableItem : renders
+Card ..> DisplayableItem : < getDisplayCard() creates
+CardFactory .left.> Card : creates >
+
+XCard --> X : references >
+
 UiManager -right-> Logic
 MainWindow -left-> Logic
 
-ContactListPanel -[hidden]left- HelpWindow
-HelpWindow -[hidden]left- CommandBox
-CommandBox -[hidden]left- ResultDisplay
-ResultDisplay -[hidden]left- StatusBarFooter
-
-MainWindow -[hidden]-|> UiPart
 @enduml
