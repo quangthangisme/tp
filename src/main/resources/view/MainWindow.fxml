@@ -38,15 +38,6 @@
               </padding>
             </StackPane>
 
-            <!-- New ListPanel for Events and Todos -->
-            <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS" styleClass="pane-with-border">
-              <padding>
-                <Insets top="5" right="10" bottom="5" left="10" />
-              </padding>
-            </StackPane>
-          </VBox>
-
-          <VBox HBox.hgrow="ALWAYS" prefWidth="500">
             <HBox alignment="CENTER" spacing="10" styleClass="pane-with-border">
               <padding>
                 <Insets top="10" right="10" bottom="10" left="10" />
@@ -62,6 +53,14 @@
               </Button>
             </HBox>
 
+            <StackPane fx:id="listPanelPlaceholder" VBox.vgrow="ALWAYS" styleClass="pane-with-border">
+              <padding>
+                <Insets top="5" right="10" bottom="5" left="10" />
+              </padding>
+            </StackPane>
+          </VBox>
+
+          <VBox HBox.hgrow="ALWAYS" prefWidth="500">
             <StackPane fx:id="contactListPanelPlaceholder" VBox.vgrow="ALWAYS" styleClass="pane-with-border">
               <padding>
                 <Insets top="5" right="10" bottom="5" left="10" />
