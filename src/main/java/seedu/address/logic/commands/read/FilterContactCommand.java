@@ -24,8 +24,8 @@ public class FilterContactCommand extends FilterCommand<Contact> {
 
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Filters contacts based on specified criteria and displays them as a list with index numbers.\n"
-            + "Parameters: --<col> [<op>:] <value(s)> [...]\n"
-            + "- --<col> : Column to filter on ("
+            + "Parameters: --<COL> [<OP>:] <VALUE(S)> [...]\n"
+            + "- --<COL> : Column to filter on ("
             + PREFIX_CONTACT_NAME_LONG + ", "
             + PREFIX_CONTACT_EMAIL_LONG + ", "
             + PREFIX_CONTACT_ID_LONG + ", "
@@ -33,14 +33,14 @@ public class FilterContactCommand extends FilterCommand<Contact> {
             + PREFIX_CONTACT_GROUP_LONG + ", "
             + PREFIX_CONTACT_TAG_LONG + ")\n"
 
-            + "- <op>: : Operator ("
+            + "- <OP>: : Operator ("
             + Operator.AND.getName() + ", "
             + Operator.OR.getName() + ", "
             + Operator.NAND.getName() + ", "
             + Operator.NOR.getName() + "). If not specified, defaults to "
             + Operator.AND.getName() + "\n"
 
-            + "- <value(s)>: One or more values to filter by.\n"
+            + "- <VALUE(S)>: One or more values to filter by.\n"
             + "    + Enter keywords separated by spaces. These keywords are not case-sensitive, and partial matches "
             + "are supported.\n"
 

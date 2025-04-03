@@ -30,22 +30,22 @@ public class FilterEventCommand extends FilterCommand<Event> {
 
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Filters events based on specified criteria.\n"
-            + "Parameters: --<col> [<op>:] <value(s)> [...]\n"
-            + "- --<col> : Column to filter on ("
+            + "Parameters: --<COL> [<OP>:] <VALUE(S)> [...]\n"
+            + "- --<COL> : Column to filter on ("
             + PREFIX_EVENT_NAME_LONG + ", "
             + PREFIX_EVENT_START_LONG + ", "
             + PREFIX_EVENT_END_LONG + ", "
             + PREFIX_EVENT_LOCATION_LONG + ", "
             + PREFIX_EVENT_LINKED_CONTACT_LONG + ")\n"
 
-            + "- <op>: : Operator ("
+            + "- <OP>: : Operator ("
             + Operator.AND.getName() + ", "
             + Operator.OR.getName() + ", "
             + Operator.NAND.getName() + ", "
             + Operator.NOR.getName() + "). If not specified, defaults to "
             + Operator.AND.getName() + "\n"
 
-            + "- <value(s)>: One or more values to filter by.\n"
+            + "- <VALUE(S)>: One or more values to filter by.\n"
             + "    + For name and location, use keywords separated by whitespaces. These keywords are not "
             + "case-sensitive, and partial matches are supported.\n"
             + "    + For start and end time, use closed intervals separated by whitespaces. "
