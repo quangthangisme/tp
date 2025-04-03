@@ -13,9 +13,10 @@ import seedu.address.ui.UiPart;
 /**
  * An UI component that displays information of a {@code Todo}.
  */
-public class TodoCard extends UiPart<Region> {
+public class TodoCard extends UiPart<Region> implements Card<Todo> {
 
     private static final String FXML = "TodoListCard.fxml";
+    private static final int MAX_TAG_LENGTH = 75;
 
     public final Todo todo;
 
@@ -44,15 +45,62 @@ public class TodoCard extends UiPart<Region> {
         this.todo = todo;
         id.setText(displayedIndex + ". ");
         name.setText(todo.getName().value);
-        todoStatus.setText("Status: " + todo.getStatus().toString());
-        todoLocation.setText("Location: " + todo.getLocation().value);
-        deadline.setText("Deadline: " + todo.getDeadline().toString());
+        todoStatus.setText("");
+        todoStatus.setGraphic(createBoldLabel("Status: ", todo.getStatus().toString()));
+        todoLocation.setText("");
+        todoLocation.setGraphic(createBoldLabel("Location: ", todo.getLocation().value));
+        deadline.setText("");
+        deadline.setGraphic(createBoldLabel("Due at: ", todo.getDeadline().toString()));
         todo.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         todo.getContacts().stream()
                 .sorted(Comparator.comparing(contact -> contact.getName().value))
-                .forEach(contact -> contacts.getChildren().add(new Label(contact.getName().value)));
+                .forEach(contact -> contacts.getChildren().add(createTagLabel(contact.getName().value)));
+    }
 
+    /**
+     * Creates a label for a tag, abbreviating if necessary.
+     * @param tagText The text of the tag
+     * @return A Label with the tag text, abbreviated if longer than MAX_TAG_LENGTH
+     */
+    private Label createTagLabel(String tagText) {
+        if (tagText.length() <= MAX_TAG_LENGTH) {
+            return new Label(tagText);
+        } else {
+            return new Label(tagText.substring(0, MAX_TAG_LENGTH - 3) + "...");
+        }
+    }
+
+    /**
+     * Creates a label with the first part bold and the second part normal.
+     * @param boldPart The text that should be bold
+     * @param normalPart The text that should be normal weight
+     * @return An HBox containing the formatted text
+     */
+    private HBox createBoldLabel(String boldPart, String normalPart) {
+        Label boldLabel = new Label(boldPart);
+        boldLabel.setStyle("-fx-font-weight: bold");
+
+        Label normalLabel = new Label(normalPart);
+
+        HBox container = new HBox();
+        container.getChildren().addAll(boldLabel, normalLabel);
+        return container;
+    }
+
+    @Override
+    public Todo getEntity() {
+        return todo;
+    }
+
+    @Override
+    public UiPart<Region> getUiPart() {
+        return this;
+    }
+
+    @Override
+    public void setOnMouseClicked(Runnable handler) {
+        cardPane.setOnMouseClicked(event -> handler.run());
     }
 }

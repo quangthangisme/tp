@@ -1,5 +1,6 @@
 package seedu.address.ui;
 
+import java.util.function.Consumer;
 import java.util.logging.Logger;
 
 import javafx.collections.ObservableList;
@@ -8,6 +9,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.Region;
 import seedu.address.commons.core.LogsCenter;
+import seedu.address.ui.card.Card;
 import seedu.address.ui.util.DisplayableItem;
 
 /**
@@ -21,18 +23,30 @@ public class ListPanel extends UiPart<Region> {
     private ListView<DisplayableItem> listView;
 
     /**
-     * Creates a {@code ListPanel} with the given {@code ObservableList}.
+     * Creates a {@code ListPanel} with the given {@code ObservableList} and click handler.
      */
-    public ListPanel(ObservableList<DisplayableItem> itemList) {
+    public ListPanel(ObservableList<DisplayableItem> itemList, Consumer<Integer> onItemClickHandler) {
         super(FXML);
         listView.setItems(itemList);
-        listView.setCellFactory(listView -> new DisplayableListViewCell());
+        listView.setCellFactory(listView -> new DisplayableListViewCell(onItemClickHandler));
+
+        listView.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null && newValue.intValue() >= 0) {
+                onItemClickHandler.accept(newValue.intValue() + 1);
+            }
+        });
     }
 
     /**
      * Custom {@code ListCell} that displays the graphics of displayable items.
      */
     static class DisplayableListViewCell extends ListCell<DisplayableItem> {
+        private final Consumer<Integer> onItemClickHandler;
+
+        public DisplayableListViewCell(Consumer<Integer> onItemClickHandler) {
+            this.onItemClickHandler = onItemClickHandler;
+        }
+
         @Override
         protected void updateItem(DisplayableItem item, boolean empty) {
             super.updateItem(item, empty);
@@ -41,7 +55,14 @@ public class ListPanel extends UiPart<Region> {
                 setGraphic(null);
                 setText(null);
             } else {
-                setGraphic(((UiPart<Region>) item.getDisplayCard(getIndex() + 1)).getRoot());
+                UiPart<Region> uiPart = (UiPart<Region>) item.getDisplayCard(getIndex() + 1);
+                setGraphic(uiPart.getRoot());
+
+                if (uiPart instanceof Card && onItemClickHandler != null) {
+                    Card<?> card = (Card<?>) uiPart;
+                    final int index = getIndex() + 1;
+                    card.setOnMouseClicked(() -> onItemClickHandler.accept(index));
+                }
             }
         }
     }

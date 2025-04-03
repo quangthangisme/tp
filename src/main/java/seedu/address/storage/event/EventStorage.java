@@ -5,10 +5,12 @@ import java.nio.file.Path;
 import java.util.Optional;
 
 import seedu.address.commons.exceptions.DataLoadingException;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventManager;
 import seedu.address.model.item.ItemInvolvingContactManager;
 import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 
 /**
  * Represents a storage for {@link EventManager}.
@@ -26,15 +28,19 @@ public interface EventStorage {
      *
      * @throws DataLoadingException if loading the data from storage failed.
      */
-    Optional<ItemInvolvingContactManager<Event>> readEventList() throws DataLoadingException;
+    Optional<ItemInvolvingContactManager<Event>> readEventList(
+            ItemNotInvolvingContactManager<Contact> contactManager
+    ) throws DataLoadingException;
 
     /**
      * @see #getEventListFilePath()
      */
-    Optional<ItemInvolvingContactManager<Event>> readEventList(Path filePath) throws DataLoadingException;
+    Optional<ItemInvolvingContactManager<Event>> readEventList(
+            Path filePath, ItemNotInvolvingContactManager<Contact> contactManager
+    ) throws DataLoadingException;
 
     /**
-     * Saves the given {@link ItemManager} to the storage.
+     * Saves the given {@link ItemInvolvingContactManager} to the storage.
      *
      * @param eventManager cannot be null.
      * @throws IOException if there was any problem writing to the file.

@@ -54,13 +54,15 @@ public class JsonContactManagerStorageTest {
     }
 
     @Test
-    public void readAddressBook_invalidContactAddressBook_throwDataLoadingException() {
-        assertThrows(DataLoadingException.class, () -> readAddressBook("invalidContactAddressBook.json"));
+    public void readAddressBook_invalidContactAddressBook_skipsInvalid() throws Exception {
+        assertEquals(0, readAddressBook("invalidContactAddressBook.json")
+                .get().getItemList().size());
     }
 
     @Test
-    public void readAddressBook_invalidAndValidContactAddressBook_throwDataLoadingException() {
-        assertThrows(DataLoadingException.class, () -> readAddressBook("invalidAndValidContactAddressBook.json"));
+    public void readAddressBook_invalidAndValidContactAddressBook_skipsInvalid() throws Exception {
+        assertEquals(1, readAddressBook("invalidAndValidContactAddressBook.json")
+                .get().getItemList().size());
     }
 
     @Test
