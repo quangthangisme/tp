@@ -1,9 +1,12 @@
 package seedu.address.ui.card;
 
 import java.util.Comparator;
+import java.util.Objects;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
@@ -25,6 +28,11 @@ public class ContactCard extends UiPart<Region> {
      * @see <a href="https://github.com/se-edu/addressbook-level4/issues/336">The issue on AddressBook level 4</a>
      */
 
+    private static final String UID_ICON = "/images/contact-card/uid.png";
+    private static final String EMAIL_ICON = "/images/contact-card/email.png";
+    private static final String COURSE_ICON = "/images/contact-card/course.png";
+    private static final String GROUP_ICON = "/images/contact-card/group.png";
+
     public final Contact contact;
 
     @FXML
@@ -44,6 +52,16 @@ public class ContactCard extends UiPart<Region> {
     @FXML
     private Label group;
 
+    // Add ImageView fields for icons
+    @FXML
+    private ImageView uidIcon;
+    @FXML
+    private ImageView emailIcon;
+    @FXML
+    private ImageView courseIcon;
+    @FXML
+    private ImageView groupIcon;
+
     /**
      * Creates a {@code ContactCode} with the given {@code Contact} and index to display.
      */
@@ -59,5 +77,17 @@ public class ContactCard extends UiPart<Region> {
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
         course.setText(contact.getCourse().fullCourse);
         group.setText(contact.getGroup().fullGroup);
+
+        setIcons();
+    }
+
+    /**
+     * Sets the icons for each field.
+     */
+    private void setIcons() {
+        uidIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(UID_ICON))));
+        emailIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(EMAIL_ICON))));
+        courseIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(COURSE_ICON))));
+        groupIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(GROUP_ICON))));
     }
 }
