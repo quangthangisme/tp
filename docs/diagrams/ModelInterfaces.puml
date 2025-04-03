@@ -20,7 +20,7 @@ Class UserPrefs
 }
 
 Cloud HiddenOutside
-HiddenOutside ..> Model
+HiddenOutside .left.> Model
 HiddenOutside ..> TodoManagerAndList
 HiddenOutside ..> ContactManagerAndList
 HiddenOutside ..> EventManagerAndList
