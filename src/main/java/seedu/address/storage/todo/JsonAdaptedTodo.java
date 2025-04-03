@@ -21,7 +21,7 @@ import seedu.address.model.item.commons.Tag;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoStatus;
 import seedu.address.storage.DummyContactBuilder;
-import seedu.address.storage.contact.JsonAdaptedTag;
+import seedu.address.storage.commons.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Todo}.

@@ -15,7 +15,7 @@ import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.contact.Email;
 import seedu.address.model.item.commons.Name;
 import seedu.address.storage.contact.JsonAdaptedContact;
-import seedu.address.storage.contact.JsonAdaptedTag;
+import seedu.address.storage.commons.JsonAdaptedTag;
 
 public class JsonAdaptedContactTest {
     private static final String INVALID_ID = "Yay -!!!A123";
