@@ -57,7 +57,8 @@ public class JsonSerializableContactManager {
             try {
                 contact = jsonAdaptedContact.toModelType();
             } catch (IllegalValueException e) {
-                logger.info(MESSAGE_INVALID_VALUE_FOUND + e.getMessage());
+                logger.info(String.format(MESSAGE_INVALID_VALUE_FOUND, jsonAdaptedContact)
+                        + e.getMessage());
                 continue;
             }
             if (contactManager.hasItem(contact)) {

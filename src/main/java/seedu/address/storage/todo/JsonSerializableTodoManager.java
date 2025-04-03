@@ -59,7 +59,8 @@ class JsonSerializableTodoManager {
             try {
                 todo = jsonAdaptedTodo.toModelType(contactManager);
             } catch (IllegalValueException e) {
-                logger.info(MESSAGE_INVALID_VALUE_FOUND + e.getMessage());
+                logger.info(String.format(MESSAGE_INVALID_VALUE_FOUND, jsonAdaptedTodo)
+                        + e.getMessage());
                 continue;
             }
 
