@@ -17,6 +17,7 @@ import seedu.address.logic.parser.PrefixAlias;
 import seedu.address.logic.parser.PrefixAliasListBuilder;
 import seedu.address.logic.parser.event.EventCliAlias;
 import seedu.address.logic.parser.exceptions.ParseException;
+import seedu.address.model.todo.TodoStatus;
 
 /**
  * Parses input arguments and creates a new EditCommand object
@@ -64,6 +65,10 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
         if (argMultimap.getValue(tagPrefix).isPresent()) {
             editTodoDescriptor.setTags(
                     ParserUtil.parseTags(argMultimap.getValue(tagPrefix).get()));
+        }
+        if (argMultimap.getValue(PREFIX_TODO_STATUS_LONG).isPresent()) {
+            editTodoDescriptor.setStatus(new TodoStatus(
+                    ParserUtil.parseBoolean(argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get())));
         }
         List<Index> linkedContactIndices = List.of();
         PrefixAlias eventContact = EventCliAlias.EVENT_LINKED_CONTACT_PREFIX_ALIAS;

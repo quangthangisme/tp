@@ -18,7 +18,8 @@ public class InfoContactCommand extends InfoCommand<Contact> {
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Displays the complete information belonging to the contact"
             + " identified by the index number used in the displayed contact list.\n"
-            + "Parameters: INDEX (must be a positive integer)\n"
+            + "Parameters: INDEX\n"
+            + "INDEX must be a positive integer.\n"
             + "Example: " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " 2";
 
     public static final String MESSAGE_INFO_CONTACT_SUCCESS = "Displaying full information of contact!\n%1$s";

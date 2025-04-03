@@ -29,8 +29,8 @@ public class EditTodoDescriptor {
     private Datetime deadline;
     private Location location;
     private TodoStatus status;
-    private List<Contact> contacts = List.of();
-    private Set<Tag> tags = new HashSet<>();
+    private List<Contact> contacts;
+    private Set<Tag> tags;
 
     public EditTodoDescriptor() {
     }

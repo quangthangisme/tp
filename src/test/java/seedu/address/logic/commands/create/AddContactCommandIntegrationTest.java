@@ -1,15 +1,15 @@
-package seedu.address.logic.commands;
+package seedu.address.logic.commands.create;
 
 import static seedu.address.logic.ContactMessages.MESSAGE_DUPLICATE_CONTACT;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
+import static seedu.address.logic.commands.ContactCommandTestUtil.showContact;
 import static seedu.address.testutil.TypicalContacts.getTypicalAddressBook;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.Messages;
-import seedu.address.logic.commands.create.AddContactCommand;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
@@ -23,7 +23,7 @@ import seedu.address.model.todo.TodoManagerWithFilteredList;
 import seedu.address.testutil.ContactBuilder;
 
 /**
- * Contains integration tests (interaction with the Model) for {@code AddCommand}.
+ * Contains integration tests (interaction with the Model) for {@code AddTodoCommand}.
  */
 public class AddContactCommandIntegrationTest {
 
@@ -67,6 +67,30 @@ public class AddContactCommandIntegrationTest {
         Contact contactInList = model.getContactManagerAndList().getItemManager().getItemList().get(0);
         assertCommandFailure(new AddContactCommand(contactInList), model,
                 MESSAGE_DUPLICATE_CONTACT);
+    }
+
+    @Test
+    public void execute_filteredList_success() {
+        Contact validContact = new ContactBuilder().build();
+        model.getContactManagerAndList().updateFilteredItemsList(unused -> false);
+
+        Model expectedModel = new ModelManager(
+                new UserPrefs(),
+                new ContactManagerWithFilteredList(
+                        new ContactManager(model.getContactManagerAndList().getItemManager())
+                ),
+                new TodoManagerWithFilteredList(
+                        new TodoManager(model.getTodoManagerAndList().getItemManager())
+                ),
+                new EventManagerWithFilteredList(
+                        new EventManager(model.getEventManagerAndList().getItemManager())
+                )
+        );
+        expectedModel.getContactManagerAndList().addItem(validContact);
+        showContact(expectedModel, validContact);
+        assertCommandSuccess(new AddContactCommand(validContact), model,
+                String.format(AddContactCommand.MESSAGE_SUCCESS, Messages.format(validContact)),
+                expectedModel);
     }
 
 }
