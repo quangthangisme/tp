@@ -24,9 +24,11 @@ public class AddContactToLogEventCommand extends EditEventCommand {
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Logs some contacts with an event.\n"
             + "Parameters: INDEX "
-            + PREFIX_EVENT_LINKED_CONTACT_LONG + " [CONTACT_INDEX]...\n"
+            + PREFIX_EVENT_LINKED_CONTACT_LONG + "[CONTACT_INDEX/INDICES]\n"
+            + "INDEX must be a positive integer.\n"
+            + "CONTACT_INDEX is based on the list displayed by the event info command.\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_EVENT_LINKED_CONTACT_LONG + " 1 2 3";
+            + PREFIX_EVENT_LINKED_CONTACT_LONG + "1 2 3";
     public static final String MESSAGE_ADD_LOG_SUCCESS = "Added attendance from contacts to event: %1$s";
     public static final String MESSAGE_CONTACT_ALREADY_LOGGED =
             "The contact at the following index(es) are already logged: %s";

@@ -47,7 +47,7 @@ public class ContactParser {
         }
 
         final String commandWord = matcher.group("commandWord");
-        final String arguments = matcher.group("arguments");
+        final String arguments = matcher.group("arguments") + " ";
 
         logger.fine("Command word: " + commandWord + "; Arguments: " + arguments);
 

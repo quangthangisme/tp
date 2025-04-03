@@ -22,9 +22,10 @@ public class AddTagToContactCommand extends EditContactCommand {
 
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Adds a tag to a specified contact.\n"
-            + "Parameters: INDEX " + PREFIX_CONTACT_TAG_LONG + " <tag>\n"
+            + "Parameters: INDEX " + PREFIX_CONTACT_TAG_LONG + "TAG(S)\n"
+            + "INDEX must be a positive integer.\n"
             + "Example: " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_CONTACT_TAG_LONG + " TA";
+            + PREFIX_CONTACT_TAG_LONG + "TA driver";
 
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag to contact: %1$s";
     public static final String MESSAGE_DUPLICATE_TAGS = "The tag is already assigned to this contact";

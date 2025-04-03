@@ -63,8 +63,8 @@ public class EventCommandTestUtil {
             " " + PREFIX_TODO_LINKED_CONTACT_LONG + INVALID_EVENT_LINKED_CONTACT_INDEX;
 
     /**
-     * Updates {@code model}'s filtered list to show only the event at the given {@code targetIndex}
-     * in the {@code model}'s address book.
+     * Updates {@code model}'s filtered list to show only the event at the given {@code targetIndex} in the
+     * {@code model}'s event list.
      */
     public static void showEventAtIndex(Model model, Index targetIndex) {
         assertTrue(targetIndex.getZeroBased()
@@ -72,10 +72,8 @@ public class EventCommandTestUtil {
 
         Event event = model.getEventManagerAndList().getFilteredItemsList()
                 .get(targetIndex.getZeroBased());
-
         model.getEventManagerAndList()
                 .updateFilteredItemsList(event::equals);
-
         assertEquals(1, model.getEventManagerAndList().getFilteredItemsList().size());
     }
 

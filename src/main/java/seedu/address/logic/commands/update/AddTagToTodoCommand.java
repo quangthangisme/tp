@@ -22,9 +22,10 @@ public class AddTagToTodoCommand extends EditTodoCommand {
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Adds a tag to a specified todo.\n"
             + "Parameters: INDEX "
-            + PREFIX_TODO_TAG_LONG + " <tag>\n"
+            + PREFIX_TODO_TAG_LONG + "TAG(S)\n"
+            + "INDEX must be a positive integer.\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_TODO_TAG_LONG + " important ";
+            + PREFIX_TODO_TAG_LONG + "important optional";
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added tag to todo: %1$s";
     public static final String MESSAGE_DUPLICATE_TAGS = "The tag is already assigned to this todo";
 
