@@ -41,7 +41,7 @@ public class EditTodoCommand extends EditCommand<TodoManagerAndList, Todo> {
             + ": Edits the details of the todo identified by the index number used in the "
             + "displayed todo list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: INDEX "
             + "[" + PREFIX_TODO_NAME_LONG + "NAME] "
             + "[" + PREFIX_TODO_DEADLINE_LONG + "DEADLINE] "
             + "[" + PREFIX_TODO_LOCATION_LONG + "LOCATION] "
