@@ -10,6 +10,7 @@ import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG_LONG;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.update.EditEventCommand;
@@ -70,10 +71,10 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
             editEventDescriptor.setTags(
                     ParserUtil.parseTags(argMultimap.getValue(PREFIX_EVENT_TAG_LONG).get()));
         }
-        List<Index> linkedContactIndices = List.of();
+        Optional<List<Index>> linkedContactIndices = Optional.empty();
         if (argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).isPresent()) {
-            linkedContactIndices =
-                    ParserUtil.parseIndices(argMultimap.getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get());
+            linkedContactIndices = Optional.of(ParserUtil.parseIndices(argMultimap
+                    .getValue(PREFIX_EVENT_LINKED_CONTACT_LONG).get()));
             editEventDescriptor.setAttendance(new Attendance());
         }
 
