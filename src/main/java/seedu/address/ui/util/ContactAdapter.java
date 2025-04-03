@@ -1,16 +1,12 @@
 package seedu.address.ui.util;
 
 import seedu.address.model.contact.Contact;
-import seedu.address.ui.UiPart;
 import seedu.address.ui.card.CardFactory;
 
 /**
  * Adapter for Contact objects to implement DisplayableItem interface.
  */
-public class ContactAdapter implements DisplayableItem {
-    private final Contact contact;
-    private final CardFactory<Contact> cardFactory;
-
+public class ContactAdapter extends ItemAdapter<Contact> {
     /**
      * Constructs a ContactAdapter with the specified contact and card factory.
      *
@@ -18,16 +14,15 @@ public class ContactAdapter implements DisplayableItem {
      * @param cardFactory The factory used to create display cards for this contact
      */
     public ContactAdapter(Contact contact, CardFactory<Contact> cardFactory) {
-        this.contact = contact;
-        this.cardFactory = cardFactory;
+        super(contact, cardFactory);
     }
 
+    /**
+     * Gets the contact being adapted.
+     *
+     * @return The contact
+     */
     public Contact getContact() {
-        return contact;
-    }
-
-    @Override
-    public UiPart<?> getDisplayCard(int index) {
-        return cardFactory.createCard(contact, index);
+        return getEntity();
     }
 }

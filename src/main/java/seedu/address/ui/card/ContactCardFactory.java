@@ -1,7 +1,6 @@
 package seedu.address.ui.card;
 
 import seedu.address.model.contact.Contact;
-import seedu.address.ui.UiPart;
 
 /**
  * Factory for creating display cards for Contact objects.
@@ -9,7 +8,7 @@ import seedu.address.ui.UiPart;
  */
 public class ContactCardFactory implements CardFactory<Contact> {
     @Override
-    public UiPart<?> createCard(Contact contact, int index) {
+    public Card<Contact> createCard(Contact contact, int index) {
         return new ContactCard(contact, index);
     }
 }
