@@ -8,12 +8,12 @@ import seedu.address.logic.parser.Prefix;
 public class TodoCliSyntax {
 
     /* Long prefix definitions */
-    public static final Prefix PREFIX_TODO_NAME_LONG = new Prefix("--name");
-    public static final Prefix PREFIX_TODO_DEADLINE_LONG = new Prefix("--deadline");
-    public static final Prefix PREFIX_TODO_LOCATION_LONG = new Prefix("--location");
-    public static final Prefix PREFIX_TODO_TAG_LONG = new Prefix("--tag");
-    public static final Prefix PREFIX_TODO_STATUS_LONG = new Prefix("--status");
-    public static final Prefix PREFIX_TODO_LINKED_CONTACT_LONG = new Prefix("--contact");
+    public static final Prefix PREFIX_TODO_NAME_LONG = new Prefix("--name ");
+    public static final Prefix PREFIX_TODO_DEADLINE_LONG = new Prefix("--deadline ");
+    public static final Prefix PREFIX_TODO_LOCATION_LONG = new Prefix("--location ");
+    public static final Prefix PREFIX_TODO_TAG_LONG = new Prefix("--tag ");
+    public static final Prefix PREFIX_TODO_STATUS_LONG = new Prefix("--status ");
+    public static final Prefix PREFIX_TODO_LINKED_CONTACT_LONG = new Prefix("--contact ");
 
     /* Short prefix definitions */
     public static final Prefix PREFIX_TODO_NAME_SHORT = new Prefix("-n");
