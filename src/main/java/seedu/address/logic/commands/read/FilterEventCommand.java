@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LINKE
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_LOCATION_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_NAME_LONG;
 import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_START_LONG;
+import static seedu.address.logic.parser.event.EventCliSyntax.PREFIX_EVENT_TAG_LONG;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,7 @@ public class FilterEventCommand extends FilterCommand<Event> {
             + PREFIX_EVENT_START_LONG + ", "
             + PREFIX_EVENT_END_LONG + ", "
             + PREFIX_EVENT_LOCATION_LONG + ", "
+            + PREFIX_EVENT_TAG_LONG + ", "
             + PREFIX_EVENT_LINKED_CONTACT_LONG + ")\n"
 
             + "- <OP>: : Operator ("

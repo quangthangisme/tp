@@ -46,8 +46,7 @@ public class FilterEventCommandParser implements Parser<FilterEventCommand> {
     public FilterEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
         List<Prefix> allPrefixes = List.of(PREFIX_EVENT_NAME_LONG, PREFIX_EVENT_START_LONG, PREFIX_EVENT_END_LONG,
-                PREFIX_EVENT_LOCATION_LONG, PREFIX_EVENT_LOCATION_LONG, PREFIX_EVENT_TAG_LONG,
-                PREFIX_EVENT_LINKED_CONTACT_LONG);
+                PREFIX_EVENT_LOCATION_LONG, PREFIX_EVENT_TAG_LONG, PREFIX_EVENT_LINKED_CONTACT_LONG);
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, allPrefixes.toArray(new Prefix[0]));
         argMultimap.verifyNoDuplicatePrefixesFor(allPrefixes.toArray(new Prefix[0]));

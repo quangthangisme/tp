@@ -7,6 +7,7 @@ import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_C
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
 import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS_LONG;
+import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,6 +38,7 @@ public class FilterTodoCommand extends FilterCommand<Todo> {
             + PREFIX_TODO_DEADLINE_LONG + ", "
             + PREFIX_TODO_LOCATION_LONG + ", "
             + PREFIX_TODO_STATUS_LONG + ", "
+            + PREFIX_TODO_TAG_LONG + ", "
             + PREFIX_TODO_LINKED_CONTACT_LONG + ")\n"
 
             + "- <OP>: : Operator ("
