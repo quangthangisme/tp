@@ -43,9 +43,12 @@ public class EventCard extends UiPart<Region> implements Card<Event> {
         this.event = event;
         id.setText(displayedIndex + ". ");
         name.setText(event.getName().value);
-        startTime.setText("Start time: " + event.getStartTime().toString());
-        endTime.setText("End Time: " + event.getEndTime().toString());
-        eventLocation.setText("Location: " + event.getLocation().toString());
+        startTime.setText("");
+        startTime.setGraphic(createBoldLabel("Start time: ", event.getStartTime().toString()));
+        endTime.setText("");
+        endTime.setGraphic(createBoldLabel("End Time: ", event.getEndTime().toString()));
+        eventLocation.setText("");
+        eventLocation.setGraphic(createBoldLabel("Location: ", event.getLocation().toString()));
         event.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(createTagLabel(tag.tagName)));
@@ -62,6 +65,23 @@ public class EventCard extends UiPart<Region> implements Card<Event> {
         } else {
             return new Label(tagText.substring(0, MAX_TAG_LENGTH - 3) + "...");
         }
+    }
+
+    /**
+     * Creates a label with the first part bold and the second part normal.
+     * @param boldPart The text that should be bold
+     * @param normalPart The text that should be normal weight
+     * @return An HBox containing the formatted text
+     */
+    private HBox createBoldLabel(String boldPart, String normalPart) {
+        Label boldLabel = new Label(boldPart);
+        boldLabel.setStyle("-fx-font-weight: bold");
+
+        Label normalLabel = new Label(normalPart);
+
+        HBox container = new HBox();
+        container.getChildren().addAll(boldLabel, normalLabel);
+        return container;
     }
 
     @Override

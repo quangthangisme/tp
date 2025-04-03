@@ -45,9 +45,12 @@ public class TodoCard extends UiPart<Region> implements Card<Todo> {
         this.todo = todo;
         id.setText(displayedIndex + ". ");
         name.setText(todo.getName().value);
-        todoStatus.setText("Status: " + todo.getStatus().toString());
-        todoLocation.setText("Location: " + todo.getLocation().value);
-        deadline.setText("Deadline: " + todo.getDeadline().toString());
+        todoStatus.setText("");
+        todoStatus.setGraphic(createBoldLabel("Status: ", todo.getStatus().toString()));
+        todoLocation.setText("");
+        todoLocation.setGraphic(createBoldLabel("Location: ", todo.getLocation().value));
+        deadline.setText("");
+        deadline.setGraphic(createBoldLabel("Deadline: ", todo.getDeadline().toString()));
         todo.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
                 .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
@@ -67,6 +70,23 @@ public class TodoCard extends UiPart<Region> implements Card<Todo> {
         } else {
             return new Label(tagText.substring(0, MAX_TAG_LENGTH - 3) + "...");
         }
+    }
+
+    /**
+     * Creates a label with the first part bold and the second part normal.
+     * @param boldPart The text that should be bold
+     * @param normalPart The text that should be normal weight
+     * @return An HBox containing the formatted text
+     */
+    private HBox createBoldLabel(String boldPart, String normalPart) {
+        Label boldLabel = new Label(boldPart);
+        boldLabel.setStyle("-fx-font-weight: bold");
+
+        Label normalLabel = new Label(normalPart);
+
+        HBox container = new HBox();
+        container.getChildren().addAll(boldLabel, normalLabel);
+        return container;
     }
 
     @Override
