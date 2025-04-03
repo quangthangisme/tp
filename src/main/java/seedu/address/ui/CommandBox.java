@@ -39,7 +39,7 @@ public class CommandBox extends UiPart<Region> {
         this.commandExecutor = commandExecutor;
 
         previousCommands = new ArrayList<>();
-        currentCommandIndex = -1;
+        currentCommandIndex = 0;
 
         // calls #setStyleToDefault() whenever there is a change to the text of the command box.
         commandTextField.textProperty().addListener((unused1, unused2, unused3) -> setStyleToDefault());
@@ -79,12 +79,13 @@ public class CommandBox extends UiPart<Region> {
      */
     private void displayNextCommand() {
         // Check if there is a next command
-        if (currentCommandIndex + 1 >= previousCommands.size()) {
+        if (currentCommandIndex == previousCommands.size()) {
             return;
         }
         // Shift forward and display
         currentCommandIndex++;
-        String nextCommand = previousCommands.get(currentCommandIndex);
+        String nextCommand = currentCommandIndex == previousCommands.size() ? ""
+                : previousCommands.get(currentCommandIndex);
         commandTextField.setText(nextCommand);
         commandTextField.positionCaret(nextCommand.length());
     }
@@ -108,9 +109,9 @@ public class CommandBox extends UiPart<Region> {
             return;
         }
         try {
-            // Add the current command and set index to end
+            // Add the current command and set index to after the last command
             previousCommands.add(commandText);
-            currentCommandIndex = previousCommands.size() - 1;
+            currentCommandIndex = previousCommands.size();
 
             // Execute the command and clear the command box
             commandExecutor.execute(commandText);
