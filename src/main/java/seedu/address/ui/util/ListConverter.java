@@ -20,9 +20,10 @@ public class ListConverter {
      * Converts a list of Contact objects to a list of DisplayableItem objects.
      */
     public static ObservableList<DisplayableItem> toDisplayableContactList(ObservableList<Contact> contactList) {
+        ContactCardFactory factory = new ContactCardFactory();
         return FXCollections.observableList(
                 contactList.stream()
-                        .map(contact -> new ContactAdapter(contact, new ContactCardFactory()))
+                        .map(contact -> new ContactAdapter(contact, factory))
                         .collect(Collectors.toList())
         );
     }
@@ -31,9 +32,10 @@ public class ListConverter {
      * Converts a list of Event objects to a list of DisplayableItem objects.
      */
     public static ObservableList<DisplayableItem> toDisplayableEventList(ObservableList<Event> eventList) {
+        EventCardFactory factory = new EventCardFactory();
         return FXCollections.observableList(
                 eventList.stream()
-                        .map(event -> new EventAdapter(event, new EventCardFactory()))
+                        .map(event -> new EventAdapter(event, factory))
                         .collect(Collectors.toList())
         );
     }
@@ -42,9 +44,10 @@ public class ListConverter {
      * Converts a list of Todo objects to a list of DisplayableItem objects.
      */
     public static ObservableList<DisplayableItem> toDisplayableTodoList(ObservableList<Todo> todoList) {
+        TodoCardFactory factory = new TodoCardFactory();
         return FXCollections.observableList(
                 todoList.stream()
-                        .map(todo -> new TodoAdapter(todo, new TodoCardFactory()))
+                        .map(todo -> new TodoAdapter(todo, factory))
                         .collect(Collectors.toList())
         );
     }
