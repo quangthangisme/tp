@@ -12,9 +12,11 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 import org.junit.jupiter.api.Test;
 
+import javafx.collections.ObservableList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.logic.Messages;
 import seedu.address.logic.commands.CommandResult;
@@ -22,11 +24,11 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.contact.Contact;
-import seedu.address.model.contact.ContactManager;
-import seedu.address.model.event.Event;
-import seedu.address.model.item.ItemManager;
-import seedu.address.model.item.ItemManagerWithFilteredList;
-import seedu.address.model.todo.Todo;
+import seedu.address.model.contact.ContactManagerAndList;
+import seedu.address.model.event.EventManagerAndList;
+import seedu.address.model.item.DuplicateChecker;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
+import seedu.address.model.todo.TodoManagerAndList;
 import seedu.address.testutil.ContactBuilder;
 
 public class AddContactCommandTest {
@@ -45,7 +47,8 @@ public class AddContactCommandTest {
 
         CommandResult commandResult = new AddContactCommand(validContact).execute(modelStub);
 
-        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS, Messages.format(validContact)),
+        assertEquals(String.format(AddContactCommand.MESSAGE_SUCCESS,
+                        Messages.format(validContact)),
                 commandResult.getFeedbackToUser());
         assertEquals(Arrays.asList(validContact), managerAndListStub.contactsAdded);
     }
@@ -95,9 +98,9 @@ public class AddContactCommandTest {
      * A default model stub.
      */
     private class ModelStub implements Model {
-        private final ItemManagerWithFilteredList<Contact> managerAndList;
+        private final ContactManagerAndList managerAndList;
 
-        private ModelStub(ItemManagerWithFilteredList<Contact> managerAndList) {
+        private ModelStub(ContactManagerAndList managerAndList) {
             this.managerAndList = managerAndList;
         }
 
@@ -122,12 +125,12 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public Path getAddressBookFilePath() {
+        public Path getContactListFilePath() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public void setAddressBookFilePath(Path addressBookFilePath) {
+        public void setContactListFilePath(Path contactListFilePath) {
             throw new AssertionError("This method should not be called.");
         }
 
@@ -140,6 +143,7 @@ public class AddContactCommandTest {
         public void setTodoListFilePath(Path todoListFilePath) {
             throw new AssertionError("This method should not be called.");
         }
+
         @Override
         public Path getEventListFilePath() {
             throw new AssertionError("This method should not be called.");
@@ -151,17 +155,17 @@ public class AddContactCommandTest {
         }
 
         @Override
-        public ItemManagerWithFilteredList<Contact> getContactManagerAndList() {
+        public ContactManagerAndList getContactManagerAndList() {
             return managerAndList;
         }
 
         @Override
-        public ItemManagerWithFilteredList<Todo> getTodoManagerAndList() {
+        public TodoManagerAndList getTodoManagerAndList() {
             throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ItemManagerWithFilteredList<Event> getEventManagerAndList() {
+        public EventManagerAndList getEventManagerAndList() {
             throw new AssertionError("This method should not be called.");
         }
     }
@@ -169,17 +173,16 @@ public class AddContactCommandTest {
     /**
      * A ItemManagerWithFilteredList stub that contains a single contact.
      */
-    private class ContactManagerAndListStub extends ItemManagerWithFilteredList<Contact> {
+    private class ContactManagerAndListStub implements ContactManagerAndList {
         private final Contact contact;
 
         ContactManagerAndListStub(Contact contact) {
-            super(new ContactManager());
             requireNonNull(contact);
             this.contact = contact;
         }
 
         @Override
-        protected Comparator<Contact> getDefaultComparator() {
+        public Comparator<Contact> getDefaultComparator() {
             return null;
         }
 
@@ -188,18 +191,59 @@ public class AddContactCommandTest {
             requireNonNull(contact);
             return this.contact.isSameContact(contact);
         }
+
+        @Override
+        public void deleteItem(Contact target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void addItem(Contact item) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setItem(Contact target, Contact editedItem) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public DuplicateChecker<Contact> getDuplicateChecker() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Contact> getFilteredItemsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredItemsList(Predicate<? super Contact> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void showAllItems() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setItemManager(ItemNotInvolvingContactManager<Contact> itemManager) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ItemNotInvolvingContactManager<Contact> getItemManager() {
+            throw new AssertionError("This method should not be called.");
+        }
     }
 
     /**
      * A ItemManagerWithFilteredList stub that always accept the contact being added.
      */
     private class ContactManagerAndListStubAcceptingContactAdded
-            extends ItemManagerWithFilteredList<Contact> {
+            implements ContactManagerAndList {
         final ArrayList<Contact> contactsAdded = new ArrayList<>();
-
-        public ContactManagerAndListStubAcceptingContactAdded() {
-            super(new ContactManager());
-        }
 
         @Override
         public boolean hasItem(Contact contact) {
@@ -208,19 +252,53 @@ public class AddContactCommandTest {
         }
 
         @Override
+        public void deleteItem(Contact target) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
         public void addItem(Contact contact) {
-            requireNonNull(contact);
-            contactsAdded.add(contact);
+            this.contactsAdded.add(contact);
         }
 
         @Override
-        protected Comparator<Contact> getDefaultComparator() {
-            return null;
+        public void setItem(Contact target, Contact editedItem) {
+            throw new AssertionError("This method should not be called.");
         }
 
         @Override
-        public ItemManager<Contact> getItemManager() {
-            return new ContactManager();
+        public DuplicateChecker<Contact> getDuplicateChecker() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<Contact> getFilteredItemsList() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void updateFilteredItemsList(Predicate<? super Contact> predicate) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void showAllItems() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public Comparator<Contact> getDefaultComparator() {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public void setItemManager(ItemNotInvolvingContactManager<Contact> itemManager) {
+            throw new AssertionError("This method should not be called.");
+        }
+
+        @Override
+        public ItemNotInvolvingContactManager<Contact> getItemManager() {
+            throw new AssertionError("This method should not be called.");
         }
     }
 

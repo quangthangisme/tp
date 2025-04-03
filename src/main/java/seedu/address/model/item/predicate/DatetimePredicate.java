@@ -14,7 +14,9 @@ import seedu.address.commons.util.ToStringBuilder;
  * where either value can be "-" to indicate no bound.
  */
 public class DatetimePredicate implements Predicate<LocalDateTime> {
-    public static final String DATE_PATTERN = "\\([^)]*[^)\\s][^)]*/[^)]*[^)\\s][^)]*\\)";
+    // Matches [<start datetime>/<end datetime>] where <start datetime> and <end datetime> must not be only
+    // whitespace or contain "/" or "]"
+    public static final String DATE_PATTERN = "\\[[^\\]]*[^\\]\\s][^\\]]*/[^\\]]*[^\\]\\s][^\\]]*\\]";
 
     private static final String DASH = "-";
     private static final String INVALID_FORMAT_MESSAGE =
@@ -67,6 +69,21 @@ public class DatetimePredicate implements Predicate<LocalDateTime> {
     }
 
     /**
+     * Checks if the given predicate string is valid.
+     *
+     * @param predicateString The predicate string to validate.
+     * @return True if the string is valid, false otherwise.
+     */
+    public static boolean isValid(String predicateString) {
+        try {
+            new DatetimePredicate(predicateString);
+            return true;
+        } catch (IllegalArgumentException e) {
+            return false;
+        }
+    }
+
+    /**
      * Parses a datetime string into an {@link Optional} of {@link LocalDateTime}.
      *
      * @param value The string value to parse.
@@ -92,21 +109,6 @@ public class DatetimePredicate implements Predicate<LocalDateTime> {
     public boolean test(LocalDateTime time) {
         return startTimeOpt.map(startTime -> !startTime.isAfter(time)).orElse(true)
                 && endTimeOpt.map(endTime -> !endTime.isBefore(time)).orElse(true);
-    }
-
-    /**
-     * Checks if the given predicate string is valid.
-     *
-     * @param predicateString The predicate string to validate.
-     * @return True if the string is valid, false otherwise.
-     */
-    public static boolean isValid(String predicateString) {
-        try {
-            new DatetimePredicate(predicateString);
-            return true;
-        } catch (IllegalArgumentException e) {
-            return false;
-        }
     }
 
     @Override

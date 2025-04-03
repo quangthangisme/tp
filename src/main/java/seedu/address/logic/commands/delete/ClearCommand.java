@@ -3,42 +3,49 @@ package seedu.address.logic.commands.delete;
 import static java.util.Objects.requireNonNull;
 
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.commands.CommandResult;
 import seedu.address.logic.commands.ItemCommand;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;
-import seedu.address.model.item.ItemManager;
-import seedu.address.model.item.ItemManagerWithFilteredList;
+import seedu.address.model.item.ManagerAndList;
 
 /**
  * Abstract command to clear the list of {@code Item} objects in the model.
  *
  * @param <T> the type of {@code Item} being cleared, which must extend {@link Item}.
  */
-public abstract class ClearCommand<T extends Item> extends ItemCommand<T> {
+public abstract class ClearCommand<T extends ManagerAndList<U>, U extends Item>
+        extends ItemCommand<T, U> {
 
     public static final String COMMAND_WORD = "clear";
-    protected final Supplier<ItemManager<T>> emptyItemManagerSupplier;
 
     /**
      * Creates a {@code ClearCommand} to clear the item list in the model.
      */
-    public ClearCommand(Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter,
-                        Supplier<ItemManager<T>> emptyItemManagerSupplier) {
+    public ClearCommand(Function<Model, T> managerAndListGetter) {
         super(managerAndListGetter);
-        this.emptyItemManagerSupplier = emptyItemManagerSupplier;
     }
 
     @Override
     public CommandResult execute(Model model) {
         requireNonNull(model);
-        ItemManagerWithFilteredList<T> managerAndList = managerAndListGetter.apply(model);
-        managerAndList.setItemManager(emptyItemManagerSupplier.get());
+        T managerAndList = managerAndListGetter.apply(model);
+        clear(managerAndList);
+        cascade(model);
         return new CommandResult(getSuccessMessage());
     }
+
+    /**
+     * Clear the manager and list.
+     */
+    public abstract void clear(T managerAndList);
+
+    /**
+     * Propagate the result of the deletion.
+     */
+    public abstract void cascade(Model model);
 
     /**
      * Returns the success message to be displayed when the item list is cleared.
@@ -52,17 +59,16 @@ public abstract class ClearCommand<T extends Item> extends ItemCommand<T> {
         }
 
         // instanceof handles nulls
-        if (!(other instanceof ClearCommand<? extends Item> otherClearCommand)) {
+        if (!(other instanceof ClearCommand<?, ?> otherClearCommand)) {
             return false;
         }
 
-        return emptyItemManagerSupplier.equals(otherClearCommand.emptyItemManagerSupplier)
-                && managerAndListGetter.equals(otherClearCommand.managerAndListGetter);
+        return managerAndListGetter.equals(otherClearCommand.managerAndListGetter);
     }
 
     @Override
     public int hashCode() {
-        return emptyItemManagerSupplier.hashCode();
+        return managerAndListGetter.hashCode();
     }
 
     @Override

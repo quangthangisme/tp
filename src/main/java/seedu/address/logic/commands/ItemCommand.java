@@ -7,6 +7,7 @@ import java.util.function.Function;
 import seedu.address.model.Model;
 import seedu.address.model.item.Item;
 import seedu.address.model.item.ItemManagerWithFilteredList;
+import seedu.address.model.item.ManagerAndList;
 
 /**
  * Abstract command class for operations that involve items in the model.
@@ -17,9 +18,9 @@ import seedu.address.model.item.ItemManagerWithFilteredList;
  * @param <T> the type of {@code Item} that the command operates on, which must extend
  *            {@link Item}.
  */
-public abstract class ItemCommand<T extends Item> extends Command {
+public abstract class ItemCommand<T extends ManagerAndList<U>, U extends Item> extends Command {
 
-    protected final Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter;
+    protected final Function<Model, T> managerAndListGetter;
 
     /**
      * Creates an {@code ItemCommand} with the specified function for retrieving the
@@ -29,7 +30,7 @@ public abstract class ItemCommand<T extends Item> extends Command {
      *                             for the current model.
      * @throws NullPointerException if {@code managerAndListGetter} is {@code null}.
      */
-    public ItemCommand(Function<Model, ItemManagerWithFilteredList<T>> managerAndListGetter) {
+    public ItemCommand(Function<Model, T> managerAndListGetter) {
         requireNonNull(managerAndListGetter);
         this.managerAndListGetter = managerAndListGetter;
     }

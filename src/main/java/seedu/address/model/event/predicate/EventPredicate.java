@@ -115,6 +115,7 @@ public class EventPredicate implements Predicate<Event> {
                 && (startTimePredicate == null || startTimePredicate.test(event))
                 && (locationPredicate == null || locationPredicate.test(event))
                 && (endTimePredicate == null || endTimePredicate.test(event))
-                && (contactPredicate == null || contactPredicate.test(event));
+                && (contactPredicate == null || contactPredicate.test(event))
+                && (tagPredicate == null || tagPredicate.test(event));
     }
 }

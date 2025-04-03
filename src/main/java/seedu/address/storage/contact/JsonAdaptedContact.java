@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.Course;
 import seedu.address.model.contact.Email;
@@ -23,7 +24,7 @@ import seedu.address.model.item.commons.Tag;
  */
 public class JsonAdaptedContact {
 
-    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Contact's %s field is missing!";
+    public static final String MISSING_FIELD_MESSAGE_FORMAT = "Contact's %s field is missing.";
 
     private final String id;
     private final String name;
@@ -79,12 +80,17 @@ public class JsonAdaptedContact {
         }
 
         if (id == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Id.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Id.class.getSimpleName()));
+        }
+        if (!Id.isValidId(id)) {
+            throw new IllegalValueException(Id.MESSAGE_CONSTRAINTS);
         }
         final Id modelId = new Id(id);
 
         if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Name.class.getSimpleName()));
         }
         if (!Name.isValid(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
@@ -92,7 +98,8 @@ public class JsonAdaptedContact {
         final Name modelName = new Name(name);
 
         if (email == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Email.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Email.class.getSimpleName()));
         }
         if (!Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
@@ -100,7 +107,8 @@ public class JsonAdaptedContact {
         final Email modelEmail = new Email(email);
 
         if (course == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Course.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Course.class.getSimpleName()));
         }
         if (!Course.isValidCourse(course)) {
             throw new IllegalValueException(Course.MESSAGE_CONSTRAINTS);
@@ -108,7 +116,8 @@ public class JsonAdaptedContact {
         final Course modelCourse = new Course(course);
 
         if (group == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Group.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Group.class.getSimpleName()));
         }
         if (!Group.isValidGroup(group)) {
             throw new IllegalValueException(Group.MESSAGE_CONSTRAINTS);
@@ -120,4 +129,13 @@ public class JsonAdaptedContact {
             modelTags);
     }
 
+    @Override
+    public String toString() {
+        return new ToStringBuilder(this)
+                .add("id", id)
+                .add("name", name)
+                .add("course", course)
+                .add("group", group)
+                .add("tag", tags).toString();
+    }
 }

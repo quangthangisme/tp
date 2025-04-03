@@ -12,7 +12,8 @@ import seedu.address.model.contact.Group;
 import seedu.address.model.contact.Id;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventManager;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemInvolvingContactManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
@@ -88,7 +89,7 @@ public class SampleDataUtil {
         };
     }
 
-    public static ItemManager<Contact> getSampleAddressBook() {
+    public static ItemNotInvolvingContactManager<Contact> getSampleAddressBook() {
         ContactManager sampleAb = new ContactManager();
         for (Contact sampleContact : getSampleContacts()) {
             sampleAb.addItem(sampleContact);
@@ -96,7 +97,7 @@ public class SampleDataUtil {
         return sampleAb;
     }
 
-    public static ItemManager<Todo> getSampleTodoList() {
+    public static ItemInvolvingContactManager<Todo> getSampleTodoList() {
         TodoManager sampleTd = new TodoManager();
         for (Todo sampleTodo : getSampleTodos()) {
             sampleTd.addItem(sampleTodo);
@@ -104,7 +105,7 @@ public class SampleDataUtil {
         return sampleTd;
     }
 
-    public static ItemManager<Event> getSampleEventList() {
+    public static ItemInvolvingContactManager<Event> getSampleEventList() {
         EventManager sampleEv = new EventManager();
         for (Event sampleEvent : getSampleEvents()) {
             sampleEv.addItem(sampleEvent);

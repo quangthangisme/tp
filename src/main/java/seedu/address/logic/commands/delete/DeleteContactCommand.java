@@ -7,11 +7,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactManagerAndList;
 
 /**
  * Deletes a contact identified using it's displayed index from the address book.
  */
-public class DeleteContactCommand extends DeleteCommand<Contact> {
+public class DeleteContactCommand extends DeleteCommand<ContactManagerAndList, Contact> {
 
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Deletes the contact identified by the index number used in the displayed contact list.\n"
@@ -28,6 +29,11 @@ public class DeleteContactCommand extends DeleteCommand<Contact> {
         super(targetIndex, Model::getContactManagerAndList);
     }
 
+    @Override
+    public void cascade(Model model, Contact itemToDelete) {
+        model.getTodoManagerAndList().findAndRemove(itemToDelete);
+        model.getEventManagerAndList().findAndRemove(itemToDelete);
+    }
 
     @Override
     public String getIndexOutOfRangeMessage() {

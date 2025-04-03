@@ -9,7 +9,8 @@ import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemInvolvingContactManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 import seedu.address.model.todo.Todo;
 import seedu.address.storage.contact.ContactStorage;
 import seedu.address.storage.event.EventStorage;
@@ -36,20 +37,22 @@ public interface Storage extends ContactStorage, TodoStorage, EventStorage, User
     Path getEventListFilePath();
 
     @Override
-    Optional<ItemManager<Contact>> readAddressBook() throws DataLoadingException;
+    Optional<ItemNotInvolvingContactManager<Contact>> readAddressBook() throws DataLoadingException;
 
     @Override
-    void saveAddressBook(ItemManager<Contact> addressBook) throws IOException;
+    void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook) throws IOException;
 
     @Override
-    Optional<ItemManager<Todo>> readTodoList() throws DataLoadingException;
+    Optional<ItemInvolvingContactManager<Todo>> readTodoList(
+            ItemNotInvolvingContactManager<Contact> contactManager) throws DataLoadingException;
 
     @Override
-    void saveTodoList(ItemManager<Todo> addressBook) throws IOException;
+    void saveTodoList(ItemInvolvingContactManager<Todo> addressBook) throws IOException;
 
     @Override
-    Optional<ItemManager<Event>> readEventList() throws DataLoadingException;
+    Optional<ItemInvolvingContactManager<Event>> readEventList(
+            ItemNotInvolvingContactManager<Contact> contactManager) throws DataLoadingException;
 
     @Override
-    void saveEventList(ItemManager<Event> eventManager) throws IOException;
+    void saveEventList(ItemInvolvingContactManager<Event> eventManager) throws IOException;
 }

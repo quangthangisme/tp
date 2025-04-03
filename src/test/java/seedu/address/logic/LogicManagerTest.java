@@ -28,7 +28,8 @@ import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
-import seedu.address.model.item.ItemManager;
+import seedu.address.model.item.ItemInvolvingContactManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 import seedu.address.model.todo.Todo;
 import seedu.address.storage.JsonUserPrefsStorage;
 import seedu.address.storage.StorageManager;
@@ -50,7 +51,7 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonContactStorage addressBookStorage =
-                new JsonContactStorage(temporaryFolder.resolve("addressBook.json"));
+                new JsonContactStorage(temporaryFolder.resolve("contactlist.json"));
         JsonTodoStorage todoStorage =
                 new JsonTodoStorage(temporaryFolder.resolve("todolist.json"));
         JsonEventStorage eventStorage =
@@ -156,21 +157,21 @@ public class LogicManagerTest {
         // Inject LogicManager with an AddressBookStorage that throws the IOException e when saving
         JsonContactStorage addressBookStorage = new JsonContactStorage(prefPath) {
             @Override
-            public void saveAddressBook(ItemManager<Contact> addressBook, Path filePath)
+            public void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook, Path filePath)
                     throws IOException {
                 throw e;
             }
         };
         JsonTodoStorage todoStorage = new JsonTodoStorage(prefPath) {
             @Override
-            public void saveTodoList(ItemManager<Todo> todoManager, Path filePath)
+            public void saveTodoList(ItemInvolvingContactManager<Todo> todoManager, Path filePath)
                     throws IOException {
                 throw e;
             }
         };
         JsonEventStorage eventStorage = new JsonEventStorage(prefPath) {
             @Override
-            public void saveEventList(ItemManager<Event> eventManager, Path filePath)
+            public void saveEventList(ItemInvolvingContactManager<Event> eventManager, Path filePath)
                     throws IOException {
                 throw e;
             }

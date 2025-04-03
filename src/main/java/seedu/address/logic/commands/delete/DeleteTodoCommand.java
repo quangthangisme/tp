@@ -7,11 +7,12 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.Messages;
 import seedu.address.model.Model;
 import seedu.address.model.todo.Todo;
+import seedu.address.model.todo.TodoManagerAndList;
 
 /**
  * Deletes a todo identified using its displayed index.
  */
-public class DeleteTodoCommand extends DeleteCommand<Todo> {
+public class DeleteTodoCommand extends DeleteCommand<TodoManagerAndList, Todo> {
 
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
             + ": Deletes the todo identified by the index number used in the displayed todo list.\n"
@@ -26,6 +27,10 @@ public class DeleteTodoCommand extends DeleteCommand<Todo> {
      */
     public DeleteTodoCommand(Index targetIndex) {
         super(targetIndex, Model::getTodoManagerAndList);
+    }
+
+    @Override
+    public void cascade(Model model, Todo itemToDelete) {
     }
 
     @Override

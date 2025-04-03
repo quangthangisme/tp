@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test;
 
 public class ItemManagerTest {
 
-    private final ItemManager<Stub> stubManager = new StubManager();
+    private final ItemNotInvolvingContactManager<Stub> stubManager = new StubManager();
 
     @Test
     public void constructor() {
@@ -30,7 +30,7 @@ public class ItemManagerTest {
 
     @Test
     public void resetData_withValidManager_replacesData() {
-        ItemManager<Stub> newData = new StubManager();
+        ItemNotInvolvingContactManager<Stub> newData = new StubManager();
         newData.addItem(STUB_A);
         newData.addItem(STUB_B);
         stubManager.resetData(newData);

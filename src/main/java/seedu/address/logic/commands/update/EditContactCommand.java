@@ -18,6 +18,7 @@ import seedu.address.logic.Messages;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.ContactManagerAndList;
 import seedu.address.model.contact.Course;
 import seedu.address.model.contact.Email;
 import seedu.address.model.contact.Group;
@@ -28,7 +29,7 @@ import seedu.address.model.item.commons.Tag;
 /**
  * Edits the details of an existing contact in the address book.
  */
-public class EditContactCommand extends EditCommand<Contact> {
+public class EditContactCommand extends EditCommand<ContactManagerAndList, Contact> {
 
     public static final String COMMAND_WORD = "edit";
 
@@ -60,6 +61,12 @@ public class EditContactCommand extends EditCommand<Contact> {
         super(index, Model::getContactManagerAndList);
         requireNonNull(editContactDescriptor);
         this.editContactDescriptor = new EditContactDescriptor(editContactDescriptor);
+    }
+
+    @Override
+    public void cascade(Model model, Contact itemToEdit, Contact editedItem) {
+        model.getEventManagerAndList().findAndReplace(itemToEdit, editedItem);
+        model.getTodoManagerAndList().findAndReplace(itemToEdit, editedItem);
     }
 
     /**
