@@ -67,7 +67,7 @@ public class MainApp extends Application {
 
         UserPrefsStorage userPrefsStorage = new JsonUserPrefsStorage(config.getUserPrefsFilePath());
         UserPrefs userPrefs = initPrefs(userPrefsStorage);
-        JsonContactStorage contactStorage = new JsonContactStorage(userPrefs.getAddressBookFilePath());
+        JsonContactStorage contactStorage = new JsonContactStorage(userPrefs.getContactListFilePath());
         JsonTodoStorage todoStorage = new JsonTodoStorage(userPrefs.getTodoListFilePath());
         JsonEventStorage eventStorage = new JsonEventStorage(userPrefs.getEventListFilePath());
         storage = new StorageManager(contactStorage, todoStorage, eventStorage, userPrefsStorage);
