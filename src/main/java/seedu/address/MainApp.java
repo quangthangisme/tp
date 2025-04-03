@@ -104,7 +104,7 @@ public class MainApp extends Application {
         Optional<ItemInvolvingContactManager<Todo>> todoListOptional;
         ItemInvolvingContactManager<Todo> initialTodoData;
         try {
-            todoListOptional = storage.readTodoList();
+            todoListOptional = storage.readTodoList(initialContactData);
             if (!todoListOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getTodoListFilePath()
                         + " populated with a sample Todo list.");
@@ -119,7 +119,7 @@ public class MainApp extends Application {
         Optional<ItemInvolvingContactManager<Event>> eventListOptional;
         ItemInvolvingContactManager<Event> initialEventData;
         try {
-            eventListOptional = storage.readEventList();
+            eventListOptional = storage.readEventList(initialContactData);
             if (!eventListOptional.isPresent()) {
                 logger.info("Creating a new data file " + storage.getEventListFilePath()
                         + " populated with a sample Event list.");

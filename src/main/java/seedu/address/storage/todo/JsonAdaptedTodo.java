@@ -11,13 +11,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Id;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoStatus;
-import seedu.address.storage.contact.JsonAdaptedContact;
+import seedu.address.storage.DummyContactBuilder;
 import seedu.address.storage.contact.JsonAdaptedTag;
 
 /**
@@ -26,12 +28,13 @@ import seedu.address.storage.contact.JsonAdaptedTag;
 public class JsonAdaptedTodo {
 
     public static final String MISSING_FIELD_MESSAGE_FORMAT = "Contact's %s field is missing!";
+    public static final String INVALID_ID_MESSAGE = "ID %s is invalid!";
 
     private final String name;
     private final String deadline;
     private final String location;
     private final boolean status;
-    private final List<JsonAdaptedContact> contactList = new ArrayList<>();
+    private final List<String> contactList = new ArrayList<>();
     private final List<JsonAdaptedTag> tags = new ArrayList<>();
 
     /**
@@ -43,7 +46,7 @@ public class JsonAdaptedTodo {
             @JsonProperty("deadline") String deadline,
             @JsonProperty("location") String location,
             @JsonProperty("status") boolean status,
-            @JsonProperty("contacts") List<JsonAdaptedContact> contactList,
+            @JsonProperty("contacts") List<String> contactList,
             @JsonProperty("tags") List<JsonAdaptedTag> tags) {
         this.name = name;
         this.deadline = deadline;
@@ -66,7 +69,7 @@ public class JsonAdaptedTodo {
         location = source.getLocation().toString();
         status = source.getStatus().isDone();
         contactList.addAll(source.getContacts().stream()
-                .map(JsonAdaptedContact::new)
+                .map(contact -> contact.getId().toString())
                 .collect(Collectors.toList()));
         tags.addAll(source.getTags().stream()
                 .map(JsonAdaptedTag::new)
@@ -78,10 +81,16 @@ public class JsonAdaptedTodo {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted contact.
      */
-    public Todo toModelType() throws IllegalValueException {
+    public Todo toModelType(ItemNotInvolvingContactManager<Contact> contactManager) throws IllegalValueException {
         final List<Contact> todoContacts = new ArrayList<>();
-        for (JsonAdaptedContact contact : contactList) {
-            todoContacts.add(contact.toModelType());
+        for (String id : contactList) {
+            try {
+                Contact dummyContact = DummyContactBuilder.build(new Id(id));
+                Contact contact = contactManager.getUpdateItem(dummyContact);
+                todoContacts.add(contact);
+            } catch (IllegalArgumentException e) {
+                throw new IllegalValueException(String.format(INVALID_ID_MESSAGE, id));
+            }
         }
 
         final Set<Tag> modelTags = new HashSet<>();

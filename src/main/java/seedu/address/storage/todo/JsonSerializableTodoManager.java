@@ -8,7 +8,9 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.item.ItemInvolvingContactManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 import seedu.address.model.todo.Todo;
 import seedu.address.model.todo.TodoManager;
 
@@ -44,10 +46,11 @@ class JsonSerializableTodoManager {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public TodoManager toModelType() throws IllegalValueException {
+    public TodoManager toModelType(ItemNotInvolvingContactManager<Contact> contactManager)
+            throws IllegalValueException {
         TodoManager todoManager = new TodoManager();
         for (JsonAdaptedTodo jsonAdaptedTodo : todos) {
-            Todo todo = jsonAdaptedTodo.toModelType();
+            Todo todo = jsonAdaptedTodo.toModelType(contactManager);
             if (todoManager.hasItem(todo)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_TODO);
             }

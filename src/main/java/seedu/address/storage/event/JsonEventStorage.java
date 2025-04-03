@@ -12,8 +12,10 @@ import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.item.ItemInvolvingContactManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 
 /**
  * A class to access Event data stored as a JSON file on the hard disk.
@@ -34,18 +36,22 @@ public class JsonEventStorage implements EventStorage {
     }
 
     @Override
-    public Optional<ItemInvolvingContactManager<Event>> readEventList() throws DataLoadingException {
-        return readEventList(filePath);
+    public Optional<ItemInvolvingContactManager<Event>> readEventList(
+            ItemNotInvolvingContactManager<Contact> contactManager
+    ) throws DataLoadingException {
+        return readEventList(filePath, contactManager);
     }
 
     /**
-     * Similar to {@link #readEventList()}.
+     * Similar to {@link #readEventList}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataLoadingException if loading the data from storage failed.
      */
     @Override
-    public Optional<ItemInvolvingContactManager<Event>> readEventList(Path filePath) throws DataLoadingException {
+    public Optional<ItemInvolvingContactManager<Event>> readEventList(
+            Path filePath, ItemNotInvolvingContactManager<Contact> contactManager
+    ) throws DataLoadingException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableEventManager> jsonEventManager = JsonUtil.readJsonFile(
@@ -55,7 +61,7 @@ public class JsonEventStorage implements EventStorage {
         }
 
         try {
-            return Optional.of(jsonEventManager.get().toModelType());
+            return Optional.of(jsonEventManager.get().toModelType(contactManager));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataLoadingException(ive);

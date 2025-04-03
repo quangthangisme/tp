@@ -6,15 +6,18 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import seedu.address.commons.core.Pair;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.contact.Contact;
+import seedu.address.model.contact.Id;
 import seedu.address.model.event.AttendanceStatus;
-import seedu.address.storage.contact.JsonAdaptedContact;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
+import seedu.address.storage.DummyContactBuilder;
 
 /**
  * Jackson-friendly version of {@code Pair<Contact, Boolean>}.
  */
 public class JsonAdaptedAttendancePair {
+    public static final String INVALID_ID_MESSAGE = "ID %s is invalid!";
 
-    private final JsonAdaptedContact contact;
+    private final String id;
     private final boolean status;
 
     /**
@@ -22,9 +25,9 @@ public class JsonAdaptedAttendancePair {
      */
     @JsonCreator
     public JsonAdaptedAttendancePair(
-            @JsonProperty("contact") JsonAdaptedContact contact,
+            @JsonProperty("contact") String id,
             @JsonProperty("status") boolean status) {
-        this.contact = contact;
+        this.id = id;
         this.status = status;
     }
 
@@ -32,7 +35,7 @@ public class JsonAdaptedAttendancePair {
      * Converts a given {@code Pair} into this class for Jackson use.
      */
     public JsonAdaptedAttendancePair(Pair<Contact, AttendanceStatus> source) {
-        contact = new JsonAdaptedContact(source.first());
+        id = source.first().getId().fullId;
         status = source.second().hasAttended();
     }
 
@@ -42,7 +45,16 @@ public class JsonAdaptedAttendancePair {
      * @throws IllegalValueException if there were any data constraints violated in the adapted
      *                               tag.
      */
-    public Pair<Contact, AttendanceStatus> toModelType() throws IllegalValueException {
-        return new Pair<>(contact.toModelType(), new AttendanceStatus(status));
+    public Pair<Contact, AttendanceStatus> toModelType(
+            ItemNotInvolvingContactManager<Contact> contactManager
+    ) throws IllegalValueException {
+        Contact contact;
+        try {
+            Contact dummyContact = DummyContactBuilder.build(new Id(id));
+            contact = contactManager.getUpdateItem(dummyContact);
+        } catch (IllegalArgumentException e) {
+            throw new IllegalValueException(String.format(INVALID_ID_MESSAGE, id));
+        }
+        return new Pair<>(contact, new AttendanceStatus(status));
     }
 }

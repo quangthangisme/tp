@@ -8,9 +8,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
 import seedu.address.commons.exceptions.IllegalValueException;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Event;
 import seedu.address.model.event.EventManager;
 import seedu.address.model.item.ItemInvolvingContactManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -44,10 +46,11 @@ class JsonSerializableEventManager {
      *
      * @throws IllegalValueException if there were any data constraints violated.
      */
-    public EventManager toModelType() throws IllegalValueException {
+    public EventManager toModelType(ItemNotInvolvingContactManager<Contact> contactManager)
+            throws IllegalValueException {
         EventManager eventManager = new EventManager();
         for (JsonAdaptedEvent jsonAdaptedEvent : events) {
-            Event event = jsonAdaptedEvent.toModelType();
+            Event event = jsonAdaptedEvent.toModelType(contactManager);
             if (eventManager.hasItem(event)) {
                 throw new IllegalValueException(MESSAGE_DUPLICATE_EVENT);
             }

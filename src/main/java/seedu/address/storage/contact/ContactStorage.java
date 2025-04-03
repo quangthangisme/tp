@@ -34,14 +34,14 @@ public interface ContactStorage {
     Optional<ItemNotInvolvingContactManager<Contact>> readAddressBook(Path filePath) throws DataLoadingException;
 
     /**
-     * Saves the given {@link ItemManager} to the storage.
+     * Saves the given {@link ItemNotInvolvingContactManager} to the storage.
      * @param addressBook cannot be null.
      * @throws IOException if there was any problem writing to the file.
      */
     void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook) throws IOException;
 
     /**
-     * @see #saveAddressBook(ItemManager)
+     * @see #saveAddressBook(ItemNotInvolvingContactManager)
      */
     void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook, Path filePath) throws IOException;
 

@@ -15,6 +15,7 @@ import seedu.address.model.contact.Contact;
 import seedu.address.model.event.Attendance;
 import seedu.address.model.event.AttendanceStatus;
 import seedu.address.model.event.Event;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
@@ -79,10 +80,11 @@ public class JsonAdaptedEvent {
      *
      * @throws IllegalValueException if there were any data constraints violated in the adapted event.
      */
-    public Event toModelType() throws IllegalValueException {
+    public Event toModelType(ItemNotInvolvingContactManager<Contact> contactManager)
+            throws IllegalValueException {
         final List<Pair<Contact, AttendanceStatus>> attendanceList = new ArrayList<>();
         for (JsonAdaptedAttendancePair pair : attendance) {
-            attendanceList.add(pair.toModelType());
+            attendanceList.add(pair.toModelType(contactManager));
         }
 
         final Set<Tag> modelTags = new HashSet<>();

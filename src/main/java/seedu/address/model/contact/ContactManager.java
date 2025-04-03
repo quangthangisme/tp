@@ -8,6 +8,7 @@ import seedu.address.model.item.ItemNotInvolvingContactManager;
  * Duplicates are not allowed (by .isSameContact comparison)
  */
 public class ContactManager extends ItemNotInvolvingContactManager<Contact> {
+
     public ContactManager() {
         super(new UniqueContactList());
     }

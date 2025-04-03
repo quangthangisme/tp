@@ -12,7 +12,9 @@ import seedu.address.commons.exceptions.DataLoadingException;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
+import seedu.address.model.contact.Contact;
 import seedu.address.model.item.ItemInvolvingContactManager;
+import seedu.address.model.item.ItemNotInvolvingContactManager;
 import seedu.address.model.todo.Todo;
 
 /**
@@ -34,18 +36,22 @@ public class JsonTodoStorage implements TodoStorage {
     }
 
     @Override
-    public Optional<ItemInvolvingContactManager<Todo>> readTodoList() throws DataLoadingException {
-        return readTodoList(filePath);
+    public Optional<ItemInvolvingContactManager<Todo>> readTodoList(
+            ItemNotInvolvingContactManager<Contact> contactManager
+    ) throws DataLoadingException {
+        return readTodoList(filePath, contactManager);
     }
 
     /**
-     * Similar to {@link #readTodoList()}.
+     * Similar to {@link #readTodoList}.
      *
      * @param filePath location of the data. Cannot be null.
      * @throws DataLoadingException if loading the data from storage failed.
      */
     @Override
-    public Optional<ItemInvolvingContactManager<Todo>> readTodoList(Path filePath) throws DataLoadingException {
+    public Optional<ItemInvolvingContactManager<Todo>> readTodoList(
+            Path filePath, ItemNotInvolvingContactManager<Contact> contactManager
+    ) throws DataLoadingException {
         requireNonNull(filePath);
 
         Optional<JsonSerializableTodoManager> jsonTodoManager = JsonUtil.readJsonFile(
@@ -55,7 +61,7 @@ public class JsonTodoStorage implements TodoStorage {
         }
 
         try {
-            return Optional.of(jsonTodoManager.get().toModelType());
+            return Optional.of(jsonTodoManager.get().toModelType(contactManager));
         } catch (IllegalValueException ive) {
             logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
             throw new DataLoadingException(ive);
