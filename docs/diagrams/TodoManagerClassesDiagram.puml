@@ -24,7 +24,6 @@ Class "<<interface>>\nManagerAndList" as ManagerAndList<Todo>
 
 Cloud HiddenOutside
 HiddenOutside ..> Model
-HiddenOutside ..> TodoManagerAndList
 ModelManager .up.|> Model
 Model .right.> TodoManagerAndList
 TodoManagerAndList .right.|> ManagerAndList

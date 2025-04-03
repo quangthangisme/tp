@@ -24,7 +24,6 @@ Class "<<interface>>\nManagerAndList" as ManagerAndList<Contact>
 
 Cloud HiddenOutside
 HiddenOutside ..> Model
-HiddenOutside ..> ContactManagerAndList
 ModelManager .up.|> Model
 Model .right.> ContactManagerAndList
 ContactManagerAndList .right.|> ManagerAndList

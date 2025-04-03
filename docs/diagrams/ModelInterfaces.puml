@@ -20,10 +20,7 @@ Class UserPrefs
 }
 
 Cloud HiddenOutside
-HiddenOutside .left.> Model
-HiddenOutside ..> TodoManagerAndList
-HiddenOutside ..> ContactManagerAndList
-HiddenOutside ..> EventManagerAndList
+HiddenOutside .down.> Model
 TodoManagerAndList .up.|> MALTodo
 EventManagerAndList .up.|> MALEvent
 ContactManagerAndList .up.|> MALContact
