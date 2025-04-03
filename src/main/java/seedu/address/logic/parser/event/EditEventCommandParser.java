@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.update.EditEventCommand;
@@ -71,10 +72,10 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
             editEventDescriptor.setTags(
                     ParserUtil.parseTags(argMultimap.getValue(tagPrefix).get()));
         }
-        List<Index> linkedContactIndices = List.of();
+        Optional<List<Index>> linkedContactIndices = Optional.empty();
         if (argMultimap.getValue(contactPrefix).isPresent()) {
-            linkedContactIndices =
-                    ParserUtil.parseIndices(argMultimap.getValue(contactPrefix).get());
+            linkedContactIndices = Optional.of(ParserUtil.parseIndices(argMultimap
+                    .getValue(contactPrefix).get()));
             editEventDescriptor.setAttendance(new Attendance());
         }
 

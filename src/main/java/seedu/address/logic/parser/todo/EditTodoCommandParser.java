@@ -4,6 +4,7 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 
 import java.util.List;
+import java.util.Optional;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.update.EditTodoCommand;
@@ -71,11 +72,11 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
             editTodoDescriptor.setStatus(new TodoStatus(
                     ParserUtil.parseBoolean(argMultimap.getValue(statusPrefix).get())));
         }
-        List<Index> linkedContactIndices = List.of();
+        Optional<List<Index>> linkedContactIndices = Optional.empty();
         PrefixAlias eventContact = EventCliAlias.EVENT_LINKED_CONTACT_PREFIX_ALIAS;
         if (argMultimap.getValue(eventContact).isPresent()) {
-            linkedContactIndices =
-                    ParserUtil.parseIndices(argMultimap.getValue(eventContact).get());
+            linkedContactIndices = Optional.of(
+                    ParserUtil.parseIndices(argMultimap.getValue(eventContact).get()));
             editTodoDescriptor.setContacts(List.of());
         }
 
