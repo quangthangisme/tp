@@ -32,6 +32,7 @@ public class ContactCard extends UiPart<Region> implements Card<Contact> {
     private static final String EMAIL_ICON = "/images/contact-card/email.png";
     private static final String COURSE_ICON = "/images/contact-card/course.png";
     private static final String GROUP_ICON = "/images/contact-card/group.png";
+    private static final int MAX_TAG_LENGTH = 75;
 
     public final Contact contact;
 
@@ -74,7 +75,7 @@ public class ContactCard extends UiPart<Region> implements Card<Contact> {
         email.setText(contact.getEmail().value);
         contact.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> tags.getChildren().add(createTagLabel(tag.tagName)));
         course.setText(contact.getCourse().fullCourse);
         group.setText(contact.getGroup().fullGroup);
 
@@ -89,6 +90,19 @@ public class ContactCard extends UiPart<Region> implements Card<Contact> {
         emailIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(EMAIL_ICON))));
         courseIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(COURSE_ICON))));
         groupIcon.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(GROUP_ICON))));
+    }
+
+    /**
+     * Creates a label for a tag, abbreviating if necessary.
+     * @param tagText The text of the tag
+     * @return A Label with the tag text, abbreviated if longer than MAX_TAG_LENGTH
+     */
+    private Label createTagLabel(String tagText) {
+        if (tagText.length() <= MAX_TAG_LENGTH) {
+            return new Label(tagText);
+        } else {
+            return new Label(tagText.substring(0, MAX_TAG_LENGTH - 3) + "...");
+        }
     }
 
     @Override

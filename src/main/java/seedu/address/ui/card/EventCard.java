@@ -16,6 +16,7 @@ import seedu.address.ui.UiPart;
 public class EventCard extends UiPart<Region> implements Card<Event> {
 
     private static final String FXML = "EventListCard.fxml";
+    private static final int MAX_TAG_LENGTH = 75;
 
     public final Event event;
 
@@ -47,7 +48,20 @@ public class EventCard extends UiPart<Region> implements Card<Event> {
         eventLocation.setText("Location: " + event.getLocation().toString());
         event.getTags().stream()
                 .sorted(Comparator.comparing(tag -> tag.tagName))
-                .forEach(tag -> tags.getChildren().add(new Label(tag.tagName)));
+                .forEach(tag -> tags.getChildren().add(createTagLabel(tag.tagName)));
+    }
+
+    /**
+     * Creates a label for a tag, abbreviating if necessary.
+     * @param tagText The text of the tag
+     * @return A Label with the tag text, abbreviated if longer than MAX_TAG_LENGTH
+     */
+    private Label createTagLabel(String tagText) {
+        if (tagText.length() <= MAX_TAG_LENGTH) {
+            return new Label(tagText);
+        } else {
+            return new Label(tagText.substring(0, MAX_TAG_LENGTH - 3) + "...");
+        }
     }
 
     @Override
