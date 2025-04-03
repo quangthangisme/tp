@@ -41,16 +41,16 @@ public class EditEventCommand extends EditCommand<Event> {
             + "displayed event list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX "
-            + "[" + PREFIX_EVENT_NAME_LONG + " NAME] "
-            + "[" + PREFIX_EVENT_START_LONG + " START_TIME] "
-            + "[" + PREFIX_EVENT_END_LONG + " END_TIME] "
-            + "[" + PREFIX_EVENT_LOCATION_LONG + " LOCATION] "
-            + "[" + PREFIX_EVENT_LINKED_CONTACT_LONG + " CONTACT_INDEX/INDICES] "
-            + "[" + PREFIX_EVENT_TAG_LONG + " TAG(S)]\n"
+            + "[" + PREFIX_EVENT_NAME_LONG + "NAME] "
+            + "[" + PREFIX_EVENT_START_LONG + "START_TIME] "
+            + "[" + PREFIX_EVENT_END_LONG + "END_TIME] "
+            + "[" + PREFIX_EVENT_LOCATION_LONG + "LOCATION] "
+            + "[" + PREFIX_EVENT_LINKED_CONTACT_LONG + "CONTACT_INDEX/INDICES] "
+            + "[" + PREFIX_EVENT_TAG_LONG + "TAG(S)]\n"
             + "INDEX must be a positive integer.\n"
             + "CONTACT_INDEX is based on the list displayed on the right.\n"
             + "Example: " + EVENT_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_EVENT_NAME_LONG + " Complete project\n";
+            + PREFIX_EVENT_NAME_LONG + "Complete project\n";
 
     public static final String MESSAGE_EDIT_EVENT_SUCCESS = "Edited Event: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";

@@ -41,17 +41,17 @@ public class EditTodoCommand extends EditCommand<Todo> {
             + "displayed todo list. "
             + "Existing values will be overwritten by the input values.\n"
             + "Parameters: INDEX (must be a positive integer) "
-            + "[" + PREFIX_TODO_NAME_LONG + " NAME] "
-            + "[" + PREFIX_TODO_DEADLINE_LONG + " DEADLINE] "
-            + "[" + PREFIX_TODO_LOCATION_LONG + " LOCATION] "
-            + "[" + PREFIX_TODO_STATUS_LONG + " STATUS (true/false)] "
-            + "[" + PREFIX_TODO_LINKED_CONTACT_LONG + " CONTACT_INDEX/INDICES] "
-            + "[" + PREFIX_TODO_LOCATION_LONG + " LOCATION] "
-            + "[" + PREFIX_TODO_TAG_LONG + " TAG(S)]\n"
+            + "[" + PREFIX_TODO_NAME_LONG + "NAME] "
+            + "[" + PREFIX_TODO_DEADLINE_LONG + "DEADLINE] "
+            + "[" + PREFIX_TODO_LOCATION_LONG + "LOCATION] "
+            + "[" + PREFIX_TODO_STATUS_LONG + "STATUS (true/false)] "
+            + "[" + PREFIX_TODO_LINKED_CONTACT_LONG + "CONTACT_INDEX/INDICES] "
+            + "[" + PREFIX_TODO_LOCATION_LONG + "LOCATION] "
+            + "[" + PREFIX_TODO_TAG_LONG + "TAG(S)]\n"
             + "INDEX must be a positive integer.\n"
             + "CONTACT_INDEX is based on the list displayed on the right.\n"
             + "Example: " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " 1 "
-            + PREFIX_TODO_NAME_LONG + " Complete project\n";
+            + PREFIX_TODO_NAME_LONG + "Complete project\n";
 
     public static final String MESSAGE_EDIT_TODO_SUCCESS = "Edited Todo: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
