@@ -202,7 +202,7 @@ Examples:
 ## Event: `event`
 
 ### Adding an event: `add`
-Adds an event to the address book.
+Adds an event to the app.
 
 Format: `event add --name NAME --start START_DATETIME --end END_DATETIME --location LOCATION [--tag TAG(S)]`
 
