@@ -2,12 +2,6 @@ package seedu.address.logic.parser.todo;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,6 +13,10 @@ import seedu.address.logic.parser.ArgumentMultimap;
 import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
+import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.PrefixAlias;
+import seedu.address.logic.parser.PrefixAliasListBuilder;
+import seedu.address.logic.parser.event.EventCliSyntax;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.todo.TodoStatus;
 
@@ -26,6 +24,13 @@ import seedu.address.model.todo.TodoStatus;
  * Parses input arguments and creates a new EditCommand object
  */
 public class EditTodoCommandParser implements Parser<EditTodoCommand> {
+
+    private static final PrefixAlias NAME_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_NAME;
+    private static final PrefixAlias DEADLINE_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_DEADLINE;
+    private static final PrefixAlias LOCATION_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_LOCATION;
+    private static final PrefixAlias TAG_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_TAG;
+    private static final PrefixAlias CONTACT_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_LINKED_CONTACT;
+    private static final PrefixAlias STATUS_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_STATUS;
 
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand and returns an
@@ -49,18 +54,17 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
     }
 
     private ArgumentMultimap tokenizeArgs(String args) throws ParseException {
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_TODO_NAME_LONG,
-                PREFIX_TODO_DEADLINE_LONG, PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_TAG_LONG,
-                PREFIX_TODO_LINKED_CONTACT_LONG, PREFIX_TODO_STATUS_LONG);
+        Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
+                .add(NAME_PREFIX, DEADLINE_PREFIX, LOCATION_PREFIX, TAG_PREFIX, CONTACT_PREFIX, STATUS_PREFIX)
+                .toArray();
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
 
         if (argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditTodoCommand.MESSAGE_USAGE));
         }
 
-        argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
-                PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_TAG_LONG, PREFIX_TODO_LINKED_CONTACT_LONG,
-                PREFIX_TODO_STATUS_LONG);
+        argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
 
         return argMultimap;
     }
@@ -69,24 +73,23 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
             throws ParseException {
         EditTodoDescriptor editTodoDescriptor = new EditTodoDescriptor();
 
-        if (argMultimap.getValue(PREFIX_TODO_NAME_LONG).isPresent()) {
-            editTodoDescriptor.setName(TodoParserUtil.parseName(argMultimap.getValue(PREFIX_TODO_NAME_LONG).get()));
+        if (argMultimap.getValue(NAME_PREFIX).isPresent()) {
+            editTodoDescriptor.setName(TodoParserUtil.parseName(argMultimap.getValue(NAME_PREFIX).get()));
         }
-        if (argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).isPresent()) {
-            editTodoDescriptor.setDeadline(
-                    TodoParserUtil.parseDeadline(argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).get()));
+        if (argMultimap.getValue(DEADLINE_PREFIX).isPresent()) {
+            editTodoDescriptor.setDeadline(TodoParserUtil.parseDeadline(argMultimap.getValue(DEADLINE_PREFIX).get()));
         }
-        if (argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).isPresent()) {
+        if (argMultimap.getValue(LOCATION_PREFIX).isPresent()) {
             editTodoDescriptor.setLocation(
-                    TodoParserUtil.parseLocation(argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).get()));
+                    TodoParserUtil.parseLocation(argMultimap.getValue(LOCATION_PREFIX).get()));
         }
-        if (argMultimap.getValue(PREFIX_TODO_TAG_LONG).isPresent()) {
+        if (argMultimap.getValue(TAG_PREFIX).isPresent()) {
             editTodoDescriptor.setTags(
-                    ParserUtil.parseTags(argMultimap.getValue(PREFIX_TODO_TAG_LONG).get()));
+                    ParserUtil.parseTags(argMultimap.getValue(TAG_PREFIX).get()));
         }
-        if (argMultimap.getValue(PREFIX_TODO_STATUS_LONG).isPresent()) {
+        if (argMultimap.getValue(STATUS_PREFIX).isPresent()) {
             editTodoDescriptor.setStatus(new TodoStatus(
-                    ParserUtil.parseBoolean(argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get())));
+                    ParserUtil.parseBoolean(argMultimap.getValue(STATUS_PREFIX).get())));
         }
 
         return editTodoDescriptor;
@@ -95,11 +98,12 @@ public class EditTodoCommandParser implements Parser<EditTodoCommand> {
     private Optional<List<Index>> parseLinkedContacts(ArgumentMultimap argMultimap,
                                                       EditTodoDescriptor editTodoDescriptor)
             throws ParseException {
-        if (argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).isPresent()) {
-            List<Index> contactIndices = ParserUtil.parseIndices(
-                    argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).get());
+        PrefixAlias eventContact = EventCliSyntax.PREFIX_ALIAS_EVENT_LINKED_CONTACT;
+        if (argMultimap.getValue(eventContact).isPresent()) {
+            Optional<List<Index>> linkedContactIndices = Optional.of(
+                    ParserUtil.parseIndices(argMultimap.getValue(eventContact).get()));
             editTodoDescriptor.setContacts(List.of());
-            return Optional.of(contactIndices);
+            return linkedContactIndices;
         }
         return Optional.empty();
     }

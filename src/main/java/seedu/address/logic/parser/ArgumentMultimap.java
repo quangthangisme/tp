@@ -19,6 +19,7 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class ArgumentMultimap {
 
+    public static final String PREFIX_BOTH_FLAGS_USED = "Cannot use both flags %s and %s";
     /** Prefixes mapped to their respective arguments**/
     private final Map<Prefix, List<String>> argMultimap = new HashMap<>();
 
@@ -41,6 +42,21 @@ public class ArgumentMultimap {
     public Optional<String> getValue(Prefix prefix) {
         List<String> values = getAllValues(prefix);
         return values.isEmpty() ? Optional.empty() : Optional.of(values.get(values.size() - 1));
+    }
+
+    /**
+     * Gets the values of the value of either the long or short {@code prefix}.
+    */
+    public Optional<String> getValue(PrefixAlias prefixAlias) throws ParseException {
+        boolean isLong = arePrefixesPresent(prefixAlias.getLong());
+        boolean isShort = arePrefixesPresent(prefixAlias.getShort());
+        if (isLong && isShort) {
+            throw new ParseException(String.format(PREFIX_BOTH_FLAGS_USED,
+                    prefixAlias.getLong(), prefixAlias.getShort()
+                )
+            );
+        }
+        return isLong ? getValue(prefixAlias.getLong()) : getValue(prefixAlias.getShort());
     }
 
     /**
@@ -76,11 +92,26 @@ public class ArgumentMultimap {
         }
     }
 
-
     /**
      * Returns true if none of the prefixes contains empty {@code Optional} values.
      */
     public boolean arePrefixesPresent(Prefix... prefixes) {
         return Stream.of(prefixes).allMatch(prefix -> getValue(prefix).isPresent());
+    }
+
+    public boolean arePrefixAliasPresent(PrefixAlias prefixAlias) throws ParseException {
+        return getValue(prefixAlias).isPresent();
+    }
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values.
+     */
+    public boolean areAllPrefixAliasPresent(PrefixAlias... prefixAliases) throws ParseException {
+        for (PrefixAlias prefixAlias : prefixAliases) {
+            if (!arePrefixAliasPresent(prefixAlias)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

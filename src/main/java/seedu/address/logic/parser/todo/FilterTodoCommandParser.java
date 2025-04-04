@@ -4,12 +4,6 @@ import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_NO_COLUMNS;
 import static seedu.address.logic.Messages.MESSAGE_NO_VALUES;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_DEADLINE_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LINKED_CONTACT_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_LOCATION_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_NAME_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_STATUS_LONG;
-import static seedu.address.logic.parser.todo.TodoCliSyntax.PREFIX_TODO_TAG_LONG;
 
 import java.util.List;
 import java.util.Optional;
@@ -23,6 +17,8 @@ import seedu.address.logic.parser.ArgumentTokenizer;
 import seedu.address.logic.parser.Parser;
 import seedu.address.logic.parser.ParserUtil;
 import seedu.address.logic.parser.Prefix;
+import seedu.address.logic.parser.PrefixAlias;
+import seedu.address.logic.parser.PrefixAliasListBuilder;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.item.predicate.LocationPredicate;
 import seedu.address.model.item.predicate.NamePredicate;
@@ -37,6 +33,13 @@ import seedu.address.model.todo.predicate.TodoStatusPredicate;
  */
 public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
 
+    private static final PrefixAlias NAME_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_NAME;
+    private static final PrefixAlias DEADLINE_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_DEADLINE;
+    private static final PrefixAlias LOCATION_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_LOCATION;
+    private static final PrefixAlias STATUS_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_STATUS;
+    private static final PrefixAlias CONTACT_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_LINKED_CONTACT;
+    private static final PrefixAlias TAG_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_TAG;
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand and returns an
      * EditCommand object for execution.
@@ -45,7 +48,6 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
      */
     public FilterTodoCommand parse(String args) throws ParseException {
         requireNonNull(args);
-
         ArgumentMultimap argMultimap = tokenizeAndValidateArgs(args);
         TodoPredicate predicate = new TodoPredicate();
 
@@ -66,12 +68,11 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
     }
 
     private ArgumentMultimap tokenizeAndValidateArgs(String args) throws ParseException {
-        List<Prefix> allPrefixes = List.of(PREFIX_TODO_NAME_LONG, PREFIX_TODO_DEADLINE_LONG,
-                PREFIX_TODO_LOCATION_LONG, PREFIX_TODO_STATUS_LONG, PREFIX_TODO_TAG_LONG,
-                PREFIX_TODO_LINKED_CONTACT_LONG);
-
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, allPrefixes.toArray(new Prefix[0]));
-        argMultimap.verifyNoDuplicatePrefixesFor(allPrefixes.toArray(new Prefix[0]));
+        Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
+                .add(NAME_PREFIX, DEADLINE_PREFIX, LOCATION_PREFIX, STATUS_PREFIX, CONTACT_PREFIX)
+                .toArray();
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
+        argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
 
         if (!argMultimap.getPreamble().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
@@ -83,11 +84,11 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
 
     private void setNamePredicate(ArgumentMultimap argMultimap, TodoPredicate predicate)
             throws ParseException {
-        if (argMultimap.getValue(PREFIX_TODO_NAME_LONG).isPresent()) {
+        if (argMultimap.getValue(NAME_PREFIX).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_NAME_LONG).get());
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(NAME_PREFIX).get());
 
-            validateNonEmptyValue(operatorStringPair.second(), PREFIX_TODO_NAME_LONG);
+            validateNonEmptyValue(operatorStringPair.second(), NAME_PREFIX);
 
             predicate.setNamePredicate(new NamePredicate(operatorStringPair.first(),
                     List.of(operatorStringPair.second().split("\\s+"))));
@@ -96,11 +97,11 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
 
     private void setLocationPredicate(ArgumentMultimap argMultimap, TodoPredicate predicate)
             throws ParseException {
-        if (argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).isPresent()) {
+        if (argMultimap.getValue(LOCATION_PREFIX).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_LOCATION_LONG).get());
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(LOCATION_PREFIX).get());
 
-            validateNonEmptyValue(operatorStringPair.second(), PREFIX_TODO_LOCATION_LONG);
+            validateNonEmptyValue(operatorStringPair.second(), LOCATION_PREFIX);
 
             predicate.setLocationPredicate(new LocationPredicate(operatorStringPair.first(),
                     List.of(operatorStringPair.second().split("\\s+"))));
@@ -109,10 +110,10 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
 
     private void setStatusPredicate(ArgumentMultimap argMultimap, TodoPredicate predicate)
             throws ParseException {
-        if (argMultimap.getValue(PREFIX_TODO_STATUS_LONG).isPresent()) {
-            String statusString = argMultimap.getValue(PREFIX_TODO_STATUS_LONG).get().trim();
+        if (argMultimap.getValue(STATUS_PREFIX).isPresent()) {
+            String statusString = argMultimap.getValue(STATUS_PREFIX).get().trim();
 
-            validateNonEmptyValue(statusString, PREFIX_TODO_STATUS_LONG);
+            validateNonEmptyValue(statusString, STATUS_PREFIX);
 
             predicate.setStatusPredicate(new TodoStatusPredicate(ParserUtil.parseBoolean(statusString)));
         }
@@ -120,11 +121,11 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
 
     private void setDeadlinePredicate(ArgumentMultimap argMultimap, TodoPredicate predicate)
             throws ParseException {
-        if (argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).isPresent()) {
+        if (argMultimap.getValue(DEADLINE_PREFIX).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_DEADLINE_LONG).get());
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(DEADLINE_PREFIX).get());
 
-            validateNonEmptyValue(operatorStringPair.second(), PREFIX_TODO_DEADLINE_LONG);
+            validateNonEmptyValue(operatorStringPair.second(), DEADLINE_PREFIX);
 
             predicate.setDeadlinePredicate(new TodoDeadlinePredicate(operatorStringPair.first(),
                     ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
@@ -133,11 +134,11 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
 
     private void setTagPredicate(ArgumentMultimap argMultimap, TodoPredicate predicate)
             throws ParseException {
-        if (argMultimap.getValue(PREFIX_TODO_TAG_LONG).isPresent()) {
+        if (argMultimap.getValue(TAG_PREFIX).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_TAG_LONG).get());
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(TAG_PREFIX).get());
 
-            validateNonEmptyValue(operatorStringPair.second(), PREFIX_TODO_TAG_LONG);
+            validateNonEmptyValue(operatorStringPair.second(), TAG_PREFIX);
 
             predicate.setTagPredicate(new TagPredicate(operatorStringPair.first(),
                     ParserUtil.parseTags(operatorStringPair.second())));
@@ -146,16 +147,16 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
 
     private Optional<Pair<Operator, List<Index>>> parseContactPredicate(
             ArgumentMultimap argMultimap, TodoPredicate predicate) throws ParseException {
-        if (argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).isPresent()) {
+        if (argMultimap.getValue(CONTACT_PREFIX).isPresent()) {
             Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(PREFIX_TODO_LINKED_CONTACT_LONG).get());
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(CONTACT_PREFIX).get());
 
-            validateNonEmptyValue(operatorStringPair.second(), PREFIX_TODO_LINKED_CONTACT_LONG);
+            validateNonEmptyValue(operatorStringPair.second(), CONTACT_PREFIX);
 
             List<Index> contactIndices = ParserUtil.parseIndices(operatorStringPair.second());
 
             if (contactIndices.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, PREFIX_TODO_LINKED_CONTACT_LONG));
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, CONTACT_PREFIX));
             }
 
             predicate.setContactPredicate(new TodoContactPredicate(Operator.OR, List.of()));
@@ -166,7 +167,7 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
         return Optional.empty();
     }
 
-    private void validateNonEmptyValue(String value, Prefix prefix) throws ParseException {
+    private void validateNonEmptyValue(String value, PrefixAlias prefix) throws ParseException {
         if (value.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_NO_VALUES, prefix));
         }
