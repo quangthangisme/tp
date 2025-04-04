@@ -24,6 +24,13 @@ import seedu.address.model.event.Attendance;
  */
 public class EditEventCommandParser implements Parser<EditEventCommand> {
 
+    private static final PrefixAlias namePrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_NAME;
+    private static final PrefixAlias startPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_START;
+    private static final PrefixAlias endPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_END;
+    private static final PrefixAlias locationPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_LOCATION;
+    private static final PrefixAlias tagPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_TAG;
+    private static final PrefixAlias contactPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_LINKED_CONTACT;
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand and returns an
      * EditCommand object for execution.
@@ -32,12 +39,20 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
      */
     public EditEventCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias namePrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_NAME;
-        PrefixAlias startPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_START;
-        PrefixAlias endPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_END;
-        PrefixAlias locationPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_LOCATION;
-        PrefixAlias tagPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_TAG;
-        PrefixAlias contactPrefix = EventCliSyntax.PREFIX_ALIAS_EVENT_LINKED_CONTACT;
+        ArgumentMultimap argMultimap = tokenizeArgs(args);
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+
+        EditEventDescriptor editEventDescriptor = buildEditEventDescriptor(argMultimap);
+        Optional<List<Index>> linkedContactIndices = parseLinkedContacts(argMultimap, editEventDescriptor);
+
+        if (!editEventDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditEventCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new EditEventCommand(index, editEventDescriptor, linkedContactIndices);
+    }
+
+    private ArgumentMultimap tokenizeArgs(String args) throws ParseException {
         Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
                 .add(namePrefix, startPrefix, endPrefix, locationPrefix, tagPrefix, contactPrefix)
                 .toArray();
@@ -47,9 +62,14 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditEventCommand.MESSAGE_USAGE));
         }
-        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+
         argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
 
+        return argMultimap;
+    }
+
+    private EditEventDescriptor buildEditEventDescriptor(ArgumentMultimap argMultimap)
+            throws ParseException {
         EditEventDescriptor editEventDescriptor = new EditEventDescriptor();
 
         if (argMultimap.getValue(namePrefix).isPresent()) {
@@ -72,18 +92,20 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
             editEventDescriptor.setTags(
                     ParserUtil.parseTags(argMultimap.getValue(tagPrefix).get()));
         }
-        Optional<List<Index>> linkedContactIndices = Optional.empty();
+        return editEventDescriptor;
+    }
+
+    private Optional<List<Index>> parseLinkedContacts(ArgumentMultimap argMultimap,
+                                                      EditEventDescriptor editEventDescriptor)
+            throws ParseException {
+        Optional<List<Index>> linkedContactIndices;
         if (argMultimap.getValue(contactPrefix).isPresent()) {
             linkedContactIndices = Optional.of(ParserUtil.parseIndices(argMultimap
                     .getValue(contactPrefix).get()));
             editEventDescriptor.setAttendance(new Attendance());
+            return linkedContactIndices;
         }
-
-        if (!editEventDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditEventCommand.MESSAGE_NOT_EDITED);
-        }
-
-        return new EditEventCommand(index, editEventDescriptor, linkedContactIndices);
+        return Optional.empty();
     }
 
 }

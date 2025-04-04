@@ -23,7 +23,7 @@ import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
-import seedu.address.storage.contact.JsonAdaptedTag;
+import seedu.address.storage.commons.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Event}.
@@ -86,6 +86,20 @@ public class JsonAdaptedEvent {
      */
     public Event toModelType(ItemNotInvolvingContactManager<Contact> contactManager)
             throws IllegalValueException {
+        final List<Pair<Contact, AttendanceStatus>> attendanceList = parseAttendance(contactManager);
+        final Set<Tag> modelTags = parseTags();
+        final Name eventName = parseName();
+        final Datetime eventStartTime = parseStartTime();
+        final Datetime eventEndTime = parseEndTime();
+        validateEventDuration(eventStartTime, eventEndTime);
+        final Location eventLocation = parseLocation();
+
+        return new Event(eventName, eventStartTime, eventEndTime, eventLocation,
+                new Attendance(attendanceList), modelTags);
+    }
+
+    private List<Pair<Contact, AttendanceStatus>> parseAttendance(
+            ItemNotInvolvingContactManager<Contact> contactManager) throws IllegalValueException {
         final List<Pair<Contact, AttendanceStatus>> attendanceList = new ArrayList<>();
         final List<String> idList = new ArrayList<>();
         for (JsonAdaptedAttendancePair pair : attendance) {
@@ -95,54 +109,65 @@ public class JsonAdaptedEvent {
             idList.add(pair.id);
             attendanceList.add(pair.toModelType(contactManager));
         }
+        return attendanceList;
+    }
 
+    private Set<Tag> parseTags() throws IllegalValueException {
         final Set<Tag> modelTags = new HashSet<>();
         for (JsonAdaptedTag tag : tags) {
             modelTags.add(tag.toModelType());
         }
+        return modelTags;
+    }
 
+    private Name parseName() throws IllegalValueException {
         if (name == null) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Name.class.getSimpleName()));
         }
         if (!Name.isValid(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name eventName = new Name(name);
+        return new Name(name);
+    }
 
+    private Datetime parseStartTime() throws IllegalValueException {
         if (startTime == null) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, Datetime.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Datetime.class.getSimpleName()));
         }
         if (!Datetime.isValid(startTime)) {
             throw new IllegalValueException(Datetime.MESSAGE_CONSTRAINTS);
         }
-        final Datetime eventStartTime = new Datetime(startTime);
+        return new Datetime(startTime);
+    }
 
+    private Datetime parseEndTime() throws IllegalValueException {
         if (endTime == null) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, Datetime.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Datetime.class.getSimpleName()));
         }
         if (!Datetime.isValid(endTime)) {
             throw new IllegalValueException(Datetime.MESSAGE_CONSTRAINTS);
         }
-        final Datetime eventEndTime = new Datetime(endTime);
+        return new Datetime(endTime);
+    }
 
-        if (!eventStartTime.isBefore(eventEndTime)) {
+    private void validateEventDuration(Datetime start, Datetime end) throws IllegalValueException {
+        if (!start.isBefore(end)) {
             throw new IllegalValueException(MESSAGE_NEGATIVE_DURATION);
         }
+    }
 
+    private Location parseLocation() throws IllegalValueException {
         if (location == null) {
-            throw new IllegalValueException(String.format(
-                    MISSING_FIELD_MESSAGE_FORMAT, Location.class.getSimpleName()));
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
+                    Location.class.getSimpleName()));
         }
         if (!Location.isValid(location)) {
             throw new IllegalValueException(Location.MESSAGE_CONSTRAINTS);
         }
-        final Location eventLocation = new Location(location);
-
-        return new Event(eventName, eventStartTime, eventEndTime, eventLocation,
-                new Attendance(attendanceList), modelTags);
+        return new Location(location);
     }
 
     @Override

@@ -5,17 +5,6 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_NO_COLUMNS;
 import static seedu.address.logic.Messages.MESSAGE_NO_VALUES;
 import static seedu.address.logic.Messages.MESSAGE_UNRECOGNIZED_COLUMN;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_COURSE_LONG;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_EMAIL_LONG;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_EMAIL_SHORT;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_GROUP_LONG;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_GROUP_SHORT;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_ID_LONG;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_ID_SHORT;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_NAME_LONG;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_NAME_SHORT;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_LONG;
-import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_TAG_SHORT;
 
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +31,13 @@ import seedu.address.model.contact.ContactPredicate;
  */
 public class FilterContactCommandParser implements Parser<FilterContactCommand> {
 
+    private static final PrefixAlias NAME_PREFIX = ContactCliSyntax.PREFIX_ALIAS_CONTACT_NAME;
+    private static final PrefixAlias EMAIL_PREFIX = ContactCliSyntax.PREFIX_ALIAS_CONTACT_EMAIL;
+    private static final PrefixAlias ID_PREFIX = ContactCliSyntax.PREFIX_ALIAS_CONTACT_ID;
+    private static final PrefixAlias COURSE_PREFIX = ContactCliSyntax.PREFIX_ALIAS_CONTACT_COURSE;
+    private static final PrefixAlias GROUP_PREFIX = ContactCliSyntax.PREFIX_ALIAS_CONTACT_GROUP;
+    private static final PrefixAlias TAG_PREFIX = ContactCliSyntax.PREFIX_ALIAS_CONTACT_TAG;
+
     /**
      * Parses the given {@code String} of arguments in the context of the FilterContactCommand and
      * returns a FilterContactCommand object for execution.
@@ -53,14 +49,8 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
         if (args.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, FilterContactCommand.MESSAGE_USAGE));
         }
-        PrefixAlias namePrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_NAME;
-        PrefixAlias emailPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_EMAIL;
-        PrefixAlias idPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_ID;
-        PrefixAlias coursePrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_COURSE;
-        PrefixAlias groupPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_GROUP;
-        PrefixAlias tagPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_TAG;
         Prefix[] listOPrefixes = new PrefixAliasListBuilder()
-                .add(namePrefix, emailPrefix, idPrefix, coursePrefix, groupPrefix, tagPrefix)
+                .add(NAME_PREFIX, EMAIL_PREFIX, ID_PREFIX, COURSE_PREFIX, GROUP_PREFIX, TAG_PREFIX)
                 .toArray();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOPrefixes);
 
@@ -68,9 +58,7 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
 
         Map<ContactColumn, ColumnPredicate> filterCriteriaMap = new HashMap<>();
 
-        List<Prefix> allPrefixes = List.of(listOPrefixes);
-
-        parsePrefixes(allPrefixes, argMultimap, filterCriteriaMap);
+        parsePrefixes(argMultimap, filterCriteriaMap);
 
         if (filterCriteriaMap.isEmpty()) {
             throw new ParseException(MESSAGE_NO_COLUMNS);
@@ -87,29 +75,21 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
      * @return the corresponding column
      * @throws ParseException if the prefix does not correspond to a valid column
      */
-    private ContactColumn getColumnFromPrefix(Prefix prefix) throws ParseException {
-        String prefixStr = prefix.getPrefix();
-
-        if (prefixStr.equals(PREFIX_CONTACT_ID_LONG.getPrefix())
-                || prefixStr.equals(PREFIX_CONTACT_ID_SHORT.getPrefix())) {
+    private ContactColumn getColumnFromPrefix(PrefixAlias prefix) throws ParseException {
+        if (prefix.equals(ID_PREFIX)) {
             return ContactColumn.ID;
-        } else if (prefixStr.equals(PREFIX_CONTACT_NAME_LONG.getPrefix())
-                || prefixStr.equals(PREFIX_CONTACT_NAME_SHORT.getPrefix())) {
+        } else if (prefix.equals(NAME_PREFIX)) {
             return ContactColumn.NAME;
-        } else if (prefixStr.equals(PREFIX_CONTACT_EMAIL_LONG.getPrefix())
-                || prefixStr.equals(PREFIX_CONTACT_EMAIL_SHORT.getPrefix())) {
+        } else if (prefix.equals(EMAIL_PREFIX)) {
             return ContactColumn.EMAIL;
-        } else if (prefixStr.equals(PREFIX_CONTACT_TAG_LONG.getPrefix())
-                || prefixStr.equals(PREFIX_CONTACT_TAG_SHORT.getPrefix())) {
+        } else if (prefix.equals(TAG_PREFIX)) {
             return ContactColumn.TAG;
-        } else if (prefixStr.equals(PREFIX_CONTACT_COURSE_LONG.getPrefix())
-                || prefixStr.equals(PREFIX_CONTACT_COURSE_LONG.getPrefix())) {
+        } else if (prefix.equals(COURSE_PREFIX)) {
             return ContactColumn.COURSE;
-        } else if (prefixStr.equals(PREFIX_CONTACT_GROUP_LONG.getPrefix())
-                || prefixStr.equals(PREFIX_CONTACT_GROUP_SHORT.getPrefix())) {
+        } else if (prefix.equals(GROUP_PREFIX)) {
             return ContactColumn.GROUP;
         } else {
-            throw new ParseException(String.format(MESSAGE_UNRECOGNIZED_COLUMN, prefixStr));
+            throw new ParseException(String.format(MESSAGE_UNRECOGNIZED_COLUMN, prefix));
         }
     }
 
@@ -117,14 +97,15 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
      * Parses all prefixes in the argument multimap and adds the corresponding filter criteria to
      * the provided map.
      *
-     * @param allPrefixes       the list of all prefixes to parse
      * @param argMultimap       the argument multimap containing the parsed arguments
      * @param filterCriteriaMap the map to store the parsed filter criteria
      * @throws ParseException if there is an error parsing any prefix
      */
-    private void parsePrefixes(List<Prefix> allPrefixes, ArgumentMultimap argMultimap,
+    private void parsePrefixes(ArgumentMultimap argMultimap,
                                Map<ContactColumn, ColumnPredicate> filterCriteriaMap) throws ParseException {
-        for (Prefix prefix : allPrefixes) {
+        List<PrefixAlias> listOPrefixes = List.of(NAME_PREFIX, EMAIL_PREFIX, ID_PREFIX, COURSE_PREFIX,
+                GROUP_PREFIX, TAG_PREFIX);
+        for (PrefixAlias prefix : listOPrefixes) {
             if (argMultimap.getValue(prefix).isEmpty()) {
                 continue;
             }
@@ -132,7 +113,7 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
             Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(inputString);
 
             // Please forgive me. Basically, to throw exception if tags are duplicate
-            if (prefix == PREFIX_CONTACT_TAG_LONG) {
+            if (prefix == TAG_PREFIX) {
                 ParserUtil.parseTags(operatorStringPair.second());
             }
 

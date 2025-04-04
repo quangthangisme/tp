@@ -79,6 +79,124 @@ If you can type fast, TutorConnect can get your contact management tasks done fa
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
   </box>
 
+## Contact: `contact`
+
+A contact supports the following commands.
+
+### Adding a contact: `add`
+Adds a contact to the app.
+
+Format: `contact add --id ID --name NAME --email EMAIL --course COURSE --group GROUP [--tag TAG(S)]`
+
+**Tip:** A contact can have any number of tags (including 0)
+
+Examples:
+* `contact add --id A1234567A --name John Doe --email johnd@example.com --course CS50 --group T01 --tag friends owesMoney`
+
+### Editing an contact: `edit`
+Edits the details of the contact identified by the index number in the currently displayed contact list. Only the fields specified in the command will be updated; all others remain unchanged.
+
+Format:
+`contact edit INDEX [--id ID] [--name NAME] [--email EMAIL] [--course COURSE] [--group GROUP] [--tag TAG(S)]`
+
+* `INDEX` refers to the contact to be edited, based on its position in the displayed contact list.
+
+* Fields that are not included in the command will remain unchanged. You can update any combination of fields at once. At least 1 field should be edited.
+
+* If `--tag` is provided with no value, all tags will be cleared.
+
+Examples:
+
+* `contact edit 1 --email johndoe@example.com`
+
+* `contact edit 3 --name Jack Doe`
+
+* `contact edit 4 --group CS2103T`
+
+### Deleting a contact: `delete`
+
+Deletes the contact identified by the index number used in the displayed contact list.
+
+Format: `contact delete INDEX`
+
+Example:
+* `contact delete 1`
+
+### Displaying information of contact: `info`
+Displays the complete information belonging to the contact identified by the index number used in the displayed contact list.
+
+Format: `contact info INDEX`
+
+Example:
+* `contact info 1`
+
+### Clearing contact list: `clear`
+Clears the contact list.
+
+Format: `contact clear`
+
+### Tagging a contact: `tag`
+Adds one or more tags to the specified contact. Tags help categorize and filter contacts more easily (e.g., by priority, role, type, etc.).
+
+Format: `contact tag INDEX --tag TAG(S)`
+
+* `INDEX` refers to the index of the contact in the currently displayed contact list.
+
+* Duplicate tags (already added to the contact) are not allowed.
+
+Example:
+* `contact tag 1 --tag important need-help`
+
+### Untagging a contact: `untag`
+Removes one or more tags from the specified contact.
+
+Format: `contact untag INDEX --tag TAG(S)`
+
+* `INDEX` refers to the index of the contact in the currently displayed contact list.
+
+* Tags are case-sensitive and must match the tag(s) assigned to the contact.
+
+Example:
+* `contact untag 1 --tag important weekly`
+
+### Filtering contacts: `filter`
+Filters the list of contacts based on one or more criteria. You can search by contacts name, time, location, tags, or linked contacts using logical operators to combine multiple values.
+
+Format:
+`contact filter --COLUMN OPERATOR: VALUE(S) [...]`
+
+Supported columns:
+* `--name`: contact name.
+* `--id`: contact id.
+* `--email`: contact email.
+* `--course`: contact course.
+* `--group`: contact group.
+* `--tag`: tags.
+
+Operators (optional):
+* `and` (default): All values must match.
+* `or`: At least one value must match.
+* `nand`: None of the values must match.
+* `nor`: Reject all values.
+
+If an operator is not provided, it defaults to `and`. If an unrecognized operator is provided, it will be treated as a value. If multiple valid operators are provided, the first one will be applied and the rest will be treated as values.
+
+**Value formats**:
+
+Name, ID, email, course, group, and tags:
+* Provide one or more keywords separated by spaces.
+* Keywords are case-insensitive and support partial matches.
+
+Examples:
+* `contact filter --id or: 12 13`.
+    * Find students with ID 12 or 13.
+
+* `contact filter --name John Doe --course CS1010S --group or: T01 T02 T03`
+    * Find contacts with both "Darren" and "Tan" in their name who enroll in course CS1010S and class T01, T02, or T03.
+
+* `contact filter --name nand: enemy Hater --tag and: handsome smart`
+    * Find contacts whose names do not contain "enemy" and "Hater" and are tagged with both "handsome" and "smart".
+
 ## Event: `event`
 
 ### Adding an event: `add`
