@@ -1,4 +1,6 @@
 @startuml
+allowmixing
+
 !include style.puml
 skinparam arrowThickness 1.1
 skinparam arrowColor UI_COLOR_T4
@@ -29,11 +31,11 @@ Class "GenericAdapter<T>" as GenericAdapter
 }
 
 package Model <<Rectangle>> {
-Class X
+Cloud HiddenModel #FFFFFF
 }
 
 package Logic <<Rectangle>> {
-Class HiddenLogic #FFFFFF
+Cloud HiddenLogic #FFFFFF
 }
 
 UiManager .up.|> Ui
@@ -59,8 +61,8 @@ DisplayableListViewCell --> DisplayableItem : renders
 XCard ..> DisplayableItem : < getDisplayCard() creates
 Card --> UiPart : getUiPart() returns >
 GenericCardFactory --> Card : creates >
-XCard --> X: references >
-GenericAdapter --> X
+XCard --> Model: references >
+GenericAdapter --> Model
 ItemAdapter o--> CardFactory
 
 UiManager --> Logic
