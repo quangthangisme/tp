@@ -611,7 +611,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes from step 1.
 * 1f. The given tags are invalid.
-    * 1e1. TC displays an error message.
+    * 1f1. TC displays an error message.
 
       Use case resumes from step 1.
 
@@ -1128,8 +1128,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2d1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2c. The given contact is already marked as not having attended the event.
-    * 2c1. TC displays an error message.
+* 2e. The given contact is already marked as not having attended the event.
+    * 2e1. TC displays an error message.
 
       Use case ends.
 
@@ -1189,8 +1189,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1a. The given subcommand is unrecognized.
-    * 1a1. TC displays an error message.
+* 1b. The given subcommand is unrecognized.
+    * 1b1. TC displays an error message.
 
       Use case resumes at step 1.
 
