@@ -296,14 +296,14 @@ Example:
 * `event info 1`
 
 ### Clearing event list: `clear`
-Clears the event list
+Clears the event list.
 
 Format: `event clear`
 
 ### Linking contacts: `link`
 Associates one or more contacts to an event. Useful for keeping track of which contacts are involved in a particular event.
 
-Format: `event link INDEX --contact [CONTACT_INDEX/INDICES]`
+Format: `event link INDEX --contact CONTACT_INDEX/INDICES`
 
 * `INDEX` refers to the index of the event in the displayed event list.
 
@@ -319,7 +319,7 @@ Examples:
 ### Unlinking contacts: `unlink`
 Removes the association between one or more contacts and a specific event.
 
-Format: `event unlink EVENT_INDEX CONTACT_INDEX [CONTACT_INDEX/INDICES]`
+Format: `event unlink EVENT_INDEX --contact CONTACT_INDEX/INDICES`
 
 * `EVENT_INDEX` refers to the index of the event in the displayed event list.
 
@@ -373,6 +373,8 @@ Format: `event log EVENT_INDEX --contact CONTACT_INDEX [CONTACT_INDEX/INDICES]`
 
 * You can log multiple contacts at once by listing their indices.
 
+* You cannot unlog a contact that is already unlogged.
+
 **Tip:** Use event info to view the current linked contacts and their indices.
 
 Example:
@@ -390,6 +392,8 @@ Format:
 * `CONTACT_INDEX/INDICES` refers to the index(es) of the contacts previously logged for that event, as shown in event info.
 
 * You can unlog multiple contacts at once by listing their indices.
+
+* You cannot unlog a contact that is already unlogged
 
 **Important:** EVENT_INDEX must be a positive integer.
 
@@ -423,14 +427,14 @@ If an operator is not provided, it defaults to `and`.
 
 **Value formats**:
 
-Name & Location:
+Name, Location and Tag:
 * Provide one or more keywords separated by spaces.
 * Keywords are case-insensitive and support partial matches.
 
 Start & End Time:
 * Provide one or more closed intervals, each written as: `[<INTERVAL_START>/<INTERVAL_END>]`.
 * Each datetime must follow the format: `YY-MM-DD HH:MM`.
-* At least one of the two bounds must be specified.
+* At least one of the two bounds must be specified. You can replace an empty bounds using `-`.
 
 Contact:
 * Provide contact indices (as shown in the current contact list).
