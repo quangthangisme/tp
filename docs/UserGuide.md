@@ -93,7 +93,7 @@ Format: `contact add --id ID --name NAME --email EMAIL --course COURSE --group G
 Examples:
 * `contact add --id A1234567A --name John Doe --email johnd@example.com --course CS50 --group T01 --tag friends owesMoney`
 
-### Editing an contact: `edit`
+### Editing a contact: `edit`
 Edits the details of the contact identified by the index number in the currently displayed contact list. Only the fields specified in the command will be updated; all others remain unchanged.
 
 Format:
@@ -195,7 +195,7 @@ Examples:
     * Find contacts with both "Darren" and "Tan" in their name who enroll in course CS1010S and class T01, T02, or T03.
 
 * `contact filter --name nand: enemy Hater --tag and: handsome smart`
-    * Find contacts whose names do not contain "enemy" and "Hater" and are tagged with both "handsome" and "smart".
+    * Find contacts whose names do not contain both "enemy" and "Hater" and are tagged with both "handsome" and "smart".
 
 ## Event: `event`
 
