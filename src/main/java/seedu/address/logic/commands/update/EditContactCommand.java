@@ -36,7 +36,7 @@ public class EditContactCommand extends EditCommand<ContactManagerAndList, Conta
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
             + ": Edits the details of the contact identified by the index number used in the displayed contact list. "
             + "Existing values will be overwritten by the input values.\n"
-            + "Parameters: INDEX (must be a positive integer) "
+            + "Parameters: INDEX "
             + "[" + PREFIX_CONTACT_ID_LONG + "ID] "
             + "[" + PREFIX_CONTACT_NAME_LONG + "NAME] "
             + "[" + PREFIX_CONTACT_EMAIL_LONG + "EMAIL] "

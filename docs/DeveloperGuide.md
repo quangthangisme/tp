@@ -359,38 +359,46 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1b. The given contact ID is empty.
+* 1b. The given contact ID is invalid.
     * 1b1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1c. The given contact name is empty.
+* 1c. The given contact name is invalid.
     * 1c1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1d. The given contact number is empty.
+* 1d. The given contact email is invalid.
     * 1d1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1e. The given contact name contains a non-alphabetic character.
+* 1e. The given contact course is invalid.
     * 1e1. TC displays an error message.
 
       Use case resumes at step 1.
+* 1f. The given contact group is invalid.
+    * 1f1. TC displays an error message.
+
+      Use case resumes at step 1.
+* 1g. The given tags are invalid.
+    * 1g1. TC displays an error message.
+
+      Use case resumes from step 1.
 
 **Use case 2: List full information of a contact**
 
 **MSS**
-1. User <u>searches for the contact's information (UC:4)</u>.
-2. User requests to retrieve full information of a contact by ID.
+1. User <u>finds all contacts (UC:3)</u>.
+2. User requests to retrieve full information of a contact by index.
 3. TC displays full information of the contact.
 
    Use case ends.
 
 **Extensions**
-* 2a. The given contact ID does not exist.
+* 2a. The given contact index is not a positive integer.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given contact ID is empty.
+* 2b. The given contact index is out of range in the contact list.
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
@@ -404,10 +412,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 2a. The contact list is empty.
-    * 2a1. TC displays a message that the list is empty.
-
-      Use case ends.
 
 **Use case 4: Filter all contacts using some identifiable feature**
 
@@ -418,122 +422,127 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 1a. The criteria include multiple filters on the same column.
+* 1a. The criteria include a filter with an empty value.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1b. The criteria include a filter on an unrecognized column.
+
+* 1b. The criteria contains no filter.
     * 1b1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1c. The criteria include a filter with an unrecognized logical operator.
-    * 1c1. TC displays an error message.
 
-      Use case resumes at step 1.
-* 1d. The criteria include a filter without specified values.
-    * 1d1. TC displays an error message.
-
-      Use case resumes at step 1.
-* 1e. The criteria contain no filters.
-    * 1e1. TC displays an error message.
-
-      Use case resumes at step 1.
-* 1f. The criteria include a filter with multiple logical operators.
-    * 1f1. TC applies only the first operator and treats the next ones as values.
-
-      Use case resumes at step 2.
-* 2a. No contacts match the criteria.
-    * 2a1. TC displays a message that no contacts match the criteria.
-
-      Use case ends.
-
-**Use case 5: Add a tag to a contact**
+**Use case 5: Edit a contact's details**
 
 **MSS**
-1. User <u>searches for the contact's information (UC:4)</u>.
-2. User requests to add a tag to the contact by ID.
-3. TC updates the contact with the provided tag.
-4. TC displays a confirmation message.
+1. User <u>finds full information of a contact (UC:2)</u>
+2. User requests to edit some fields of the contact.
+3. TC updates those fields of the contact.
+4. TC displays a confirmation message
 
    Use case ends.
 
 **Extensions**
-* 2a. The given contact ID does not exist.
+* 2a. User does not provide any field to edit.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 1.
+* 2b. The field's detail is invalid.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+**Use case 6: Add a tag to a contact**
+
+**MSS**
+1. User requests to add a tag to the contact by index.
+2. TC updates the contact with the provided tag.
+3. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given contact index is not a positive integer.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given contact ID is empty.
+* 2b. The given contact index is out of range in the contact list.
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2c. The given tag is empty.
+* 2c. The given tags are invalid.
     * 2c1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2d. The given tag is unsupported.
-    * 2d1. TC displays an error message.
 
-      Use case resumes at step 2.
-
-**Use case 6: Remove a tag from a contact**
+**Use case 7: Remove a tag from a contact**
 
 **MSS**
-1. User <u>searches for the contact's information (UC:4)</u>.
-2. User requests to remove a tag from the contact by ID.
+1. User <u>finds all tags associated with a contact (UC:2)</u>.
+2. User requests to remove a tag from the contact by index.
 3. TC updates the contact by removing the provided tag.
 4. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 2a. The given ID is invalid.
+* 2a. The given contact index is not a positive integer.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given ID is empty.
+* 2b. The given contact index is out of range in the contact list.
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2c. The given tags are empty.
+* 2c. The given tags are invalid.
     * 2c1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2d. The given tag is unsupported.
+* 2d. One of the given tag does not exist in the contact.
     * 2d1. TC displays an error message.
 
       Use case resumes at step 2.
 
-**Use case 7: Remove a contact**
+**Use case 8: Delete a contact**
 
 **MSS**
-1. User <u>searches for the contact's information (UC:4)</u>.
-2. User requests to remove the contact by ID.
-3. TC removes the contact from the system.
+1. User <u>finds all contacts (UC:3)</u>.
+2. User requests to delete the contact by index.
+3. TC deletes the contact from the system.
 4. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 2a. The given ID is invalid.
+* 2a. The given contact index is not a positive integer.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given ID is empty.
+* 2b. The given contact index is out of range in the contact list.
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
 
-**Use case 8: Create a todo**
+**Use case 9: Delete all contacts**
 
 **MSS**
-1. User requests to create a todo and provides a name.
-2. TC creates the todo.
+1. User requests to delete all contacts.
+2. TC deletes all contacts in the contact list.
+3. TC displays a confirmation message.
+
+   Use case ends.
+
+**Use case 10: Create a todo**
+
+**MSS**
+1. User requests to create a todo and provides todo details.
+2. TC creates the todo and adds it to the todo list.
 3. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 1a. The given name is empty.
+* 1a. The given name is invalid.
     * 1a1. TC displays an error message.
 
       Use case resumes from step 1.
@@ -541,26 +550,43 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1b1. TC displays an error message.
 
       Use case resumes from step 1.
+* 1c. The given deadline is invalid.
+    * 1c1. TC displays an error message.
 
-**Use case 9: List full information of a todo**
+      Use case resumes from step 1.
+* 1d. The given deadline is invalid.
+    * 1d1. TC displays an error message.
+
+      Use case resumes from step 1.
+* 1e. The given location is invalid.
+    * 1e1. TC displays an error message.
+
+      Use case resumes from step 1.
+* 1f. The given tags are invalid.
+    * 1e1. TC displays an error message.
+
+      Use case resumes from step 1.
+
+**Use case 11: List full information of a todo**
 
 **MSS**
-1. User requests to see full information of a todo.
-2. TC displays full information of the todo.
+1. User <u>finds all todos (UC:12)</u>.
+2. User requests to retrieve full information of the todo by index.
+3. TC displays full information of the todo.
 
    Use case ends.
 
 **Extensions**
-* 2a. The given name is invalid.
+* 2a. The given todo index is not a positive integer.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given name is empty.
+* 2b. The given todo index is out of range in the todo list.
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
 
-**Use case 10: List all todos**
+**Use case 12: List all todos**
 
 **MSS**
 1. User requests to view all todos.
@@ -568,149 +594,238 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Extensions**
-* 2a. The todo list is empty.
-    * 2a1. TC displays a message that the list is empty.
-
-      Use case ends.
-
-**Use case 11: Add a contact to a todo**
+**Use case 13: Filter all todos using some identifiable feature**
 
 **MSS**
-1. User <u>searches for the contact's information (UC:4)</u>.
-2. User requests to add the contact to a todo by ID.
+1. User requests to filter all todos using some specific criteria.
+2. TC displays the matching todos along with the number of results.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The criteria include a filter with an empty value.
+    * 1a1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 1b. The criteria contains no filter.
+    * 1b1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+**Use case 14: Edit a todo's details**
+
+**MSS**
+1. User <u>finds full information of a todo (UC:11)</u>.
+2. User requests to edit some fields of the todo.
+3. TC updates those fields of the todo.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. User does not provide any field to edit.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 1.
+* 2b. The field's detail is invalid.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+**Use case 15: Add a tag to a todo**
+
+**MSS**
+1. User requests to add a tag to the todo by index.
+2. TC updates the todo with the provided tag.
+3. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given todo index is not a positive integer.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given todo index is out of range in the todo list.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2c. The given tags are invalid.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 16: Remove a tag from a todo**
+
+**MSS**
+1. User <u>finds all tags associated with a todo (UC:11)</u>.
+2. User requests to remove a tag from the todo by index.
+3. TC updates the todo by removing the provided tag.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given todo index is not a positive integer.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given todo index is out of range in the todo list.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2c. The given tags are invalid.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2d. One of the given tag does not exist in the contact.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 17: Add a contact to a todo**
+
+**MSS**
+1. User <u>finds all contacts (UC:3)</u>.
+2. User requests to add the contact to a todo by todo index and contact index.
 3. TC associates the contact with the todo.
 4. TC displays a confirmation message.
 
 **Extensions**
-* 2a. The given name is invalid.
-    * 2a1. TC displays an error message.
+* 3a. The given todo index is not a positive integer.
+    * 3a1. TC displays an error message.
 
-      Use case resumes at step 2.
-* 2b. The given name is empty.
-    * 2b1. TC displays an error message.
+      Use case resumes at step 3.
+* 3b. The given todo index is out of range in the todo list.
+    * 3b1. TC displays an error message.
 
-      Use case resumes from step 2.
-* 2c. The given ID is invalid.
-    * 2c1. TC displays an error message.
+      Use case resumes at step 3.
+* 3c. The given contact index is not a positive integer.
+    * 3c1. TC displays an error message.
 
-      Use case resumes at step 2.
-* 2d. The given ID is empty.
-    * 2d1. TC displays an error message.
+      Use case resumes at step 3.
+* 3d. The given contact index is out of range in the contact list.
+    * 3d1. TC displays an error message.
 
-      Use case resumes at step 2.
-* 2e. The contact is already assigned to the todo.
-    * 2e1. TC displays an error message.
+      Use case resumes at step 3.
+* 3e. The contact is already assigned to the todo.
+    * 3e1. TC displays an error message.
 
-      Use case resumes from step 2.
+      Use case resumes from step 3.
 
-**Use case 12: Remove a contact from a todo**
+**Use case 18: Remove a contact from a todo**
 
 **MSS**
-1. User <u>finds all contacts associated with a todo (UC:9)</u>.
-2. User requests to remove a contact from a todo by ID.
+1. User <u>finds all contacts associated with a todo (UC:11)</u>.
+2. User requests to remove a contact from a todo by todo index and contact index.
 3. TC removes the association.
 4. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 2a. The given name is invalid.
+* 2a. The given todo index is not a positive integer.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given name is empty.
+* 2b. The given todo index is out of range in the todo list.
     * 2b1. TC displays an error message.
 
-      Use case resumes from step 2.
-* 2c. The given ID is invalid.
+      Use case resumes at step 2.
+* 2c. The given contact index is not a positive integer.
     * 2c1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2d. The given ID is empty.
+* 2d. The given contact index is out of range in the todo's contact list.
     * 2d1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2e. The contact is not assigned to the todo.
-    * 2e1. TC displays an error message.
 
-      Use case resumes from step 2.
-
-**Use case 13: Mark a todo as completed**
+**Use case 19: Mark a todo as completed**
 
 **MSS**
-1. User <u>finds all todos (UC:10)</u>.
-2. User requests to mark a todo as completed.
+1. User <u>finds all todos (UC:12)</u>.
+2. User requests to mark a todo as completed by index.
 3. TC marks the todo as completed.
 4. TC displays a confirmation message.
 
 **Extensions**
-* 2a. The given name is invalid.
+* 2a. The given todo index is not a positive integer.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given name is empty.
+* 2b. The given todo index is out of range in the todo list.
     * 2b1. TC displays an error message.
 
-      Use case resumes from step 2.
+      Use case resumes at step 2.
 * 2c. The todo is already completed.
     * 2c1. TC displays an error message.
 
       Use case ends.
 
-**Use case 14: Mark a todo as not completed**
+**Use case 20: Mark a todo as not completed**
 
 **MSS**
-1. User <u>finds all todos (UC:10)</u>.
-2. User requests to mark a todo as not completed.
+1. User <u>finds all todos (UC:12)</u>.
+2. User requests to mark a todo as not completed by index.
 3. TC marks the todo as not completed.
 4. TC displays a confirmation message.
 
 **Extensions**
-* 2a. The given name is invalid.
+* 2a. The given todo index is not a positive integer.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given name is empty.
+* 2b. The given todo index is out of range in the todo list.
     * 2b1. TC displays an error message.
 
-      Use case resumes from step 2.
+      Use case resumes at step 2.
 * 2c. The todo is not completed.
     * 2c1. TC displays an error message.
 
       Use case ends.
 
-**Use case 15: Delete a todo**
+**Use case 21: Delete a todo**
 
 **MSS**
-1. User <u>finds all todos (UC:10)</u>.
-2. User requests to delete a todo.
-3. TC deletes the task.
+1. User <u>finds all todos (UC:12)</u>.
+2. User requests to delete a todo by index.
+3. TC deletes the todo.
 4. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 2a. The given name is invalid.
+* 2a. The given todo index is not a positive integer.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given name is empty.
+* 2b. The given todo index is out of range in the todo list.
     * 2b1. TC displays an error message.
 
-      Use case resumes from step 2.
+      Use case resumes at step 2.
 
-**Use case 16: Create an event**
+**Use case 22: Delete all todos**
 
 **MSS**
-1. User requests to create a new event.
-2. TC creates the event.
+1. User requests to delete all todos.
+2. TC deletes all todos in the todo list.
+3. TC displays a confirmation message.
+
+   Use case ends.
+
+**Use case 23: Create an event**
+
+**MSS**
+1. User requests to create an event and provides event details.
+2. TC creates the todo and adds it to the event list.
 3. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 1a. The given name is empty.
+* 1a. The given name is invalid.
     * 1a1. TC displays an error message.
 
       Use case resumes from step 1.
@@ -726,26 +841,16 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1d1. TC displays an error message.
 
       Use case resumes from step 1.
+* 1e. The given location is invalid.
+    * 1e1. TC displays an error message.
 
-**Use case 17: List full information of an event**
+      Use case resumes from step 1.
+* 1f. The given tags are invalid.
+    * 1f1. TC displays an error message.
 
-**MSS**
-1. User requests to see full information of an event.
-2. TC displays full information of the event.
+      Use case resumes from step 1.
 
-   Use case ends.
-
-**Extensions**
-* 2a. The given name is invalid.
-    * 2a1. TC displays an error message.
-
-      Use case resumes at step 2.
-* 2b. The given name is empty.
-    * 2b1. TC displays an error message.
-
-      Use case resumes at step 2.
-
-**Use case 18: List all events**
+**Use case 24: List all events**
 
 **MSS**
 1. User requests to view all events.
@@ -753,242 +858,301 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Extensions**
-* 2a. The event list is empty.
-    * 2a1. TC displays a message that the list is empty.
-
-      Use case ends.
-
-**Use case 19: Add a contact to an event**
+**Use case 25: List full information of an event**
 
 **MSS**
-1. User <u>searches for the contact's information (UC:4)</u>.
-2. User requests to add the contact to an event by ID.
+1. User <u>finds all events (UC:24)</u>.
+2. User requests to retrieve full information of the event by index.
+3. TC displays full information of the event.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given event index is not a positive integer.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given event index is out of range in the event list.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 26: Filter all events using some identifiable feature**
+
+**MSS**
+1. User requests to filter all events using some specific criteria.
+2. TC displays the matching events along with the number of results.
+
+   Use case ends.
+
+**Extensions**
+* 1a. The criteria include a filter with an empty value.
+    * 1a1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+* 1b. The criteria contains no filter.
+    * 1b1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+**Use case 27: Edit an event's details**
+
+**MSS**
+1. User <u>finds full information of a event (UC:24)</u>.
+2. User requests to edit some fields of the event.
+3. TC updates those fields of the event.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. User does not provide any fields to edit.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 1.
+* 2b. The field's detail is invalid.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 1.
+
+**Use case 28: Add a tag to an event**
+
+**MSS**
+1. User requests to add a tag to the todo by index.
+2. TC updates the todo with the provided tag.
+3. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given event index is not a positive integer.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given event index is out of range in the event list.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2c. The given tags are invalid.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 29: Remove a tag from an event**
+
+**MSS**
+1. User <u>finds all tags associated with an event (UC:25)</u>.
+2. User requests to remove a tag from the event by index.
+3. TC updates the event by removing the provided tag.
+4. TC displays a confirmation message.
+
+   Use case ends.
+
+**Extensions**
+* 2a. The given event index is not a positive integer.
+    * 2a1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2b. The given event index is out of range in the event list.
+    * 2b1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2c. The given tags are invalid.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2d. One of the given tags does not exist in the event.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
+
+**Use case 30: Add a contact to an event**
+
+**MSS**
+1. User <u>finds all contacts (UC:3)</u>.
+2. User requests to add the contact to an event by event index and contact index.
 3. TC associates the contact with the event.
 4. TC displays a confirmation message.
 
 **Extensions**
-* 2a. The given name is invalid.
-    * 2a1. TC displays an error message.
+* 3a. The given event index is not a positive integer.
+    * 3a1. TC displays an error message.
 
-      Use case resumes at step 2.
-* 2b. The given name is empty.
-    * 2b1. TC displays an error message.
+      Use case resumes at step 3.
+* 3b. The given event index is out of range in the event list.
+    * 3b1. TC displays an error message.
 
-      Use case resumes from step 2.
-* 2c. The given ID is invalid.
-    * 2c1. TC displays an error message.
+      Use case resumes at step 3.
+* 3c. The given contact index is not a positive integer.
+    * 3c1. TC displays an error message.
 
-      Use case resumes at step 2.
-* 2d. The given ID is empty.
-    * 2d1. TC displays an error message.
+      Use case resumes at step 3.
+* 3d. The given contact index is out of range in the contact list.
+    * 3d1. TC displays an error message.
 
-      Use case resumes at step 2.
-* 2e. The contact is already assigned to the event.
-    * 2e1. TC displays an error message.
+      Use case resumes at step 3.
+* 3e. The contact is already assigned to the event.
+    * 3e1. TC displays an error message.
 
-      Use case resumes from step 2.
+      Use case resumes from step 3.
 
-**Use case 20: Remove a contact from an event**
+**Use case 31: Remove a contact from an event**
 
 **MSS**
-1. User <u>finds all contacts associated with an event (UC:17)</u>.
-2. User requests to remove a contact from an event by ID.
+1. User <u>finds all contacts associated with an event (UC:25)</u>.
+2. User requests to remove a contact from an event by event index and contact index.
 3. TC removes the association.
 4. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 2a. The given name is invalid.
+* 2a. The given event index is not a positive integer.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given name is empty.
+* 2b. The given event index is out of range in the event list.
     * 2b1. TC displays an error message.
 
-      Use case resumes from step 2.
-* 2c. The given ID is invalid.
+      Use case resumes at step 2.
+* 2c. The given contact index is not a positive integer.
     * 2c1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2d. The given ID is empty.
+* 2d. The given contact index is out of range in the event's contact list.
     * 2d1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2e. The contact is not assigned to the event.
-    * 2e1. TC displays an error message.
 
-      Use case resumes from step 2.
-
-**Use case 21: Log a contact as having attended an event**
+**Use case 32: Log a contact as having attended an event**
 
 **MSS**
-1. User <u>finds all events (UC:18)</u>.
-2. User requests to log a contact as having attended for an event.
+1. User <u>finds all contacts associated with an event (UC:25)</u>.
+2. User requests to log a contact as having attended for an event by event index and contact index.
 3. TC marks the contact as attended.
 4. TC displays a confirmation message.
 
 **Extensions**
-* 2a. The given name is invalid.
-    * 2a1. TC displays an error message.
+* 3a. The given event index is not a positive integer.
+    * 3a1. TC displays an error message.
+
+      Use case resumes at step 3.
+* 3b. The given event index is out of range in the event list.
+    * 3b1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given name is empty.
-    * 2b1. TC displays an error message.
+* 3c. The given contact index is not a positive integer.
+    * 3c1. TC displays an error message.
 
-      Use case resumes from step 2.
-* 2c. The given contact has already attended the event.
-    * 2c1. TC displays an error message.
+      Use case resumes at step 2.
+* 3d. The given contact index is out of range in the event's contact list.
+    * 3d1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 3e. The given contact has already been logged as having attended the event.
+    * 3e1. TC displays an error message.
 
       Use case ends.
 
-**Use case 22: Log a contact as not having attended an event**
+**Use case 33: Log a contact as not having attended an event**
 
 **MSS**
-1. User <u>finds all events (UC:18)</u>.
-2. User requests to log a contact as not having attended for an event.
+1. User <u>finds all contacts associated with an event (UC:25)</u>.
+2. User requests to log a contact as not having attended for an event by event index and contact index.
 3. TC marks the contact as not attended.
 4. TC displays a confirmation message.
 
 **Extensions**
-* 2a. The given name is invalid.
+* 2a. The given event index is not a positive integer.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given name is empty.
+* 2b. The given event index is out of range in the event list.
     * 2b1. TC displays an error message.
 
-      Use case resumes from step 2.
+      Use case resumes at step 2.
+* 2c. The given contact index is not a positive integer.
+    * 2c1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2d. The given contact index is out of range in the event's contact list.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
 * 2c. The given contact is already marked as not having attended the event.
     * 2c1. TC displays an error message.
 
       Use case ends.
 
-**Use case 23: Delete an event**
+**Use case 34: Delete an event**
 
 **MSS**
-1. User <u>finds all events (UC:18)</u>.
-2. User requests to delete an event.
-3. TC deletes the task.
+1. User <u>finds all events (UC:24)</u>.
+2. User requests to delete an event by index.
+3. TC deletes the event.
 4. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 2a. The given name is invalid.
+* 2a. The given event index is not a positive integer.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given name is empty.
+* 2b. The given event index is out of range in the event list.
     * 2b1. TC displays an error message.
 
-      Use case resumes from step 2.
+      Use case resumes at step 2.
 
-**Use case 24: List help message of a command**
+**Use case 35: Delete all events**
 
 **MSS**
-1. User requests to list help message of a command.
-2. TC displays the help message of the command.
+1. User requests to delete all events.
+2. TC deletes all events in the event list.
+3. TC displays a confirmation message.
+
+   Use case ends.
+
+**Use case 36: List all subcommands by feature**
+
+**MSS**
+1. User requests to list all subcommands of a feature.
+2. TC displays all subcommands of that feature.
 
    Use case ends.
 
 **Extensions**
-* 1a. The given command is invalid.
+* 1a. The given feature is invalid.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
 
-**Use case 25: List help message of all commands**
+**Use case 37: List help message of a subcommand**
 
 **MSS**
-1. User requests to list help message of all commands.
+1. User requests to see help message of a subcommand of a specific feature.
 2. TC displays the help message.
 
    Use case ends.
 
-**Use case 26: Exit the program**
-
-**MSS**
-1. User requests to exit the program.
-2. TC <u>exports the database to the default directory (UC:28)</u>.
-3. TC exits the program.
-
-   Use case ends.
-
-**Use case 27: Import database from a directory**
-
-**MSS**
-1. User requests to load database from a directory.
-2. TC loads the data of an entry and populates the database.
-
-   Step 2 is repeated until all entries are loaded.
-3. TC displays the populated data.
-
-   Use case ends.
-
 **Extensions**
-* 1a. The given database file does not exist.
-    * 1a1. TC displays error message.
-
-      Use case resumes at step 1.
-* 1b. The given database file is corrupted or in wrong format.
-    * 1b1. TC displays an error message.
-
-      Use case ends.
-* 2a. TC encounters an invalid data entry.
-    * 2a1. TC skips loading the invalid entry and logs this in a logfile.
-    * 2a2. TC displays a warning message.
-
-      Use case resumes at step 2. 
-* 2b. TC encounters duplicate entries.
-    * 2b1. TC keeps the existing entries and logs the duplicates in a logfile.
-    * 2b2. TC displays a warning message.
-
-      Use case resumes at step 2.
-
-**Use case 28: Export database to a directory**
-
-**MSS**
-1. User requests to export data to a directory.
-2. TC creates a timestamped directory within the specified path.
-3. TC copies current database into timestamped directory as a `.json` file.
-4. TC displays a confirmation message.
-
-   Use case ends.
-
-**Extensions**
-* 1a. Directory path is empty.
+* 1a. The given feature is unrecognized.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1b. Directory path contains invalid characters.
-    * 1b1. TC displays an error message.
+* 1a. The given subcommand is unrecognized.
+    * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1c. Directory specified is an invalid path.
-    * 1c1. TC displays an error message.
 
-      Use case resumes at step 1.
-* 2a. User lacks write permissions.
-    * 2a1. TC displays an error message.
+**Use case 38: Exit the program**
 
-      Use case ends.
-* 2b. Cannot create timestamped directory.
-    * 2b1. TC attempts to use alternative naming.
-    * 2b2. If alternative naming fails, TC displays an error message.
+**MSS**
+1. User requests to exit the program.
+2. TC exits the program.
 
-      Use case ends.
-* 3a. Insufficient disk space.
-    * 3a1. TC displays an error message.
-
-      Use case ends.
-* 3b. Error during data export.
-    * 3b1. TC displays an error message.
-    * 3b2. TC removes partially exported files.
-    * 3b3. TC logs the export error details.
-
-      Use case ends.
+   Use case ends.
 
 ### Non-Functional Requirements
 
