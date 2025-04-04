@@ -1,24 +1,31 @@
 package seedu.address.storage.contact;
 
+import static seedu.address.storage.StorageMessage.MESSAGE_DUPLICATE_FOUND;
+import static seedu.address.storage.StorageMessage.MESSAGE_INVALID_VALUE_FOUND;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonRootName;
 
+import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.contact.Contact;
 import seedu.address.model.contact.ContactManager;
 import seedu.address.model.item.ItemNotInvolvingContactManager;
 
 /**
- * An Immutable AddressBook that is serializable to JSON format.
+ * An Immutable contact list that is serializable to JSON format.
  */
-@JsonRootName(value = "addressbook")
+@JsonRootName(value = "contactList")
 public class JsonSerializableContactManager {
 
     public static final String MESSAGE_DUPLICATE_CONTACT = "Contacts list contains duplicate contact(s).";
+
+    private static final Logger logger = LogsCenter.getLogger(JsonSerializableContactManager.class);
 
     private final List<JsonAdaptedContact> contacts = new ArrayList<>();
 
@@ -33,7 +40,8 @@ public class JsonSerializableContactManager {
     /**
      * Converts a given {@code ItemManager<Contact>} into this class for Jackson use.
      *
-     * @param source future changes to this will not affect the created {@code JsonSerializableAddressBook}.
+     * @param source future changes to this will not affect the created
+     *               {@code JsonSerializableAddressBook}.
      */
     public JsonSerializableContactManager(ItemNotInvolvingContactManager<Contact> source) {
         contacts.addAll(source.getItemList().stream().map(JsonAdaptedContact::new).toList());
@@ -41,15 +49,21 @@ public class JsonSerializableContactManager {
 
     /**
      * Converts this address book into the model's {@code ContactManager} object.
-     *
-     * @throws IllegalValueException if there were any data constraints violated.
      */
-    public ContactManager toModelType() throws IllegalValueException {
+    public ContactManager toModelType() {
         ContactManager contactManager = new ContactManager();
         for (JsonAdaptedContact jsonAdaptedContact : contacts) {
-            Contact contact = jsonAdaptedContact.toModelType();
+            Contact contact;
+            try {
+                contact = jsonAdaptedContact.toModelType();
+            } catch (IllegalValueException e) {
+                logger.info(String.format(MESSAGE_INVALID_VALUE_FOUND, jsonAdaptedContact)
+                        + e.getMessage());
+                continue;
+            }
             if (contactManager.hasItem(contact)) {
-                throw new IllegalValueException(MESSAGE_DUPLICATE_CONTACT);
+                logger.info(String.format(MESSAGE_DUPLICATE_FOUND, jsonAdaptedContact));
+                continue;
             }
             contactManager.addItem(contact);
         }

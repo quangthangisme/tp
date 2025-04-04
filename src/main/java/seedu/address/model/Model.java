@@ -43,12 +43,12 @@ public interface Model {
     /**
      * Returns the user prefs' address book file path.
      */
-    Path getAddressBookFilePath();
+    Path getContactListFilePath();
 
     /**
      * Sets the user prefs' address book file path.
      */
-    void setAddressBookFilePath(Path addressBookFilePath);
+    void setContactListFilePath(Path contactListFilePath);
 
     /**
      * Returns the user prefs' todo list file path.

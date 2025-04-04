@@ -51,7 +51,7 @@ public class LogicManagerTest {
     @BeforeEach
     public void setUp() {
         JsonContactStorage addressBookStorage =
-                new JsonContactStorage(temporaryFolder.resolve("addressBook.json"));
+                new JsonContactStorage(temporaryFolder.resolve("contactlist.json"));
         JsonTodoStorage todoStorage =
                 new JsonTodoStorage(temporaryFolder.resolve("todolist.json"));
         JsonEventStorage eventStorage =

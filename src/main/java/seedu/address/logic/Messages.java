@@ -23,11 +23,9 @@ public class Messages {
     public static final String MESSAGE_SEARCH_OVERVIEW = "Number of results: %1$d";
     public static final String MESSAGE_DUPLICATE_FIELDS = "Duplicate prefixes detected: ";
 
-    public static final String MESSAGE_DUPLICATE_COLUMN = "Duplicate column: %s.";
     public static final String MESSAGE_NO_COLUMNS = "Specify at least one column and value.";
     public static final String MESSAGE_NO_VALUES = "No values specified for column '%s'.";
     public static final String MESSAGE_UNRECOGNIZED_COLUMN = "Unrecognized column: '%s'.";
-    public static final String MESSAGE_UNRECOGNIZED_OPERATOR = "Unrecognized operator: '%s'.";
     public static final String MESSAGE_DUPLICATE_TAGS = "Duplicate tags found for: %s";
 
 

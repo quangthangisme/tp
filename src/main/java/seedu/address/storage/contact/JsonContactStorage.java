@@ -9,7 +9,6 @@ import java.util.logging.Logger;
 
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.commons.exceptions.DataLoadingException;
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.FileUtil;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.contact.Contact;
@@ -49,16 +48,8 @@ public class JsonContactStorage implements ContactStorage {
 
         Optional<JsonSerializableContactManager> jsonAddressBook = JsonUtil.readJsonFile(
                 filePath, JsonSerializableContactManager.class);
-        if (!jsonAddressBook.isPresent()) {
-            return Optional.empty();
-        }
+        return jsonAddressBook.map(JsonSerializableContactManager::toModelType);
 
-        try {
-            return Optional.of(jsonAddressBook.get().toModelType());
-        } catch (IllegalValueException ive) {
-            logger.info("Illegal values found in " + filePath + ": " + ive.getMessage());
-            throw new DataLoadingException(ive);
-        }
     }
 
     @Override
@@ -72,7 +63,8 @@ public class JsonContactStorage implements ContactStorage {
      * @param filePath location of the data. Cannot be null.
      */
     @Override
-    public void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook, Path filePath) throws IOException {
+    public void saveAddressBook(ItemNotInvolvingContactManager<Contact> addressBook,
+                                Path filePath) throws IOException {
         requireNonNull(addressBook);
         requireNonNull(filePath);
 

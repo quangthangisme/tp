@@ -154,19 +154,47 @@ Clears all entries from the address book.
 
 Format: `clear`
 
-### Exiting the program : `exit`
+### Listing all features: `help`
+
+Lists all features 
+
+Format: `help`
+
+### Listing all subcommands of a feature: `help`
+
+Lists all subcommands of a feature.
+
+Format: `help FEATURE`
+
+Examples:
+* `help contact` shows all subcommands of contact feature.
+* `help todo` shows all subcommands of todo feature.
+* `help event` shows all subcommands of event feature.
+
+### Listing help message of a subcommand of a feature: `help`
+
+Lists help message of a subcommand of a feature.
+
+Format: `help FEATURE SUBCOMMAND`
+
+Examples:
+* `help contact add` shows help message of `contact add` command.
+* `help todo mark` shows help message of `todo mark` command.
+* `help event log` show help message of `event log` command.
+
+### Exiting the program : `exit`/`quit`/`kill`/`bye`
 
 Exits the program.
 
-Format: `exit`
+Format: `exit`/`quit`/`kill`/`bye`
 
 ### Saving the data
 
-AddressBook data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
+Data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
 
 ### Editing the data file
 
-AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
+Data are saved automatically as a JSON file `[JAR file location]/data/[FILE_NAME].json`. Advanced users are welcome to update data directly by editing that data file.
 
 <box type="warning" seamless>
 
