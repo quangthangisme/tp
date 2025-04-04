@@ -6,6 +6,7 @@ import static seedu.address.logic.Messages.MESSAGE_NO_COLUMNS;
 import static seedu.address.logic.Messages.MESSAGE_NO_VALUES;
 import static seedu.address.logic.Messages.MESSAGE_UNRECOGNIZED_COLUMN;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_COURSE_LONG;
+import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_COURSE_SHORT;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_EMAIL_LONG;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_EMAIL_SHORT;
 import static seedu.address.logic.parser.contact.ContactCliSyntax.PREFIX_CONTACT_GROUP_LONG;
@@ -103,7 +104,7 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
                 || prefixStr.equals(PREFIX_CONTACT_TAG_SHORT.getPrefix())) {
             return ContactColumn.TAG;
         } else if (prefixStr.equals(PREFIX_CONTACT_COURSE_LONG.getPrefix())
-                || prefixStr.equals(PREFIX_CONTACT_COURSE_LONG.getPrefix())) {
+                || prefixStr.equals(PREFIX_CONTACT_COURSE_SHORT.getPrefix())) {
             return ContactColumn.COURSE;
         } else if (prefixStr.equals(PREFIX_CONTACT_GROUP_LONG.getPrefix())
                 || prefixStr.equals(PREFIX_CONTACT_GROUP_SHORT.getPrefix())) {
@@ -132,7 +133,7 @@ public class FilterContactCommandParser implements Parser<FilterContactCommand> 
             Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(inputString);
 
             // Please forgive me. Basically, to throw exception if tags are duplicate
-            if (prefix == PREFIX_CONTACT_TAG_LONG) {
+            if (prefix == PREFIX_CONTACT_TAG_LONG || prefix == PREFIX_CONTACT_TAG_SHORT) {
                 ParserUtil.parseTags(operatorStringPair.second());
             }
 
