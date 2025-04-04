@@ -98,7 +98,7 @@ public class EditEventCommandParser implements Parser<EditEventCommand> {
     private Optional<List<Index>> parseLinkedContacts(ArgumentMultimap argMultimap,
                                                       EditEventDescriptor editEventDescriptor)
             throws ParseException {
-        Optional<List<Index>> linkedContactIndices = Optional.empty();
+        Optional<List<Index>> linkedContactIndices;
         if (argMultimap.getValue(contactPrefix).isPresent()) {
             linkedContactIndices = Optional.of(ParserUtil.parseIndices(argMultimap
                     .getValue(contactPrefix).get()));
