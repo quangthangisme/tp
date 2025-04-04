@@ -127,7 +127,7 @@ Displays the complete information belonging to the contact identified by the ind
 Format: `contact info INDEX`
 
 Example:
-* `event info 1`
+* `contact info 1`
 
 ### Clearing contact list: `clear`
 Clears the contact list.
@@ -149,7 +149,7 @@ Example:
 ### Untagging a contact: `untag`
 Removes one or more tags from the specified contact.
 
-Format: `event untag INDEX --tag TAG(S)`
+Format: `contact untag INDEX --tag TAG(S)`
 
 * `INDEX` refers to the index of the contact in the currently displayed contact list.
 
