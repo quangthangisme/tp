@@ -379,6 +379,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1f1. TC displays an error message.
 
       Use case resumes at step 1.
+* 1g. The given tags are invalid.
+    * 1g1. TC displays an error message.
+
+      Use case resumes from step 1.
 
 **Use case 2: List full information of a contact**
 
@@ -418,16 +422,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 1a. The criteria include a filter on an unrecognized column.
+* 1a. The criteria include a filter with an empty value.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1b. The criteria include a filter with an unrecognized logical operator.
-    * 1b1. TC displays an error message.
 
-      Use case resumes at step 1.
-* 1c. The criteria include a filter with an empty value.
-    * 1c1. TC displays an error message.
+* 1b. The criteria contains no filter.
+    * 1b1. TC displays an error message.
 
       Use case resumes at step 1.
 
@@ -442,7 +443,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 2a. The given field's name is unrecognized.
+* 2a. User does not provide any field to edit.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 1.
@@ -454,10 +455,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 6: Add a tag to a contact**
 
 **MSS**
-1. User <u>finds all tags associated with a contact (UC:2)</u>.
-2. User requests to add a tag to the contact by index.
-3. TC updates the contact with the provided tag.
-4. TC displays a confirmation message.
+1. User requests to add a tag to the contact by index.
+2. TC updates the contact with the provided tag.
+3. TC displays a confirmation message.
 
    Use case ends.
 
@@ -470,7 +470,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2c. The given tag is empty.
+* 2c. The given tags are invalid.
     * 2c1. TC displays an error message.
 
       Use case resumes at step 2.
@@ -494,11 +494,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2c. The given tag is empty.
+* 2c. The given tags are invalid.
     * 2c1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2d. The given tag does not exist in the contact.
+* 2d. One of the given tag does not exist in the contact.
     * 2d1. TC displays an error message.
 
       Use case resumes at step 2.
@@ -562,11 +562,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1e1. TC displays an error message.
 
       Use case resumes from step 1.
+* 1f. The given tags are invalid.
+    * 1e1. TC displays an error message.
+
+      Use case resumes from step 1.
 
 **Use case 11: List full information of a todo**
 
 **MSS**
-1. User <u>finds all todos (UC:10)</u>.
+1. User <u>finds all todos (UC:12)</u>.
 2. User requests to retrieve full information of the todo by index.
 3. TC displays full information of the todo.
 
@@ -599,16 +603,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 1a. The criteria include a filter on an unrecognized column.
+* 1a. The criteria include a filter with an empty value.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1b. The criteria include a filter with an unrecognized logical operator.
-    * 1b1. TC displays an error message.
 
-      Use case resumes at step 1.
-* 1c. The criteria include a filter with an empty value.
-    * 1c1. TC displays an error message.
+* 1b. The criteria contains no filter.
+    * 1b1. TC displays an error message.
 
       Use case resumes at step 1.
 
@@ -623,7 +624,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 2a. The given field's name is unrecognized.
+* 2a. User does not provide any field to edit.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 1.
@@ -635,10 +636,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 15: Add a tag to a todo**
 
 **MSS**
-1. User <u>finds all tags associated with a todo (UC:11)</u>.
-2. User requests to add a tag to the todo by index.
-3. TC updates the todo with the provided tag.
-4. TC displays a confirmation message.
+1. User requests to add a tag to the todo by index.
+2. TC updates the todo with the provided tag.
+3. TC displays a confirmation message.
 
    Use case ends.
 
@@ -651,7 +651,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2c. The given tag is empty.
+* 2c. The given tags are invalid.
     * 2c1. TC displays an error message.
 
       Use case resumes at step 2.
@@ -675,11 +675,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2c. The given tag is empty.
+* 2c. The given tags are invalid.
     * 2c1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2d. The given tag does not exist in the todo.
+* 2d. One of the given tag does not exist in the contact.
     * 2d1. TC displays an error message.
 
       Use case resumes at step 2.
@@ -687,11 +687,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 17: Add a contact to a todo**
 
 **MSS**
-1. User <u>finds all contacts associated with a todo (UC:11)</u>.
-2. User <u>finds all contacts (UC:3)</u>.
-3. User requests to add the contact to a todo by todo index and contact index.
-4. TC associates the contact with the todo.
-5. TC displays a confirmation message.
+1. User <u>finds all contacts (UC:3)</u>.
+2. User requests to add the contact to a todo by todo index and contact index.
+3. TC associates the contact with the todo.
+4. TC displays a confirmation message.
 
 **Extensions**
 * 3a. The given todo index is not a positive integer.
@@ -846,6 +845,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 1e1. TC displays an error message.
 
       Use case resumes from step 1.
+* 1f. The given tags are invalid.
+    * 1f1. TC displays an error message.
+
+      Use case resumes from step 1.
 
 **Use case 24: List all events**
 
@@ -883,16 +886,13 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 1a. The criteria include a filter on an unrecognized column.
+* 1a. The criteria include a filter with an empty value.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1b. The criteria include a filter with an unrecognized logical operator.
-    * 1b1. TC displays an error message.
 
-      Use case resumes at step 1.
-* 1c. The criteria include a filter with an empty value.
-    * 1c1. TC displays an error message.
+* 1b. The criteria contains no filter.
+    * 1b1. TC displays an error message.
 
       Use case resumes at step 1.
 
@@ -907,7 +907,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 2a. The given field's name is unrecognized.
+* 2a. User does not provide any fields to edit.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 1.
@@ -919,23 +919,22 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 28: Add a tag to an event**
 
 **MSS**
-1. User <u>finds all tags associated with an event (UC:25)</u>.
-2. User requests to add a tag to the todo by index.
-3. TC updates the todo with the provided tag.
-4. TC displays a confirmation message.
+1. User requests to add a tag to the todo by index.
+2. TC updates the todo with the provided tag.
+3. TC displays a confirmation message.
 
    Use case ends.
 
 **Extensions**
-* 2a. The given todo index is not a positive integer.
+* 2a. The given event index is not a positive integer.
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given todo index is out of range in the todo list.
+* 2b. The given event index is out of range in the event list.
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2c. The given tag is empty.
+* 2c. The given tags are invalid.
     * 2c1. TC displays an error message.
 
       Use case resumes at step 2.
@@ -944,8 +943,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 1. User <u>finds all tags associated with an event (UC:25)</u>.
-2. User requests to remove a tag from the todo by index.
-3. TC updates the todo by removing the provided tag.
+2. User requests to remove a tag from the event by index.
+3. TC updates the event by removing the provided tag.
 4. TC displays a confirmation message.
 
    Use case ends.
@@ -955,15 +954,15 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2b. The given event index is out of range in the todo list.
+* 2b. The given event index is out of range in the event list.
     * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2c. The given tag is empty.
+* 2c. The given tags are invalid.
     * 2c1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2d. The given tag does not exist in the event.
+* 2d. One of the given tags does not exist in the event.
     * 2d1. TC displays an error message.
 
       Use case resumes at step 2.
@@ -971,11 +970,10 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 30: Add a contact to an event**
 
 **MSS**
-1. User <u>searches for the event's information (UC:25)</u>.
-2. User <u>finds all contacts (UC:3)</u>.
-3. User requests to add the contact to an event by event index and contact index.
-4. TC associates the contact with the event.
-5. TC displays a confirmation message.
+1. User <u>finds all contacts (UC:3)</u>.
+2. User requests to add the contact to an event by event index and contact index.
+3. TC associates the contact with the event.
+4. TC displays a confirmation message.
 
 **Extensions**
 * 3a. The given event index is not a positive integer.
@@ -1031,10 +1029,9 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 1. User <u>finds all contacts associated with an event (UC:25)</u>.
-2. User <u>finds all contacts (UC:3)</u>.
-3. User requests to log a contact as having attended for an event by event index and contact index.
-4. TC marks the contact as attended.
-5. TC displays a confirmation message.
+2. User requests to log a contact as having attended for an event by event index and contact index.
+3. TC marks the contact as attended.
+4. TC displays a confirmation message.
 
 **Extensions**
 * 3a. The given event index is not a positive integer.
@@ -1053,7 +1050,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 3d1. TC displays an error message.
 
       Use case resumes at step 2.
-* 3e. The given contact has already attended the event.
+* 3e. The given contact has already been logged as having attended the event.
     * 3e1. TC displays an error message.
 
       Use case ends.
