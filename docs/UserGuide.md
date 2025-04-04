@@ -1,7 +1,7 @@
 ---
   layout: default.md
-  title: "User Guide"
-  pageNav: 3
+    title: "User Guide"
+    pageNav: 3
 ---
 
 # TutorConnect User Guide
@@ -20,26 +20,26 @@ If you can type fast, TutorConnect can get your contact management tasks done fa
 1. Ensure you have Java `17` or above installed in your Computer.<br>
    **Mac users:** Ensure you have the precise JDK version prescribed [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
 
-1. Download the latest `.jar` file from [here](https://github.com/se-edu/addressbook-level3/releases).
+1. Download the latest `.jar` file from [here](https://github.com/AY2425S2-CS2103-F08-4/tp/releases).
 
 1. Copy the file to the folder you want to use as the _home folder_ for your TutorConnect.
 
-1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar addressbook.jar` command to run the application.<br>
+1. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar tutorconnect.jar` command to run the application.<br>
    A GUI similar to the below should appear in a few seconds. Note how the app contains some sample data.<br>
    ![Ui](images/Ui.png)
 
-1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** and pressing Enter will open the help window.<br>
+1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** will display a help message.<br>
    Some example commands you can try:
 
-   * `list` : Lists all contacts.
+    * `todo list` : Lists all todos.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01` : Adds a contact named `John Doe` to the Address Book.
+    * `event add --name CS2040S tutorial --start 24-08-26 12:00 --end 24-08-26 14:00 --location NUS SoC COM1 --tag algorithms` : Adds an event to the app.
 
-   * `delete 3` : Deletes the 3rd contact shown in the current list.
+    * `contact delete 3` : Deletes the 3rd contact shown in the current list.
 
-   * `clear` : Deletes all contacts.
+    * `contact clear` : Deletes all contacts.
 
-   * `exit` : Exits the app.
+    * `exit` : Exits the app.
 
 1. Refer to the [Features](#features) below for details of each command.
 
@@ -51,36 +51,37 @@ If you can type fast, TutorConnect can get your contact management tasks done fa
 
 **Notes about the command format:**<br>
 
+* Commands working with item will be of format `ITEM COMMAND PARAMETERS`.
+
 * Words in `UPPER_CASE` are the parameters to be supplied by the user.<br>
-  e.g. in `add n/NAME`, `NAME` is a parameter which can be used as `add n/John Doe`.
+  e.g. in `add --name NAME`, `NAME` is a parameter which can be used as `add --name John Doe`.
 
-* Items in square brackets are optional.<br>
-  e.g `n/NAME [t/TAG]` can be used as `n/John Doe t/friend` or as `n/John Doe`.
+* Parameters in square brackets are optional.<br>
+  e.g `--name NAME [--tag TAG(S)]` can be used as `--name John Doe --tag friend`, `--name John Doe`, or `--name John Doe --tag enemy must-be-destroyed`.
 
-* Items with `…`​ after them can be used multiple times including zero times.<br>
-  e.g. `[t/TAG]…​` can be used as ` ` (i.e. 0 times), `t/friend`, `t/friend t/family` etc.
+* Parameters with optional plural markers can be specified a positive integer number of times.
+  Note that this rule can be combined with the previous one to represent a parameter that can be specified a non-negative integer number of times.<br>
+  e.g. `--contact CONTACT_INDEX/INDICES` can be used as `--contact 123` or `--contact 4 5 6`.
 
 * Parameters can be in any order.<br>
-  e.g. if the command specifies `n/NAME p/PHONE_NUMBER`, `p/PHONE_NUMBER n/NAME` is also acceptable.
+  e.g. if the command specifies `--name NAME --location LOCATION`, `--location LOCATION --name NAME ` is also acceptable.
 
-* Extraneous parameters for commands that do not take in parameters (such as `help`, `list`, `exit` and `clear`) will be ignored.<br>
-  e.g. if the command specifies `help 123`, it will be interpreted as `help`.
+* Extraneous parameters for commands that do not take in parameters (such as `todo list`, `exit` and `event clear`) will be ignored.<br>
+  e.g. if the command specifies `todo list 123`, it will be interpreted as `todo list`.
+
+* Constraints for common parameters:
+    * Most text-based parameters can accept multiple words as values, but the words cannot start with a `-` to avoid clashing with our prefixes. This applies to `NAME`, `ID`, `COURSE`, `GROUP`, and `LOCATION`.
+      e.g. `NUS Science`, `E.T. the Extra-Terrestrial`, `#?!@-*#$` are acceptable, but `1 - 1 = 2` is not.
+    * Datetime-based parameters must be of format `YY-MM-DD HH:MM`, with exactly one space between `DD` and `HH`, and where `HH` is in the 24-hour format.
+    * `TAG` parameters must be a single word not starting with `-`.
+    * Index-based parameters must be a positive integer not larger than the size of the list of interest.
 
 * If you are using a PDF version of this document, be careful when copying and pasting commands that span multiple lines as space characters surrounding line-breaks may be omitted when copied over to the application.
-</box>
-
-### Viewing help : `help`
-
-Shows a message explaning how to access the help page.
-
-![help message](images/helpMessage.png)
-
-Format: `help`
-
+  </box>
 
 ## Contact: `contact`
 
-A contact is an entry with information of a student. It supports the following commands.
+A contact supports the following commands.
 
 ### Adding a contact: `add`
 Adds a contact to the app.
@@ -89,10 +90,12 @@ Format: `contact add --id ID --name NAME --email EMAIL --course COURSE --group G
 
 **Tip:** A contact can have any number of tags (including 0)
 
+**Important**: The contact's ID must be unique.
+
 Examples:
 * `contact add --id A1234567A --name John Doe --email johnd@example.com --course CS50 --group T01 --tag friends owesMoney`
 
-### Editing an contact: `edit`
+### Editing a contact: `edit`
 Edits the details of the contact identified by the index number in the currently displayed contact list. Only the fields specified in the command will be updated; all others remain unchanged.
 
 Format:
@@ -100,7 +103,7 @@ Format:
 
 * `INDEX` refers to the contact to be edited, based on its position in the displayed contact list.
 
-* Fields that are not included in the command will remain unchanged. You can update any combination of fields at once.
+* Fields that are not included in the command will remain unchanged. You can update any combination of fields at once. At least 1 field should be edited.
 
 * If `--tag` is provided with no value, all tags will be cleared.
 
@@ -194,97 +197,18 @@ Examples:
     * Find contacts with both "Darren" and "Tan" in their name who enroll in course CS1010S and class T01, T02, or T03.
 
 * `contact filter --name nand: enemy Hater --tag and: handsome smart`
-    * Find contacts whose names do not contain "enemy" and "Hater" and are tagged with both "handsome" and "smart".
-
-### Listing all features: `help`
-
-Lists all features 
-
-Format: `help`
-
-### Listing all subcommands of a feature: `help`
-
-Lists all subcommands of a feature.
-
-Format: `help FEATURE`
-
-Examples:
-* `help contact` shows all subcommands of contact feature.
-* `help todo` shows all subcommands of todo feature.
-* `help event` shows all subcommands of event feature.
-
-### Listing help message of a subcommand of a feature: `help`
-
-Lists help message of a subcommand of a feature.
-
-Format: `help FEATURE SUBCOMMAND`
-
-Examples:
-* `help contact add` shows help message of `contact add` command.
-* `help todo mark` shows help message of `todo mark` command.
-* `help event log` show help message of `event log` command.
-
-### Exiting the program : `exit`/`quit`/`kill`/`bye`
-
-Exits the program.
-
-Format: `exit`/`quit`/`kill`/`bye`
-
-### Saving the data
-
-Data are saved in the hard disk automatically after any command that changes the data. There is no need to save manually.
-
-### Editing the data file
-
-Data are saved automatically as a JSON file `[JAR file location]/data/[FILE_NAME].json`. Advanced users are welcome to update data directly by editing that data file.
-
-<box type="warning" seamless>
-
-**Caution:**
-If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run.  Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
-</box>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
-
---------------------------------------------------------------------------------------------------------------------
-
-## FAQ
-
-**Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
-
---------------------------------------------------------------------------------------------------------------------
-
-## Known issues
-
-1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
-2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
-
---------------------------------------------------------------------------------------------------------------------
-
-## Command summary
-
-Action     | Format, Examples
------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------
-**Add**    | `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague`
-**Clear**  | `clear`
-**Delete** | `delete INDEX`<br> e.g., `delete 3`
-**Edit**   | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`
-**Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
-**List**   | `list`
-**Help**   | `help`
+    * Find contacts whose names do not contain both "enemy" and "Hater" and are tagged with both "handsome" and "smart".
 
 ## Event: `event`
 
 ### Adding an event: `add`
-Adds an event to the to the address book.
+Adds an event to the app.
 
 Format: `event add --name NAME --start START_DATETIME --end END_DATETIME --location LOCATION [--tag TAG(S)]`
 
 **Important:** start time and end time format is `YY-MM-DD HH:MM`, where `HH` is in 24 hour format and start time must be earlier than end time.
+
+**Important**: The event's name must be unique.
 
 **Tip:** An event can have any number of tags (including 0)
 
@@ -300,7 +224,7 @@ Format:
 
 * `INDEX` refers to the event to be edited, based on its position in the displayed event list.
 
-* Fields that are not included in the command will remain unchanged. You can update any combination of fields at once.
+* Fields that are not included in the command will remain unchanged. You can update any combination of fields at once. At least 1 field should be edited.
 
 * If `--tag` is provided with no value, all tags will be cleared.
 
@@ -322,7 +246,7 @@ Examples:
 
 ### Deleting an event: `delete`
 
-Deletes the event identified by the index number used in the displayed event list. 
+Deletes the event identified by the index number used in the displayed event list.
 
 Format: `event delete INDEX`
 
@@ -385,7 +309,7 @@ Format: `event tag EVENT_INDEX --tag TAG(S)`
 
 * Tags are case-sensitive and stored as-is.
 
-Example: 
+Example:
 * `event tag 1 --tag TA Important`
 
 ### Untagging an event: `untag`
@@ -421,7 +345,7 @@ Format: `event log EVENT_INDEX --contact CONTACT_INDEX [CONTACT_INDEX/INDICES]`
 
 Example:
 * `event log 1 --contact 1 2 3`
-(Logs attendance for contacts 1, 2, and 3 at the event with index 1)
+  (Logs attendance for contacts 1, 2, and 3 at the event with index 1)
 
 ### Removing attendance logs from an event: `unlog`
 Removes the attendance logs of one or more contacts from a specific event. Useful for correcting mistakes or updating attendance records.
@@ -484,11 +408,246 @@ Contact:
 * Matches events linked to all the specified contacts (default `and`, unless overridden).
 
 Examples:
-* `event filter --name or: Exam PRESENTATION`. 
-  * Find todos whose name contains at least one of the keywords "exam" or "presentation."
+* `event filter --name or: Exam PRESENTATION`.
+    * Find todos whose name contains at least one of the keywords "exam" or "presentation."
 
 * `event filter --name CS1010S eXAM --start or: [25-03-13 23:59/25-03-20 23:59] [25-03-27 23:59/-]`
-  * Find todos whose name contains both the keywords `"CS1010S"` and `"exam"` and whose start time is between `25-03-13 23:59` and `25-03-20 23:59`(inclusive) or after `25-03-27 23:59` (inclusive).
+    * Find todos whose name contains both the keywords `"CS1010S"` and `"exam"` and whose start time is between `25-03-13 23:59` and `25-03-20 23:59`(inclusive) or after `25-03-27 23:59` (inclusive).
 
 * `event filter --location nand: NUS Home --contact 1 2 3`
-  * Find todos whose location does not contain the keywords "NUS" or "home" and which are is linked to the people currently at index 1, 2 and 3.
+    * Find todos whose location does not contain the keywords "NUS" or "home" and which are is linked to the people currently at index 1, 2 and 3.
+
+## Todo: `todo`
+
+A todo is a task with a deadline that can be associated with multiple contacts to indicate their involvement. It supports the following commands.
+
+### Adding a todo: `add`
+Adds a todo to the app.
+
+Format: `todo add --name NAME --location LOCATION --deadline DEADLINE [--tag TAG(S)]`
+
+**Tip:** A todo can have any number of tags (including 0)
+
+**Important**: The contact's name must be unique.
+
+Examples:
+* `todo add --name Final Submission --deadline 24-08-26 12:00 --location NUS SoC COM1 --tag CS1234`
+* `todo add --name CS1010S mission --deadline 24-05-26 12:00 --location Coursemology --tag urgent struggling`
+
+### Editing an todo: `edit`
+Edits the details of the todo identified by the index number in the currently displayed todo list. Only the fields specified in the command will be updated; all others remain unchanged.
+
+Format:
+`event edit INDEX [--name NAME] [--deadline DEADLINE] [--location LOCATION] [--status STATUS] [--contact CONTACT_INDEX/INDICES] [--tag TAG(S)]`
+
+* `INDEX` refers to the todo to be edited, based on its position in the displayed todo list.
+
+* `STATUS` can only be `true` or `false`.
+
+* `CONTACT_INDEX/INDICES` refers to the index(es) of the contact(s) in the currently displayed contact list, which will be linked to the todo.
+
+* Fields that are not included in the command will remain unchanged. You can update any combination of fields at once. At least 1 field should be edited.
+
+* If `--tag` is provided with no value, all tags will be cleared.
+
+Examples:
+
+* `todo edit 1 --name Project Meeting`
+
+* `todo edit 2 --deadline 25-03-15 10:00 --location COM2-0208 --tag`
+
+* `todo edit 4 --name Training --contact 1 2 3`
+
+### Deleting a todo: `delete`
+
+Deletes the todo identified by the index number used in the displayed todo list.
+
+Format: `todo delete INDEX`
+
+Example:
+* `todo delete 1`
+
+### Displaying information of todo: `info`
+Displays the complete information belonging to the todo identified by the index number used in the displayed todo list.
+
+Format: `todo info INDEX`
+
+Example:
+* `todo info 1`
+
+### Clearing todo list: `clear`
+Clears the todo list.
+
+Format: `todo clear`
+
+### Linking contacts: `link`
+Associates one or more contacts to a todo. Useful for keeping track of which contacts are involved in a particular todo.
+
+Format: `todo link TODO_INDEX --contact CONTACT_INDEX/INDICES`
+
+* `TODO_INDEX` refers to the todo of the event in the displayed todo list.
+
+* `CONTACT_INDEX/INDICES` refers to the index(es) of the contact(s) in the currently displayed contact list. You can link multiple contacts by providing more than one contact index.
+
+Examples:
+* `todo link 1 --contact 1 3 4`
+
+### Unlinking contacts: `unlink`
+Removes the association between one or more contacts and a specific todo.
+
+Format: `todo unlink TODO_INDEX --contact CONTACT_INDEX/INDICES`
+
+* `TODO_INDEX` refers to the index of the todo in the displayed event todo.
+
+* `CONTACT_INDEX/INDICES` refers to the index(es) of the contact(s) to be unlinked from the event based on the list displayed by the `info` command. You can unlink multiple contacts by providing more than one contact index.
+
+Examples:
+* `todo unlink 1 --contact 3 4`
+
+### Tagging a todo: `tag`
+Adds one or more tags to the specified todo. Tags help categorize and filter todos more easily (e.g., by priority, role, type, etc.).
+
+Format: `todo tag INDEX --tag TAG(S)`
+
+* `INDEX` refers to the index of the todo in the currently displayed todo list.
+
+* Duplicate tags (already added to the todo) are not allowed.
+
+Example:
+* `todo tag 1 --tag important need-help`
+
+### Untagging a todo: `untag`
+Removes one or more tags from the specified todo.
+
+Format: `event untag INDEX --tag TAG(S)`
+
+* `INDEX` refers to the index of the todo in the currently displayed todo list.
+
+* Tags are case-sensitive and must match the tag(s) assigned to the todo.
+
+Example:
+* `todo untag 1 --tag important weekly`
+
+### Mark a todo as done: `mark`
+Mark a todo as completed.
+
+Format: `todo mark INDEX`
+
+* `INDEX` refers to the index of the todo in the displayed todo list.
+
+* The todo must not be already marked as done.
+
+Example:
+* `todo mark 1`
+
+### Mark a todo as not done: `unmark`
+Mark a todo as not done. This reverses the effect of the `mark` command.
+
+Format: `todo unmark INDEX`
+
+* `INDEX` refers to the index of the todo in the displayed todo list.
+
+* The todo must not be already marked as not done.
+
+Example:
+`todo unmark 20`
+
+### Filtering todos: `filter`
+Filters the list of todos based on one or more criteria. You can search by todos name, time, location, tags, or linked contacts using logical operators to combine multiple values.
+
+Format:
+`todo filter --COLUMN OPERATOR: VALUE(S) [...]`
+
+Supported columns:
+* `--name`: Todo name.
+* `--deadline`: Todo deadline.
+* `--location`: Todo location.
+* `--status`: Todo status
+* `--tag`: Tags.
+* `--contact`: Linked contacts.
+
+Operators (optional):
+* `and` (default): All values must match.
+* `or`: At least one value must match.
+* `nand`: None of the values must match.
+* `nor`: Reject all values.
+
+If an operator is not provided, it defaults to `and`. If an unrecognized operator is provided, it will be treated as a value. If multiple valid operators are provided, the first one will be applied and the rest will be treated as values.
+
+**Value formats**:
+
+Name, Location, and Tags:
+* Provide one or more keywords separated by spaces.
+* Keywords are case-insensitive and support partial matches.
+
+DEADLINE:
+* Provide one or more closed intervals, each written as: `[<INTERVAL_START>/<INTERVAL_END>]`.
+* Each datetime must follow the format: `YY-MM-DD HH:MM`.
+* You can use `-` to replace the `START` or the `END` to signify no lower/upper bound. At least one of the two bounds must be specified.
+
+Contact:
+* Provide contact indices (as shown in the current contact list).
+
+Examples:
+* `todo filter --name or: Exam REPORT`.
+    * Find todos whose name contains at least one of the keywords "exam" or "report."
+
+* `todo filter --name CS1010S grading --deadline or: [25-04-13 23:59/25-04-20 23:59] [25-04-27 23:59/-]`
+    * Find todos whose name contains both the keywords `"CS1010S"` and `"grading"` and whose start time is between `25-04-13 23:59` and `25-04-20 23:59`(inclusive) or after `25-04-27 23:59` (inclusive).
+
+* `todo filter --location nand: NUS Science --contact 1 2 3`
+    * Find todos whose location does not contain the keywords "NUS" or "Science" and which are linked to the people currently at index 1, 2 and 3.
+
+## Miscellaneous
+
+### Listing all subcommands of a feature: `help`
+
+Lists all subcommands of a feature.
+
+Format: `help FEATURE`
+
+Examples:
+* `help contact` shows all subcommands of contact feature.
+* `help todo` shows all subcommands of todo feature.
+* `help event` shows all subcommands of event feature.
+
+### Listing help message of a subcommand of a feature: `help`
+
+Lists help message of a subcommand of a feature.
+
+Format: `help FEATURE SUBCOMMAND`
+
+Examples:
+* `help contact add` shows help message of `contact add` command.
+* `help todo mark` shows help message of `todo mark` command.
+* `help event log` show help message of `event log` command.
+
+### Exiting the program : `exit`/`quit`/`kill`/`bye`
+
+## Quality of Life:
+
+1. You may use the arrows to traverse through command history.
+
+1. Clicking on each contact/event/todo card will display the full information of the card in the command output.
+
+1. Click on "Event" or "Todo" button to toggle between event and todo list views. You may use the reset button to reset filtered views of event/todo and contacts at the same time.
+
+1. Apply natural ordering to lists:
+  * Contacts should be sorted first by name, then by ID in alphabetical order.
+  * Todos should be sorted by status first, followed by deadline, and then by name.
+  * Events should be sorted by start time, then by end time, and finally by name.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## FAQ
+
+**Q**: How do I transfer my data to another Computer?<br>
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+
+--------------------------------------------------------------------------------------------------------------------
+
+## Known issues
+
+1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
+
+--------------------------------------------------------------------------------------------------------------------
