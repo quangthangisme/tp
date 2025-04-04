@@ -1,0 +1,36 @@
+@startuml
+!include style.puml
+skinparam ArrowFontStyle plain
+
+participant ":EditXCommandParser" as  CommandParser LOGIC_COLOR
+participant "<<Class>>\n ArgumentTokenizer" as ArgTokenizer LOGIC_COLOR
+participant ":EditXCommand" as EditCommand LOGIC_COLOR
+participant ":ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+
+[-> CommandParser : parse(args)
+activate CommandParser
+CommandParser -> ArgTokenizer : tokenize(args, prefixes)
+activate ArgTokenizer
+
+ArgTokenizer --> ArgTokenizer: findAllPrefixPositions(argsString, Prefix ...prefixes)
+activate ArgTokenizer
+ArgTokenizer --> ArgTokenizer: findPrefixPositions(argsString, Prefix ...prefixes)
+activate ArgTokenizer
+ArgTokenizer --> ArgumentMultimap
+deactivate ArgTokenizer
+activate ArgumentMultimap
+ArgumentMultimap --> ArgumentMultimap : extractArguments(argStrings, position)
+ArgumentMultimap --> ArgTokenizer
+deactivate ArgTokenizer
+deactivate ArgumentMultimap
+
+ArgTokenizer --> CommandParser : argMultimap
+deactivate ArgTokenizer
+
+create EditCommand
+CommandParser --> EditCommand : EditXCommand(index, contactIndices)
+activate EditCommand
+EditCommand --> CommandParser
+deactivate EditCommand
+[<-- CommandParser
+@enduml
