@@ -78,81 +78,123 @@ Shows a message explaning how to access the help page.
 Format: `help`
 
 
+## Contact: `contact`
+
+A contact is an entry with information of a student. It supports the following commands.
+
 ### Adding a contact: `add`
+Adds a contact to the app.
 
-Adds a contact to the address book.
-
-Format: `add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]…​`
-
-<box type="tip" seamless>
+Format: `contact add --id ID --name NAME --email EMAIL --course COURSE --group GROUP [--tag TAG(S)]`
 
 **Tip:** A contact can have any number of tags (including 0)
-</box>
 
 Examples:
-* `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
-* `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
+* `contact add --id A1234567A --name John Doe --email johnd@example.com --course CS50 --group T01 --tag friends owesMoney`
 
-### Listing all contacts : `list`
+### Editing an contact: `edit`
+Edits the details of the contact identified by the index number in the currently displayed contact list. Only the fields specified in the command will be updated; all others remain unchanged.
 
-Shows a list of all contacts in the address book.
+Format:
+`contact edit INDEX [--id ID] [--name NAME] [--email EMAIL] [--course COURSE] [--group GROUP] [--tag TAG(S)]`
 
-Format: `list`
+* `INDEX` refers to the contact to be edited, based on its position in the displayed contact list.
 
-### Editing a contact : `edit`
+* Fields that are not included in the command will remain unchanged. You can update any combination of fields at once.
 
-Edits an existing contact in the address book.
-
-Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]…​`
-
-* Edits the contact at the specified `INDEX`. The index refers to the index number shown in the displayed contact list. The index **must be a positive integer** 1, 2, 3, …​
-* At least one of the optional fields must be provided.
-* Existing values will be updated to the input values.
-* When editing tags, the existing tags of the contact will be removed i.e adding of tags is not cumulative.
-* You can remove all the contact’s tags by typing `t/` without
-    specifying any tags after it.
+* If `--tag` is provided with no value, all tags will be cleared.
 
 Examples:
-*  `edit 1 p/91234567 e/johndoe@example.com` Edits the phone number and email address of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
-*  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
 
-### Locating contacts by name: `find`
+* `contact edit 1 --email johndoe@example.com`
 
-Finds contacts whose names contain any of the given keywords.
+* `contact edit 3 --name Jack Doe`
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+* `contact edit 4 --group CS2103T`
 
-* The search is case-insensitive. e.g `hans` will match `Hans`
-* The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
-* Contacts matching at least one keyword will be returned (i.e. `OR` search).
-  e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+### Deleting a contact: `delete`
+
+Deletes the contact identified by the index number used in the displayed contact list.
+
+Format: `contact delete INDEX`
+
+Example:
+* `contact delete 1`
+
+### Displaying information of contact: `info`
+Displays the complete information belonging to the contact identified by the index number used in the displayed contact list.
+
+Format: `contact info INDEX`
+
+Example:
+* `contact info 1`
+
+### Clearing contact list: `clear`
+Clears the contact list.
+
+Format: `contact clear`
+
+### Tagging a contact: `tag`
+Adds one or more tags to the specified contact. Tags help categorize and filter contacts more easily (e.g., by priority, role, type, etc.).
+
+Format: `contact tag INDEX --tag TAG(S)`
+
+* `INDEX` refers to the index of the contact in the currently displayed contact list.
+
+* Duplicate tags (already added to the contact) are not allowed.
+
+Example:
+* `contact tag 1 --tag important need-help`
+
+### Untagging a contact: `untag`
+Removes one or more tags from the specified contact.
+
+Format: `contact untag INDEX --tag TAG(S)`
+
+* `INDEX` refers to the index of the contact in the currently displayed contact list.
+
+* Tags are case-sensitive and must match the tag(s) assigned to the contact.
+
+Example:
+* `contact untag 1 --tag important weekly`
+
+### Filtering contacts: `filter`
+Filters the list of contacts based on one or more criteria. You can search by contacts name, time, location, tags, or linked contacts using logical operators to combine multiple values.
+
+Format:
+`contact filter --COLUMN OPERATOR: VALUE(S) [...]`
+
+Supported columns:
+* `--name`: contact name.
+* `--id`: contact id.
+* `--email`: contact email.
+* `--course`: contact course.
+* `--group`: contact group.
+* `--tag`: tags.
+
+Operators (optional):
+* `and` (default): All values must match.
+* `or`: At least one value must match.
+* `nand`: None of the values must match.
+* `nor`: Reject all values.
+
+If an operator is not provided, it defaults to `and`. If an unrecognized operator is provided, it will be treated as a value. If multiple valid operators are provided, the first one will be applied and the rest will be treated as values.
+
+**Value formats**:
+
+Name, ID, email, course, group, and tags:
+* Provide one or more keywords separated by spaces.
+* Keywords are case-insensitive and support partial matches.
 
 Examples:
-* `find John` returns `john` and `John Doe`
-* `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
+* `contact filter --id or: 12 13`.
+    * Find students with ID 12 or 13.
 
-### Deleting a contact : `delete`
+* `contact filter --name John Doe --course CS1010S --group or: T01 T02 T03`
+    * Find contacts with both "Darren" and "Tan" in their name who enroll in course CS1010S and class T01, T02, or T03.
 
-Deletes the specified contact from the address book.
-
-Format: `delete INDEX`
-
-* Deletes the contact at the specified `INDEX`.
-* The index refers to the index number shown in the displayed contact list.
-* The index **must be a positive integer** 1, 2, 3, …​
-
-Examples:
-* `list` followed by `delete 2` deletes the 2nd contact in the address book.
-* `find Betsy` followed by `delete 1` deletes the 1st contact in the results of the `find` command.
-
-### Clearing all entries : `clear`
-
-Clears all entries from the address book.
-
-Format: `clear`
+* `contact filter --name nand: enemy Hater --tag and: handsome smart`
+    * Find contacts whose names do not contain "enemy" and "Hater" and are tagged with both "handsome" and "smart".
 
 ### Listing all features: `help`
 

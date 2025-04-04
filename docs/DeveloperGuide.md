@@ -67,20 +67,59 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [
+`Ui.java`](https://github.com/AY2425S2-CS2103-F08-4/tp/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
-The UI consists of a `MainWindow` that is made up of parts e.g.`CommandBox`, `ResultDisplay`, `ContactListPanel`, `StatusBarFooter` etc. All these, including the `MainWindow`, inherit from the abstract `UiPart` class which captures the commonalities between classes that represent parts of the visible GUI.
+The UI consists of a `MainWindow` that is made up of parts e.g. `CommandBox`, `ResultDisplay`, `ListPanel` etc. All
+these UI components inherit from the abstract `UiPart<T>` class which captures the commonalities between classes that
+represent parts of the visible GUI.
 
-The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that are in the `src/main/resources/view` folder. For example, the layout of the [`MainWindow`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/MainWindow.java) is specified in [`MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml)
+The `UI` component uses the JavaFx UI framework. The layout of these UI parts are defined in matching `.fxml` files that
+are in the `src/main/resources/view` folder. For example, the layout of the [
+`MainWindow`](https://github.com/AY2425S2-CS2103-F08-4/tp/tree/master/src/main/java/seedu/address/ui/MainWindow.java)
+is specified in [
+`MainWindow.fxml`](https://github.com/AY2425S2-CS2103-F08-4/tp/tree/master/src/main/resources/view/MainWindow.fxml).
 
-The `UI` component,
+The UI employs a flexible design pattern through several key components:
 
-* executes user commands using the `Logic` component.
-* listens for changes to `Model` data so that the UI can be updated with the modified data.
-* keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* depends on some classes in the `Model` component, as it displays `Contact` object residing in the `Model`.
+1. **Card System**: The UI uses a card-based display system:
+    - The `Card<T>` interface defines how entity information is displayed
+    - `XCard` classes (like EventCard) implement this interface and extend `UiPart<Region>`
+    - The `CardFactory<T>` interface and its implementation `GenericCardFactory<T>` are responsible for creating
+      appropriate cards for different entity types
+
+2. **Display Adapters**:
+    - The `DisplayableItem` interface in the util package defines how items can be displayed in the UI
+    - The abstract `ItemAdapter<T>` class provides a foundation for adapting model entities to the UI
+    - `GenericAdapter<T>` implements this pattern, allowing model items to be wrapped for display
+
+3. **List Display**:
+    - `ListPanel` uses `DisplayableListViewCell` (which extends `UiPart`) to render items
+    - Each cell renders a `DisplayableItem` by calling its `getDisplayCard()` method
+    - The `MainWindow` has two separate `ListPanel` instances for different types of content
+
+The `UiManager` (which implements the `Ui` interface) is responsible for initializing all UI components and handling
+JavaFX lifecycle events. It maintains a reference to the `Logic` component to execute commands and observe model
+changes.
+
+These relationships form a clear separation of concerns:
+
+- `XCard` references model entity `X` directly to display its properties
+- `DisplayableListViewCell` renders any `DisplayableItem` in a type-safe manner
+- `Card` interface provides a consistent way to get the underlying `UiPart`
+- `ItemAdapter` uses a `CardFactory` to create appropriate cards
+
+The `UI` component:
+
+* Executes user commands using the `Logic` component
+* Keeps a reference to the `Logic` component to execute commands
+* Listens for changes to `Model` data to update the UI accordingly
+* Depends on classes in the `Model` component (through direct references and adapter patterns)
+* Uses event handling for user interactions through click handlers assigned to list items
+* Supports different view modes that can be toggled in the `MainWindow`
+* Uses `GenericCardFactory` and `GenericAdapter` to handle model items in a type-safe way
 
 ### Logic component
 
