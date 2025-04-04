@@ -36,17 +36,21 @@ activate DeleteContactCommand
 'Return to LogicManager
 DeleteContactCommand --> DeleteContactCommandParser : d
 deactivate DeleteContactCommand
+
 DeleteContactCommandParser --> ContactCommandParser : d
 deactivate DeleteContactCommandParser
+
 ContactCommandParser --> ParserImpl : d
 deactivate ContactCommandParser
-deactivate DeleteContactCommandParser
+destroy DeleteContactCommandParser
+
 ParserImpl --> LogicManager : d
 deactivate ParserImpl
+destroy ContactCommandParser
 
 'Hidden arrow to position the destroy marker below the end of the activation bar.
+
 DeleteContactCommandParser -[hidden]-> ParserImpl
-'destroy DeleteContactCommandParser
 
 LogicManager -> DeleteContactCommand : execute(m)
 activate DeleteContactCommand
