@@ -102,7 +102,7 @@ Format:
 
 * `INDEX` refers to the event to be edited, based on its position in the displayed event list.
 
-* Fields that are not included in the command will remain unchanged. You can update any combination of fields at once.
+* Fields that are not included in the command will remain unchanged. You can update any combination of fields at once. At least 1 field should be edited.
 
 * If `--tag` is provided with no value, all tags will be cleared.
 
@@ -322,7 +322,7 @@ Format:
 
 * `CONTACT_INDEX/INDICES` refers to the index(es) of the contact(s) in the currently displayed contact list, which will be linked to the todo.
 
-* Fields that are not included in the command will remain unchanged. You can update any combination of fields at once.
+* Fields that are not included in the command will remain unchanged. You can update any combination of fields at once. At least 1 field should be edited.
 
 * If `--tag` is provided with no value, all tags will be cleared.
 
