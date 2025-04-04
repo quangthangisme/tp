@@ -1128,8 +1128,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     * 2d1. TC displays an error message.
 
       Use case resumes at step 2.
-* 2c. The given contact is already marked as not having attended the event.
-    * 2c1. TC displays an error message.
+* 2e. The given contact is already marked as not having attended the event.
+    * 2e1. TC displays an error message.
 
       Use case ends.
 
