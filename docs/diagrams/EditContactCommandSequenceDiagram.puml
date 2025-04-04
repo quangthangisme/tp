@@ -2,10 +2,11 @@
 !include style.puml
 skinparam ArrowFontStyle plain
 
-participant ":EditXCommandParser" as  CommandParser LOGIC_COLOR
+participant ":XCommandParser" as  CommandParser LOGIC_COLOR
 participant "<<Class>>\n ArgumentTokenizer" as ArgTokenizer LOGIC_COLOR
-participant ":EditXCommand" as EditCommand LOGIC_COLOR
-participant ":ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+participant "c:XCommand" as EditCommand LOGIC_COLOR
+participant "a:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
+participant ":XParserUtil" as ParserUtil LOGIC_COLOR
 
 [-> CommandParser : parse(args)
 activate CommandParser
@@ -24,13 +25,18 @@ ArgumentMultimap --> ArgTokenizer
 deactivate ArgTokenizer
 deactivate ArgumentMultimap
 
-ArgTokenizer --> CommandParser : argMultimap
+ArgTokenizer --> CommandParser : a
 deactivate ArgTokenizer
 
+CommandParser --> ParserUtil : parseAttribute(args)
+activate ParserUtil
+ParserUtil --> CommandParser : attribute
+deactivate ParserUtil
+
 create EditCommand
-CommandParser --> EditCommand : EditXCommand(index, contactIndices)
+CommandParser --> EditCommand : XCommand(index, contactIndices)
 activate EditCommand
-EditCommand --> CommandParser
+EditCommand --> CommandParser : c
 deactivate EditCommand
-[<-- CommandParser
+[<-- CommandParser : c
 @enduml
