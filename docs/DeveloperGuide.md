@@ -67,7 +67,8 @@ The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [
+`Ui.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
@@ -81,35 +82,44 @@ are in the `src/main/resources/view` folder. For example, the layout of the [
 is specified in [
 `MainWindow.fxml`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/resources/view/MainWindow.fxml).
 
-The application uses a unified `ListPanel` to display different entity types (contacts, events, and todos) through the
-`DisplayableItem` interface. This allows for polymorphic handling of different entities in the UI:
+The UI employs a flexible design pattern through several key components:
 
-1. Model entities (`Contact`, `Todo`, `Event`) implement the `DisplayableItem` interface, which requires a
-   `getDisplayCard(int index)` method.
+1. **Card System**: The UI uses a card-based display system:
+    - The `Card<T>` interface defines how entity information is displayed
+    - `XCard` classes (like EventCard) implement this interface and extend `UiPart<Region>`
+    - The `CardFactory<T>` interface and its implementation `GenericCardFactory<T>` are responsible for creating
+      appropriate cards for different entity types
 
-2. Alternatively, adapter classes like `GenericAdapter<T>` can be used to adapt model entities to the `DisplayableItem`
-   interface through the `ListConverter` utility class.
+2. **Display Adapters**:
+    - The `DisplayableItem` interface in the util package defines how items can be displayed in the UI
+    - The abstract `ItemAdapter<T>` class provides a foundation for adapting model entities to the UI
+    - `GenericAdapter<T>` implements this pattern, allowing model items to be wrapped for display
 
-3. Entity-specific card classes (e.g., `ContactCard`, `EventCard`) extend `UiPart<Region>` and implement the `Card<T>`
-   interface, providing type-safe rendering of entities.
+3. **List Display**:
+    - `ListPanel` uses `DisplayableListViewCell` (which extends `UiPart`) to render items
+    - Each cell renders a `DisplayableItem` by calling its `getDisplayCard()` method
+    - The `MainWindow` has two separate `ListPanel` instances for different types of content
 
-4. The `ListPanel` uses a custom `ListView` cell factory (`DisplayableListViewCell`) to render each `DisplayableItem` by
-   calling its `getDisplayCard` method.
+The `UiManager` (which implements the `Ui` interface) is responsible for initializing all UI components and handling
+JavaFX lifecycle events. It maintains a reference to the `Logic` component to execute commands and observe model
+changes.
 
-The `UiManager` serves as the implementation of the `Ui` interface and is responsible for initializing all UI components
-and handling JavaFX lifecycle events. It maintains a reference to the `Logic` component to execute commands and observe
-model changes.
+These relationships form a clear separation of concerns:
+
+- `XCard` references model entity `X` directly to display its properties
+- `DisplayableListViewCell` renders any `DisplayableItem` in a type-safe manner
+- `Card` interface provides a consistent way to get the underlying `UiPart`
+- `ItemAdapter` uses a `CardFactory` to create appropriate cards
 
 The `UI` component:
 
-* executes user commands using the `Logic` component.
-* keeps a reference to the `Logic` component, because the `UI` relies on the `Logic` to execute commands.
-* listens for changes to `Model` data so that the UI can be updated with the modified data.
-* depends on classes in the `Model` component, as it displays various entities (`Contact`, `Event`, `Todo`) residing in
-  the `Model`.
-* implements event handling for user interactions through click handlers assigned to list items.
-* supports different view modes that can be toggled in the `MainWindow`, changing what's displayed in the main list
-  panel.
+* Executes user commands using the `Logic` component
+* Keeps a reference to the `Logic` component to execute commands
+* Listens for changes to `Model` data to update the UI accordingly
+* Depends on classes in the `Model` component (through direct references and adapter patterns)
+* Uses event handling for user interactions through click handlers assigned to list items
+* Supports different view modes that can be toggled in the `MainWindow`
+* Uses `GenericCardFactory` and `GenericAdapter` to handle model items in a type-safe way
 
 ### Logic component
 
