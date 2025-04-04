@@ -75,11 +75,17 @@ public class JsonAdaptedContact {
      * @throws IllegalValueException if there were any data constraints violated in the adapted contact.
      */
     public Contact toModelType() throws IllegalValueException {
-        final List<Tag> contactTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tags) {
-            contactTags.add(tag.toModelType());
-        }
+        final Id modelId = parseId();
+        final Name modelName = parseName();
+        final Email modelEmail = parseEmail();
+        final Course modelCourse = parseCourse();
+        final Group modelGroup = parseGroup();
+        final Set<Tag> modelTags = parseTags();
 
+        return new Contact(modelId, modelName, modelEmail, modelCourse, modelGroup, modelTags);
+    }
+
+    private Id parseId() throws IllegalValueException {
         if (id == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Id.class.getSimpleName()));
@@ -87,8 +93,10 @@ public class JsonAdaptedContact {
         if (!Id.isValidId(id)) {
             throw new IllegalValueException(Id.MESSAGE_CONSTRAINTS);
         }
-        final Id modelId = new Id(id);
+        return new Id(id);
+    }
 
+    private Name parseName() throws IllegalValueException {
         if (name == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Name.class.getSimpleName()));
@@ -96,8 +104,10 @@ public class JsonAdaptedContact {
         if (!Name.isValid(name)) {
             throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
         }
-        final Name modelName = new Name(name);
+        return new Name(name);
+    }
 
+    private Email parseEmail() throws IllegalValueException {
         if (email == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Email.class.getSimpleName()));
@@ -105,8 +115,10 @@ public class JsonAdaptedContact {
         if (!Email.isValidEmail(email)) {
             throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
         }
-        final Email modelEmail = new Email(email);
+        return new Email(email);
+    }
 
+    private Course parseCourse() throws IllegalValueException {
         if (course == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Course.class.getSimpleName()));
@@ -114,8 +126,10 @@ public class JsonAdaptedContact {
         if (!Course.isValidCourse(course)) {
             throw new IllegalValueException(Course.MESSAGE_CONSTRAINTS);
         }
-        final Course modelCourse = new Course(course);
+        return new Course(course);
+    }
 
+    private Group parseGroup() throws IllegalValueException {
         if (group == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT,
                     Group.class.getSimpleName()));
@@ -123,11 +137,15 @@ public class JsonAdaptedContact {
         if (!Group.isValidGroup(group)) {
             throw new IllegalValueException(Group.MESSAGE_CONSTRAINTS);
         }
-        final Group modelGroup = new Group(group);
+        return new Group(group);
+    }
 
-        final Set<Tag> modelTags = new HashSet<>(contactTags);
-        return new Contact(modelId, modelName, modelEmail, modelCourse, modelGroup,
-            modelTags);
+    private Set<Tag> parseTags() throws IllegalValueException {
+        final Set<Tag> modelTags = new HashSet<>();
+        for (JsonAdaptedTag tag : tags) {
+            modelTags.add(tag.toModelType());
+        }
+        return modelTags;
     }
 
     @Override

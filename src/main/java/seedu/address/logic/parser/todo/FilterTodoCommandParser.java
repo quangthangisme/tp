@@ -1,6 +1,7 @@
 package seedu.address.logic.parser.todo;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_NO_COLUMNS;
 import static seedu.address.logic.Messages.MESSAGE_NO_VALUES;
 
@@ -32,6 +33,13 @@ import seedu.address.model.todo.predicate.TodoStatusPredicate;
  */
 public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
 
+    private static final PrefixAlias NAME_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_NAME;
+    private static final PrefixAlias DEADLINE_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_DEADLINE;
+    private static final PrefixAlias LOCATION_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_LOCATION;
+    private static final PrefixAlias STATUS_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_STATUS;
+    private static final PrefixAlias CONTACT_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_LINKED_CONTACT;
+    private static final PrefixAlias TAG_PREFIX = TodoCliSyntax.PREFIX_ALIAS_TODO_TAG;
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand and returns an
      * EditCommand object for execution.
@@ -40,85 +48,128 @@ public class FilterTodoCommandParser implements Parser<FilterTodoCommand> {
      */
     public FilterTodoCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias namePrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_NAME;
-        PrefixAlias deadlinePrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_DEADLINE;
-        PrefixAlias locationPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_LOCATION;
-        PrefixAlias statusPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_STATUS;
-        PrefixAlias contactPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_LINKED_CONTACT;
-        PrefixAlias tagPrefix = TodoCliSyntax.PREFIX_ALIAS_TODO_TAG;
-        Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
-                .add(namePrefix, deadlinePrefix, locationPrefix, statusPrefix, contactPrefix)
-                .toArray();
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
-
-        argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
-
+        ArgumentMultimap argMultimap = tokenizeAndValidateArgs(args);
         TodoPredicate predicate = new TodoPredicate();
 
-        if (argMultimap.getValue(namePrefix).isPresent()) {
-            Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(namePrefix).get());
-            if (operatorStringPair.second().trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, namePrefix.toString()));
-            }
-            predicate.setNamePredicate(new NamePredicate(operatorStringPair.first(),
-                    List.of(operatorStringPair.second().split("\\s+"))));
-        }
-        if (argMultimap.getValue(locationPrefix).isPresent()) {
-            Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(locationPrefix).get());
-            if (operatorStringPair.second().trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, locationPrefix.toString()));
-            }
-            predicate.setLocationPredicate(new LocationPredicate(operatorStringPair.first(),
-                    List.of(operatorStringPair.second().split("\\s+"))));
-        }
-        if (argMultimap.getValue(statusPrefix).isPresent()) {
-            if (argMultimap.getValue(statusPrefix).get().trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, statusPrefix.toString()));
-            }
-            predicate.setStatusPredicate(new TodoStatusPredicate(ParserUtil.parseBoolean(
-                    argMultimap.getValue(statusPrefix).get()
-            )));
-        }
-        if (argMultimap.getValue(deadlinePrefix).isPresent()) {
-            Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(deadlinePrefix).get());
-            if (operatorStringPair.second().trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, deadlinePrefix));
-            }
-            predicate.setDeadlinePredicate(new TodoDeadlinePredicate(operatorStringPair.first(),
-                    ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
-        }
-        if (argMultimap.getValue(tagPrefix).isPresent()) {
-            Pair<Operator, String> operatorStringPair =
-                    ParserUtil.parseOperatorAndString(argMultimap.getValue(tagPrefix).get());
-            if (operatorStringPair.second().trim().isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, tagPrefix.toString()));
-            }
-            predicate.setTagPredicate(new TagPredicate(operatorStringPair.first(),
-                    ParserUtil.parseTags(operatorStringPair.second())));
-        }
-        Optional<Pair<Operator, List<Index>>> contactFilterOpt = Optional.empty();
-        if (argMultimap.getValue(contactPrefix).isPresent()) {
-            Pair<Operator, String> operatorStringPair = ParserUtil.parseOperatorAndString(
-                    argMultimap.getValue(contactPrefix).get());
-            String contactString = operatorStringPair.second().trim();
-            if (contactString.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, contactPrefix.toString()));
-            }
-            List<Index> contactIndices = ParserUtil.parseIndices(contactString);
-            if (contactIndices.isEmpty()) {
-                throw new ParseException(String.format(MESSAGE_NO_VALUES, contactPrefix.toString()));
-            }
-            contactFilterOpt = Optional.of(new Pair<>(operatorStringPair.first(), contactIndices));
-            predicate.setContactPredicate(new TodoContactPredicate(Operator.OR, List.of()));
-        }
+        setNamePredicate(argMultimap, predicate);
+        setLocationPredicate(argMultimap, predicate);
+        setStatusPredicate(argMultimap, predicate);
+        setDeadlinePredicate(argMultimap, predicate);
+        setTagPredicate(argMultimap, predicate);
+
+        Optional<Pair<Operator, List<Index>>> contactFilterOpt =
+                parseContactPredicate(argMultimap, predicate);
 
         if (!predicate.isAnyFieldNonNull()) {
             throw new ParseException(MESSAGE_NO_COLUMNS);
         }
 
         return new FilterTodoCommand(predicate, contactFilterOpt);
+    }
+
+    private ArgumentMultimap tokenizeAndValidateArgs(String args) throws ParseException {
+        Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
+                .add(NAME_PREFIX, DEADLINE_PREFIX, LOCATION_PREFIX, STATUS_PREFIX, CONTACT_PREFIX)
+                .toArray();
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
+        argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
+
+        if (!argMultimap.getPreamble().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    FilterTodoCommand.MESSAGE_USAGE));
+        }
+
+        return argMultimap;
+    }
+
+    private void setNamePredicate(ArgumentMultimap argMultimap, TodoPredicate predicate)
+            throws ParseException {
+        if (argMultimap.getValue(NAME_PREFIX).isPresent()) {
+            Pair<Operator, String> operatorStringPair =
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(NAME_PREFIX).get());
+
+            validateNonEmptyValue(operatorStringPair.second(), NAME_PREFIX);
+
+            predicate.setNamePredicate(new NamePredicate(operatorStringPair.first(),
+                    List.of(operatorStringPair.second().split("\\s+"))));
+        }
+    }
+
+    private void setLocationPredicate(ArgumentMultimap argMultimap, TodoPredicate predicate)
+            throws ParseException {
+        if (argMultimap.getValue(LOCATION_PREFIX).isPresent()) {
+            Pair<Operator, String> operatorStringPair =
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(LOCATION_PREFIX).get());
+
+            validateNonEmptyValue(operatorStringPair.second(), LOCATION_PREFIX);
+
+            predicate.setLocationPredicate(new LocationPredicate(operatorStringPair.first(),
+                    List.of(operatorStringPair.second().split("\\s+"))));
+        }
+    }
+
+    private void setStatusPredicate(ArgumentMultimap argMultimap, TodoPredicate predicate)
+            throws ParseException {
+        if (argMultimap.getValue(STATUS_PREFIX).isPresent()) {
+            String statusString = argMultimap.getValue(STATUS_PREFIX).get().trim();
+
+            validateNonEmptyValue(statusString, STATUS_PREFIX);
+
+            predicate.setStatusPredicate(new TodoStatusPredicate(ParserUtil.parseBoolean(statusString)));
+        }
+    }
+
+    private void setDeadlinePredicate(ArgumentMultimap argMultimap, TodoPredicate predicate)
+            throws ParseException {
+        if (argMultimap.getValue(DEADLINE_PREFIX).isPresent()) {
+            Pair<Operator, String> operatorStringPair =
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(DEADLINE_PREFIX).get());
+
+            validateNonEmptyValue(operatorStringPair.second(), DEADLINE_PREFIX);
+
+            predicate.setDeadlinePredicate(new TodoDeadlinePredicate(operatorStringPair.first(),
+                    ParserUtil.parseDatetimePredicates(operatorStringPair.second())));
+        }
+    }
+
+    private void setTagPredicate(ArgumentMultimap argMultimap, TodoPredicate predicate)
+            throws ParseException {
+        if (argMultimap.getValue(TAG_PREFIX).isPresent()) {
+            Pair<Operator, String> operatorStringPair =
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(TAG_PREFIX).get());
+
+            validateNonEmptyValue(operatorStringPair.second(), TAG_PREFIX);
+
+            predicate.setTagPredicate(new TagPredicate(operatorStringPair.first(),
+                    ParserUtil.parseTags(operatorStringPair.second())));
+        }
+    }
+
+    private Optional<Pair<Operator, List<Index>>> parseContactPredicate(
+            ArgumentMultimap argMultimap, TodoPredicate predicate) throws ParseException {
+        if (argMultimap.getValue(CONTACT_PREFIX).isPresent()) {
+            Pair<Operator, String> operatorStringPair =
+                    ParserUtil.parseOperatorAndString(argMultimap.getValue(CONTACT_PREFIX).get());
+
+            validateNonEmptyValue(operatorStringPair.second(), CONTACT_PREFIX);
+
+            List<Index> contactIndices = ParserUtil.parseIndices(operatorStringPair.second());
+
+            if (contactIndices.isEmpty()) {
+                throw new ParseException(String.format(MESSAGE_NO_VALUES, CONTACT_PREFIX));
+            }
+
+            predicate.setContactPredicate(new TodoContactPredicate(Operator.OR, List.of()));
+
+            return Optional.of(new Pair<>(operatorStringPair.first(), contactIndices));
+        }
+
+        return Optional.empty();
+    }
+
+    private void validateNonEmptyValue(String value, PrefixAlias prefix) throws ParseException {
+        if (value.trim().isEmpty()) {
+            throw new ParseException(String.format(MESSAGE_NO_VALUES, prefix));
+        }
     }
 }

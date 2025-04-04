@@ -20,6 +20,13 @@ import seedu.address.logic.parser.exceptions.ParseException;
  */
 public class EditContactCommandParser implements Parser<EditContactCommand> {
 
+    private static final PrefixAlias ID_PREFIX = ContactCliSyntax.PREFIX_ALIAS_CONTACT_ID;
+    private static final PrefixAlias NAME_PREFIX = ContactCliSyntax.PREFIX_ALIAS_CONTACT_NAME;
+    private static final PrefixAlias EMAIL_PREFIX = ContactCliSyntax.PREFIX_ALIAS_CONTACT_EMAIL;
+    private static final PrefixAlias TAG_PREFIX = ContactCliSyntax.PREFIX_ALIAS_CONTACT_TAG;
+    private static final PrefixAlias COURSE_PREFIX = ContactCliSyntax.PREFIX_ALIAS_CONTACT_COURSE;
+    private static final PrefixAlias GROUP_PREFIX = ContactCliSyntax.PREFIX_ALIAS_CONTACT_GROUP;
+
     /**
      * Parses the given {@code String} of arguments in the context of the EditCommand and returns an
      * EditCommand object for execution.
@@ -28,14 +35,21 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
      */
     public EditContactCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        PrefixAlias idPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_ID;
-        PrefixAlias namePrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_NAME;
-        PrefixAlias emailPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_EMAIL;
-        PrefixAlias tagPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_TAG;
-        PrefixAlias coursePrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_COURSE;
-        PrefixAlias groupPrefix = ContactCliSyntax.PREFIX_ALIAS_CONTACT_GROUP;
+        ArgumentMultimap argMultimap = tokenizeArgs(args);
+        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
+
+        EditContactDescriptor editContactDescriptor = buildEditContactDescriptor(argMultimap);
+
+        if (!editContactDescriptor.isAnyFieldEdited()) {
+            throw new ParseException(EditContactCommand.MESSAGE_NOT_EDITED);
+        }
+
+        return new EditContactCommand(index, editContactDescriptor);
+    }
+
+    private ArgumentMultimap tokenizeArgs(String args) throws ParseException {
         Prefix[] listOfPrefixes = new PrefixAliasListBuilder()
-                .add(idPrefix, namePrefix, emailPrefix, tagPrefix, coursePrefix, groupPrefix)
+                .add(ID_PREFIX, NAME_PREFIX, EMAIL_PREFIX, TAG_PREFIX, COURSE_PREFIX, GROUP_PREFIX)
                 .toArray();
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, listOfPrefixes);
 
@@ -43,41 +57,41 @@ public class EditContactCommandParser implements Parser<EditContactCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditContactCommand.MESSAGE_USAGE));
         }
-        Index index = ParserUtil.parseIndex(argMultimap.getPreamble());
 
         argMultimap.verifyNoDuplicatePrefixesFor(listOfPrefixes);
 
+        return argMultimap;
+    }
+
+    private EditContactDescriptor buildEditContactDescriptor(ArgumentMultimap argMultimap)
+            throws ParseException {
         EditContactDescriptor editContactDescriptor = new EditContactDescriptor();
 
-        if (argMultimap.getValue(idPrefix).isPresent()) {
-            editContactDescriptor.setId(ContactParserUtil.parseId(argMultimap.getValue(idPrefix).get()));
+        if (argMultimap.getValue(ID_PREFIX).isPresent()) {
+            editContactDescriptor.setId(ContactParserUtil.parseId(argMultimap.getValue(ID_PREFIX).get()));
         }
-        if (argMultimap.getValue(namePrefix).isPresent()) {
+        if (argMultimap.getValue(NAME_PREFIX).isPresent()) {
             editContactDescriptor.setName(
-                    ContactParserUtil.parseName(argMultimap.getValue(namePrefix).get()));
+                    ContactParserUtil.parseName(argMultimap.getValue(NAME_PREFIX).get()));
         }
-        if (argMultimap.getValue(emailPrefix).isPresent()) {
+        if (argMultimap.getValue(EMAIL_PREFIX).isPresent()) {
             editContactDescriptor.setEmail(
-                    ContactParserUtil.parseEmail(argMultimap.getValue(emailPrefix).get()));
+                    ContactParserUtil.parseEmail(argMultimap.getValue(EMAIL_PREFIX).get()));
         }
-        if (argMultimap.getValue(coursePrefix).isPresent()) {
+        if (argMultimap.getValue(COURSE_PREFIX).isPresent()) {
             editContactDescriptor.setCourse(
-                    ContactParserUtil.parseCourse(argMultimap.getValue(coursePrefix).get()));
+                    ContactParserUtil.parseCourse(argMultimap.getValue(COURSE_PREFIX).get()));
         }
-        if (argMultimap.getValue(groupPrefix).isPresent()) {
+        if (argMultimap.getValue(GROUP_PREFIX).isPresent()) {
             editContactDescriptor.setGroup(
-                    ContactParserUtil.parseGroup(argMultimap.getValue(groupPrefix).get()));
+                    ContactParserUtil.parseGroup(argMultimap.getValue(GROUP_PREFIX).get()));
         }
-        if (argMultimap.getValue(tagPrefix).isPresent()) {
+        if (argMultimap.getValue(TAG_PREFIX).isPresent()) {
             editContactDescriptor.setTags(
-                    ParserUtil.parseTags(argMultimap.getValue(tagPrefix).get()));
+                    ParserUtil.parseTags(argMultimap.getValue(TAG_PREFIX).get()));
         }
 
-        if (!editContactDescriptor.isAnyFieldEdited()) {
-            throw new ParseException(EditContactCommand.MESSAGE_NOT_EDITED);
-        }
-
-        return new EditContactCommand(index, editContactDescriptor);
+        return editContactDescriptor;
     }
 
 }
