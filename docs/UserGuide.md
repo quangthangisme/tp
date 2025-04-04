@@ -90,6 +90,8 @@ Format: `contact add --id ID --name NAME --email EMAIL --course COURSE --group G
 
 **Tip:** A contact can have any number of tags (including 0)
 
+**Important**: The contact's ID must be unique.
+
 Examples:
 * `contact add --id A1234567A --name John Doe --email johnd@example.com --course CS50 --group T01 --tag friends owesMoney`
 
@@ -205,6 +207,8 @@ Adds an event to the address book.
 Format: `event add --name NAME --start START_DATETIME --end END_DATETIME --location LOCATION [--tag TAG(S)]`
 
 **Important:** start time and end time format is `YY-MM-DD HH:MM`, where `HH` is in 24 hour format and start time must be earlier than end time.
+
+**Important**: The event's name must be unique.
 
 **Tip:** An event can have any number of tags (including 0)
 
@@ -424,6 +428,8 @@ Format: `todo add --name NAME --location LOCATION --deadline DEADLINE [--tag TAG
 
 **Tip:** A todo can have any number of tags (including 0)
 
+**Important**: The contact's name must be unique.
+
 Examples:
 * `todo add --name Final Submission --deadline 24-08-26 12:00 --location NUS SoC COM1 --tag CS1234`
 * `todo add --name CS1010S mission --deadline 24-05-26 12:00 --location Coursemology --tag urgent struggling`
@@ -617,6 +623,19 @@ Examples:
 * `help event log` show help message of `event log` command.
 
 ### Exiting the program : `exit`/`quit`/`kill`/`bye`
+
+## Quality of Life:
+
+1. You may use the arrows to traverse through command history.
+
+1. Clicking on each contact/event/todo card will display the full information of the card in the command output.
+
+1. Click on "Event" or "Todo" button to toggle between event and todo list views. You may use the reset button to reset filtered views of event/todo and contacts at the same time.
+
+1. Apply natural ordering to lists:
+  * Contacts should be sorted first by name, then by ID in alphabetical order.
+  * Todos should be sorted by status first, followed by deadline, and then by name.
+  * Events should be sorted by start time, then by end time, and finally by name.
 
 --------------------------------------------------------------------------------------------------------------------
 
