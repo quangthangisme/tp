@@ -340,7 +340,7 @@ _{Explain here how the data archiving feature will be implemented}_
 * Prefers typing to mouse interactions
 * Is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: Tutors often teach multiple courses across different platforms. Without being a full-fledged learning management system, TutorConnect simplifies student management by providing an efficient central platform for storing and organizing student contacts, assigning tasks, and optimizing workflows with intuitive CLI options.
 
 
 ### User stories
