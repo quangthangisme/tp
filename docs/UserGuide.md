@@ -234,3 +234,219 @@ Action     | Format, Examples
 **Find**   | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`
 **List**   | `list`
 **Help**   | `help`
+
+## Event: `event`
+
+### Adding an event: `add`
+Adds an event to the to the address book.
+
+Format: `event add --name NAME --start START_DATETIME --end END_DATETIME --location LOCATION [--tag TAG(S)]`
+
+**Important:** start time and end time format is `YY-MM-DD HH:MM`, where `HH` is in 24 hour format and start time must be earlier than end time.
+
+**Tip:** An event can have any number of tags (including 0)
+
+Examples:
+* `event add --name CS2040S tutorial --start 24-08-26 12:00 --end 24-08-26 14:00 --location NUS SoC COM1 --tag algorithms`
+* `event add --name CS1010S tutorial --start 25-01-31 14:00 --end 25-01-31 18:00 --location NUS BIZ2 --tag tut29 tut30`
+
+### Editing an event: `edit`
+Edits the details of the event identified by the index number in the currently displayed event list. Only the fields specified in the command will be updated; all others remain unchanged.
+
+Format:
+`event edit INDEX [--name NAME] [--start START_TIME] [--end END_TIME] [--location LOCATION] [--contact CONTACT_INDEX/INDICES] [--tag TAG(S)]`
+
+* `INDEX` refers to the event to be edited, based on its position in the displayed event list.
+
+* Fields that are not included in the command will remain unchanged. You can update any combination of fields at once.
+
+* If `--tag` is provided with no value, all tags will be cleared.
+
+Important:
+
+* `INDEX` must be a positive integer.
+
+* `CONTACT_INDEX/INDICES` refers to the index(es) in the contact list currently displayed on the right.
+
+Examples:
+
+* `event edit 1 --name Project Meeting`
+
+* `event edit 2 --start 25-03-15 10:00 --end 25-03-15 12:00`
+
+* `event edit 3 --location COM2-0208 --tag project`
+
+* `event edit 4 --contact 1 2 3`
+
+### Deleting an event: `delete`
+
+Deletes the event identified by the index number used in the displayed event list. 
+
+Format: `event delete INDEX`
+
+Example:
+* `event delete 1`
+
+### Displaying information of event: `info`
+Displays the complete information belonging to the event identified by the index number used in the displayed event list.
+
+Format: `event info INDEX`
+
+Example:
+* `event info 1`
+
+### Clearing event list: `clear`
+Clears the event list.
+
+Format: `event clear`
+
+### Linking contacts: `link`
+Associates one or more contacts to an event. Useful for keeping track of which contacts are involved in a particular event.
+
+Format: `event link INDEX --contact CONTACT_INDEX/INDICES`
+
+* `INDEX` refers to the index of the event in the displayed event list.
+
+* `CONTACT_INDEX/INDICES` refers to the index(es) of the contact(s) in the currently displayed contact list.
+
+* You can link multiple contacts by providing more than one contact index.
+
+* At least one `CONTACT_INDEX` must be provided.
+
+Examples:
+* `event link 1 --contact 1 3 4`
+
+### Unlinking contacts: `unlink`
+Removes the association between one or more contacts and a specific event.
+
+Format: `event unlink EVENT_INDEX --contact CONTACT_INDEX/INDICES`
+
+* `EVENT_INDEX` refers to the index of the event in the displayed event list.
+
+* `CONTACT_INDEX/INDICES` refers to the index(es) of the contact(s) to be unlinked from the event.
+
+* You can unlink multiple contacts by providing more than one contact index.
+
+Examples:
+* `event unlink 1 --contact 3 4`
+
+### Tagging an event: `tag`
+Adds one or more tags to the specified event. Tags help categorize and filter events more easily (e.g., by priority, role, type, etc.).
+
+Format: `event tag EVENT_INDEX --tag TAG(S)`
+
+* `EVENT_INDEX` refers to the index of the event in the currently displayed event list.
+
+* You can add one or more tags by listing them after `--tag`.
+
+* Duplicate tags (already added to the event) are not allowed.
+
+* Tags are case-sensitive and stored as-is.
+
+Example: 
+* `event tag 1 --tag TA Important`
+
+### Untagging an event: `untag`
+Removes one or more tags from the specified event. Useful for decluttering or updating tag information as event details change.
+
+Format: `event untag EVENT_INDEX --tag TAG(S)`
+
+* `EVENT_INDEX` refers to the index of the event in the currently displayed event list.
+
+* You can remove one or more tags by listing them after `--tag`.
+
+* Tags are case-sensitive and must match the tag(s) assigned to the event.
+
+**Important**: `EVENT_INDEX` must be a positive integer.
+
+Example:
+* `event untag 1 --tag important weekly`
+
+### Logging attendance for an event: `log`
+Records the attendance of one or more contacts for a specific event. This allows you to track who actually attended, separate from just being linked to the event.
+
+Format: `event log EVENT_INDEX --contact CONTACT_INDEX [CONTACT_INDEX/INDICES]`
+
+* `EVENT_INDEX` refers to the index of the event in the displayed event list.
+
+* `CONTACT_INDEX/INDICES` refers to the index(es) of the contacts linked to the event, as shown by event info.
+
+* You can log multiple contacts at once by listing their indices.
+
+* You cannot unlog a contact that is already unlogged.
+
+**Tip:** Use event info to view the current linked contacts and their indices.
+
+Example:
+* `event log 1 --contact 1 2 3`
+(Logs attendance for contacts 1, 2, and 3 at the event with index 1)
+
+### Removing attendance logs from an event: `unlog`
+Removes the attendance logs of one or more contacts from a specific event. Useful for correcting mistakes or updating attendance records.
+
+Format:
+`event unlog EVENT_INDEX --contact CONTACT_INDEX [CONTACT_INDEX/INCIDES]`
+
+* `EVENT_INDEX` refers to the index of the event in the displayed event list.
+
+* `CONTACT_INDEX/INDICES` refers to the index(es) of the contacts previously logged for that event, as shown in event info.
+
+* You can unlog multiple contacts at once by listing their indices.
+
+* You cannot unlog a contact that is already unlogged
+
+**Important:** EVENT_INDEX must be a positive integer.
+
+**Tip:** Use event info to view currently logged contacts and their indices.
+
+Example:
+`event unlog 1 --contact 1 2 3`
+(Removes attendance logs for contacts 1, 2, and 3 from the event with index 1)
+
+### Filtering events: `filter`
+Filters the list of events based on one or more criteria. You can search by event name, time, location, tags, or linked contacts using logical operators to combine multiple values.
+
+Format:
+`event filter --<COLUMN> [<OPERATOR>:] <VALUE(S)> [...]`
+
+Supported columns:
+* `--name`: Event name.
+* `--start`: Start time.
+* `--end`: End time.
+* `--location`: Event location.
+* `--tag`: Tags.
+* `--contact`: Linked contacts.
+
+Operators (optional):
+* `and` (default): All values must match.
+* `or`: At least one value must match.
+* `nand`: None of the values must match.
+* `nor`: Reject all values.
+
+If an operator is not provided, it defaults to `and`.
+
+**Value formats**:
+
+Name, Location and Tag:
+* Provide one or more keywords separated by spaces.
+* Keywords are case-insensitive and support partial matches.
+
+Start & End Time:
+* Provide one or more closed intervals, each written as: `[<INTERVAL_START>/<INTERVAL_END>]`.
+* Each datetime must follow the format: `YY-MM-DD HH:MM`.
+* At least one of the two bounds must be specified. You can replace an empty bounds using `-`.
+
+Contact:
+* Provide contact indices (as shown in the current contact list).
+
+* Matches events linked to all the specified contacts (default `and`, unless overridden).
+
+Examples:
+* `event filter --name or: Exam PRESENTATION`. 
+  * Find todos whose name contains at least one of the keywords "exam" or "presentation."
+
+* `event filter --name CS1010S eXAM --start or: [25-03-13 23:59/25-03-20 23:59] [25-03-27 23:59/-]`
+  * Find todos whose name contains both the keywords `"CS1010S"` and `"exam"` and whose start time is between `25-03-13 23:59` and `25-03-20 23:59`(inclusive) or after `25-03-27 23:59` (inclusive).
+
+* `event filter --location nand: NUS Home --contact 1 2 3`
+  * Find todos whose location does not contain the keywords "NUS" or "home" and which are is linked to the people currently at index 1, 2 and 3.
