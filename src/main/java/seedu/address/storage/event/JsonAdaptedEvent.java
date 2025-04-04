@@ -23,7 +23,7 @@ import seedu.address.model.item.commons.Datetime;
 import seedu.address.model.item.commons.Location;
 import seedu.address.model.item.commons.Name;
 import seedu.address.model.item.commons.Tag;
-import seedu.address.storage.contact.JsonAdaptedTag;
+import seedu.address.storage.commons.JsonAdaptedTag;
 
 /**
  * Jackson-friendly version of {@link Event}.

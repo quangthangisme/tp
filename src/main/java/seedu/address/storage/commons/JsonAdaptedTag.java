@@ -1,4 +1,4 @@
-package seedu.address.storage.contact;
+package seedu.address.storage.commons;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
