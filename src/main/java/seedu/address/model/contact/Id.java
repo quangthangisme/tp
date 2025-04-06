@@ -53,16 +53,16 @@ public class Id implements Comparable<Id> {
         }
 
         Id otherId = (Id) other;
-        return fullId.equals(otherId.fullId);
+        return fullId.toLowerCase().equals(otherId.fullId.toLowerCase());
     }
 
     @Override
     public int hashCode() {
-        return fullId.hashCode();
+        return fullId.toLowerCase().hashCode();
     }
 
     @Override
     public int compareTo(Id other) {
-        return this.fullId.compareTo(other.fullId);
+        return this.fullId.toLowerCase().compareTo(other.fullId.toLowerCase());
     }
 }

@@ -52,12 +52,12 @@ public class Name implements Comparable<Name> {
             return false;
         }
 
-        return value.equals(otherName.value);
+        return value.toLowerCase().equals(otherName.value.toLowerCase());
     }
 
     @Override
     public int hashCode() {
-        return value.hashCode();
+        return value.toLowerCase().hashCode();
     }
 
     @Override

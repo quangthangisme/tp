@@ -44,6 +44,11 @@ public class Location {
         if (!(other instanceof Location otherLocation)) {
             return false;
         }
-        return this.value.equals(otherLocation.value);
+        return this.value.toLowerCase().equals(otherLocation.value.toLowerCase());
+    }
+
+    @Override
+    public int hashCode() {
+        return value.toLowerCase().hashCode();
     }
 }
