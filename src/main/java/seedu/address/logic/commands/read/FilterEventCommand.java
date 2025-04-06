@@ -32,8 +32,9 @@ import seedu.address.ui.ListPanelViewType;
 public class FilterEventCommand extends FilterCommand<EventManagerAndList, Event> {
 
     public static final String MESSAGE_USAGE = EVENT_COMMAND_WORD + " " + COMMAND_WORD
-            + ": Filters events based on specified criteria.\n"
-            + "Parameters: --<COL> [<OP>:] <VALUE(S)> [...]\n"
+            + ": Filters events that fulfill all of the specified criteria. Specify at least one criterion.\n"
+            + "Each criterion is formed using a column, operator, and values, in the form --<COL> [<OP>:] <VALUE(S)>\n"
+
             + "- --<COL> : Column to filter on ("
             + PREFIX_EVENT_NAME_LONG + ", "
             + PREFIX_EVENT_START_LONG + ", "

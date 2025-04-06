@@ -25,8 +25,9 @@ import seedu.address.ui.ListPanelViewType;
 public class FilterContactCommand extends FilterCommand<ContactManagerAndList, Contact> {
 
     public static final String MESSAGE_USAGE = CONTACT_COMMAND_WORD + " " + COMMAND_WORD
-            + ": Filters contacts based on specified criteria and displays them as a list with index numbers.\n"
-            + "Parameters: --<COL> [<OP>:] <VALUE(S)> [...]\n"
+            + ": Filters contacts that fulfill all of the specified criteria. Specify at least one criterion.\n"
+            + "Each criterion is formed using a column, operator, and values, in the form --<COL> [<OP>:] <VALUE(S)>\n"
+
             + "- --<COL> : Column to filter on ("
             + PREFIX_CONTACT_NAME_LONG + ", "
             + PREFIX_CONTACT_EMAIL_LONG + ", "
@@ -56,8 +57,7 @@ public class FilterContactCommand extends FilterCommand<ContactManagerAndList, C
             + PREFIX_CONTACT_COURSE_LONG + "CS1010S "
             + PREFIX_CONTACT_GROUP_LONG + Operator.OR.getName() + ": T01 T02 T03\n"
             + "   Find contacts with both \"Darren\" and \"Tan\" in their name who enroll in course CS1010S and class "
-            + "T01, "
-            + "T02, or T03.\n"
+            + "T01, T02, or T03.\n"
 
             + "3. " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " "
             + PREFIX_CONTACT_NAME_LONG + Operator.NAND.getName() + ": enemy Hater "

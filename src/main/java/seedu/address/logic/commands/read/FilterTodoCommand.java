@@ -32,8 +32,9 @@ import seedu.address.ui.ListPanelViewType;
 public class FilterTodoCommand extends FilterCommand<TodoManagerAndList, Todo> {
 
     public static final String MESSAGE_USAGE = TODO_COMMAND_WORD + " " + COMMAND_WORD
-            + ": Filters todos based on specified criteria.\n"
-            + "Parameters: --<COL> [<OP>:] <VALUE(S)> [...]\n"
+            + ": Filters todos that fulfill all of the specified criteria. Specify at least one criterion.\n"
+            + "Each criterion is formed using a column, operator, and values, in the form --<COL> [<OP>:] <VALUE(S)>\n"
+
             + "- --<COL> : Column to filter on ("
             + PREFIX_TODO_NAME_LONG + ", "
             + PREFIX_TODO_DEADLINE_LONG + ", "
