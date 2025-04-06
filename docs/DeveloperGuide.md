@@ -311,7 +311,9 @@ _{more aspects and alternatives to be added}_
 ### \[Proposed\] Command Parser with flags
 Proposed Implementation
 
-The proposed parsing mechanism for `Command` containing flags is facilitated by specialized `XCommandParser` classes. These parsers interpret user input and construct the appropriate `XCommand` objects. The parsing process relies on several utility components:
+The proposed parsing mechanism for `Command` containing flags is facilitated by specialized `XYCommandParser` classes. These parsers interpret user input and construct the appropriate `XYCommand` objects. The parsing process relies on several utility components:
+
+Where `X` refers to the classes with the `item` interface. `Y` refers to the new feature related to the class `X`.
 
 * `ArgumentTokenizer` – splits the raw input into prefixes and arguments.
 
@@ -319,9 +321,9 @@ The proposed parsing mechanism for `Command` containing flags is facilitated by 
 
 The following sequence diagram shows how an edit operation goes through the Logic component:
 
-<puml src="diagrams/EditContactCommandSequenceDiagram.puml" width="250" />
+<puml src="diagrams/XYCommandSequenceDiagram.puml" width="250" />
 
-Step 1. The `args` for `XCommand` gets passed into the corresponding `XCommandParser`.
+Step 1. The `args` for `XYCommand` gets passed into the corresponding `XYCommandParser`.
 
 Step 2: The `ArgumentTokenizer` scans the raw input string and splits it based on the defined prefixes (e.g., `--tag` for tags, `--name` for names).
 
@@ -350,7 +352,7 @@ These utility methods ensure type safety and can be defined as you needed. If an
 
 Step 4: Once all necessary values are extracted and validated, the final command is constructed:
 
-At this stage, the parser assembles the required information into an executable `Command` object, which is returned to the `LogicManager`.
+At this stage, the parser assembles the required information into an executable `XYCommand` object, which is returned to the `LogicManager`.
 
 Design Considerations
 * Modularity: Each command has its own parser class, keeping logic isolated and maintainable.
