@@ -48,7 +48,7 @@ public class FilterTodoCommand extends FilterCommand<TodoManagerAndList, Todo> {
             + Operator.OR.getName() + ", "
             + Operator.NAND.getName() + ", "
             + Operator.NOR.getName() + "). If not specified, defaults to "
-            + Operator.AND.getName() + "Cannot be applied to status criterion.\n"
+            + Operator.AND.getName() + ". Cannot be applied to status criterion.\n"
 
             + "- <VALUE(S)>: One or more values to filter by.\n"
             + "    + For name and location, use keywords separated by whitespaces. These keywords are not "
@@ -73,12 +73,12 @@ public class FilterTodoCommand extends FilterCommand<TodoManagerAndList, Todo> {
             + PREFIX_TODO_DEADLINE_LONG + Operator.OR.getName()
             + ": [25-03-13 23:59/25-03-20 23:59] [25-03-27 23:59/-]\n"
             + "   Find todos whose name contains both the keywords \"CS1010S\" and \"grading\" and whose deadline is "
-            + "between 25-03-13 23:59 and 25-03-20 23:59 (inclusive) or not before 25-03-27 23:59 (inclusive).\n"
+            + "between 25-03-13 23:59 and 25-03-20 23:59 (inclusive) or after 25-03-27 23:59 (inclusive).\n"
 
             + "3. " + TODO_COMMAND_WORD + " " + COMMAND_WORD + " "
             + PREFIX_TODO_LOCATION_LONG + Operator.NAND.getName() + ": NUS Home "
             + PREFIX_TODO_STATUS_LONG + "false\n"
-            + "   Find todos whose location does not contain the keywords \"NUS\" or \"home\" and which are not done "
+            + "   Find todos whose location does not contain keywords \"NUS\" and \"home\", and which are not done "
             + "yet.\n";
 
     private final TodoPredicate todoPredicate;
