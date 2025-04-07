@@ -2,6 +2,11 @@
 !include style.puml
 skinparam ArrowFontStyle plain
 
+box Ui UI_COLOR_T1
+participant ":MainWindow" as MainWindow UI_COLOR
+endbox
+
+box Logic LOGIC_COLOR_T1
 participant ":LogicManager" as LogicManager LOGIC_COLOR
 participant ":ParserImpl" as ParserImpl LOGIC_COLOR
 participant ":YParser" as YParser LOGIC_COLOR
@@ -12,8 +17,10 @@ participant ":ParserUtil" as ParserUtil LOGIC_COLOR
 participant "b:XYCommand" as XYCommand LOGIC_COLOR
 participant ":ItemManagerWithFilteredList" as ItemManager LOGIC_COLOR
 participant ":Storage" as Storage LOGIC_COLOR
+endbox
 
-[-> LogicManager: execute(commandText)
+activate MainWindow
+MainWindow -> LogicManager: execute(commandText)
 activate LogicManager
 
 LogicManager -> ParserImpl: parseCommand(commandText)
@@ -91,6 +98,7 @@ activate Storage
 Storage --> LogicManager
 deactivate Storage
 
-[<- LogicManager : commandResult
+MainWindow<- LogicManager : commandResult
 deactivate LogicManager
+deactivate MainWindow
 @enduml
