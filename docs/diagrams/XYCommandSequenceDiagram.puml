@@ -48,12 +48,10 @@ ArgumentTokenizer -> ArgumentTokenizer: findPrefixPositions(args, prefixes)
 
 loop for each position in sorted prefixPositions
 ArgumentTokenizer -> ArgumentTokenizer: extractPrefixesAndArguments(args, prefixPositions)
-activate ArgumentTokenizer
 ArgumentTokenizer -> ArgumentMultimap: put(prefix, argument)
 activate ArgumentMultimap
 ArgumentMultimap --> ArgumentTokenizer
 deactivate ArgumentMultimap
-deactivate ArgumentTokenizer
 end
 
 
@@ -66,12 +64,10 @@ ArgumentMultimap --> XYCommandParser: a
 deactivate ArgumentMultimap
 
 XYCommandParser -> XYCommandParser: parsePrefixes(argumentMultimap, filterCriteriaMap)
-activate XYCommandParser
 XYCommandParser -> ParserUtil: parseArguments(val)
 activate ParserUtil
 ParserUtil --> XYCommandParser: arguments
 deactivate ParserUtil
-deactivate XYCommandParser
 
 XYCommandParser --> ParserImpl: b
 deactivate XYCommandParser
