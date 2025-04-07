@@ -1,4 +1,5 @@
 @startuml
+hide empty description
 
 state "Empty Command Text Field" as Empty
 state "New Command Added to History" as NewCommand
