@@ -30,19 +30,32 @@ activate XYCommandParser
 XYCommandParser -> ArgumentTokenizer: tokenize(args, prefixes)
 activate ArgumentTokenizer
 
-ArgumentTokenizer -> ArgumentTokenizer: findAndExtractPrefixArguments(args, prefixes)
-
+'ArgumentTokenizer -> ArgumentTokenizer: findAndExtractPrefixArguments(args, prefixes)
+'
 'ArgumentTokenizer -> ArgumentTokenizer: findAllPrefixPositions(args, prefixes)
 'ArgumentTokenizer -> ArgumentTokenizer: findPrefixPositions(args, prefixes)
 'ArgumentTokenizer -> ArgumentTokenizer: findPrefixPosition(args, prefix, fromIndex)
 '
 'ArgumentTokenizer -> ArgumentTokenizer: extractArguments(args, positions)
 'ArgumentTokenizer -> ArgumentTokenizer: extractArgumentValue(args, index, nextIndex)
+'
+'ArgumentTokenizer -> ArgumentMultimap: put(prefix, value)
+'activate ArgumentMultimap
+'ArgumentMultimap --> ArgumentTokenizer: a
+'deactivate ArgumentMultimap
 
-ArgumentTokenizer -> ArgumentMultimap: put(prefix, value)
+ArgumentTokenizer -> ArgumentTokenizer: findPrefixPositions(args, prefixes)
+
+loop for each position in sorted prefixPositions
+ArgumentTokenizer -> ArgumentTokenizer: extractPrefixesAndArguments(args, prefixPositions)
+activate ArgumentTokenizer
+ArgumentTokenizer -> ArgumentMultimap: put(prefix, argument)
 activate ArgumentMultimap
-ArgumentMultimap --> ArgumentTokenizer: a
+ArgumentMultimap --> ArgumentTokenizer
 deactivate ArgumentMultimap
+deactivate ArgumentTokenizer
+end
+
 
 ArgumentTokenizer --> XYCommandParser: a
 deactivate ArgumentTokenizer
@@ -84,5 +97,4 @@ deactivate Storage
 
 [<- LogicManager : commandResult
 deactivate LogicManager
-
 @enduml
