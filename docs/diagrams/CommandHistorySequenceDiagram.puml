@@ -3,8 +3,10 @@
 skinparam ArrowFontStyle plain
 
 actor User
+box Ui UI_COLOR_T1
 participant ":CommandBox" as CommandBox UI_COLOR
 participant ":TextField" as TextField UI_COLOR
+endbox
 
 User -> TextField: Press Up arrow key
 activate TextField

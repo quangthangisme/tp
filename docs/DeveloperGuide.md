@@ -129,23 +129,23 @@ Here's a (partial) class diagram of the `Logic` component:
 
 <puml src="diagrams/LogicClassDiagram.puml" width="550"/>
 
-The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("contact delete 
+The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("contact delete
 1")` API call as an example.
 
 <puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
 
 <box type="info" seamless>
 
-**Note:** The lifeline for `ContactCommandParser`, `DeleteContactCommandParser`), should end at 
+**Note:** The lifeline for `ContactCommandParser`, `DeleteContactCommandParser`), should end at
 the destroy marker (X) but due to a limitation of PlantUML, the lifeline continues till the end of diagram.
 </box>
 
 How the `Logic` component works:
 
-1. When `Logic` is called upon to execute a command, it is passed to an `ParserImpl` object which in turn cascades 
-   through the parser hierarchy (item -> operation) to find a parser that matches the command (e.g., 
+1. When `Logic` is called upon to execute a command, it is passed to an `ParserImpl` object which in turn cascades
+   through the parser hierarchy (item -> operation) to find a parser that matches the command (e.g.,
    `DeleteContactCommandParser`) and uses it to parse the command.
-1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g. 
+1. This results in a `Command` object (more precisely, an object of one of its subclasses e.g.
    `DeleteContactCommand`) which is executed by the `LogicManager`.
 1. The command can communicate with the `Model` when it is executed (e.g. to delete a contact).<br>
    Note that although this is shown as a single step in the diagram above (for simplicity), in the code it can take several interactions (between the command object and the `Model`) to achieve.
@@ -156,11 +156,11 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <puml src="diagrams/ParserClasses.puml" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `ParserImpl` class creates an `XYZCommandParser` (`XYZ` is a 
-  placeholder for the specific command and item name e.g., `AddContactCommandParser`) which uses the other classes 
-  shown above to parse the user command and create a `XYZCommand` object (e.g., `AddContactCommand`) which the 
+* When called upon to parse a user command, the `ParserImpl` class creates an `XYZCommandParser` (`XYZ` is a
+  placeholder for the specific command and item name e.g., `AddContactCommandParser`) which uses the other classes
+  shown above to parse the user command and create a `XYZCommand` object (e.g., `AddContactCommand`) which the
   `ParserImpl` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddContactCommandParser`, `DeleteContactCommandParser`, ...) inherit from the 
+* All `XYZCommandParser` classes (e.g., `AddContactCommandParser`, `DeleteContactCommandParser`, ...) inherit from the
   `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
@@ -467,7 +467,7 @@ Step 1. The `args` for `XYCommand` gets passed into the corresponding `XYCommand
 
 Step 2: The `ArgumentTokenizer` scans the raw input string and splits it based on the defined prefixes (e.g., `--tag` for tags, `--name` for names).
 
-Each prefix and its value(s) are stored in an `ArgumentMultimap`. Internally, the following methods are used: 
+Each prefix and its value(s) are stored in an `ArgumentMultimap`. Internally, the following methods are used:
 
 * `ArgumentTokenizer#findAllPrefixPositions()`: Collects all positions of the supplied prefixes in the `argsString`.
 * `ArgumentTokenizer#findPrefixPositions()`: Iteratively searches the string for instances of a specific prefix (e.g., `--tag`, `--name`).
@@ -501,7 +501,6 @@ Design Considerations
 
 * Scalability: Easily supports optional, repeatable, and order-independent arguments through prefix-based parsing. These prefixes 
 are called and parsed by `ArgumentTokenizer` as required.
-
 
 --------------------------------------------------------------------------------------------------------------------
 
