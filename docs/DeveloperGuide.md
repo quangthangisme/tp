@@ -332,62 +332,60 @@ _{Explain here how the data archiving feature will be implemented}_
 **Target user profile**:
 
 * Tutors managing student information and course-related details
-  * Needs to track student attendance and student issues
-  * Needs to manage course related tasks
-* Has a need to manage a significant number of contacts
+  * Needs to manage course tasks related to a student or tutor.
+  * Needs to track student attendance of classes.
+* Needs to manage a significant number of contacts
 * Prefers desktop apps over other types
-* Can type fast
 * Prefers typing to mouse interactions
 * Is reasonably comfortable using CLI apps
 
 **Value proposition**: Tutors often teach multiple courses across different platforms. Without being a full-fledged learning management system, TutorConnect simplifies student management by providing an efficient central platform for storing and organizing student contacts, assigning tasks, and optimizing workflows with intuitive CLI options.
 
-
 ### User stories
+
+Note: Not all features are implemented. The [user guide](UserGuide.md) documents the current set of supported features. This is a work in progress.
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a ...                 | I want to ...                                  | so that I can ...                                   |
-|----------|--------------------------|------------------------------------------------|-----------------------------------------------------|
-| `* * *`  | first time user          | see a functional help page                     | understand the app's functionalities                |
-| `*`      | first-time user          | get a guide to creating my profile             | know what to do and not feel overwhelmed            |
-| `* * *`  | tutor                    | automatically load in data                     | easily reuse the application                        |
-| `* * *`  | tutor                    | automatically save and export data             | easily reuse the application                        |
-| `* * *`  | tutor                    | safely exit the program                        | avoid corrupting my files                           |
-| `* * *`  | tutor                    | create an event                                | represent a tutorial                                |
-| `* * *`  | tutor                    | delete an event                                | remove events I no longer need                      |
-| `*`      | impatient tutor          | create recurring events                        | save time and ensure consistency                    |
-| `*`      | impatient tutor          | mass import class timings (events)             | save time                                           |
-| `* * *`  | tutor                    | add students to an event                       | assign students to class                            |
-| `* * *`  | tutor                    | remove students from an event                  | unassign students to class                          |
-| `* * *`  | tutor                    | log a student student as having attended event | check attendance                                    |
-| `* * *`  | tutor                    | add a contact                                  | store the information of my student                 |
-| `* *`    | tutor                    | add multiple contacts with same names          | handle students with duplicate names                |
-| `* * *`  | tutor                    | delete a contact                               | remove students I no longer need to handle          |
-| `* *`    | tutor with many classes  | label a contact with a class                   | remember student is in which class                  |
-| `* *`    | tutor with many course   | label a contact with a course                  | remember student is in which course                 |
-| `*`      | impatient tutor          | mass import students data                      | save time                                           |
-| `* *`    | tutor                    | search for a specific contact by feature       | retrieve full information for a particular contact  |
-| `* *`    | tutor                    | list all contacts                              |                                                     |
-| `* *`    | tutor with many classes  | filter all students by class/course            | find students easily for various purposes           |
-| `* *`    | tutor with many classes  | sort all students by class/course              | find students easily for various purposes           |
-| `* *`    | tutor                    | label progress of students                     | identify struggling students                        |
-| `* *`    | caring tutor             | create a todo                                  | represent a task for some contact                   |
-| `* *`    | caring tutor             | add contact to todo                            | handle a situation for some contact(s)              |
-| `* *`    | caring tutor             | remove contact from todo                       |                                                     |
-| `* *`    | caring tutor             | mark todo as done                              | remember that I have handled the situation          |
-| `* *`    | caring tutor             | mark todo as not done                          |                                                     |
-| `*`      | head tutor               | distinguish students and tutors                | add tutors as contacts                              |
-| `*`      | head tutor               | know when my tutors are unavailable            | schedule make-up classes and track tutor attendance |
-| `*`      | head tutor               | apply labels to tutors                         | track tutor performance                             |
-| `*`      | morally upright tutor    | tag students suspected of plagiarism           | later report them for further investigation         |
-| `*`      | tutor                    | send messages to individuals or groups         | remind them of tasks                                |
-| `*`      | tutor teaching many sems | archive old classes                            | retain useful data while focusing on improvements   |
-| `*`      | tutor teaching many sems | archive or purge old contacts                  | avoid confusion between current and former students |
-| `*`      | experienced user         | create custom commands/macros                  | optimize workflow                                   |
-| `*`      | forgetful tutor          | view upcoming tasks in some priority           | prioritize on tasks with nearer deadlines           |
-| `*`      | impatient tutor          | synchronize contact labels with events         | avoid manually tagging students                     |
-| `*`      | careless tutor           | undo (multiple times)                          | revert to previous state in case of wrong command   |
+| Priority | As a ...                 | I want to ...                            | so that I can ...                                   |
+|----------|--------------------------|------------------------------------------|-----------------------------------------------------|
+| `* * *`  | first time user          | see a functional help page               | understand the app's functionalities                |
+| `* * *`  | tutor                    | automatically load in data               | easily reuse the application                        |
+| `* * *`  | tutor                    | automatically save and export data       | easily reuse the application                        |
+| `* * *`  | tutor                    | exit the program safely                  | avoid corrupting my files                           |
+| `* * *`  | tutor                    | create an event                          | represent a tutorial                                |
+| `* * *`  | tutor                    | delete an event                          | remove events I no longer need                      |
+| `*`      | impatient tutor          | create recurring events                  | save time and ensure consistency                    |
+| `*`      | impatient tutor          | mass import class timings (events)       | save time                                           |
+| `* * *`  | tutor                    | add students to an event                 | assign students to class                            |
+| `* * *`  | tutor                    | remove students from an event            | unassign students to class                          |
+| `* * *`  | tutor                    | log a student as having attended event   | mark attendance                                     |
+| `* * *`  | tutor                    | unlog a student as having attended event | account for mistakes in attendance                  |
+| `* * *`  | tutor                    | add a contact                            | store the information of my student                 |
+| `* *`    | tutor                    | add multiple contacts with same names    | handle students with duplicate names                |
+| `* * *`  | tutor                    | delete a contact                         | remove students I no longer need to handle          |
+| `* *`    | tutor with many classes  | associate a contact with a class         | remember student is in which class                  |
+| `* *`    | tutor with many course   | associate a contact with a course        | remember student is in which course                 |
+| `*`      | impatient tutor          | mass import students data                | save time                                           |
+| `* *`    | tutor                    | search for a specific contact by feature | retrieve full information for a particular contact  |
+| `* *`    | tutor                    | list all contacts                        | see every contact                                   |
+| `* *`    | tutor with many classes  | filter all students by class/course      | find students easily for various purposes           |
+| `* *`    | tutor                    | label students                           | identify struggling students                        |
+| `* *`    | caring tutor             | create a todo                            | represent a task for some contact                   |
+| `* *`    | caring tutor             | add contact to todo                      | handle a situation for some contact(s)              |
+| `* *`    | caring tutor             | remove contact from todo                 | account for mistakes in the contacts                |
+| `* *`    | caring tutor             | mark todo as done                        | remember that I have handled the situation          |
+| `* *`    | caring tutor             | mark todo as not done                    | account for mistakes in handling the situation      |
+| `*`      | head tutor               | distinguish students and tutors          | add tutors as contacts                              |
+| `*`      | head tutor               | apply labels to tutors                   | track tutor performance                             |
+| `*`      | morally upright tutor    | tag students suspected of plagiarism     | later report them for further investigation         |
+| `*`      | tutor                    | send messages to individuals or groups   | remind them of tasks                                |
+| `*`      | tutor teaching many sems | archive old classes                      | retain useful data while focusing on improvements   |
+| `*`      | tutor teaching many sems | archive or purge old contacts            | avoid confusion between current and former students |
+| `*`      | experienced user         | create custom commands/macros            | optimize workflow                                   |
+| `*`      | forgetful tutor          | view upcoming tasks in some priority     | prioritize on tasks with nearer deadlines           |
+| `*`      | impatient tutor          | synchronize contact labels with events   | avoid manually tagging students                     |
+| `*`      | careless tutor           | undo (multiple times)                    | revert to previous state in case of wrong command   |
 
 ### Use cases
 
@@ -470,7 +468,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 1a. The criteria include a filter with an empty value.
+* 1a. The criteria include a filter with an invalid or empty value.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
@@ -494,11 +492,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. User does not provide any field to edit.
     * 2a1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 * 2b. The field's detail is invalid.
     * 2b1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
 **Use case 6: Add a tag to a contact**
 
@@ -651,7 +649,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 1a. The criteria include a filter with an empty value.
+* 1a. The criteria include a filter with an invalid or empty value.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
@@ -675,11 +673,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. User does not provide any field to edit.
     * 2a1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 * 2b. The field's detail is invalid.
     * 2b1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
 **Use case 15: Add a tag to a todo**
 
@@ -934,7 +932,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 1a. The criteria include a filter with an empty value.
+* 1a. The criteria include a filter with an invalid or empty value.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
@@ -958,11 +956,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. User does not provide any fields to edit.
     * 2a1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 * 2b. The field's detail is invalid.
     * 2b1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
 **Use case 28: Add a tag to an event**
 
