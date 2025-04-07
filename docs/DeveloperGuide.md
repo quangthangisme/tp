@@ -1296,3 +1296,11 @@ testers are expected to do more *exploratory* testing.
       Expected: The specific entry is skipped and the rest of the contents are loaded. 
    1. Test case 2: Make major incorrect corruption to any json file, then re-launch the app.<br>
       Expected: All invalid entries are skipped and the rest of the contents are loaded (if any).
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+Team size: 5
+1. **Make delete command support multiple indices:** Extend support to delete multiple items at once, similar to tagging and linking contacts.
+2. **Safeguard users against major irreversible actions:** For example, clearing contacts is presently an irreversible action. Two possible directions include seeking confirmation from the user, or supporting an undo feature to revert any changes.
+3. **Expand functionality of `filter` command:** More operators (e.g. `xor:`) can be added to support more queries, and queries for optional values such as tags should be expanded to support searching for no values.
