@@ -393,6 +393,61 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Pros: Will use less memory (e.g. for `delete`, just save the contact being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
 
+### Command History Navigation
+
+#### Implementation
+
+The application supports command history navigation, allowing users to quickly recall and reuse previously entered commands. This feature is implemented in the `CommandBox` component, which is responsible for capturing and processing user command inputs.
+
+The command history is stored as a list of strings, with a pointer (index) that keeps track of the current position when navigating through the history. The sequence diagram below illustrates how command history navigation works:
+
+<puml src="diagrams/CommandHistorySequenceDiagram.puml" width="250" />
+
+The command history navigation flow follows these steps:
+
+1. When a user presses the Up or Down arrow key in the command text field, the `handleKeyPress` method in `CommandBox` captures this event
+2. For Up arrow key presses, the `displayPreviousCommand` method is called, which:
+    - Decrements the current command index if it's not already at the beginning of the history
+    - Retrieves the command at the new index
+    - Updates the command text field to display this command
+3. For Down arrow key presses, the `displayNextCommand` method is called, which:
+    - Increments the current command index if it's not already at the end of the history
+    - If at the end of history, clears the command text field
+    - Otherwise, displays the command at the new index
+
+The state diagram below captures the possible states and transitions during command history navigation:
+
+<puml src="diagrams/CommandHistoryStateDiagram.puml" width="250" />
+
+When a new command is entered, it's added to the history list, and the index is reset to point to the end of the list. This ensures that pressing the Up arrow immediately after entering a command will display the most recently entered command.
+
+#### Design considerations:
+
+* **Alternative 1 (current choice):** Store complete command history for the session.
+    * Pros:
+        * Users can access all commands they've entered during the session
+        * Simple implementation with a list and index pointer
+        * Familiar behavior matching most command-line interfaces
+    * Cons:
+        * Memory usage increases with session length
+        * No persistence between application sessions
+
+* **Alternative 2:** Limit history to a fixed number of most recent commands.
+    * Pros:
+        * Bounded memory usage
+        * More efficient navigation through a smaller set of commands
+    * Cons:
+        * Limited access to older commands
+        * Additional complexity to maintain the limited history
+
+* **Alternative 3:** Add persistence for command history between sessions.
+    * Pros:
+        * Commands available across application restarts
+        * Enhanced user experience for recurring tasks
+    * Cons:
+        * Additional complexity for storage and retrieval
+        * Potential privacy concerns for sensitive commands
+
 ### \[Proposed\] Command Parser with flags
 Proposed Implementation
 
