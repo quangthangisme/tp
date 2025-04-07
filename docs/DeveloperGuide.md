@@ -215,46 +215,133 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
+### [Implemented] New command execution feature
+
+#### Implementation
+
+The command execution feature is a core component of the application that processes user inputs and executes the corresponding commands. The sequence diagram below illustrates the execution flow when a user enters a command:
+
+<puml src="diagrams/XYCommandSequenceDiagram.puml" width="450" />
+
+The command execution process involves several key steps:
+
+1. The process begins when the user enters a command through the UI
+2. `MainWindow` forwards the command text to `LogicManager` for execution
+3. `LogicManager` passes the command to `ParserImpl` for parsing
+4. `ParserImpl` identifies the command type (in this case, a Y command with X subcommand)
+5. The command is then forwarded to the appropriate command parser (`XYCommandParser`)
+6. `XYCommandParser` uses the `ArgumentTokenizer` to tokenize the input and extract arguments
+7. Arguments are validated and converted to the appropriate types using `ParserUtil`
+8. An `XYCommand` object is created with the parsed arguments and returned to `LogicManager`
+9. `LogicManager` executes the command, which typically involves updating the model (e.g., filtering items)
+10. After execution, the model changes are saved to storage and a `CommandResult` is returned to `MainWindow`
+
+This architecture follows the Command pattern, allowing for extendable command functionality while maintaining a clean separation between the UI and the application logic.
+
+#### Design considerations:
+
+* **Alternative 1 (current choice):** Use a centralized command execution flow with specialized parsers.
+    * Pros:
+        * Clear separation of concerns with dedicated parser for each command type
+        * Easily extensible for new commands
+        * Consistent command execution pattern
+        * Strong encapsulation of command execution logic
+    * Cons:
+        * Slightly more complex class structure
+        * Additional overhead for simple commands
+
+* **Alternative 2:** Process commands directly in the logic component without specialized parsers.
+    * Pros:
+        * Simpler implementation for basic commands
+        * Fewer objects created during command execution
+    * Cons:
+        * Less maintainable as the application grows
+        * Harder to extend with new commands
+        * Potential duplication of parsing logic
+        * Reduced testability of individual components
+
+### [Implemented] GUI X card click action alias to `X info <idx>`
+
+#### Implementation
+
+When a user clicks on a card in the UI, the application automatically executes a `X info <index>` command
+to display detailed information about the selected contact. The sequence diagram below illustrates this process:
+
+<puml src="diagrams/AliasXInfoSequenceDiagram.puml" width="450" />
+
+The process begins when a user clicks on a `XCard` in the UI:
+
+1. The `XCard` has a click handler that was set up when the card was created
+2. When clicked, this handler is executed and passed to the `ListPanel` that contains the card
+3. The `ListPanel` forwards the index of the clicked card to `MainWindow` through the `onItemClickHandler` consumer
+4. `MainWindow` processes this by generating a command string in the format `contact info <index>`
+5. This command string is passed to `LogicManager` for execution, which processes it through the command execution
+   pipeline
+6. After execution, the `CommandResult` is returned to `MainWindow`
+7. `MainWindow` updates the `ResultDisplay` to show feedback to the user
+
+This implementation allows users to quickly access detailed contact information with a single click rather than having
+to manually type the `contact info` command.
+
+#### Design considerations:
+
+* **Alternative 1 (current choice):** Translate UI interactions into command strings.
+    * Pros:
+        * Maintains a single execution pathway for commands regardless of how they're initiated
+        * Each UI interaction can be modeled as a specific command
+        * Simplifies testing as UI interactions and command-line inputs use the same logic paths
+    * Cons:
+        * Adds overhead of command string creation and parsing for simple UI interactions
+
+* **Alternative 2:** Create a separate pathway for UI-triggered events.
+    * Pros:
+        * Potentially more efficient for simple actions
+        * Can be optimized for specific UI interactions
+    * Cons:
+        * Creates duplicate logic paths for the same functionality
+        * More difficult to maintain consistency between command-line and UI-triggered actions
+        * Increases complexity of testing
+
 ### \[Proposed\] Undo/redo feature
 
 #### Proposed Implementation
 
-The proposed undo/redo mechanism is facilitated by `VersionedAddressBook`. It extends `AddressBook` with an undo/redo history, stored internally as an `addressBookStateList` and `currentStatePointer`. Additionally, it implements the following operations:
+The proposed undo/redo mechanism is facilitated by `VersionedTutorConnect`. It extends `TutorConnect` with an undo/redo history, stored internally as an `TutorConnectStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedAddressBook#commit()` — Saves the current address book state in its history.
-* `VersionedAddressBook#undo()` — Restores the previous address book state from its history.
-* `VersionedAddressBook#redo()` — Restores a previously undone address book state from its history.
+* `VersionedTutorConnect#commit()` — Saves the current address book state in its history.
+* `VersionedTutorConnect#undo()` — Restores the previous address book state from its history.
+* `VersionedTutorConnect#redo()` — Restores a previously undone address book state from its history.
 
-These operations are exposed in the `Model` interface as `Model#commitAddressBook()`, `Model#undoAddressBook()` and `Model#redoAddressBook()` respectively.
+These operations are exposed in the `Model` interface as `Model#commitTutorConnect()`, `Model#undoTutorConnect()` and `Model#redoTutorConnect()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedAddressBook` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedTutorConnect` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
 
 <puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 2. The user executes `delete 5` command to delete the 5th contact in the address book. The `delete` command calls `Model#commitAddressBook()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `addressBookStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `delete 5` command to delete the 5th contact in the address book. The `delete` command calls `Model#commitTutorConnect()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `TutorConnectStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
-Step 3. The user executes `add n/David …​` to add a new contact. The `add` command also calls `Model#commitAddressBook()`, causing another modified address book state to be saved into the `addressBookStateList`.
+Step 3. The user executes `add n/David …​` to add a new contact. The `add` command also calls `Model#commitTutorConnect()`, causing another modified address book state to be saved into the `TutorConnectStateList`.
 
 <puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
 
 <box type="info" seamless>
 
-**Note:** If a command fails its execution, it will not call `Model#commitAddressBook()`, so the address book state will not be saved into the `addressBookStateList`.
+**Note:** If a command fails its execution, it will not call `Model#commitTutorConnect()`, so the address book state will not be saved into the `TutorConnectStateList`.
 
 </box>
 
-Step 4. The user now decides that adding the contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoAddressBook()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoTutorConnect()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
 
 <puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
 
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index 0, pointing to the initial AddressBook state, then there are no previous AddressBook states to restore. The `undo` command uses `Model#canUndoAddressBook()` to check if this is the case. If so, it will return an error to the user rather
+**Note:** If the `currentStatePointer` is at index 0, pointing to the initial TutorConnect state, then there are no previous TutorConnect states to restore. The `undo` command uses `Model#canUndoTutorConnect()` to check if this is the case. If so, it will return an error to the user rather
 than attempting to perform the undo.
 
 </box>
@@ -273,19 +360,19 @@ Similarly, how an undo operation goes through the `Model` component is shown bel
 
 <puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
 
-The `redo` command does the opposite — it calls `Model#redoAddressBook()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite — it calls `Model#redoTutorConnect()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index `addressBookStateList.size() - 1`, pointing to the latest address book state, then there are no undone AddressBook states to restore. The `redo` command uses `Model#canRedoAddressBook()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+**Note:** If the `currentStatePointer` is at index `TutorConnectStateList.size() - 1`, pointing to the latest address book state, then there are no undone TutorConnect states to restore. The `redo` command uses `Model#canRedoTutorConnect()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </box>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitAddressBook()`, `Model#undoAddressBook()` or `Model#redoAddressBook()`. Thus, the `addressBookStateList` remains unchanged.
+Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitTutorConnect()`, `Model#undoTutorConnect()` or `Model#redoTutorConnect()`. Thus, the `TutorConnectStateList` remains unchanged.
 
 <puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
 
-Step 6. The user executes `clear`, which calls `Model#commitAddressBook()`. Since the `currentStatePointer` is not pointing at the end of the `addressBookStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `clear`, which calls `Model#commitTutorConnect()`. Since the `currentStatePointer` is not pointing at the end of the `TutorConnectStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
 
 <puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
 
@@ -298,15 +385,13 @@ The following activity diagram summarizes what happens when a user executes a ne
 **Aspect: How undo & redo executes:**
 
 * **Alternative 1 (current choice):** Saves the entire address book.
-  * Pros: Easy to implement.
-  * Cons: May have performance issues in terms of memory usage.
+    * Pros: Easy to implement.
+    * Cons: May have performance issues in terms of memory usage.
 
 * **Alternative 2:** Individual command knows how to undo/redo by
   itself.
-  * Pros: Will use less memory (e.g. for `delete`, just save the contact being deleted).
-  * Cons: We must ensure that the implementation of each individual command are correct.
-
-_{more aspects and alternatives to be added}_
+    * Pros: Will use less memory (e.g. for `delete`, just save the contact being deleted).
+    * Cons: We must ensure that the implementation of each individual command are correct.
 
 ### \[Proposed\] Command Parser with flags
 Proposed Implementation
@@ -361,10 +446,6 @@ Design Considerations
 
 * Scalability: Easily supports optional, repeatable, and order-independent arguments through prefix-based parsing. These prefixes 
 are called and parsed by `ArgumentTokenizer` as required.
-
-### \[Proposed\] Data archiving
-
-_{Explain here how the data archiving feature will be implemented}_
 
 
 --------------------------------------------------------------------------------------------------------------------
