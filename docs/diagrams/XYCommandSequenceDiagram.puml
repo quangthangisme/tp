@@ -9,7 +9,7 @@ participant ":XYCommandParser" as XYCommandParser LOGIC_COLOR
 participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
 participant "a:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
 participant ":ParserUtil" as ParserUtil LOGIC_COLOR
-participant ":XYCommand" as XYCommand LOGIC_COLOR
+participant "b:XYCommand" as XYCommand LOGIC_COLOR
 participant ":ItemManagerWithFilteredList" as ItemManager LOGIC_COLOR
 participant ":Storage" as Storage LOGIC_COLOR
 
@@ -56,14 +56,14 @@ XYCommandParser -> XYCommandParser: parsePrefixes(argumentMultimap, filterCriter
 activate XYCommandParser
 XYCommandParser -> ParserUtil: parseArguments(val)
 activate ParserUtil
-ParserUtil --> XYCommandParser: args
+ParserUtil --> XYCommandParser: arguments
 deactivate ParserUtil
 deactivate XYCommandParser
 
-XYCommandParser --> ParserImpl: new XYCommand(argsMap)
+XYCommandParser --> ParserImpl: b
 deactivate XYCommandParser
 
-ParserImpl --> LogicManager: XYCommand
+ParserImpl --> LogicManager: b
 deactivate ParserImpl
 
 LogicManager -> XYCommand: execute()
@@ -84,6 +84,5 @@ deactivate Storage
 
 [<- LogicManager : commandResult
 deactivate LogicManager
-
 
 @enduml
