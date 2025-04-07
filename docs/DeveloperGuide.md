@@ -336,6 +336,7 @@ _{Explain here how the data archiving feature will be implemented}_
   * Needs to track student attendance of classes.
 * Needs to manage a significant number of contacts
 * Prefers desktop apps over other types
+* Can type fast
 * Prefers typing to mouse interactions
 * Is reasonably comfortable using CLI apps
 
