@@ -457,8 +457,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Extensions**
-
 **Use case 4: Filter all contacts using some identifiable feature**
 
 **MSS**
@@ -738,6 +736,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. TC associates the contact with the todo.
 4. TC displays a confirmation message.
 
+   Use case ends.
+
 **Extensions**
 * 3a. The given todo index is not a positive integer.
     * 3a1. TC displays an error message.
@@ -796,6 +796,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. TC marks the todo as completed.
 4. TC displays a confirmation message.
 
+   Use case ends.
+
 **Extensions**
 * 2a. The given todo index is not a positive integer.
     * 2a1. TC displays an error message.
@@ -817,6 +819,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. User requests to mark a todo as not completed by index.
 3. TC marks the todo as not completed.
 4. TC displays a confirmation message.
+
+   Use case ends.
 
 **Extensions**
 * 2a. The given todo index is not a positive integer.
@@ -865,7 +869,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 1. User requests to create an event and provides event details.
-2. TC creates the todo and adds it to the event list.
+2. TC creates the event and adds it to the event list.
 3. TC displays a confirmation message.
 
    Use case ends.
@@ -965,8 +969,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **Use case 28: Add a tag to an event**
 
 **MSS**
-1. User requests to add a tag to the todo by index.
-2. TC updates the todo with the provided tag.
+1. User requests to add a tag to the event by index.
+2. TC updates the event with the provided tag.
 3. TC displays a confirmation message.
 
    Use case ends.
@@ -1020,6 +1024,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. User requests to add the contact to an event by event index and contact index.
 3. TC associates the contact with the event.
 4. TC displays a confirmation message.
+
+   Use case ends.
 
 **Extensions**
 * 3a. The given event index is not a positive integer.
@@ -1079,6 +1085,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. TC marks the contact as attended.
 4. TC displays a confirmation message.
 
+    Use case ends.
+
 **Extensions**
 * 3a. The given event index is not a positive integer.
     * 3a1. TC displays an error message.
@@ -1108,6 +1116,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. User requests to log a contact as not having attended for an event by event index and contact index.
 3. TC marks the contact as not attended.
 4. TC displays a confirmation message.
+
+    Use case ends.
 
 **Extensions**
 * 2a. The given event index is not a positive integer.
@@ -1160,34 +1170,34 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case 36: List all subcommands by feature**
+**Use case 36: List all commands by item**
 
 **MSS**
-1. User requests to list all subcommands of a feature.
-2. TC displays all subcommands of that feature.
+1. User requests to list all commands of an item.
+2. TC displays all commands of that item.
 
    Use case ends.
 
 **Extensions**
-* 1a. The given feature is invalid.
+* 1a. The given item is unrecognized (i.e. Not a contact, todo or event).
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
 
-**Use case 37: List help message of a subcommand**
+**Use case 37: List help message of a specific command**
 
 **MSS**
-1. User requests to see help message of a subcommand of a specific feature.
+1. User requests to see help message of a command of a specific item.
 2. TC displays the help message.
 
    Use case ends.
 
 **Extensions**
-* 1a. The given feature is unrecognized.
+* 1a. The given item is unrecognized (i.e. Not a contact, todo or event).
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1b. The given subcommand is unrecognized.
+* 1b. The given command is unrecognized.
     * 1b1. TC displays an error message.
 
       Use case resumes at step 1.
