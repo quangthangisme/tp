@@ -50,7 +50,7 @@ public class FilterContactCommand extends FilterCommand<ContactManagerAndList, C
             + "Examples:\n"
             + "1. " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " "
             + PREFIX_CONTACT_ID_LONG + Operator.OR.getName() + ": 12 13\n"
-            + "   Find students with ID 12 or 13.\n"
+            + "   Find contacts with ID 12 or 13.\n"
 
             + "2. " + CONTACT_COMMAND_WORD + " " + COMMAND_WORD + " "
             + PREFIX_CONTACT_NAME_LONG + "Darren Tan "
