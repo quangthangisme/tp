@@ -2,41 +2,88 @@
 !include style.puml
 skinparam ArrowFontStyle plain
 
-participant ":XYCommandParser" as  CommandParser LOGIC_COLOR
-participant "<<Class>>\n ArgumentTokenizer" as ArgTokenizer LOGIC_COLOR
-participant "c:XYCommand" as EditCommand LOGIC_COLOR
+participant ":LogicManager" as LogicManager LOGIC_COLOR
+participant ":ParserImpl" as ParserImpl LOGIC_COLOR
+participant ":YParser" as YParser LOGIC_COLOR
+participant ":XYCommandParser" as XYCommandParser LOGIC_COLOR
+participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
 participant "a:ArgumentMultimap" as ArgumentMultimap LOGIC_COLOR
-participant ":XYParserUtil" as ParserUtil LOGIC_COLOR
+participant ":ParserUtil" as ParserUtil LOGIC_COLOR
+participant ":XYCommand" as XYCommand LOGIC_COLOR
+participant ":ItemManagerWithFilteredList" as ItemManager LOGIC_COLOR
+participant ":Storage" as Storage LOGIC_COLOR
 
-[-> CommandParser : parse(args)
-activate CommandParser
-CommandParser -> ArgTokenizer : tokenize(args, prefixes)
-activate ArgTokenizer
+[-> LogicManager: execute(commandText)
+activate LogicManager
 
-ArgTokenizer --> ArgTokenizer: findAllPrefixPositions(argsString, Prefix ...prefixes)
-activate ArgTokenizer
-ArgTokenizer --> ArgTokenizer: findPrefixPositions(argsString, Prefix ...prefixes)
-activate ArgTokenizer
-ArgTokenizer --> ArgumentMultimap
-deactivate ArgTokenizer
+LogicManager -> ParserImpl: parseCommand(commandText)
+activate ParserImpl
+
+ParserImpl -> YParser: parseCommand(args)
+activate YParser
+YParser --> ParserImpl: YCommandType.X
+deactivate YParser
+
+ParserImpl -> XYCommandParser: parse(args)
+activate XYCommandParser
+
+XYCommandParser -> ArgumentTokenizer: tokenize(args, prefixes)
+activate ArgumentTokenizer
+
+ArgumentTokenizer -> ArgumentTokenizer: findAndExtractPrefixArguments(args, prefixes)
+
+'ArgumentTokenizer -> ArgumentTokenizer: findAllPrefixPositions(args, prefixes)
+'ArgumentTokenizer -> ArgumentTokenizer: findPrefixPositions(args, prefixes)
+'ArgumentTokenizer -> ArgumentTokenizer: findPrefixPosition(args, prefix, fromIndex)
+'
+'ArgumentTokenizer -> ArgumentTokenizer: extractArguments(args, positions)
+'ArgumentTokenizer -> ArgumentTokenizer: extractArgumentValue(args, index, nextIndex)
+
+ArgumentTokenizer -> ArgumentMultimap: put(prefix, value)
 activate ArgumentMultimap
-ArgumentMultimap --> ArgumentMultimap : extractArguments(argStrings, position)
-ArgumentMultimap --> ArgTokenizer
-deactivate ArgTokenizer
+ArgumentMultimap --> ArgumentTokenizer: a
 deactivate ArgumentMultimap
 
-ArgTokenizer --> CommandParser : a
-deactivate ArgTokenizer
+ArgumentTokenizer --> XYCommandParser: a
+deactivate ArgumentTokenizer
 
-CommandParser --> ParserUtil : parseAttribute(args)
+XYCommandParser -> ArgumentMultimap: verifyNoDuplicatePrefixesFor(prefixList)
+activate ArgumentMultimap
+ArgumentMultimap --> XYCommandParser: a
+deactivate ArgumentMultimap
+
+XYCommandParser -> XYCommandParser: parsePrefixes(argumentMultimap, filterCriteriaMap)
+activate XYCommandParser
+XYCommandParser -> ParserUtil: parseArguments(val)
 activate ParserUtil
-ParserUtil --> CommandParser : attribute
+ParserUtil --> XYCommandParser: args
 deactivate ParserUtil
+deactivate XYCommandParser
 
-create EditCommand
-CommandParser --> EditCommand : XCommand(index, contactIndices)
-activate EditCommand
-EditCommand --> CommandParser : c
-deactivate EditCommand
-[<-- CommandParser : c
+XYCommandParser --> ParserImpl: new XYCommand(argsMap)
+deactivate XYCommandParser
+
+ParserImpl --> LogicManager: XYCommand
+deactivate ParserImpl
+
+LogicManager -> XYCommand: execute()
+activate XYCommand
+
+XYCommand -> ItemManager: updateFilteredItemsList(predicate)
+activate ItemManager
+ItemManager --> XYCommand: filteredListResult
+deactivate ItemManager
+
+XYCommand --> LogicManager: commandResult
+deactivate XYCommand
+
+LogicManager -> Storage: saveYList(itemManagerAndList)
+activate Storage
+Storage --> LogicManager
+deactivate Storage
+
+[<- LogicManager : commandResult
+deactivate LogicManager
+
+
 @enduml
