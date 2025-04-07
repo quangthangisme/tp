@@ -1225,11 +1225,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Contact**: A stored record of a student or tutor, containing relevant details such as name, ID, and class.
-* **Tag**: A specific keyword which can be associated with an arbitrary value, for a specific contact.
-  * **Class**: A group of students assigned to a particular tutor.
-  * **Course**: A subject or academic course that multiple classes and students may belong to.
+* **Class**: A group of students assigned to a particular tutor.
+* **Course**: A subject or academic course that multiple classes and students may belong to.
 * **Event**: A scheduled session such as tutorial class, remedial, or consultation that tutors can create, modify, and assign students to.
 * **Todo**: A task or action item that can be associated with a student or another tutor, such as grading assignments, scheduling follow-ups, or preparing lesson materials.
+* **Tag**: A specific keyword which can be associated with an arbitrary value, for a specific contact, event, or todo.
 * **Head Tutor**: A tutor responsible for overseeing other tutors.
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
 
@@ -1252,38 +1252,47 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file.<br>
+      Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
    1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+      Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
 
 ### Deleting a contact
 
 1. Deleting a contact while all contacts are being shown
 
-   1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
+   1. Prerequisites: List all contacts using the `contact list` command. Multiple contacts in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `contact delete 1`<br>
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 
-   1. Test case: `delete 0`<br>
+   1. Test case: `contact delete 0`<br>
       Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `delete`, `contact delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Manual modification of data
 
-### Saving data
+**Tip**: Refer to the [user guide](UserGuide.md) for examples of valid and invalid parameters.
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Delete the `data` folder, or any json files within it.
+   2. Re-launch the app.<br>
+      Expected: The app starts up with a sample list for each missing file.
+   3. Exit the app via any valid exit command (note: closing the window or terminating the process is not a valid exit command).<br>
+      Expected: The data files are saved in the `data` folder upon execution of any valid command.
 
-1. _{ more test cases …​ }_
+1. Dealing with corrupted data files
+   1. Ensure that sample data files exist in the `data` folder (see previous point).
+   1. Test case 1: Replace the value of any field within any json file with an invalid value, then re-launch the app.<br>
+      Expected: The specific entry is skipped and the rest of the contents are loaded. 
+   1. Test case 2: Make major incorrect corruption to any json file, then re-launch the app.<br>
+      Expected: All invalid entries are skipped and the rest of the contents are loaded (if any).
