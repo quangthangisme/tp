@@ -1304,4 +1304,5 @@ testers are expected to do more *exploratory* testing.
 Team size: 5
 1. **Make delete command support multiple indices:** Extend support to delete multiple items at once, similar to tagging and linking contacts.
 2. **Safeguard users against major irreversible actions:** For example, clearing contacts is presently an irreversible action. Two possible directions include seeking confirmation from the user, or supporting an undo feature to revert any changes.
-3. **Expand functionality of `filter` command:** More operators (e.g. `xor:`) can be added to support more queries, and queries for optional values such as tags should be expanded to support searching for no values.
+3. **Support more operators in `filter` command:** As `filter` command is targeted at advanced users (power users), other operators (e.g. `xor:`) can be added to support more complex queries, and queries for optional values such as tags should be expanded to support searching for no values.
+4. **Support operators across criteria in `filter` command**: `filter` is currently limited to applying `and` across all criteria (i.e. must satisfy all criteria). Much like operators expand the functionality of a single criterion, operators across criteria can further enhance the functionality of `filter` command.
