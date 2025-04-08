@@ -231,7 +231,7 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-### [Implemented] New command execution feature
+### \[Implemented\] New command execution feature
 
 #### Implementation
 
@@ -276,7 +276,7 @@ This architecture follows the Command pattern, allowing for extendable command f
         * Potential duplication of parsing logic
         * Reduced testability of individual components
 
-### [Implemented] GUI `Y` card click action alias to `Y info <idx>`
+### \[Implemented\] GUI `Y` card click action alias to `Y info <idx>`
 
 #### Implementation
 
@@ -409,7 +409,7 @@ The following activity diagram summarizes what happens when a user executes a ne
     * Pros: Will use less memory (e.g. for `delete`, just save the contact being deleted).
     * Cons: We must ensure that the implementation of each individual command are correct.
 
-### Command History Navigation
+### \[Implemented\] Command History Navigation
 
 #### Implementation
 
@@ -464,7 +464,7 @@ When a new command is entered, it's added to the history list, and the index is 
         * Additional complexity for storage and retrieval
         * Potential privacy concerns for sensitive commands
 
-### Command Parser with flags
+### \[Implemented\] Command Parser with flags
 The proposed parsing mechanism for `Command` containing flags is facilitated by specialized `XYCommandParser` classes. These parsers interpret user input and construct the appropriate `XYCommand` objects. The parsing process relies on several utility components:
 
 Where `X` refers to the classes with the `item` interface. `Y` refers to the new feature related to the class `X`.
