@@ -57,18 +57,32 @@ The *Sequence Diagram* below shows how the components interact with each other f
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class (which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `{Component Name}Manager` class which follows the corresponding API `interface` mentioned in the previous point.
 
-For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside component's being coupled to the implementation of a component), as illustrated in the (partial) class diagram below.
+For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside components from being coupled to the implementation of a component), as illustrated in the class diagram below.
 
-<puml src="diagrams/ComponentManagers.puml" width="300" />
+<puml src="diagrams/ComponentManagers.puml" width="600" />
+
+As shown in the diagram, TutorConnect's component managers are organized as follows:
+
+* **Logic Component**: Defines the `LogicManager` which serves as the central coordinator for executing commands.
+* **Model Component**: Implements the `ModelManager` which manages three specialized data managers:
+    * `ContactManagerAndList`: Manages the contacts (students, tutors) in the system
+    * `TodoManagerAndList`: Handles todo items and tasks
+    * `EventManagerAndList`: Manages scheduled events and appointments
+* **Storage Component**: Uses the `StorageManager` to coordinate storage operations across specialized storage handlers:
+    * `ContactStorage`: Persists contact data
+    * `TodoStorage`: Stores todo information
+    * `EventStorage`: Manages event data
+    * `UserPrefsStorage`: Handles user preferences
+
+The `LogicManager` interacts with the Model component to execute commands on the various data managers, and with the Storage component to persist any changes to the appropriate storage locations.
 
 The sections below give more details of each component.
 
 ### UI component
 
-The **API** of this component is specified in [
-`Ui.java`](https://github.com/AY2425S2-CS2103-F08-4/tp/tree/master/src/main/java/seedu/address/ui/Ui.java)
+The **API** of this component is specified in [`Ui.java`](https://github.com/AY2425S2-CS2103-F08-4/tp/tree/master/src/main/java/seedu/address/ui/Ui.java)
 
 <puml src="diagrams/UiClassDiagram.puml" alt="Structure of the UI Component"/>
 
