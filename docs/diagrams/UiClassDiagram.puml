@@ -11,8 +11,8 @@ Class "<<interface>>\nUi" as Ui
 Class "{abstract}\nUiPart<T>" as UiPart
 Class UiManager
 Class MainWindow
-Class ResultDisplay
 Class CommandBox
+Class ResultDisplay
 Class ListPanel
 Class DisplayableListViewCell
 

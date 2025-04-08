@@ -100,7 +100,7 @@ The UI employs a flexible design pattern through several key components:
 
 1. **Card System**: The UI uses a card-based display system:
     - The `Card<T>` interface defines how entity information is displayed
-    - `XCard` classes (like EventCard) implement this interface and extend `UiPart<Region>`
+    - `XCard` classes (like `EventCard`) implement this interface and extend `UiPart<Region>`
     - The `CardFactory<T>` interface and its implementation `GenericCardFactory<T>` are responsible for creating
       appropriate cards for different entity types
 
