@@ -1306,3 +1306,10 @@ Team size: 5
 2. **Safeguard users against major irreversible actions:** For example, clearing contacts is presently an irreversible action. Two possible directions include seeking confirmation from the user, or supporting an undo feature to revert any changes.
 3. **Support more operators in `filter` command:** As `filter` command is targeted at advanced users (power users), other operators (e.g. `xor:`) can be added to support more complex queries, and queries for optional values such as tags should be expanded to support searching for no values.
 4. **Support operators across criteria in `filter` command**: `filter` is currently limited to applying `and` across all criteria (i.e. must satisfy all criteria). Much like operators expand the functionality of a single criterion, operators across criteria can further enhance the functionality of `filter` command.
+
+## **Appendix: Effort**
+
+Difficulty level is on the higher end due to the large number of features that were implemented, alongside a single complex feature (`filter`).
+Special efforts were made to improve the code quality via abstraction of the commonalities between `contact`, `todo` and `event` via `item`.
+This choice has resulted in greater consistency of behavior across the three types, in terms of the input restrictions, error behaviors and output formats, which were implemented concretely via the definitions of numerous interfaces and refactoring of existing codebase which was originally targeted at the `contact` type.
+A particularly challenging aspect is the curation of the `filter` command, from the set of allowed operations to the syntax that the user can input. The aim was to create a powerful and easy to use command that is aimed at advanced users.
