@@ -41,13 +41,13 @@ If you can type fast, TutorConnect can get your contact management tasks done fa
 
     * `event link 1 --contact 1` : Adds the contact at index 1 in the contact list on the right, `Alex Yeoh`, to the event.
 
-    * `event info` : Displays the information of the event. `Alex Yeoh` should appear at index 1 in the displayed attendance log.
+    * `event info 1` : Displays the information of the event. `Alex Yeoh` should appear at index 1 in the displayed attendance log.
     
     ![Info event screenshot](images/infoeventscreenshot.png)
 
     * `event log 1 --contact 1` : Logs the contact at index 1 of the event's attendance log, `Alex Yeoh`, as having attended the event.
 
-    * `event info` : Displays the information of the event. `Alex Yeoh` should appear at index 1 in the displayed attendance log and has an `X` next to him.
+    * `event info 1` : Displays the information of the event. `Alex Yeoh` should appear at index 1 in the displayed attendance log and has an `X` next to him.
 
     ![Log event screenshot](images/logeventscreenshot.png)
 
