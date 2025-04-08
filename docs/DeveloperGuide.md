@@ -1048,7 +1048,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2e. The contact is already assigned to the event.
     * 2e1. TC displays an error message.
 
-      Use case resumes from step 2.
+      Use case resumes at step 2.
 
 **Use case 31: Remove a contact from an event**
 
