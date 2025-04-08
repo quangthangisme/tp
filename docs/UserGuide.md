@@ -638,16 +638,16 @@ Examples:
 
 ## Quality of Life
 
-1. You may use the arrows to traverse through command history.
+1. You may use the up or down arrows to traverse through command history, similar to terminal.
 
 1. Clicking on each contact/event/todo card will display the full information of the card in the command output.
 
 1. Click on "Event" or "Todo" button to toggle between event and todo list views. You may use the reset button to reset filtered views of event/todo and contacts at the same time.
 
-1. Apply natural ordering to lists:
-  * Contacts should be sorted first by name, then by ID in alphabetical order.
-  * Todos should be sorted by status first, followed by deadline, and then by name.
-  * Events should be sorted by start time, then by end time, and finally by name.
+1. Natural ordering is applied to all lists:
+  * Contacts are sorted first by name, then by ID in alphabetical order.
+  * Todos are sorted first by status (not done first), followed by deadline, and then by name.
+  * Events are be sorted first by start time, then by end time, and finally by name.
 
 ## Storage
 
@@ -657,7 +657,7 @@ These JSON files are human-readable and can be manually edited, but caution is a
 
 **Tip**: Since todos and events are linked to contacts via their IDs, make sure to update those references if you manually change a contact's ID.
 
-During startup, the app attempts to load the stored data. If any attribute within an item is invalid, the entire item is considered invalid and skipped. Refer to this table for guidance on what counts as valid data.
+During startup, the app attempts to load the stored data. If any attribute within an item is invalid, the entire item is considered invalid and skipped. Refer to the table of constraints for guidance on what counts as valid attribute.
 
 In cases where data parsing fails entirely, the app will start with an empty dataset. Be aware that because data is saved after every command, running any command will overwrite the previous data.
 
