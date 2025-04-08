@@ -29,15 +29,27 @@ If you can type fast, TutorConnect can get your contact management tasks done fa
    ![Ui](images/Ui.png)
 
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** will display a help message.<br>
-   Some example commands you can try:
+   You can try an example workflow of logging student attendance of a tutorial:
 
-    * `todo list` : Lists all todos.
+    * `contact list` : Lists all contacts.
 
-    * `event add --name CS2040S tutorial --start 24-08-26 12:00 --end 24-08-26 14:00 --location NUS SoC COM1 --tag algorithms` : Adds an event to the app.
+    * `contact filter --course CS1010S --group T01` : Filters for students enrolled in CS1010S and tutorial group T01.
 
-    * `contact delete 3` : Deletes the 3rd contact shown in the current list.
+    * `event add --name CS1010S T01 Tutorial W9 --start 25-03-18 12:00 --end 25-03-18 13:00 --location BIZ2 --tag topic.List` : Adds an event named `CS1010S T01 Tutorial W9`. The event should appear at index 1.
 
-    * `contact clear` : Deletes all contacts.
+    ![Add event screenshot](images/addeventscreenshot.png)
+
+    * `event link 1 --contact 1` : Adds the contact at index 1 in the contact list on the right, `Alex Yeoh`, to the event.
+
+    * `event info 1` : Displays the information of the event. `Alex Yeoh` should appear at index 1 in the displayed attendance log.
+    
+    ![Info event screenshot](images/infoeventscreenshot.png)
+
+    * `event log 1 --contact 1` : Logs the contact at index 1 of the event's attendance log, `Alex Yeoh`, as having attended the event.
+
+    * `event info 1` : Displays the information of the event. `Alex Yeoh` should appear at index 1 in the displayed attendance log and has an `X` next to him.
+
+    ![Log event screenshot](images/logeventscreenshot.png)
 
     * `exit` : Exits the app.
 
@@ -624,25 +636,37 @@ Examples:
 
 ### Exiting the program : `exit`/`quit`/`kill`/`bye`
 
-## Quality of Life:
+## Quality of Life
 
-1. You may use the arrows to traverse through command history.
+1. You may use the up or down arrows to traverse through command history, similar to terminal.
 
 1. Clicking on each contact/event/todo card will display the full information of the card in the command output.
 
 1. Click on "Event" or "Todo" button to toggle between event and todo list views. You may use the reset button to reset filtered views of event/todo and contacts at the same time.
 
-1. Apply natural ordering to lists:
-  * Contacts should be sorted first by name, then by ID in alphabetical order.
-  * Todos should be sorted by status first, followed by deadline, and then by name.
-  * Events should be sorted by start time, then by end time, and finally by name.
+1. Natural ordering is applied to all lists:
+  * Contacts are sorted first by name, then by ID in alphabetical order.
+  * Todos are sorted first by status (not done first), followed by deadline, and then by name in alphabetical order.
+  * Events are be sorted first by start time, then by end time, and finally by name in alphabetical order.
+
+## Storage
+
+TutorConnect stores its data in the `\data` folder, which contains three files, `contactlist.json`, `todolist.json`, and `eventlist.json`. Data is automatically saved after each command is executed.
+
+These JSON files are human-readable and can be manually edited, but caution is advised. It’s strongly recommended to use the built-in edit commands in the app to avoid introducing errors. You can also create these `.json` files using external sources that contain information like student details or class schedules, and place them in the `\data` folder to bulk import the data into the app.
+
+**Tip**: Since todos and events are linked to contacts via their IDs, make sure to update those references if you manually change a contact's ID.
+
+During startup, the app attempts to load the stored data. If any attribute within an item is invalid, the entire item is considered invalid and skipped. Refer to the table of constraints for guidance on what counts as valid attribute.
+
+In cases where data parsing fails entirely, the app will start with an empty dataset. Be aware that because data is saved after every command, running any command will overwrite the previous data.
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## FAQ
 
 **Q**: How do I transfer my data to another Computer?<br>
-**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous AddressBook home folder.
+**A**: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous TutorConnect home folder.
 
 --------------------------------------------------------------------------------------------------------------------
 
