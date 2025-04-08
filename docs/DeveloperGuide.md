@@ -35,7 +35,7 @@ Given below is a quick overview of main components and how they interact with ea
 
 **Main components of the architecture**
 
-**`Main`** (consisting of classes [`Main`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
+**`Main`** (consisting of classes [`Main`](https://github.com/AY2425S2-CS2103-F08-4/tp/blob/master/src/main/java/seedu/address/Main.java) and [`MainApp`](https://github.com/AY2425S2-CS2103-F08-4/tp/blob/master/src/main/java/seedu/address/MainApp.java)) is in charge of the app launch and shut down.
 * At app launch, it initializes the other components in the correct sequence, and connects them up with each other.
 * At shut down, it shuts down the other components and invokes cleanup methods where necessary.
 
@@ -48,16 +48,18 @@ The bulk of the app's work is done by the following four components:
 
 [**`Commons`**](#common-classes) represents a collection of classes used by multiple other components.
 
+**Note:** When describing classes by `XYClass`, `Y` refers broadly to contact/event/todo and `X` refers to the action the command should perform. 
+
 **How the architecture components interact with each other**
 
-The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `delete 1`.
+The *Sequence Diagram* below shows how the components interact with each other for the scenario where the user issues the command `contact delete 1`.
 
 <puml src="diagrams/ArchitectureSequenceDiagram.puml" width="574" />
 
 Each of the four main components (also shown in the diagram above),
 
 * defines its *API* in an `interface` with the same name as the Component.
-* implements its functionality using a concrete `{Component Name}Manager` class which follows the corresponding API `interface` mentioned in the previous point.
+* implements its functionality using a concrete `YManager` class which follows the corresponding API `interface` mentioned in the previous point.
 
 For example, the `Logic` component defines its API in the `Logic.java` interface and implements its functionality using the `LogicManager.java` class which follows the `Logic` interface. Other components interact with a given component through its interface rather than the concrete class (reason: to prevent outside components from being coupled to the implementation of a component), as illustrated in the class diagram below.
 
@@ -100,7 +102,7 @@ The UI employs a flexible design pattern through several key components:
 
 1. **Card System**: The UI uses a card-based display system:
     - The `Card<T>` interface defines how entity information is displayed
-    - `XCard` classes (like `EventCard`) implement this interface and extend `UiPart<Region>`
+    - `YCard` classes (like `EventCard`) implement this interface and extend `UiPart<Region>`
     - The `CardFactory<T>` interface and its implementation `GenericCardFactory<T>` are responsible for creating
       appropriate cards for different entity types
 
@@ -120,7 +122,7 @@ changes.
 
 These relationships form a clear separation of concerns:
 
-- `XCard` references model entity `X` directly to display its properties
+- `YCard` references model entity `Y` directly to display its properties
 - `DisplayableListViewCell` renders any `DisplayableItem` in a type-safe manner
 - `Card` interface provides a consistent way to get the underlying `UiPart`
 - `ItemAdapter` uses a `CardFactory` to create appropriate cards
@@ -137,7 +139,7 @@ The `UI` component:
 
 ### Logic component
 
-**API** : [`Logic.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/logic/Logic.java)
+**API** : [`Logic.java`](https://github.com/AY2425S2-CS2103-F08-4/tp/blob/master/src/main/java/seedu/address/logic/Logic.java)
 
 Here's a (partial) class diagram of the `Logic` component:
 
@@ -146,7 +148,7 @@ Here's a (partial) class diagram of the `Logic` component:
 The sequence diagram below illustrates the interactions within the `Logic` component, taking `execute("contact delete
 1")` API call as an example.
 
-<puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `delete 1` Command" />
+<puml src="diagrams/DeleteSequenceDiagram.puml" alt="Interactions Inside the Logic Component for the `contact delete 1` Command" />
 
 <box type="info" seamless>
 
@@ -170,15 +172,15 @@ Here are the other classes in `Logic` (omitted from the class diagram above) tha
 <puml src="diagrams/ParserClasses.puml" width="600"/>
 
 How the parsing works:
-* When called upon to parse a user command, the `ParserImpl` class creates an `XYZCommandParser` (`XYZ` is a
-  placeholder for the specific command and item name e.g., `AddContactCommandParser`) which uses the other classes
-  shown above to parse the user command and create a `XYZCommand` object (e.g., `AddContactCommand`) which the
+* When called upon to parse a user command, the `ParserImpl` class creates an `XYCommandParser` (`XY` is a
+  placeholder for the specific command and item name e.g., `AddContactCommandParser` as mentioned above) which uses the other classes
+  shown above to parse the user command and create a `XYCommand` object (e.g., `AddContactCommand`) which the
   `ParserImpl` returns back as a `Command` object.
-* All `XYZCommandParser` classes (e.g., `AddContactCommandParser`, `DeleteContactCommandParser`, ...) inherit from the
+* All `XYCommandParser` classes (e.g., `AddContactCommandParser`, `DeleteContactCommandParser`, ...) inherit from the
   `Parser` interface so that they can be treated similarly where possible e.g, during testing.
 
 ### Model component
-**API** : [`Model.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/model/Model.java)
+**API** : [`Model.java`](https://github.com/AY2425S2-CS2103-F08-4/tp/blob/master/src/main/java/seedu/address/model/Model.java)
 
 
 The `Model` component,
@@ -210,7 +212,7 @@ The diagram below shows different relationship between different `Item`s managed
 
 ### Storage component
 
-**API** : [`Storage.java`](https://github.com/se-edu/addressbook-level3/tree/master/src/main/java/seedu/address/storage/Storage.java)
+**API** : [`Storage.java`](https://github.com/AY2425S2-CS2103-F08-4/tp/blob/master/src/main/java/seedu/address/storage/Storage.java)
 
 <puml src="diagrams/StorageClassDiagram.puml" width="550" />
 
@@ -242,7 +244,7 @@ The command execution process involves several key steps:
 1. The process begins when the user enters a command through the UI
 2. `MainWindow` forwards the command text to `LogicManager` for execution
 3. `LogicManager` passes the command to `ParserImpl` for parsing
-4. `ParserImpl` identifies the command type (in this case, a Y command with X subcommand)
+4. `ParserImpl` identifies the command type (in this case, a `Y` command with `X` subcommand)
 5. The command is then forwarded to the appropriate command parser (`XYCommandParser`)
 6. `XYCommandParser` uses the `ArgumentTokenizer` to tokenize the input and extract arguments
 7. Arguments are validated and converted to the appropriate types using `ParserUtil`
@@ -274,28 +276,28 @@ This architecture follows the Command pattern, allowing for extendable command f
         * Potential duplication of parsing logic
         * Reduced testability of individual components
 
-### [Implemented] GUI X card click action alias to `X info <idx>`
+### [Implemented] GUI `Y` card click action alias to `Y info <idx>`
 
 #### Implementation
 
-When a user clicks on a card in the UI, the application automatically executes a `X info <index>` command
+When a user clicks on a card in the UI, the application automatically executes a `Y info <index>` command
 to display detailed information about the selected contact. The sequence diagram below illustrates this process:
 
 <puml src="diagrams/AliasXInfoSequenceDiagram.puml" width="450" />
 
-The process begins when a user clicks on a `XCard` in the UI:
+The process begins when a user clicks on a `YCard` in the UI:
 
-1. The `XCard` has a click handler that was set up when the card was created
+1. The `YCard` has a click handler that was set up when the card was created
 2. When clicked, this handler is executed and passed to the `ListPanel` that contains the card
 3. The `ListPanel` forwards the index of the clicked card to `MainWindow` through the `onItemClickHandler` consumer
-4. `MainWindow` processes this by generating a command string in the format `contact info <index>`
+4. `MainWindow` processes this by generating a command string in the format `Y info <index>`
 5. This command string is passed to `LogicManager` for execution, which processes it through the command execution
    pipeline
 6. After execution, the `CommandResult` is returned to `MainWindow`
 7. `MainWindow` updates the `ResultDisplay` to show feedback to the user
 
 This implementation allows users to quickly access detailed contact information with a single click rather than having
-to manually type the `contact info` command.
+to manually type the `Y info <index>` command.
 
 #### Design considerations:
 
@@ -322,33 +324,33 @@ to manually type the `contact info` command.
 
 The proposed undo/redo mechanism is facilitated by `VersionedTutorConnect`. It extends `TutorConnect` with an undo/redo history, stored internally as an `TutorConnectStateList` and `currentStatePointer`. Additionally, it implements the following operations:
 
-* `VersionedTutorConnect#commit()` — Saves the current address book state in its history.
-* `VersionedTutorConnect#undo()` — Restores the previous address book state from its history.
-* `VersionedTutorConnect#redo()` — Restores a previously undone address book state from its history.
+* `VersionedTutorConnect#commit()` — Saves the current TutorConnect state in its history.
+* `VersionedTutorConnect#undo()` — Restores the previous TutorConnect state from its history.
+* `VersionedTutorConnect#redo()` — Restores a previously undone TutorConnect state from its history.
 
 These operations are exposed in the `Model` interface as `Model#commitTutorConnect()`, `Model#undoTutorConnect()` and `Model#redoTutorConnect()` respectively.
 
 Given below is an example usage scenario and how the undo/redo mechanism behaves at each step.
 
-Step 1. The user launches the application for the first time. The `VersionedTutorConnect` will be initialized with the initial address book state, and the `currentStatePointer` pointing to that single address book state.
+Step 1. The user launches the application for the first time. The `VersionedTutorConnect` will be initialized with the initial TutorConnect state, and the `currentStatePointer` pointing to that single TutorConnect state.
 
 <puml src="diagrams/UndoRedoState0.puml" alt="UndoRedoState0" />
 
-Step 2. The user executes `delete 5` command to delete the 5th contact in the address book. The `delete` command calls `Model#commitTutorConnect()`, causing the modified state of the address book after the `delete 5` command executes to be saved in the `TutorConnectStateList`, and the `currentStatePointer` is shifted to the newly inserted address book state.
+Step 2. The user executes `contact delete 5` command to delete the 5th contact in TutorConnect. The `contact delete` command calls `Model#commitTutorConnect()`, causing the modified state of TutorConnect after the `contact delete 5` command executes to be saved in the `TutorConnectStateList`, and the `currentStatePointer` is shifted to the newly inserted TutorConnect state.
 
 <puml src="diagrams/UndoRedoState1.puml" alt="UndoRedoState1" />
 
-Step 3. The user executes `add n/David …​` to add a new contact. The `add` command also calls `Model#commitTutorConnect()`, causing another modified address book state to be saved into the `TutorConnectStateList`.
+Step 3. The user executes `contact add --name David …​` to add a new contact. The `contact add` command also calls `Model#commitTutorConnect()`, causing another modified TutorConnect state to be saved into the `TutorConnectStateList`.
 
 <puml src="diagrams/UndoRedoState2.puml" alt="UndoRedoState2" />
 
 <box type="info" seamless>
 
-**Note:** If a command fails its execution, it will not call `Model#commitTutorConnect()`, so the address book state will not be saved into the `TutorConnectStateList`.
+**Note:** If a command fails its execution, it will not call `Model#commitTutorConnect()`, so TutorConnect state will not be saved into the `TutorConnectStateList`.
 
 </box>
 
-Step 4. The user now decides that adding the contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoTutorConnect()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous address book state, and restores the address book to that state.
+Step 4. The user now decides that adding the contact was a mistake, and decides to undo that action by executing the `undo` command. The `undo` command will call `Model#undoTutorConnect()`, which will shift the `currentStatePointer` once to the left, pointing it to the previous TutorConnect state, and restores TutorConnect to that state.
 
 <puml src="diagrams/UndoRedoState3.puml" alt="UndoRedoState3" />
 
@@ -374,19 +376,19 @@ Similarly, how an undo operation goes through the `Model` component is shown bel
 
 <puml src="diagrams/UndoSequenceDiagram-Model.puml" alt="UndoSequenceDiagram-Model" />
 
-The `redo` command does the opposite — it calls `Model#redoTutorConnect()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores the address book to that state.
+The `redo` command does the opposite — it calls `Model#redoTutorConnect()`, which shifts the `currentStatePointer` once to the right, pointing to the previously undone state, and restores TutorConnect to that state.
 
 <box type="info" seamless>
 
-**Note:** If the `currentStatePointer` is at index `TutorConnectStateList.size() - 1`, pointing to the latest address book state, then there are no undone TutorConnect states to restore. The `redo` command uses `Model#canRedoTutorConnect()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
+**Note:** If the `currentStatePointer` is at index `TutorConnectStateList.size() - 1`, pointing to the latest TutorConnect state, then there are no undone TutorConnect states to restore. The `redo` command uses `Model#canRedoTutorConnect()` to check if this is the case. If so, it will return an error to the user rather than attempting to perform the redo.
 
 </box>
 
-Step 5. The user then decides to execute the command `list`. Commands that do not modify the address book, such as `list`, will usually not call `Model#commitTutorConnect()`, `Model#undoTutorConnect()` or `Model#redoTutorConnect()`. Thus, the `TutorConnectStateList` remains unchanged.
+Step 5. The user then decides to execute the command `contact list`. Commands that do not modify TutorConnect, such as `contact list`, will usually not call `Model#commitTutorConnect()`, `Model#undoTutorConnect()` or `Model#redoTutorConnect()`. Thus, the `TutorConnectStateList` remains unchanged.
 
 <puml src="diagrams/UndoRedoState4.puml" alt="UndoRedoState4" />
 
-Step 6. The user executes `clear`, which calls `Model#commitTutorConnect()`. Since the `currentStatePointer` is not pointing at the end of the `TutorConnectStateList`, all address book states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `add n/David …​` command. This is the behavior that most modern desktop applications follow.
+Step 6. The user executes `contact clear`, which calls `Model#commitTutorConnect()`. Since the `currentStatePointer` is not pointing at the end of the `TutorConnectStateList`, all TutorConnect states after the `currentStatePointer` will be purged. Reason: It no longer makes sense to redo the `contact add --name David …​` command. This is the behavior that most modern desktop applications follow.
 
 <puml src="diagrams/UndoRedoState5.puml" alt="UndoRedoState5" />
 
@@ -398,7 +400,7 @@ The following activity diagram summarizes what happens when a user executes a ne
 
 **Aspect: How undo & redo executes:**
 
-* **Alternative 1 (current choice):** Saves the entire address book.
+* **Alternative 1 (current choice):** Saves the entire TutorConnect.
     * Pros: Easy to implement.
     * Cons: May have performance issues in terms of memory usage.
 
@@ -462,9 +464,7 @@ When a new command is entered, it's added to the history list, and the index is 
         * Additional complexity for storage and retrieval
         * Potential privacy concerns for sensitive commands
 
-### \[Proposed\] Command Parser with flags
-Proposed Implementation
-
+### Command Parser with flags
 The proposed parsing mechanism for `Command` containing flags is facilitated by specialized `XYCommandParser` classes. These parsers interpret user input and construct the appropriate `XYCommand` objects. The parsing process relies on several utility components:
 
 Where `X` refers to the classes with the `item` interface. `Y` refers to the new feature related to the class `X`.
