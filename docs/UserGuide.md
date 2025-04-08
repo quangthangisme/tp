@@ -646,8 +646,8 @@ Examples:
 
 1. Natural ordering is applied to all lists:
   * Contacts are sorted first by name, then by ID in alphabetical order.
-  * Todos are sorted first by status (not done first), followed by deadline, and then by name.
-  * Events are be sorted first by start time, then by end time, and finally by name.
+  * Todos are sorted first by status (not done first), followed by deadline, and then by name in alphabetical order.
+  * Events are be sorted first by start time, then by end time, and finally by name in alphabetical order.
 
 ## Storage
 
