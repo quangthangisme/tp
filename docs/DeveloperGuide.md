@@ -740,26 +740,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 3a. The given todo index is not a positive integer.
-    * 3a1. TC displays an error message.
+* 2a. The given todo index is not a positive integer.
+    * 2a1. TC displays an error message.
 
-      Use case resumes at step 3.
-* 3b. The given todo index is out of range in the todo list.
-    * 3b1. TC displays an error message.
+      Use case resumes at step 2.
+* 2b. The given todo index is out of range in the todo list.
+    * 2b1. TC displays an error message.
 
-      Use case resumes at step 3.
-* 3c. The given contact index is not a positive integer.
-    * 3c1. TC displays an error message.
+      Use case resumes at step 2.
+* 2c. The given contact index is not a positive integer.
+    * 2c1. TC displays an error message.
 
-      Use case resumes at step 3.
-* 3d. The given contact index is out of range in the contact list.
-    * 3d1. TC displays an error message.
+      Use case resumes at step 2.
+* 2d. The given contact index is out of range in the contact list.
+    * 2d1. TC displays an error message.
 
-      Use case resumes at step 3.
-* 3e. The contact is already assigned to the todo.
-    * 3e1. TC displays an error message.
+      Use case resumes at step 2.
+* 2e. The contact is already assigned to the todo.
+    * 2e1. TC displays an error message.
 
-      Use case resumes from step 3.
+      Use case resumes at step 2.
 
 **Use case 18: Remove a contact from a todo**
 
@@ -1029,26 +1029,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 3a. The given event index is not a positive integer.
-    * 3a1. TC displays an error message.
+* 2a. The given event index is not a positive integer.
+    * 2a1. TC displays an error message.
 
-      Use case resumes at step 3.
-* 3b. The given event index is out of range in the event list.
-    * 3b1. TC displays an error message.
+      Use case resumes at step 2.
+* 2b. The given event index is out of range in the event list.
+    * 2b1. TC displays an error message.
 
-      Use case resumes at step 3.
-* 3c. The given contact index is not a positive integer.
-    * 3c1. TC displays an error message.
+      Use case resumes at step 2.
+* 2c. The given contact index is not a positive integer.
+    * 2c1. TC displays an error message.
 
-      Use case resumes at step 3.
-* 3d. The given contact index is out of range in the contact list.
-    * 3d1. TC displays an error message.
+      Use case resumes at step 2.
+* 2d. The given contact index is out of range in the contact list.
+    * 2d1. TC displays an error message.
 
-      Use case resumes at step 3.
-* 3e. The contact is already assigned to the event.
-    * 3e1. TC displays an error message.
+      Use case resumes at step 2.
+* 2e. The contact is already assigned to the event.
+    * 2e1. TC displays an error message.
 
-      Use case resumes from step 3.
+      Use case resumes from step 2.
 
 **Use case 31: Remove a contact from an event**
 
@@ -1089,24 +1089,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
     Use case ends.
 
 **Extensions**
-* 3a. The given event index is not a positive integer.
-    * 3a1. TC displays an error message.
-
-      Use case resumes at step 3.
-* 3b. The given event index is out of range in the event list.
-    * 3b1. TC displays an error message.
+* 2a. The given event index is not a positive integer.
+    * 2a1. TC displays an error message.
 
       Use case resumes at step 2.
-* 3c. The given contact index is not a positive integer.
-    * 3c1. TC displays an error message.
+* 2b. The given event index is out of range in the event list.
+    * 2b1. TC displays an error message.
 
       Use case resumes at step 2.
-* 3d. The given contact index is out of range in the event's contact list.
-    * 3d1. TC displays an error message.
+* 2c. The given contact index is not a positive integer.
+    * 2c1. TC displays an error message.
 
       Use case resumes at step 2.
-* 3e. The given contact has already been logged as having attended the event.
-    * 3e1. TC displays an error message.
+* 2d. The given contact index is out of range in the event's contact list.
+    * 2d1. TC displays an error message.
+
+      Use case resumes at step 2.
+* 2e. The given contact has already been logged as having attended the event.
+    * 2e1. TC displays an error message.
 
       Use case ends.
 
