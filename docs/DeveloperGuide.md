@@ -332,9 +332,9 @@ _{Explain here how the data archiving feature will be implemented}_
 **Target user profile**:
 
 * Tutors managing student information and course-related details
-  * Needs to track student attendance and student issues
-  * Needs to manage course related tasks
-* Has a need to manage a significant number of contacts
+  * Needs to manage course tasks related to a student or tutor.
+  * Needs to track student attendance of classes.
+* Needs to manage a significant number of contacts
 * Prefers desktop apps over other types
 * Can type fast
 * Prefers typing to mouse interactions
@@ -342,52 +342,51 @@ _{Explain here how the data archiving feature will be implemented}_
 
 **Value proposition**: Tutors often teach multiple courses across different platforms. Without being a full-fledged learning management system, TutorConnect simplifies student management by providing an efficient central platform for storing and organizing student contacts, assigning tasks, and optimizing workflows with intuitive CLI options.
 
-
 ### User stories
+
+Note: Not all features are implemented. The [user guide](UserGuide.md) documents the current set of supported features. This is a work in progress.
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a ...                 | I want to ...                                  | so that I can ...                                   |
-|----------|--------------------------|------------------------------------------------|-----------------------------------------------------|
-| `* * *`  | first time user          | see a functional help page                     | understand the app's functionalities                |
-| `*`      | first-time user          | get a guide to creating my profile             | know what to do and not feel overwhelmed            |
-| `* * *`  | tutor                    | automatically load in data                     | easily reuse the application                        |
-| `* * *`  | tutor                    | automatically save and export data             | easily reuse the application                        |
-| `* * *`  | tutor                    | safely exit the program                        | avoid corrupting my files                           |
-| `* * *`  | tutor                    | create an event                                | represent a tutorial                                |
-| `* * *`  | tutor                    | delete an event                                | remove events I no longer need                      |
-| `*`      | impatient tutor          | create recurring events                        | save time and ensure consistency                    |
-| `*`      | impatient tutor          | mass import class timings (events)             | save time                                           |
-| `* * *`  | tutor                    | add students to an event                       | assign students to class                            |
-| `* * *`  | tutor                    | remove students from an event                  | unassign students to class                          |
-| `* * *`  | tutor                    | log a student student as having attended event | check attendance                                    |
-| `* * *`  | tutor                    | add a contact                                  | store the information of my student                 |
-| `* *`    | tutor                    | add multiple contacts with same names          | handle students with duplicate names                |
-| `* * *`  | tutor                    | delete a contact                               | remove students I no longer need to handle          |
-| `* *`    | tutor with many classes  | label a contact with a class                   | remember student is in which class                  |
-| `* *`    | tutor with many course   | label a contact with a course                  | remember student is in which course                 |
-| `*`      | impatient tutor          | mass import students data                      | save time                                           |
-| `* *`    | tutor                    | search for a specific contact by feature       | retrieve full information for a particular contact  |
-| `* *`    | tutor                    | list all contacts                              |                                                     |
-| `* *`    | tutor with many classes  | filter all students by class/course            | find students easily for various purposes           |
-| `* *`    | tutor with many classes  | sort all students by class/course              | find students easily for various purposes           |
-| `* *`    | tutor                    | label progress of students                     | identify struggling students                        |
-| `* *`    | caring tutor             | create a todo                                  | represent a task for some contact                   |
-| `* *`    | caring tutor             | add contact to todo                            | handle a situation for some contact(s)              |
-| `* *`    | caring tutor             | remove contact from todo                       |                                                     |
-| `* *`    | caring tutor             | mark todo as done                              | remember that I have handled the situation          |
-| `* *`    | caring tutor             | mark todo as not done                          |                                                     |
-| `*`      | head tutor               | distinguish students and tutors                | add tutors as contacts                              |
-| `*`      | head tutor               | know when my tutors are unavailable            | schedule make-up classes and track tutor attendance |
-| `*`      | head tutor               | apply labels to tutors                         | track tutor performance                             |
-| `*`      | morally upright tutor    | tag students suspected of plagiarism           | later report them for further investigation         |
-| `*`      | tutor                    | send messages to individuals or groups         | remind them of tasks                                |
-| `*`      | tutor teaching many sems | archive old classes                            | retain useful data while focusing on improvements   |
-| `*`      | tutor teaching many sems | archive or purge old contacts                  | avoid confusion between current and former students |
-| `*`      | experienced user         | create custom commands/macros                  | optimize workflow                                   |
-| `*`      | forgetful tutor          | view upcoming tasks in some priority           | prioritize on tasks with nearer deadlines           |
-| `*`      | impatient tutor          | synchronize contact labels with events         | avoid manually tagging students                     |
-| `*`      | careless tutor           | undo (multiple times)                          | revert to previous state in case of wrong command   |
+| Priority | As a ...                 | I want to ...                            | so that I can ...                                   |
+|----------|--------------------------|------------------------------------------|-----------------------------------------------------|
+| `* * *`  | first time user          | see a functional help page               | understand the app's functionalities                |
+| `* * *`  | tutor                    | automatically load in data               | easily reuse the application                        |
+| `* * *`  | tutor                    | automatically save and export data       | easily reuse the application                        |
+| `* * *`  | tutor                    | exit the program safely                  | avoid corrupting my files                           |
+| `* * *`  | tutor                    | create an event                          | represent a tutorial                                |
+| `* * *`  | tutor                    | delete an event                          | remove events I no longer need                      |
+| `*`      | impatient tutor          | create recurring events                  | save time and ensure consistency                    |
+| `*`      | impatient tutor          | mass import class timings (events)       | save time                                           |
+| `* * *`  | tutor                    | add students to an event                 | assign students to class                            |
+| `* * *`  | tutor                    | remove students from an event            | unassign students to class                          |
+| `* * *`  | tutor                    | log a student as having attended event   | mark attendance                                     |
+| `* * *`  | tutor                    | unlog a student as having attended event | account for mistakes in attendance                  |
+| `* * *`  | tutor                    | add a contact                            | store the information of my student                 |
+| `* *`    | tutor                    | add multiple contacts with same names    | handle students with duplicate names                |
+| `* * *`  | tutor                    | delete a contact                         | remove students I no longer need to handle          |
+| `* *`    | tutor with many classes  | associate a contact with a class         | remember student is in which class                  |
+| `* *`    | tutor with many course   | associate a contact with a course        | remember student is in which course                 |
+| `*`      | impatient tutor          | mass import students data                | save time                                           |
+| `* *`    | tutor                    | search for a specific contact by feature | retrieve full information for a particular contact  |
+| `* *`    | tutor                    | list all contacts                        | see every contact                                   |
+| `* *`    | tutor with many classes  | filter all students by class/course      | find students easily for various purposes           |
+| `* *`    | tutor                    | label students                           | identify struggling students                        |
+| `* *`    | caring tutor             | create a todo                            | represent a task for some contact                   |
+| `* *`    | caring tutor             | add contact to todo                      | handle a situation for some contact(s)              |
+| `* *`    | caring tutor             | remove contact from todo                 | account for mistakes in the contacts                |
+| `* *`    | caring tutor             | mark todo as done                        | remember that I have handled the situation          |
+| `* *`    | caring tutor             | mark todo as not done                    | account for mistakes in handling the situation      |
+| `*`      | head tutor               | distinguish students and tutors          | add tutors as contacts                              |
+| `*`      | head tutor               | apply labels to tutors                   | track tutor performance                             |
+| `*`      | morally upright tutor    | tag students suspected of plagiarism     | later report them for further investigation         |
+| `*`      | tutor                    | send messages to individuals or groups   | remind them of tasks                                |
+| `*`      | tutor teaching many sems | archive old classes                      | retain useful data while focusing on improvements   |
+| `*`      | tutor teaching many sems | archive or purge old contacts            | avoid confusion between current and former students |
+| `*`      | experienced user         | create custom commands/macros            | optimize workflow                                   |
+| `*`      | forgetful tutor          | view upcoming tasks in some priority     | prioritize on tasks with nearer deadlines           |
+| `*`      | impatient tutor          | synchronize contact labels with events   | avoid manually tagging students                     |
+| `*`      | careless tutor           | undo (multiple times)                    | revert to previous state in case of wrong command   |
 
 ### Use cases
 
@@ -459,8 +458,6 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Extensions**
-
 **Use case 4: Filter all contacts using some identifiable feature**
 
 **MSS**
@@ -470,7 +467,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 1a. The criteria include a filter with an empty value.
+* 1a. The criteria include a filter with an invalid or empty value.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
@@ -494,11 +491,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. User does not provide any field to edit.
     * 2a1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 * 2b. The field's detail is invalid.
     * 2b1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
 **Use case 6: Add a tag to a contact**
 
@@ -651,7 +648,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 1a. The criteria include a filter with an empty value.
+* 1a. The criteria include a filter with an invalid or empty value.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
@@ -675,11 +672,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. User does not provide any field to edit.
     * 2a1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 * 2b. The field's detail is invalid.
     * 2b1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
 **Use case 15: Add a tag to a todo**
 
@@ -740,6 +737,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. TC associates the contact with the todo.
 4. TC displays a confirmation message.
 
+   Use case ends.
+
 **Extensions**
 * 3a. The given todo index is not a positive integer.
     * 3a1. TC displays an error message.
@@ -798,6 +797,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. TC marks the todo as completed.
 4. TC displays a confirmation message.
 
+   Use case ends.
+
 **Extensions**
 * 2a. The given todo index is not a positive integer.
     * 2a1. TC displays an error message.
@@ -819,6 +820,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. User requests to mark a todo as not completed by index.
 3. TC marks the todo as not completed.
 4. TC displays a confirmation message.
+
+   Use case ends.
 
 **Extensions**
 * 2a. The given todo index is not a positive integer.
@@ -867,7 +870,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 **MSS**
 1. User requests to create an event and provides event details.
-2. TC creates the todo and adds it to the event list.
+2. TC creates the event and adds it to the event list.
 3. TC displays a confirmation message.
 
    Use case ends.
@@ -934,7 +937,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 1a. The criteria include a filter with an empty value.
+* 1a. The criteria include a filter with an invalid or empty value.
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
@@ -958,17 +961,17 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 * 2a. User does not provide any fields to edit.
     * 2a1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 * 2b. The field's detail is invalid.
     * 2b1. TC displays an error message.
 
-      Use case resumes at step 1.
+      Use case resumes at step 2.
 
 **Use case 28: Add a tag to an event**
 
 **MSS**
-1. User requests to add a tag to the todo by index.
-2. TC updates the todo with the provided tag.
+1. User requests to add a tag to the event by index.
+2. TC updates the event with the provided tag.
 3. TC displays a confirmation message.
 
    Use case ends.
@@ -1022,6 +1025,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. User requests to add the contact to an event by event index and contact index.
 3. TC associates the contact with the event.
 4. TC displays a confirmation message.
+
+   Use case ends.
 
 **Extensions**
 * 3a. The given event index is not a positive integer.
@@ -1081,6 +1086,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 3. TC marks the contact as attended.
 4. TC displays a confirmation message.
 
+    Use case ends.
+
 **Extensions**
 * 3a. The given event index is not a positive integer.
     * 3a1. TC displays an error message.
@@ -1110,6 +1117,8 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 2. User requests to log a contact as not having attended for an event by event index and contact index.
 3. TC marks the contact as not attended.
 4. TC displays a confirmation message.
+
+    Use case ends.
 
 **Extensions**
 * 2a. The given event index is not a positive integer.
@@ -1162,34 +1171,34 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
    Use case ends.
 
-**Use case 36: List all subcommands by feature**
+**Use case 36: List all commands by item**
 
 **MSS**
-1. User requests to list all subcommands of a feature.
-2. TC displays all subcommands of that feature.
+1. User requests to list all commands of an item.
+2. TC displays all commands of that item.
 
    Use case ends.
 
 **Extensions**
-* 1a. The given feature is invalid.
+* 1a. The given item is unrecognized (i.e. Not a contact, todo or event).
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
 
-**Use case 37: List help message of a subcommand**
+**Use case 37: List help message of a specific command**
 
 **MSS**
-1. User requests to see help message of a subcommand of a specific feature.
+1. User requests to see help message of a command of a specific item.
 2. TC displays the help message.
 
    Use case ends.
 
 **Extensions**
-* 1a. The given feature is unrecognized.
+* 1a. The given item is unrecognized (i.e. Not a contact, todo or event).
     * 1a1. TC displays an error message.
 
       Use case resumes at step 1.
-* 1b. The given subcommand is unrecognized.
+* 1b. The given command is unrecognized.
     * 1b1. TC displays an error message.
 
       Use case resumes at step 1.
@@ -1217,11 +1226,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 ### Glossary
 
 * **Contact**: A stored record of a student or tutor, containing relevant details such as name, ID, and class.
-* **Tag**: A specific keyword which can be associated with an arbitrary value, for a specific contact.
-  * **Class**: A group of students assigned to a particular tutor.
-  * **Course**: A subject or academic course that multiple classes and students may belong to.
+* **Class**: A group of students assigned to a particular tutor.
+* **Course**: A subject or academic course that multiple classes and students may belong to.
 * **Event**: A scheduled session such as tutorial class, remedial, or consultation that tutors can create, modify, and assign students to.
 * **Todo**: A task or action item that can be associated with a student or another tutor, such as grading assignments, scheduling follow-ups, or preparing lesson materials.
+* **Tag**: A specific keyword which can be associated with an arbitrary value, for a specific contact, event, or todo.
 * **Head Tutor**: A tutor responsible for overseeing other tutors.
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
 
@@ -1244,38 +1253,63 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file.<br>
+      Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
 
 1. Saving window preferences
 
    1. Resize the window to an optimum size. Move the window to a different location. Close the window.
 
    1. Re-launch the app by double-clicking the jar file.<br>
-       Expected: The most recent window size and location is retained.
+      Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
 
 ### Deleting a contact
 
 1. Deleting a contact while all contacts are being shown
 
-   1. Prerequisites: List all contacts using the `list` command. Multiple contacts in the list.
+   1. Prerequisites: List all contacts using the `contact list` command. Multiple contacts in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+   1. Test case: `contact delete 1`<br>
+      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message.
 
-   1. Test case: `delete 0`<br>
+   1. Test case: `contact delete 0`<br>
       Expected: No contact is deleted. Error details shown in the status message. Status bar remains the same.
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
+   1. Other incorrect delete commands to try: `delete`, `contact delete x`, `...` (where x is larger than the list size)<br>
       Expected: Similar to previous.
 
-1. _{ more test cases …​ }_
+### Manual modification of data
 
-### Saving data
+**Tip**: Refer to the [user guide](UserGuide.md) for examples of valid and invalid parameters.
 
-1. Dealing with missing/corrupted data files
+1. Dealing with missing data files
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+   1. Delete the `data` folder, or any json files within it.
+   2. Re-launch the app.<br>
+      Expected: The app starts up with a sample list for each missing file.
+   3. Exit the app via any valid exit command (note: closing the window or terminating the process is not a valid exit command).<br>
+      Expected: The data files are saved in the `data` folder upon execution of any valid command.
 
-1. _{ more test cases …​ }_
+1. Dealing with corrupted data files
+   1. Ensure that sample data files exist in the `data` folder (see previous point).
+   1. Test case 1: Replace the value of any field within any json file with an invalid value, then re-launch the app.<br>
+      Expected: The specific entry is skipped and the rest of the contents are loaded. 
+   1. Test case 2: Make major incorrect corruption to any json file, then re-launch the app.<br>
+      Expected: All invalid entries are skipped and the rest of the contents are loaded (if any).
+
+--------------------------------------------------------------------------------------------------------------------
+
+## **Appendix: Planned Enhancements**
+Team size: 5
+1. **Make delete command support multiple indices:** Extend support to delete multiple items at once, similar to tagging and linking contacts.
+2. **Safeguard users against major irreversible actions:** For example, clearing contacts is presently an irreversible action. Two possible directions include seeking confirmation from the user, or supporting an undo feature to revert any changes.
+3. **Support more operators in `filter` command:** As `filter` command is targeted at advanced users (power users), other operators (e.g. `xor:`) can be added to support more complex queries, and queries for optional values such as tags should be expanded to support searching for no values.
+4. **Support operators across criteria in `filter` command**: `filter` is currently limited to applying `and` across all criteria (i.e. must satisfy all criteria). Much like operators expand the functionality of a single criterion, operators across criteria can further enhance the functionality of `filter` command.
+
+## **Appendix: Effort**
+
+Difficulty level is on the higher end due to the large number of features that were implemented, alongside a single complex feature (`filter`).
+Special efforts were made to improve the code quality via abstraction of the commonalities between `contact`, `todo` and `event` via `item`.
+This choice has resulted in greater consistency of behavior across the three types, in terms of the input restrictions, error behaviors and output formats, which were implemented concretely via the definitions of numerous interfaces and refactoring of existing codebase which was originally targeted at the `contact` type.
+A particularly challenging aspect is the curation of the `filter` command, from the set of allowed operations to the syntax that the user can input. The aim was to create a powerful and easy to use command that is aimed at advanced users.
