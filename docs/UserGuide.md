@@ -31,9 +31,9 @@ If you can type fast, TutorConnect can get your contact management tasks done fa
 1. Type the command in the command box and press Enter to execute it. e.g. typing **`help`** will display a help message.<br>
    You can try an example workflow of logging student attendance of a tutorial:
 
-    * `contact list`: Lists all contacts.
+    * `contact list` : Lists all contacts.
 
-    * `contact filter --course CS1010S --group T01`: Filters for students enrolled in CS1010S and tutorial group T01.
+    * `contact filter --course CS1010S --group T01` : Filters for students enrolled in CS1010S and tutorial group T01.
 
     * `event add --name CS1010S T01 Tutorial W9 --start 25-03-18 12:00 --end 25-03-18 13:00 --location BIZ2 --tag topic.List` : Adds an event named `CS1010S T01 Tutorial W9`. The event should appear at index 1.
 
