@@ -507,18 +507,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 2a. The given contact index is not a positive integer.
-    * 2a1. TC displays an error message.
+* 1a. The given contact index is not a positive integer.
+    * 1a1. TC displays an error message.
 
-      Use case resumes at step 2.
-* 2b. The given contact index is out of range in the contact list.
-    * 2b1. TC displays an error message.
+      Use case resumes at step 1.
+* 1b. The given contact index is out of range in the contact list.
+    * 1b1. TC displays an error message.
 
-      Use case resumes at step 2.
-* 2c. The given tags are invalid.
-    * 2c1. TC displays an error message.
+      Use case resumes at step 1.
+* 1c. The given tags are invalid.
+    * 1c1. TC displays an error message.
 
-      Use case resumes at step 2.
+      Use case resumes at step 1.
 
 **Use case 7: Remove a tag from a contact**
 
@@ -688,18 +688,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 2a. The given todo index is not a positive integer.
-    * 2a1. TC displays an error message.
+* 1a. The given todo index is not a positive integer.
+    * 1a1. TC displays an error message.
 
-      Use case resumes at step 2.
-* 2b. The given todo index is out of range in the todo list.
-    * 2b1. TC displays an error message.
+      Use case resumes at step 1.
+* 1b. The given todo index is out of range in the todo list.
+    * 1b1. TC displays an error message.
 
-      Use case resumes at step 2.
-* 2c. The given tags are invalid.
-    * 2c1. TC displays an error message.
+      Use case resumes at step 1.
+* 1c. The given tags are invalid.
+    * 1c1. TC displays an error message.
 
-      Use case resumes at step 2.
+      Use case resumes at step 1.
 
 **Use case 16: Remove a tag from a todo**
 
@@ -977,18 +977,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
    Use case ends.
 
 **Extensions**
-* 2a. The given event index is not a positive integer.
-    * 2a1. TC displays an error message.
+* 1a. The given event index is not a positive integer.
+    * 1a1. TC displays an error message.
 
-      Use case resumes at step 2.
-* 2b. The given event index is out of range in the event list.
-    * 2b1. TC displays an error message.
+      Use case resumes at step 1.
+* 1b. The given event index is out of range in the event list.
+    * 1b1. TC displays an error message.
 
-      Use case resumes at step 2.
-* 2c. The given tags are invalid.
-    * 2c1. TC displays an error message.
+      Use case resumes at step 1.
+* 1c. The given tags are invalid.
+    * 1c1. TC displays an error message.
 
-      Use case resumes at step 2.
+      Use case resumes at step 1.
 
 **Use case 29: Remove a tag from an event**
 
